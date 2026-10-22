@@ -1,11 +1,13 @@
 name: Publish
 
 on:
+  workflow_dispatch:
   push:
     tags: ["v*"]
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   publish:
@@ -28,6 +30,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Verify the tag matches every published package version
+        if: github.event_name == 'push'
         run: |
           tag_version="${GITHUB_REF_NAME#v}"
 
