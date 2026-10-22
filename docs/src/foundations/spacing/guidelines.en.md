@@ -39,13 +39,11 @@ Use the available icon-button sizes starting at `icon-xs`; distinguish glyph siz
 area. For touch-first layouts choose a size or layout that accommodates `touchTarget`.
 Use existing size APIs before introducing a universal `compact` prop.
 
-## Generated defaults and app density
+## App density
 
-Set `theme.density` to `compact` in `.bolerish.json` and run `bolerish init --force`.
-Apply `themeStyles` from the generated `settings.stylex.ts` to the app root.
-Its inherited `--bolerish-density` scales spacing, controls, icons and text together.
-`default` preserves the original sizes; `compact` uses 0.875. `controlXs`, touch
-targets and focus strokes stay independent of this scale.
+Set the CSS variable `--bolerish-density` on `html` to `1` (default) or `0.875`
+(compact). The inherited value scales spacing, controls, icons and text together.
+`controlXs`, touch targets and focus strokes stay independent of this scale.
 
 `FieldSet` and `FieldGroup` use `space4` between related fields. `Field` uses
 `space2` internally. Section separation belongs to the parent layout; avoid

@@ -71,22 +71,9 @@ import { themeClassNames } from "@bolerish/ui/theme";
 
 <LocalizedMarkdown
   text={
-    "Package upgrades do not replace locally copied components. Keep local imports and merge updated tokens and components together. The CLI is now bolerish; init --force migrates configuration to .bolerish.json and the installed schema. Legacy configuration remains readable. Rename runtime --nuee-* variables to --bolerish-* and data-nuee-motion to data-bolerish-motion; old runtime names are no longer read."
+    "The source-copy CLI is no longer distributed. Existing copied files remain local and are not updated by package upgrades. Import from @bolerish/ui to adopt packaged components."
   }
 />
-
-<LocalizedMarkdown text={"## Optional editable source"} />
-
-<LocalizedMarkdown
-  text={
-    "Use the CLI when you need to own and edit the component source. This path requires StyleX integration and uses .bolerish.json. It remains compatible with existing copied components. Package updates do not overwrite local edits."
-  }
-/>
-
-```bash
-pnpm dlx @bolerish/ui init --vite
-pnpm dlx @bolerish/ui add button
-```
 
 <LocalizedMarkdown
   text={

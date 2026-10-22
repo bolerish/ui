@@ -39,13 +39,11 @@
 구분합니다. 터치가 주된 화면은 `touchTarget`을 확보할 수 있는 크기나 배치를 고릅니다.
 새 `compact` 속성을 모든 컴포넌트에 추가하지 않고 기존 크기 API를 우선합니다.
 
-## 생성 기본값과 앱 밀도
+## 앱 밀도
 
-`.bolerish.json`의 `theme.density`를 `compact`로 지정하고 `bolerish init --force`로
-생성 기본값을 반영합니다. 생성된 `settings.stylex.ts`의 `themeStyles`를 앱
-루트에 적용합니다. 같은 루트의 `--bolerish-density`가 간격·컨트롤·아이콘·글자를
-함께 조절하므로 토큰 값을 화면마다 복제하지 않습니다. `default`는 기존 크기,
-`compact`는 0.875배이며 `controlXs`, 터치 영역, 초점 테두리는 축소하지 않습니다.
+`html`의 CSS 변수 `--bolerish-density`를 `1`(기본) 또는 `0.875`(조밀)로 설정합니다.
+상속된 값이 간격·컨트롤·아이콘·글자를 함께 조절합니다. `controlXs`, 터치 영역,
+초점 테두리는 이 배율과 독립적으로 유지합니다.
 
 `FieldSet`과 `FieldGroup`의 기본 필드 간격은 `space4`입니다. 설명과 입력 내부는
 `Field`의 `space2`를 사용합니다. 별도 섹션 간격은 부모 레이아웃이 정합니다.

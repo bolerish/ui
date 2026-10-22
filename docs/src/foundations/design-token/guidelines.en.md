@@ -44,7 +44,7 @@ const styles = stylex.create({
 });
 ```
 
-Source-installed projects use the style alias in `.bolerish.json`; this repository's examples may import the token package. Check names in the actual token file before writing a screen. Do not invent tokens.
+Custom StyleX styles import `@bolerish/tokens` and require the app's StyleX compiler. Check names in the actual token file before writing a screen. Do not invent tokens.
 
 ## Token values and previews
 

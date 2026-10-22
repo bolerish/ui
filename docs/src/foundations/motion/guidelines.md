@@ -25,25 +25,20 @@
 
 패널이 나타날 때는 `easingEnter`, 사라질 때는 `easingExit`를 검토합니다. 버튼의 짧은 색상 변화에는 `durationFast`를 사용합니다. 움직임을 줄인 환경에서도 열린 패널과 처리 중 상태는 분명하게 보여야 합니다.
 
-## 설치 기본값과 실제 사용자 선택
+## 앱 기본값과 실제 사용자 선택
 
-`.bolerish.json`의 `theme.motion`은 앱 초기 기본값으로 `system` 또는 `off`를
-사용합니다. 생성된 `preferences.css`를 로드합니다.
-
-앱을 사용하는 최종 사용자는 루트 `data-bolerish-motion`으로 `system`, `on`,
-`off`를 선택할 수 있습니다. 사용자가 명시적으로 선택한 `on`만 OS의 움직임
-줄이기를 덮어씁니다. 앱 개발자는 설정 화면과 저장을 맡고, 개발자 기본값으로
-`on`을 자동 적용하지 않습니다. 속성을 제거하면 JSON 기본값으로 돌아갑니다.
-명시적인 `system`은 JSON이 `off`여도 OS 설정을 따릅니다.
+`@bolerish/ui` 스타일시트를 로드하면 기본적으로 OS의 움직임 줄이기 설정을 따릅니다.
+앱의 `html`에 `data-bolerish-motion`을 지정해 `system`, `on`, `off`를 선택합니다.
+사용자가 명시적으로 선택한 `on`만 OS 설정을 덮어씁니다. 속성을 제거하면 OS 설정을
+따릅니다. 앱은 설정 화면과 저장을 담당하며 개발자 기본값으로 `on`을 적용하지 않습니다.
 
 ```ts
-import type { MotionPreference } from "@/styles/settings.stylex";
+import type { MotionPreference } from "@bolerish/ui";
 
-// 앱의 최종 사용자 설정 컨트롤에서 호출합니다.
 function setMotionPreference(preference: MotionPreference) {
   document.documentElement.dataset.bolerishMotion = preference;
 }
 ```
 
 처리 중 문구와 열린 상태는 계속 표시하고 JavaScript 스크롤·View Transition에도
-같은 결정을 사용합니다. 기존 `respectReducedMotion: false`는 모션 off 설정이 아닙니다.
+같은 결정을 사용합니다.

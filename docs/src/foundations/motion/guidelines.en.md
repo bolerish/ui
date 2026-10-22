@@ -25,26 +25,21 @@ Respect `prefers-reduced-motion`. Retain progress text and state when reducing r
 
 Consider `easingEnter` for arrival and `easingExit` for departure. Use `durationFast` for a brief button color change. The open panel and any pending state must remain clear when motion is reduced.
 
-## Installation defaults and user preferences
+## App defaults and user preferences
 
-`theme.motion` in `.bolerish.json` accepts `system` (follow the OS) or `off` as the
-app's initial default. Load the generated `preferences.css`.
-
-The app end user can choose `system`, `on` or `off` at runtime through root
-`data-bolerish-motion`. Only the end user's explicit `on` overrides OS reduced
-motion. The app owns the settings UI and persistence; developers must not apply
-`on` automatically as their default. Remove the attribute to restore the JSON
-default. Explicit `system` follows the OS even when JSON defaults to `off`.
+Load the `@bolerish/ui` stylesheet to follow OS reduced motion by default.
+Set `data-bolerish-motion` on `html` to `system`, `on` or `off`.
+Only the end user's explicit `on` overrides OS reduced motion. Removing the
+attribute follows the OS. Your app owns the settings UI and persistence;
+developers must not apply `on` automatically as their default.
 
 ```ts
-import type { MotionPreference } from "@/styles/settings.stylex";
+import type { MotionPreference } from "@bolerish/ui";
 
-// Call from the app's end-user settings control.
 function setMotionPreference(preference: MotionPreference) {
   document.documentElement.dataset.bolerishMotion = preference;
 }
 ```
 
 Keep loading copy and open states visible, and apply the same resolved choice
-to JavaScript scrolling and View Transitions. Legacy
-`respectReducedMotion: false` does not mean motion off.
+to JavaScript scrolling and View Transitions.

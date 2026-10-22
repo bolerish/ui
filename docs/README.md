@@ -67,14 +67,14 @@ repeat the slot name.
 ## AI coding-agent references
 
 The same build emits `installation.md` from the root README, `api/*.md` from
-component and token/configuration source, and `agent/SKILL.md` from the component
+component and token source, and `agent/SKILL.md` from the component
 catalog. `llms.txt` links these entries. Edit the canonical guides, source types
 or README, then regenerate; do not maintain a second API catalog by hand.
 The generated skill is a static downloadable entry, not an installed plugin or
 MCP service. Consumers must still inspect their installed local source/version.
 
 Run `pnpm --filter @bolerish/docs test:agent` after generating docs to check freshness,
-registry coverage, reference links and canonical source contents. The UI consumer
+component coverage, reference links and canonical source contents. The UI consumer
 Vite test also compiles the README examples against the package APIs. A separate plugin-free Vite consumer checks components, CSS and both themes.
 
 ## Motion preview
