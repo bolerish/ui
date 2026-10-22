@@ -1,3 +1,11 @@
+## Version v0.11.1
+
+Released on 2026-10-22.
+
+- Load all styles from your app's CSS with `@import "@bolerish/ui";`.
+    JavaScript and TypeScript imports still load components, and the explicit
+    `@bolerish/ui/global.css` stylesheet path remains available.
+
 ## Version v0.11.0
 
 Released on 2026-10-22.

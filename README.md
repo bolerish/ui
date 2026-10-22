@@ -13,10 +13,11 @@ pnpm add @bolerish/ui
 Load the stylesheet once in your app's CSS entry:
 
 ```css
-@import "@bolerish/ui/global.css";
+@import "@bolerish/ui";
 ```
 
-`global.css` includes the reset, component styles, tokens, and both color themes.
+The explicit `@bolerish/ui/global.css` path also remains available.
+The stylesheet includes the reset, component styles, tokens, and both color themes.
 Import it before app styles so intentional app overrides come afterwards.
 
 ## Usage
@@ -72,7 +73,7 @@ for package imports, theme setup, StyleX extensions, and exact component APIs.
 ## Upgrade to v0.11.0
 
 Versions v0.9.1 and earlier used `@nuee/*`. For installed-package usage, replace
-those dependencies and imports with `@bolerish/*`, install `@bolerish/ui@0.11.0`,
+those dependencies and imports with `@bolerish/*`, install `@bolerish/ui@0.11.1`,
 and load `@bolerish/ui/global.css` once. Use the precompiled theme classes above
 instead of adding a StyleX compiler solely for built-in components.
 
