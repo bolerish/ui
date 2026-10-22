@@ -3,7 +3,7 @@
   "version": "0.10.0",
   "private": true,
   "description": "@bolerish/ui design system monorepo.",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "author": "Minyeong Jeong",
   "type": "module",
   "scripts": {
