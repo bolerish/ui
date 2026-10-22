@@ -37,6 +37,8 @@ Let people predict where they will go before leaving the current content.
 | --------- | -------- | ---------------------------- | -------------------------------------------------------------------------------- |
 | `variant` | `inline` | `inline`, `current`, `plain` | inline은 링크 색과 밑줄, current는 주변 색과 밑줄, plain은 링크 색만 사용합니다. |
 
+`Link.ExternalIcon`은 작은 `ArrowSquareOutIcon`을 표시합니다. 외부 이동을 알리고 싶은 링크의 텍스트 뒤에 직접 추가합니다. 기본 크기는 `0.8em`이고 텍스트 오른쪽 위에 정렬되며, URL만으로 자동 추가되지는 않습니다. 아이콘은 장식 요소이므로 링크 이름은 텍스트로 제공합니다.
+
 목적지나 자료의 이름을 씁니다. 이동이 아니라 작업 실행이 목적이면 `Button`을 사용합니다.
 
 > 문단 밖에서 구별할 수 없는 “여기를 클릭” 같은 이름을 반복하지 않습니다.
@@ -52,6 +54,8 @@ Let people predict where they will go before leaving the current content.
 | Prop      | Default  | Values                       | Meaning                                                                                                   |
 | --------- | -------- | ---------------------------- | --------------------------------------------------------------------------------------------------------- |
 | `variant` | `inline` | `inline`, `current`, `plain` | inline uses action color and underline; current inherits color with underline; plain omits the underline. |
+
+`Link.ExternalIcon` renders ArrowSquareOutIcon. Add it after the link text when indicating an external destination; the default icon is `0.8em`, aligned at the upper right of the text. It is not inferred from the URL. The icon is decorative, so provide the link name as text.
 
 Name the destination or resource. Use `Button` when the purpose is performing an action rather than navigating.
 

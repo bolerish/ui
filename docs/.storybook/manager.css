@@ -1,5 +1,12 @@
+/* Mirror semantic colors here: the manager has no StyleX compiler.
+   theme-contrast.test.mjs checks the DS colors and the white light docs canvas. */
 :root {
-  --docs-background: #f5f6f8;
+  color-scheme: light;
+  --docs-border: #0000000f;
+  --docs-subtle: #f5f5f5;
+  --docs-primary: #18181b;
+  --docs-muted: #383b3f;
+  --docs-background: #ffffff;
   --docs-surface: #ffffff;
   --docs-selected: #e5e5e6;
   --docs-foreground: #08090a;
@@ -7,6 +14,10 @@
   --docs-focus: #383b3f;
 }
 :root[data-color-mode="dark"] {
+  --docs-border: #ffffff0d;
+  --docs-subtle: #161718;
+  --docs-primary: #e4e4e7;
+  --docs-muted: #8a8f98;
   --docs-background: #08090a;
   --docs-surface: #0f1011;
   --docs-selected: #23252a;
@@ -67,13 +78,37 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-inline: 8px;
+  padding: 4px;
+  margin-inline: 8px;
+  border: 1px solid var(--docs-border);
+  border-radius: 12px;
+  background-color: var(--docs-surface);
+}
+@supports (backdrop-filter: blur(1px)) and
+  (background-color: color-mix(in srgb, white, transparent)) {
+  .bolerish-doc-tools {
+    background-color: color-mix(in srgb, var(--docs-surface) 92%, transparent);
+    backdrop-filter: blur(16px);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .bolerish-doc-tools {
+    background-color: var(--docs-surface);
+    backdrop-filter: none;
+  }
+}
+@media (forced-colors: active) {
+  .bolerish-doc-tools {
+    background-color: Canvas;
+    border-color: CanvasText;
+    backdrop-filter: none;
+  }
 }
 
 .bolerish-doc-tools select {
   height: 32px;
   padding-inline: 10px;
-  border: 1px solid var(--docs-control);
+  border: 1px solid var(--docs-border);
   border-radius: 8px;
   background-color: var(--docs-surface);
   color: var(--docs-foreground);
@@ -83,7 +118,7 @@
   cursor: pointer;
 }
 .bolerish-doc-tools select:hover {
-  background-color: var(--docs-background);
+  background-color: var(--docs-subtle);
 }
 .bolerish-doc-tools select:focus-visible {
   outline: 2px solid var(--docs-focus);

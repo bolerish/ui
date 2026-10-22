@@ -58,10 +58,10 @@
 | 정확한 삽입 위치          | 배경 없음             | `strokeDropIndicator`, `sizeVars.focusRing` 두께     | 선과 “항목 앞에 이동” 설명                         |
 
 Tabs의 `segmented`와 Toggle Group의 `soft`는 같은 선택 면 색상을 사용합니다.
-`segmented`는 그림자로 높이를 더하고, `soft`는 선택 경계만 유지합니다.
+`segmented`는 그림자로 높이를 더하고, `soft`는 배경으로 선택을 표시합니다.
 Tabs는 연결된 패널을 전환하고 Toggle Group은 값을 선택합니다. 스타일을 공유해도
 역할과 키보드 동작을 서로 바꾸지 않습니다. 단독 Toggle의 `soft`는 `bgSelected`를
-사용하며, 일반 Toggle은 선택 경계를 함께 유지합니다.
+사용하며, `outline` Toggle만 선택 경계를 유지합니다.
 
 ### 상태가 겹칠 때
 
@@ -86,4 +86,6 @@ Tabs는 연결된 패널을 전환하고 Toggle Group은 값을 선택합니다.
 아래 예제는 실제 목록 이동과 동일한 “앞에 이동” 버튼을 제공합니다. 외부 파일과
 목록 밖의 드래그는 받지 않으며, 원래 항목에 놓으면 순서가 바뀌지 않습니다.
 
-주요 버튼은 모노크롬 호버에 `bgActionPrimaryHover`를 사용합니다. Segmented Tabs와 soft Toggle Group은 선택 면에 `strokeStrong` 경계를 더해 묶음 배경과 반전 표면에서도 선택을 구별합니다.
+주요 버튼은 모노크롬 호버에 `bgActionPrimaryHover`를 사용합니다. Segmented Tabs는 선택 면에 약한 `strokeDefault` 경계와 그림자를 사용하고, soft Toggle Group은 배경으로 선택을 표시합니다.
+
+기본·soft Toggle과 Toggle Group은 선택 배경을 사용하고 클릭으로 테두리를 추가하지 않습니다. outline 변형은 선택 경계를 유지합니다. segmented Tabs의 선택 면은 약한 strokeDefault 경계와 subtle 그림자를 사용합니다. 키보드 초점은 선택 표시와 독립적으로 유지합니다.

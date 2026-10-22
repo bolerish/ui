@@ -12,6 +12,7 @@ import { useContext, useEffect, useRef, useState, lazy, Suspense, type Component
 
 import { CodeBlock } from "./CodeBlock";
 import { ui } from "./locale";
+import { useColorMode } from "./useColorMode";
 import { useDocumentationGlobals } from "./useDocumentationGlobals";
 
 const modules = import.meta.glob<{ default: ComponentType }>([
@@ -39,6 +40,7 @@ const styles = stylex.create({
   },
   frame: { borderWidth: 0, display: "block", height: "100%", width: "100%" },
   root: { marginBlock: spacingVars.space6, minWidth: 0 },
+  lightCanvas: { backgroundColor: "#FFFFFF" },
   preview: {
     backgroundColor: colorVars.bgCanvas,
     borderColor: colorVars.strokeDefault,
@@ -64,6 +66,7 @@ export function ComponentPreview({
   isolated?: boolean;
 }) {
   const globals = useDocumentationGlobals(useContext(DocsContext));
+  const colorMode = useColorMode(globals.colorMode);
   const Example = examples[name];
   const [initialGlobals] = useState(globals);
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -104,6 +107,7 @@ export function ComponentPreview({
           <div
             {...stylex.props(
               styles.preview,
+              colorMode === "light" && styles.lightCanvas,
               height !== undefined ? styles.height(height) : undefined,
             )}
           >

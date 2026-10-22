@@ -30,28 +30,32 @@ function SidebarLabel({ name, id, type }: { name: string; id: string; type: stri
   );
 }
 
-function getManagerTheme(mode: "light" | "dark") {
-  const dark = mode === "dark";
-  return create({
-    base: mode,
-    brandTitle: "bolerish/ui",
-    brandUrl: "?path=/docs/getting-started--docs",
-    colorPrimary: dark ? "#e4e4e7" : "#18181b",
-    colorSecondary: dark ? "#e4e4e7" : "#18181b",
-    appBg: dark ? "#08090a" : "#f5f6f8",
-    appContentBg: dark ? "#08090a" : "#f5f6f8",
-    appBorderColor: dark ? "#23252a" : "#e5e5e6",
-    textColor: dark ? "#f5f6f8" : "#08090a",
-    textMutedColor: dark ? "#8a8f98" : "#383b3f",
-    barBg: dark ? "#08090a" : "#f5f6f8",
-    barTextColor: dark ? "#8a8f98" : "#383b3f",
-    barSelectedColor: dark ? "#e4e4e7" : "#18181b",
-    inputBg: dark ? "#0f1011" : "#ffffff",
-    inputBorder: dark ? "#62666d" : "#81868f",
-    inputTextColor: dark ? "#f5f6f8" : "#08090a",
-    appBorderRadius: 8,
-    fontBase: "var(--bolerish-font-body)",
-    fontCode: "var(--bolerish-font-code)",
+function setManagerTheme(mode: "light" | "dark") {
+  document.documentElement.dataset.colorMode = mode;
+  const values = getComputedStyle(document.documentElement);
+  const color = (name: string) => values.getPropertyValue(`--docs-${name}`).trim();
+  addons.setConfig({
+    theme: create({
+      base: mode,
+      brandTitle: "bolerish/ui",
+      brandUrl: "?path=/docs/getting-started--docs",
+      colorPrimary: color("primary"),
+      colorSecondary: color("primary"),
+      appBg: color("surface"),
+      appContentBg: color("background"),
+      appBorderColor: color("border"),
+      textColor: color("foreground"),
+      textMutedColor: color("muted"),
+      barBg: color("surface"),
+      barTextColor: color("muted"),
+      barSelectedColor: color("primary"),
+      inputBg: color("surface"),
+      inputBorder: color("border"),
+      inputTextColor: color("foreground"),
+      appBorderRadius: 8,
+      fontBase: "var(--bolerish-font-body)",
+      fontCode: "var(--bolerish-font-code)",
+    }),
   });
 }
 
@@ -60,8 +64,7 @@ function DocumentationTools() {
   const locale = globals.locale === "en" ? "en" : "ko";
   const mode = globals.colorMode === "dark" ? "dark" : "light";
   useEffect(() => {
-    document.documentElement.dataset.colorMode = mode;
-    addons.setConfig({ theme: getManagerTheme(mode) });
+    setManagerTheme(mode);
   }, [mode]);
   return (
     <div className="bolerish-doc-tools">
@@ -131,5 +134,6 @@ addons.setConfig({
   sidebar: {
     renderLabel: (item) => <SidebarLabel name={item.name} id={item.id} type={item.type} />,
   },
-  theme: getManagerTheme("light"),
 });
+
+setManagerTheme("light");

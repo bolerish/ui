@@ -45,6 +45,7 @@ const styles = stylex.create({
     top: spacingVars.space6,
     "@media (max-width: 60rem)": { display: "none" },
   },
+  lightCanvas: { backgroundColor: "#FFFFFF" },
   compact: { minHeight: 0, display: "block" },
   root: {
     backgroundColor: colorVars.bgCanvas,
@@ -93,6 +94,7 @@ function ThemeScope({
     <div
       {...stylex.props(
         styles.root,
+        colorMode === "light" && styles.lightCanvas,
         compact && styles.compact,
         colorTheme,
         shadowTheme,

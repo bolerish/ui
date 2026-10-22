@@ -44,13 +44,7 @@ Show related editing choices together so their selection can be understood at a 
 
 > 익숙하지 않은 옵션을 아이콘 모양만으로 설명하지 않습니다.
 
-`soft`는 `bgSubtle` 컨테이너 안에서 `interactionSelected`와 선택 경계를 사용하며 바깥 그림자는 더하지 않습니다. `default`·`outline`은 중립 `bgSelected`와 선택 경계를 사용합니다. 호버·누름·비활성 상태에서도 선택은 유지됩니다. 연결된 패널을 바꾸려면 Tabs를 사용합니다.
-
-선택은 강조색 대신 중립 `bgCurrent`와 안쪽 경계로 표시합니다. `soft` 그룹은 기존 중립
-raised 면과 그림자로 구분합니다. 체크 아이콘을 일괄 추가하지 않으며 `aria-pressed`는
-primitive가 전달합니다. 비활성화되어도 선택 면·경계를 지우지 않고 포커스 표시는 유지합니다.
-
-묶음 안의 선택 면은 `strokeAction` 안쪽 경계도 사용해 Fog와 반전 배경에서 구별됩니다.
+`default`·`soft`는 선택 배경만 변경하고 테두리를 추가하지 않습니다. `soft`는 `bgSubtle` 묶음 안에서 `interactionSelected`를 사용합니다. `outline`만 약한 선택 경계를 유지합니다. 기본 예제는 `default`를 사용합니다. 항목의 `aria-pressed`, 비활성 선택 상태와 키보드 포커스는 유지됩니다. 연결된 패널을 바꾸려면 Tabs를 사용합니다.
 
 </LocaleContent>
 
@@ -69,14 +63,7 @@ Group choices such as alignment or formatting. Decide whether one or several sel
 
 > Do not rely only on an icon's appearance to explain an unfamiliar option.
 
-`soft` uses `interactionSelected` and a selection boundary inside a `bgSubtle` container, without a drop shadow. `default` and `outline` use `bgSelected` with a selection boundary. Hover, press and disabled states retain selection. Use Tabs to switch associated panels.
-
-Selection uses neutral bgCurrent and an inset boundary instead of an accent hue.
-Soft groups retain their neutral raised surface and shadow. No automatic check icon
-is added; the primitive exposes aria-pressed. Disabled selected items retain their
-selection cues, and focus remains visible.
-
-Selected grouped surfaces also use an inset `strokeAction` boundary for contrast on Fog and inverse backgrounds.
+`default` and `soft` change only the selected background. Soft groups use `interactionSelected` inside `bgSubtle`; only outline keeps a subtle selected edge. The basic example uses default. Items retain aria-pressed, disabled selection and independent keyboard focus. Use Tabs to switch associated panels.
 
 </LocaleContent>
 

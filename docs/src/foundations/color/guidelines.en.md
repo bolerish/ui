@@ -42,22 +42,22 @@ for selection and drop backgrounds, foregrounds and borders. `bgSubtle` alone do
 
 Use cool near-black surfaces and monochrome Zinc primary actions. Light surfaces and essential control boundaries preserve contrast for reading and interaction.
 
-| Role                   | Value   | Use                                         |
-| ---------------------- | ------- | ------------------------------------------- |
-| Dark canvas            | #08090A | Lowest screen surface                       |
-| Dark content           | #0F1011 | Cards, inputs and default surfaces          |
-| Dark raised surface    | #161718 | Popups and subtle grouping                  |
-| Dark selection/divider | #23252A | Selected surfaces and decorative boundaries |
-| Dark supporting text   | #8A8F98 | Descriptions and metadata                   |
-| Light canvas           | #F5F6F8 | Lowest light surface                        |
-| Light content          | #FFFFFF | Cards and inputs                            |
-| Light grouping         | #E5E5E6 | Subtle groups and dividers                  |
-| Light primary action   | #18181B | Dark button on a light surface              |
-| Light primary label    | #FFFFFF | Light label on a dark button                |
-| Dark primary action    | #E4E4E7 | Light button on a dark surface              |
-| Dark primary label     | #18181B | Dark label on a light button                |
-| Light primary hover    | #3F3F46 | Dark button hover                           |
-| Dark primary hover     | #D4D4D8 | Light button hover                          |
+| Role                  | Value   | Use                                |
+| --------------------- | ------- | ---------------------------------- |
+| Dark canvas           | #08090A | Lowest screen surface              |
+| Dark content          | #0F1011 | Cards, inputs and default surfaces |
+| Dark raised surface   | #161718 | Popups and subtle grouping         |
+| Dark selected surface | #23252A | Selected surfaces                  |
+| Dark supporting text  | #8A8F98 | Descriptions and metadata          |
+| Light canvas          | #EEEEEE | Lowest light surface               |
+| Light content         | #FFFFFF | Cards and inputs                   |
+| Light grouping        | #F5F5F5 | Subtle groups                      |
+| Light primary action  | #18181B | Dark button on a light surface     |
+| Light primary label   | #FFFFFF | Light label on a dark button       |
+| Dark primary action   | #E4E4E7 | Light button on a dark surface     |
+| Dark primary label    | #18181B | Dark label on a light button       |
+| Light primary hover   | #3F3F46 | Dark button hover                  |
+| Dark primary hover    | #D4D4D8 | Light button hover                 |
 
 Distinguish primary actions and current progress through monochrome contrast. Information, success, warning and error colors communicate their respective states.
 
@@ -76,3 +76,48 @@ eight-bit alpha rounding. Generation rejects colors outside sRGB; reduce chroma
 and review them again. `pnpm palette:check` checks generated values against the
 source, and `pnpm test:tokens` checks conversion and contrast. Consumers receive
 generated tokens without runtime OKLCH conversion.
+
+## Content backgrounds and translucent surfaces
+
+Use colors derived from content, such as album artwork, in an app-owned background gradient.
+Do not remap action, error, or selection tokens to match the content. Keep existing semantic tokens for ordinary screens.
+
+Use `Card` with `variant="translucent"` when its background should show through slightly.
+Apply the gradient to the surrounding container. Translucent surfaces separate a reading area;
+avoid repeating backdrop blur across the screen or behind long passages of text.
+Adjust the surface background rather than the entire card's `opacity`, which would also fade text and controls.
+
+For prose placed directly on the background, use a full-surface contrast veil to bound luminance.
+Keep a readable foreground for prose, dates and song details rather than blurring surrounding text.
+Reserve translucent surfaces for floating controls and use an opaque surface for editing.
+Recheck contrast when changing veil strength, text colors or consumer themes.
+
+Check body and secondary text contrast on light and dark backgrounds with the default themes.
+Custom themes, text placed directly on images, and input or focus states need checks against their actual combinations.
+See [Card](?path=/docs/components-card--docs) for the example and its scope.
+
+## Soft surface boundaries
+
+Decorative boundaries across components use `strokeDefault` directly: black at 6%
+in light mode and white at 5% in dark mode. Do not reduce its opacity again.
+Essential input, selection, error and focus boundaries keep their existing tokens.
+Menus, popovers and selection lists use 94% `bgRaised`; Menubar and translucent
+Card use 92% `bgSurface`, with a 16px backdrop blur. Dialog, Drawer, Toast,
+ordinary Card and inputs remain opaque. Opaque surfaces are the fallback;
+reduced transparency and forced colors remove the blur. Tooltip uses the same opaque bgRaised/fgPrimary colors as Popover.
+
+Blend only the content background into `bgCanvas` toward its lower edge.
+Do not mask or reduce opacity on the text, cards or controls themselves.
+
+### Coverage across components
+
+Secondary buttons and grouped tabs/toggles use `bgSubtle`; decorative boundaries
+on cards, tables, accordions, attachments, empty states, timelines and badges
+share `strokeDefault`. Essential input, checkbox, radio, switch and slider
+boundaries remain distinct. Progress uses `bgSubtle` for its track; draggable
+scrollbar thumbs use `strokeControl`. Dialogs, drawers, toasts and banners keep
+opaque or semantic feedback surfaces. Layout-only components add no new surface.
+Typography components, selection, error and focus styling remain unchanged.
+This is a shared visual language, not a requirement to blur every component.
+
+Resting form boundaries use strokeDefault; filled surfaces and labels identify fields. Focus and invalid outlines keep their dedicated tokens. strokeControl remains available for distinct affordances such as scrollbar thumbs.

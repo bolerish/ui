@@ -108,3 +108,66 @@ for (const mode of ["light", "dark"]) {
     assert.ok(contrast(rgba(theme.strokeAction), rgba(theme.interactionSelected)) >= 3);
   });
 }
+
+for (const mode of ["light", "dark"]) {
+  test(`${mode}: translucent navigation surfaces retain readable text`, () => {
+    const theme = module.namespace[`${mode}ColorTheme`];
+    for (const surface of ["bgSurface", "bgRaised"]) {
+      for (let corner = 0; corner < 8; corner++) {
+        const backdrop = [corner & 1, (corner >> 1) & 1, (corner >> 2) & 1, 1];
+        const background = composite(
+          [...rgba(theme[surface]).slice(0, 3), surface === "bgRaised" ? 0.94 : 0.92],
+          backdrop,
+        );
+        for (const foreground of ["fgPrimary", "fgSecondary"]) {
+          const ratio = contrast(rgba(theme[foreground]), background);
+          assert.ok(ratio >= 4.5, `${foreground}/${surface}/${corner}: ${ratio.toFixed(2)} < 4.5`);
+        }
+        assert.ok(contrast(rgba(theme.strokeFocus), background) >= 3);
+      }
+    }
+  });
+}
+
+test("default surfaces match the explicit light theme", () => {
+  const semanticUrl = new URL("../packages/tokens/src/semantic.stylex.ts", import.meta.url);
+  const defaults = modules.get(semanticUrl.href).namespace.colorVars;
+  for (const role of ["bgCanvas", "bgSurface", "bgSubtle", "strokeDefault", "strokeControl"]) {
+    assert.equal(defaults[role], module.namespace.lightColorTheme[role], role);
+  }
+});
+
+test("Storybook manager colors stay aligned with semantic themes", async () => {
+  const css = await readFile(new URL("../docs/.storybook/manager.css", import.meta.url), "utf8");
+  const selectors = { light: ":root", dark: ':root[data-color-mode="dark"]' };
+  const roles = {
+    background: "bgCanvas",
+    surface: "bgSurface",
+    subtle: "bgSubtle",
+    selected: "bgSelected",
+    foreground: "fgPrimary",
+    muted: "fgSecondary",
+    primary: "bgActionPrimary",
+    border: "strokeDefault",
+    control: "strokeControl",
+    focus: "strokeFocus",
+  };
+  for (const mode of ["light", "dark"]) {
+    const block = css.slice(css.indexOf(`${selectors[mode]} {`)).split("}")[0];
+    const values = Object.fromEntries(
+      [...block.matchAll(/--docs-([a-z]+):\s*(#[0-9a-f]+);/gi)].map((match) => [
+        match[1],
+        match[2].toUpperCase(),
+      ]),
+    );
+    for (const [name, role] of Object.entries(roles)) {
+      assert.equal(
+        values[name],
+        mode === "light" && name === "background"
+          ? "#FFFFFF"
+          : module.namespace[`${mode}ColorTheme`][role].toUpperCase(),
+        `${mode}/${name}`,
+      );
+    }
+  }
+});
