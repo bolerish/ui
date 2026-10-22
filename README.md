@@ -73,7 +73,7 @@ for package imports, theme setup, StyleX extensions, and exact component APIs.
 ## Upgrade to v0.11.0
 
 Versions v0.9.1 and earlier used `@nuee/*`. For installed-package usage, replace
-those dependencies and imports with `@bolerish/*`, install `@bolerish/ui@0.11.1`,
+those dependencies and imports with `@bolerish/*`, install `@bolerish/ui@0.12.0`,
 and load `@bolerish/ui/global.css` once. Use the precompiled theme classes above
 instead of adding a StyleX compiler solely for built-in components.
 

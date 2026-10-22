@@ -1,3 +1,27 @@
+## Version v0.12.0
+
+Released on 2026-10-23.
+
+- Add Card's `translucent` variant and consistent translucent menu and popover
+    surfaces. Text stays opaque; reduced transparency and unsupported effects
+    use solid surfaces.
+- Give light mode a neutral gray canvas and white content surfaces. Soften
+    resting borders across forms, panels and outline actions while retaining
+    distinct keyboard focus and error indicators.
+- Keep default and soft toggles borderless when selected, and soften the
+    selected tab boundary. Outline variants keep a subtle edge.
+- Fix clipped Collapsible labels and unwanted horizontal scrolling in Select
+    and Combobox lists. Scroll Area now uses slim, proportional thumbs that
+    appear while hovered or scrolling.
+- Match Tooltip colors to popovers and align Link's small external-destination
+    icon at the upper right of its text.
+- Add a diary example for content-colored backgrounds, editable text and song
+    details. Align Storybook controls with the components and use a white light
+    documentation canvas.
+- Upgrade installed `@bolerish/ui` and `@bolerish/tokens` together. If you copy
+    component source with the CLI, merge the updated component, shared surface
+    and token files into your local copies.
+
 ## Version v0.11.1
 
 Released on 2026-10-22.
