@@ -43,7 +43,7 @@
 
 `.bolerish.json`의 `theme.density`를 `compact`로 지정하고 `bolerish init --force`로
 생성 기본값을 반영합니다. 생성된 `settings.stylex.ts`의 `themeStyles`를 앱
-루트에 적용합니다. 같은 루트의 `--nuee-density`가 간격·컨트롤·아이콘·글자를
+루트에 적용합니다. 같은 루트의 `--bolerish-density`가 간격·컨트롤·아이콘·글자를
 함께 조절하므로 토큰 값을 화면마다 복제하지 않습니다. `default`는 기존 크기,
 `compact`는 0.875배이며 `controlXs`, 터치 영역, 초점 테두리는 축소하지 않습니다.
 

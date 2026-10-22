@@ -28,7 +28,7 @@ const styles = stylex.create({
   },
   tokenName: {
     color: colorVars.fgPrimary,
-    fontFamily: "var(--nuee-font-code)",
+    fontFamily: "var(--bolerish-font-code)",
     fontSize: typo.fontSizeSm,
   },
   usage: {
@@ -38,7 +38,7 @@ const styles = stylex.create({
   },
   value: {
     color: colorVars.fgTertiary,
-    fontFamily: "var(--nuee-font-code)",
+    fontFamily: "var(--bolerish-font-code)",
     fontSize: typo.fontSizeXs,
   },
   preview: {

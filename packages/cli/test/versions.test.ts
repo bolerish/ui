@@ -28,7 +28,7 @@ test("version metadata is optional and validated", () => {
 });
 
 test("add preserves foundation and other component versions and records dependencies", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "nuee-versions-"));
+  const directory = await mkdtemp(join(tmpdir(), "bolerish-versions-"));
   try {
     await writeConfig(directory, {
       ...defaultConfig,
@@ -54,7 +54,7 @@ test("add preserves foundation and other component versions and records dependen
 });
 
 test("force init preserves installed metadata when existing foundation is retained", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "nuee-versions-"));
+  const directory = await mkdtemp(join(tmpdir(), "bolerish-versions-"));
   try {
     await init(directory, { defaults: true, "skip-dependencies": true });
     assert.equal((await readConfig(directory)).version, registryVersion);
@@ -74,7 +74,7 @@ test("force init preserves installed metadata when existing foundation is retain
 });
 
 test("adding to legacy config keeps unknown foundation version and marks remote source unknown", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "nuee-versions-"));
+  const directory = await mkdtemp(join(tmpdir(), "bolerish-versions-"));
   try {
     await writeConfig(directory, defaultConfig);
     const item = {

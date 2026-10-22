@@ -24,7 +24,7 @@ const styles = stylex.create({
     transitionProperty: "width",
     transitionTimingFunction: motionVars.easingStandard,
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         transitionDuration: motionVars.durationInstant,
       },
     },

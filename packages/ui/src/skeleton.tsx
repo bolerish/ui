@@ -16,7 +16,7 @@ const styles = stylex.create({
     backgroundColor: colorVars.bgSkeleton,
     borderRadius: radiusVars.sm,
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": { animationName: "none" },
+      ":not(:root[data-bolerish-motion='on'] *)": { animationName: "none" },
     },
   },
 });

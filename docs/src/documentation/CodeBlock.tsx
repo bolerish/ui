@@ -86,8 +86,8 @@ export function CodeBlock({
         <ThemeProvider
           theme={convert({
             ...themes[colorMode],
-            fontBase: "var(--nuee-font-body)",
-            fontCode: "var(--nuee-font-code)",
+            fontBase: "var(--bolerish-font-body)",
+            fontCode: "var(--bolerish-font-code)",
           })}
         >
           <SyntaxHighlighter language={language} copyable={false} format={false}>

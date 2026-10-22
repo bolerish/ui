@@ -1,10 +1,10 @@
 {
   "name": "@bolerish/tokens",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/nueexyz/ui.git"
+    "url": "https://github.com/myjeong19/ui.git"
   },
   "type": "module",
   "exports": {

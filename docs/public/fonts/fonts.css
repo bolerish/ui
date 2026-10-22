@@ -27,7 +27,7 @@
   font-display: swap;
 }
 :root {
-  --nuee-font-body: "LINE Seed KR", sans-serif;
-  --nuee-font-code: "Geist Mono", "LINE Seed KR", monospace;
-  font-family: var(--nuee-font-body);
+  --bolerish-font-body: "LINE Seed KR", sans-serif;
+  --bolerish-font-code: "Geist Mono", "LINE Seed KR", monospace;
+  font-family: var(--bolerish-font-body);
 }

@@ -81,7 +81,7 @@ const styles = stylex.create({
   },
   token: {
     color: colorVars.fgSecondary,
-    fontFamily: "var(--nuee-font-code)",
+    fontFamily: "var(--bolerish-font-code)",
     fontSize: typo.fontSizeXs,
   },
   shadowPreview: (boxShadow: string) => ({

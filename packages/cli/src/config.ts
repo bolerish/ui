@@ -26,10 +26,6 @@ export type BolerishConfig = {
   };
 };
 
-/** Compatibility names for integrations using the previous CLI types. */
-export type NueeConfig = BolerishConfig;
-export type NueeTheme = BolerishTheme;
-
 export const defaultConfig: BolerishConfig = {
   accessibility: {
     respectReducedMotion: true,

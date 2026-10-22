@@ -71,14 +71,14 @@ export function ComponentPreview({
     if (!isolated) return;
     const syncGlobals = () =>
       frameRef.current?.contentWindow?.postMessage(
-        { type: "nuee-preview-globals", globals },
+        { type: "bolerish-preview-globals", globals },
         window.location.origin,
       );
     const ready = (event: MessageEvent) => {
       if (
         event.origin === window.location.origin &&
         event.source === frameRef.current?.contentWindow &&
-        event.data?.type === "nuee-preview-ready"
+        event.data?.type === "bolerish-preview-ready"
       )
         syncGlobals();
     };
@@ -117,7 +117,7 @@ export function ComponentPreview({
               />
             ) : (
               <div
-                className={`nuee-example sb-unstyled ${stylex.props(styles.content).className}`}
+                className={`bolerish-example sb-unstyled ${stylex.props(styles.content).className}`}
                 lang="en"
               >
                 <Suspense fallback={<p>{ui.loading}</p>}>

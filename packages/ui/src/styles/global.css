@@ -1,9 +1,9 @@
 /* Global styles are composed by the package build. */
 
-:root[data-nuee-motion="off"],
-:root[data-nuee-motion="off"] *,
-:root[data-nuee-motion="off"] *::before,
-:root[data-nuee-motion="off"] *::after {
+:root[data-bolerish-motion="off"],
+:root[data-bolerish-motion="off"] *,
+:root[data-bolerish-motion="off"] *::before,
+:root[data-bolerish-motion="off"] *::after {
   animation-duration: 0s !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0s !important;

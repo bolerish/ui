@@ -93,7 +93,7 @@ const styles = stylex.create({
   },
   value: {
     color: colorVars.fgSecondary,
-    fontFamily: "var(--nuee-font-code)",
+    fontFamily: "var(--bolerish-font-code)",
   },
 });
 type TokenCardProps = {

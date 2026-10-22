@@ -43,7 +43,7 @@ Use existing size APIs before introducing a universal `compact` prop.
 
 Set `theme.density` to `compact` in `.bolerish.json` and run `bolerish init --force`.
 Apply `themeStyles` from the generated `settings.stylex.ts` to the app root.
-Its inherited `--nuee-density` scales spacing, controls, icons and text together.
+Its inherited `--bolerish-density` scales spacing, controls, icons and text together.
 `default` preserves the original sizes; `compact` uses 0.875. `controlXs`, touch
 targets and focus strokes stay independent of this scale.
 

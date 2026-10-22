@@ -23,7 +23,7 @@ function SidebarLabel({ name, id, type }: { name: string; id: string; type: stri
   if (id === "foundations-typography--docs") Icon = TextTIcon;
   if (id === "foundations-elevation--docs") Icon = StackIcon;
   return (
-    <span className="nuee-sidebar-label">
+    <span className="bolerish-sidebar-label">
       <Icon size={16} aria-hidden="true" />
       <span>{name}</span>
     </span>
@@ -50,8 +50,8 @@ function getManagerTheme(mode: "light" | "dark") {
     inputBorder: dark ? "#62666d" : "#81868f",
     inputTextColor: dark ? "#f5f6f8" : "#08090a",
     appBorderRadius: 8,
-    fontBase: "var(--nuee-font-body)",
-    fontCode: "var(--nuee-font-code)",
+    fontBase: "var(--bolerish-font-body)",
+    fontCode: "var(--bolerish-font-code)",
   });
 }
 
@@ -64,7 +64,7 @@ function DocumentationTools() {
     addons.setConfig({ theme: getManagerTheme(mode) });
   }, [mode]);
   return (
-    <div className="nuee-doc-tools">
+    <div className="bolerish-doc-tools">
       <select
         aria-label={ui.language}
         value={locale}
@@ -119,8 +119,8 @@ function DocumentationTools() {
   );
 }
 
-addons.register("nuee/documentation", () =>
-  addons.add("nuee/documentation/preferences", {
+addons.register("bolerish/documentation", () =>
+  addons.add("bolerish/documentation/preferences", {
     type: types.TOOL,
     title: "Documentation",
     render: DocumentationTools,

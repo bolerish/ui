@@ -1,3 +1,17 @@
+## Version v0.11.0
+
+Released on 2026-10-22.
+
+- Rename runtime CSS variables from `--nuee-*` to `--bolerish-*` and the motion
+    attribute from `data-nuee-motion` to `data-bolerish-motion`. Update custom
+    density, unit, font, carousel, and motion settings when upgrading; the old
+    runtime names are no longer read.
+- Generate themes and documentation with the bolerish name. Re-run
+    `bolerish init --force` to refresh untouched generated theme files, then
+    merge updated tokens and components if you use locally copied source.
+    Customized theme files remain untouched and need manual migration.
+- Point package repository links to the current project repository.
+
 ## Version v0.10.0
 
 Released on 2026-10-22.

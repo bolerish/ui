@@ -45,9 +45,9 @@ test("carousel ratio produces a gap-aware share without leaking props and keeps 
   assert.match(html, /aria-label="Next slide"/);
   assert.doesNotMatch(render(), /0\.7777777777777778/);
   const css = readFileSync(new URL("../dist/stylex.css", import.meta.url), "utf8");
-  assert.match(html, /100%\s*-\s*var\(--nuee-carousel-gap/);
-  assert.match(css, /flex-basis:\s*var\(--nuee-carousel-basis,\s*100%\)/);
-  assert.match(css, /gap:\s*var\(--nuee-carousel-gap/);
+  assert.match(html, /100%\s*-\s*var\(--bolerish-carousel-gap/);
+  assert.match(css, /flex-basis:\s*var\(--bolerish-carousel-basis,\s*100%\)/);
+  assert.match(css, /gap:\s*var\(--bolerish-carousel-gap/);
 });
 
 test("carousel rejects invalid ratios and unsupported vertical preview", () => {

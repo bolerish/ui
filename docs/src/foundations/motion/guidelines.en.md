@@ -31,7 +31,7 @@ Consider `easingEnter` for arrival and `easingExit` for departure. Use `duration
 app's initial default. Load the generated `preferences.css`.
 
 The app end user can choose `system`, `on` or `off` at runtime through root
-`data-nuee-motion`. Only the end user's explicit `on` overrides OS reduced
+`data-bolerish-motion`. Only the end user's explicit `on` overrides OS reduced
 motion. The app owns the settings UI and persistence; developers must not apply
 `on` automatically as their default. Remove the attribute to restore the JSON
 default. Explicit `system` follows the OS even when JSON defaults to `off`.
@@ -41,7 +41,7 @@ import type { MotionPreference } from "@/styles/settings.stylex";
 
 // Call from the app's end-user settings control.
 function setMotionPreference(preference: MotionPreference) {
-  document.documentElement.dataset.nueeMotion = preference;
+  document.documentElement.dataset.bolerishMotion = preference;
 }
 ```
 

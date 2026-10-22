@@ -37,7 +37,7 @@ const styles = stylex.create({
     transitionTimingFunction: motionVars.easingEnter,
     zIndex: layerVars.popup,
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         transform: "none",
         transitionDuration: motionVars.durationInstant,
       },

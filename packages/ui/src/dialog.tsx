@@ -35,7 +35,7 @@ const styles = stylex.create({
       transitionTimingFunction: motionVars.easingExit,
     },
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         transitionDuration: motionVars.durationInstant,
         ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
       },
@@ -79,7 +79,7 @@ const styles = stylex.create({
       transitionTimingFunction: motionVars.easingExit,
     },
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         transitionDuration: motionVars.durationInstant,
         ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
         ":is([data-starting-style], [data-ending-style])": { transform: "scale(0.99)" },

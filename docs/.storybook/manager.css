@@ -19,13 +19,13 @@
 .sidebar-item[data-nodetype="document"] > a > div:has(> svg[type="document"]) {
   display: none;
 }
-.nuee-sidebar-label {
+.bolerish-sidebar-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   min-width: 0;
 }
-.nuee-sidebar-label > svg {
+.bolerish-sidebar-label > svg {
   flex-shrink: 0;
   color: currentColor;
 }
@@ -63,14 +63,14 @@
   outline-offset: -2px;
 }
 
-.nuee-doc-tools {
+.bolerish-doc-tools {
   display: flex;
   align-items: center;
   gap: 8px;
   padding-inline: 8px;
 }
 
-.nuee-doc-tools select {
+.bolerish-doc-tools select {
   height: 32px;
   padding-inline: 10px;
   border: 1px solid var(--docs-control);
@@ -82,14 +82,14 @@
   line-height: 1.4;
   cursor: pointer;
 }
-.nuee-doc-tools select:hover {
+.bolerish-doc-tools select:hover {
   background-color: var(--docs-background);
 }
-.nuee-doc-tools select:focus-visible {
+.bolerish-doc-tools select:focus-visible {
   outline: 2px solid var(--docs-focus);
   outline-offset: 2px;
 }
 
-#storybook-explorer-tree .sidebar-item[data-selected="true"] .nuee-sidebar-label > svg {
+#storybook-explorer-tree .sidebar-item[data-selected="true"] .bolerish-sidebar-label > svg {
   color: var(--docs-foreground);
 }

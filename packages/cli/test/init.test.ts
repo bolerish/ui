@@ -16,7 +16,7 @@ import {
 import { init } from "../dist/init.js";
 
 test("init stores a custom UI path", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await init(projectDirectory, {
@@ -35,12 +35,12 @@ test("init stores a custom UI path", async () => {
 });
 
 test("readConfig explains how to replace an older configuration", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeFile(
       join(projectDirectory, configFileName),
-      JSON.stringify({ paths: { ui: "src/components/ui", tokens: "src/styles/nuee" } }),
+      JSON.stringify({ paths: { ui: "src/components/ui", tokens: "src/styles/bolerish" } }),
     );
 
     await assert.rejects(
@@ -53,7 +53,7 @@ test("readConfig explains how to replace an older configuration", async () => {
 });
 
 test("init creates local StyleX sources without changing an entry point", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src"), { recursive: true });
@@ -70,7 +70,7 @@ test("init creates local StyleX sources without changing an entry point", async 
 });
 
 test("init keeps existing local token files", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src/styles/tokens"), { recursive: true });
@@ -90,7 +90,7 @@ test("init keeps existing local token files", async () => {
 });
 
 test("init copies customized flat tokens into tokens while preserving legacy files", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "nuee-layout-"));
+  const directory = await mkdtemp(join(tmpdir(), "bolerish-layout-"));
   try {
     await mkdir(join(directory, "src/styles"), { recursive: true });
     const legacy = join(directory, "src/styles/semantic.stylex.ts");
@@ -122,7 +122,7 @@ test("init copies customized flat tokens into tokens while preserving legacy fil
 });
 
 test("init --force refreshes legacy semantic defaults", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src/styles/tokens"), { recursive: true });
@@ -142,7 +142,7 @@ test("init --force refreshes legacy semantic defaults", async () => {
 });
 
 test("init --vite configures a standard Vite project", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeFile(
@@ -174,7 +174,7 @@ test("init --vite configures a standard Vite project", async () => {
 });
 
 test("init --vite explains a missing Vite config", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await assert.rejects(
@@ -192,7 +192,7 @@ test("init --vite explains a missing Vite config", async () => {
 });
 
 test("init keeps an existing StyleX configuration", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeFile(
@@ -236,7 +236,7 @@ export default defineConfig({
 });
 
 test("init does not change a Vite project when its plugin array cannot be updated safely", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     const configSource = "export default defineConfig({});\n";
@@ -258,7 +258,7 @@ test("init does not change a Vite project when its plugin array cannot be update
 });
 
 test("init derives aliases from a project root path mapping", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeFile(
@@ -283,26 +283,26 @@ test("init derives aliases from a project root path mapping", async () => {
 });
 
 test("init writes tokens to a configured project-local directory", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src"), { recursive: true });
     await init(projectDirectory, {
       defaults: true,
       "skip-dependencies": true,
-      tokens: "@/design-system/nuee",
+      tokens: "@/design-system/bolerish",
     });
 
     const config = await readConfig(projectDirectory);
-    assert.equal(config.aliases.styles, "@/design-system/nuee");
-    await access(join(projectDirectory, "src/design-system/nuee/tokens/semantic.stylex.ts"));
+    assert.equal(config.aliases.styles, "@/design-system/bolerish");
+    await access(join(projectDirectory, "src/design-system/bolerish/tokens/semantic.stylex.ts"));
   } finally {
     await rm(projectDirectory, { recursive: true });
   }
 });
 
 test("init rejects a path outside the project", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await assert.rejects(

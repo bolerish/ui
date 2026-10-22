@@ -15,7 +15,7 @@ import { configureVite, inspectViteConfig, removeReducedMotionStyles } from "../
 const execFile = promisify(execute);
 
 test("dry-run validates the same Vite initialization plan as add", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "nuee-plan-"));
+  const directory = await mkdtemp(join(tmpdir(), "bolerish-plan-"));
   try {
     for (const dryRun of [true, false]) {
       await assert.rejects(
@@ -57,7 +57,7 @@ test("local registry validates array members before accepting a typed item", () 
 
 for (const code of ["ENOTFOUND", "E404"]) {
   test(`publish distinguishes npm ${code} without contacting npm`, async () => {
-    const directory = await mkdtemp(join(tmpdir(), "nuee-publish-"));
+    const directory = await mkdtemp(join(tmpdir(), "bolerish-publish-"));
     try {
       for (const name of ["registry", "tokens", "cli", "ui"]) {
         await mkdir(join(directory, "packages", name), { recursive: true });

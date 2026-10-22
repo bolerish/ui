@@ -53,7 +53,7 @@ const styles = stylex.create({
     transitionProperty: "background-color, transform",
     transitionTimingFunction: motionVars.easingStandard,
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         transitionDuration: motionVars.durationInstant,
       },
     },

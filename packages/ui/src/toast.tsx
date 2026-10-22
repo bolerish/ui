@@ -118,7 +118,7 @@ const styles = stylex.create({
       transform: `translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc((var(--toast-offset-y) * -1) - (var(--toast-index) * ${spacingVars.space3}) + var(--toast-swipe-movement-y)))`,
     },
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         transitionDuration: motionVars.durationInstant,
         ":is([data-starting-style])": { transform: "translateY(24%)" },
         ":is([data-ending-style])": { transform: "translateY(24%)" },
@@ -142,7 +142,7 @@ const styles = stylex.create({
       transform: `translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(calc(var(--toast-offset-y) + (var(--toast-index) * ${spacingVars.space3}) + var(--toast-swipe-movement-y)))`,
     },
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         ":is([data-starting-style])": { transform: "translateY(-24%)" },
         ":is([data-ending-style])": { transform: "translateY(-24%)" },
       },
@@ -203,7 +203,7 @@ const styles = stylex.create({
     height: sizeVars.iconMd,
     width: sizeVars.iconMd,
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         animationDuration: motionVars.durationLoadingReduced,
       },
     },
@@ -431,7 +431,7 @@ function ToastStack({
 
     const updateHeight = () => {
       const rootList = Array.from(
-        stack.querySelectorAll<HTMLElement>("[data-nuee-toast-root]:not([data-limited])"),
+        stack.querySelectorAll<HTMLElement>("[data-bolerish-toast-root]:not([data-limited])"),
       );
       const toastGap = Number.parseFloat(getComputedStyle(stack).columnGap) || 0;
       let nextHeight = 0;
@@ -451,7 +451,7 @@ function ToastStack({
     updateHeight();
 
     const resizeObserver = new ResizeObserver(updateHeight);
-    const rootList = stack.querySelectorAll<HTMLElement>("[data-nuee-toast-root]");
+    const rootList = stack.querySelectorAll<HTMLElement>("[data-bolerish-toast-root]");
     rootList.forEach((root) => resizeObserver.observe(root));
     window.addEventListener("resize", updateHeight);
 
@@ -467,7 +467,7 @@ function ToastStack({
         <ToastPrimitive.Root
           key={item.id}
           toast={item}
-          data-nuee-toast-root=""
+          data-bolerish-toast-root=""
           {...stylex.props(styles.root, isTop && styles.rootTop)}
         >
           <ToastPrimitive.Content {...stylex.props(styles.content)}>

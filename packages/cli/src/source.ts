@@ -102,7 +102,7 @@ export function configureVite(source: string) {
   if (inspected.hasCompiler) return source;
   const binding = inspected.imports[0];
   // An unused name avoids colliding with a user variable or an existing import.
-  let name = "nueeStylex";
+  let name = "bolerishStylex";
   while (source.includes(name)) name += "_";
   let factory = `${name}.vite`;
   if (binding) factory = binding.direct ? binding.name : `${binding.name}.vite`;

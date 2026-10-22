@@ -8,7 +8,7 @@ import { defaultConfig, hasConfig, readConfig, writeConfig } from "../dist/confi
 import { init } from "../dist/init.js";
 
 test("configuration links packaged completion values and retains the schema on rewrites", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "nuee-schema-"));
+  const directory = await mkdtemp(join(tmpdir(), "bolerish-schema-"));
   try {
     await init(directory, { defaults: true, "skip-dependencies": true }, false);
     const config = JSON.parse(await readFile(join(directory, ".bolerish.json"), "utf8"));

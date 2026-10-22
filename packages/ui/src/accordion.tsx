@@ -85,7 +85,7 @@ const styles = stylex.create({
     transitionTimingFunction: motionVars.easingStandard,
     width: "100%",
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         transitionDuration: motionVars.durationInstant,
       },
     },

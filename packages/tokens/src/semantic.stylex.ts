@@ -63,16 +63,16 @@ export const colorVars = stylex.defineVars({
 
 export const spacingVars = stylex.defineVars({
   space0: "0",
-  space0_5: "calc(0.125 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  space1: "calc(0.25 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  space2: "calc(0.5 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  space3: "calc(0.75 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  space4: "calc(1 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  space5: "calc(1.25 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  space6: "calc(1.5 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  space8: "calc(2 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  space10: "calc(2.5 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  space12: "calc(3 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
+  space0_5: "calc(0.125 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  space1: "calc(0.25 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  space2: "calc(0.5 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  space3: "calc(0.75 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  space4: "calc(1 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  space5: "calc(1.25 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  space6: "calc(1.5 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  space8: "calc(2 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  space10: "calc(2.5 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  space12: "calc(3 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
 });
 
 export const spacingRoleVars = stylex.defineVars({
@@ -93,24 +93,24 @@ export const spacingRoleVars = stylex.defineVars({
 });
 
 export const layoutVars = stylex.defineVars({
-  contentMaxWidth: "calc(65 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
+  contentMaxWidth: "calc(65 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
 });
 
 export const sizeVars = stylex.defineVars({
   controlXs: "1.5rem",
-  controlSm: "calc(2 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  controlMd: "calc(2.25 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  controlLg: "calc(2.5 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  controlXl: "calc(3 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  iconXs: "calc(0.75 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  iconSm: "calc(0.875 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  iconMd: "calc(1 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  iconLg: "calc(1.25 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  contentXs: "calc(18 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  contentSm: "calc(24 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  contentMd: "calc(32 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  trackSm: "calc(0.375 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  trackMd: "calc(0.5 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
+  controlSm: "calc(2 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  controlMd: "calc(2.25 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  controlLg: "calc(2.5 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  controlXl: "calc(3 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  iconXs: "calc(0.75 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  iconSm: "calc(0.875 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  iconMd: "calc(1 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  iconLg: "calc(1.25 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  contentXs: "calc(18 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  contentSm: "calc(24 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  contentMd: "calc(32 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  trackSm: "calc(0.375 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  trackMd: "calc(0.5 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
   touchTarget: "2.75rem",
   stroke: "0.0625rem",
   focusRing: "0.125rem",
@@ -140,16 +140,16 @@ export const layerVars = stylex.defineVars({
 export const typo = stylex.defineVars({
   /** @deprecated Use fontFamilyBody or fontFamilyHeading instead. */
   fontFamily:
-    'var(--nuee-font-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif)',
+    'var(--bolerish-font-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif)',
   fontFamilyBody:
-    'var(--nuee-font-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif)',
+    'var(--bolerish-font-body, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif)',
   fontFamilyHeading:
-    'var(--nuee-font-heading, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif)',
-  fontSizeXs: "calc(0.75 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  fontSizeSm: "calc(0.875 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  fontSizeMd: "calc(1 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  fontSizeLg: "calc(1.125 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
-  fontSizeXl: "calc(1.5 * var(--nuee-unit, 1rem) * var(--nuee-density, 1))",
+    'var(--bolerish-font-heading, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif)',
+  fontSizeXs: "calc(0.75 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  fontSizeSm: "calc(0.875 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  fontSizeMd: "calc(1 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  fontSizeLg: "calc(1.125 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  fontSizeXl: "calc(1.5 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
   lineHeightTight: "1.25",
   lineHeightNormal: "1.5",
   fontWeightRegular: "400",

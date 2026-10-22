@@ -14,7 +14,10 @@ const styles = stylex.create({
     maxWidth: "25rem",
   },
   slide: {
-    flexBasis: { default: "var(--nuee-carousel-basis, 100%)", "@media (max-width: 30rem)": "100%" },
+    flexBasis: {
+      default: "var(--bolerish-carousel-basis, 100%)",
+      "@media (max-width: 30rem)": "100%",
+    },
     alignItems: "center",
     backgroundColor: colorVars.bgSubtle,
     display: "flex",

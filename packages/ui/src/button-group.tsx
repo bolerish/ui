@@ -131,7 +131,7 @@ function getItemPositionStyle(
   return middleItemStyles[orientation];
 }
 
-/** Direct children must be Nuee buttons or components that forward xstyle. Fragments and native elements are not styled as group items. */
+/** Direct children must be Bolerish buttons or components that forward xstyle. Fragments and native elements are not styled as group items. */
 export type ButtonGroupProps = StyledProps<ComponentProps<"div">> &
   StyleProps & { orientation?: "horizontal" | "vertical" };
 

@@ -23,7 +23,7 @@ const styles = stylex.create({
     height: sizeVars.iconMd,
     width: sizeVars.iconMd,
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         animationDuration: motionVars.durationLoadingReduced,
       },
     },

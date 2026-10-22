@@ -3,8 +3,8 @@ import { join } from "node:path";
 
 import { defaultConfig, validateConfig, type BolerishTheme } from "./config.js";
 
-const marker = "// Nuee generated theme: ";
-const cssMarker = "/* Nuee generated theme: ";
+const marker = "// Bolerish generated theme: ";
+const cssMarker = "/* Bolerish generated theme: ";
 
 export function getThemeFiles(theme: BolerishTheme = {}) {
   const defaults = {
@@ -15,15 +15,15 @@ export function getThemeFiles(theme: BolerishTheme = {}) {
   };
   const metadata = JSON.stringify(defaults);
   const declarations: string[] = [];
-  if (theme.unit) declarations.push(`  --nuee-unit: ${theme.unit === "px" ? "16px" : "1rem"};`);
+  if (theme.unit) declarations.push(`  --bolerish-unit: ${theme.unit === "px" ? "16px" : "1rem"};`);
   for (const role of ["body", "heading"] as const) {
     const font = defaults.fonts[role];
-    if (font) declarations.push(`  --nuee-font-${role}: ${font};`);
+    if (font) declarations.push(`  --bolerish-font-${role}: ${font};`);
   }
   const offSelector =
     defaults.motion === "off"
-      ? ':root:not([data-nuee-motion]), :root[data-nuee-motion="off"]'
-      : ':root[data-nuee-motion="off"]';
+      ? ':root:not([data-bolerish-motion]), :root[data-bolerish-motion="off"]'
+      : ':root[data-bolerish-motion="off"]';
   const suppress = `  animation-duration: 0s !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0s !important;
@@ -36,7 +36,7 @@ ${
   typeof defaults.density === "number"
     ? `import * as stylex from "@stylexjs/stylex";
 
-const density = stylex.create({ root: { "--nuee-density": ${defaults.density} } });
+const density = stylex.create({ root: { "--bolerish-density": ${defaults.density} } });
 export const themeStyles = [density.root];`
     : `import { densityStyles } from "./tokens/density.stylex";
 
@@ -58,10 +58,10 @@ ${suppress}
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :root:not([data-nuee-motion="on"]),
-  :root:not([data-nuee-motion="on"]) *,
-  :root:not([data-nuee-motion="on"]) *::before,
-  :root:not([data-nuee-motion="on"]) *::after {
+  :root:not([data-bolerish-motion="on"]),
+  :root:not([data-bolerish-motion="on"]) *,
+  :root:not([data-bolerish-motion="on"]) *::before,
+  :root:not([data-bolerish-motion="on"]) *::after {
 ${suppress}
   }
 }
@@ -78,8 +78,11 @@ export async function prepareThemeFiles(directory: string, theme: BolerishTheme 
     try {
       const current = await readFile(path, "utf8");
       const firstLine = current.split("\n")[0];
-      const prefix = file.name.endsWith(".css") ? cssMarker : marker;
-      if (!firstLine.startsWith(prefix)) continue;
+      const prefix = [
+        file.name.endsWith(".css") ? cssMarker : marker,
+        file.name.endsWith(".css") ? "/* Nuee generated theme: " : "// Nuee generated theme: ",
+      ].find((value) => firstLine.startsWith(value));
+      if (!prefix) continue;
       const metadata = firstLine.slice(prefix.length).replace(/ \*\/$/, "");
       let previous: BolerishTheme | undefined;
       try {
@@ -94,13 +97,14 @@ export async function prepareThemeFiles(directory: string, theme: BolerishTheme 
           "export const motionDefault",
         )
         .replace(
-          '  :root:not([data-nuee-motion="on"]),\n  :root:not([data-nuee-motion="on"]) *,\n  :root:not([data-nuee-motion="on"]) *::before,\n  :root:not([data-nuee-motion="on"]) *::after',
+          '  :root:not([data-bolerish-motion="on"]),\n  :root:not([data-bolerish-motion="on"]) *,\n  :root:not([data-bolerish-motion="on"]) *::before,\n  :root:not([data-bolerish-motion="on"]) *::after',
           "  :root, :root *, :root *::before, :root *::after",
         );
-      const normalized = current.replace(
-        'from "./density.stylex"',
-        'from "./tokens/density.stylex"',
-      );
+      const normalized = current
+        .replace(prefix, file.name.endsWith(".css") ? cssMarker : marker)
+        .replaceAll("--nuee-", "--bolerish-")
+        .replaceAll("data-nuee-motion", "data-bolerish-motion")
+        .replace('from "./density.stylex"', 'from "./tokens/density.stylex"');
       if ((normalized === original.content || normalized === legacy) && current !== file.content) {
         files.push({ path, source: file.content, flag: "w" });
       }

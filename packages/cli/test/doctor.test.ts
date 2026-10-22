@@ -12,7 +12,7 @@ import { init } from "../dist/init.js";
 import { writeTsconfig } from "./helpers.ts";
 
 test("doctor verifies local StyleX sources, the compiler, and a CSS entry point", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -39,7 +39,7 @@ test("doctor verifies local StyleX sources, the compiler, and a CSS entry point"
 
 for (const version of [registryVersion, "0.0.0", undefined, null]) {
   test(`doctor reports recorded source version ${version} without editing config`, async (t) => {
-    const directory = await mkdtemp(join(tmpdir(), "nuee-doctor-"));
+    const directory = await mkdtemp(join(tmpdir(), "bolerish-doctor-"));
     try {
       await writeTsconfig(directory);
       await writeConfig(directory, {

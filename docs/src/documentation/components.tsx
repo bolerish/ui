@@ -75,7 +75,7 @@ const styles = stylex.create({
   th: { backgroundColor: colorVars.bgSubtle, fontWeight: typo.fontWeightSemibold },
   code: {
     whiteSpace: "nowrap",
-    fontFamily: "var(--nuee-font-code)",
+    fontFamily: "var(--bolerish-font-code)",
     backgroundColor: colorVars.bgSubtle,
     color: colorVars.fgPrimary,
     borderRadius: radiusVars.sm,

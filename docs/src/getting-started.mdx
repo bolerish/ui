@@ -61,17 +61,17 @@ import { themeClassNames } from "@bolerish/ui/theme";
 </html>;
 ```
 
-<LocalizedMarkdown text={"## Upgrade to v0.10.0"} />
+<LocalizedMarkdown text={"## Upgrade to v0.11.0"} />
 
 <LocalizedMarkdown
   text={
-    "Versions v0.9.1 and earlier used @nuee/*. Replace package dependencies and imports with @bolerish/*, install @bolerish/ui@0.10.0, and load global.css once. Message, Bubble and outgoing-message color tokens have been removed; replace them with app-owned conversation layouts. Paragraph is the preferred name; P remains a compatibility alias."
+    "Versions v0.9.1 and earlier used @nuee/*. Replace package dependencies and imports with @bolerish/*, install @bolerish/ui@0.11.0, and load global.css once. Message, Bubble and outgoing-message color tokens have been removed; replace them with app-owned conversation layouts. Paragraph is the preferred name; P remains a compatibility alias."
   }
 />
 
 <LocalizedMarkdown
   text={
-    "Package upgrades do not replace locally copied components. Keep local imports and merge updated tokens and components together. The CLI is now bolerish; init --force migrates configuration to .bolerish.json and the installed schema. Legacy configuration, runtime --nuee-* variables and data-nuee-motion remain supported."
+    "Package upgrades do not replace locally copied components. Keep local imports and merge updated tokens and components together. The CLI is now bolerish; init --force migrates configuration to .bolerish.json and the installed schema. Legacy configuration remains readable. Rename runtime --nuee-* variables to --bolerish-* and data-nuee-motion to data-bolerish-motion; old runtime names are no longer read."
   }
 />
 

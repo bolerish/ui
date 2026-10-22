@@ -13,7 +13,7 @@ import { init } from "../dist/init.js";
 import { resolveComponent } from "../dist/registry.js";
 
 async function fixture(action: (directory: string) => Promise<void>) {
-  const directory = await mkdtemp(join(tmpdir(), "nuee-regression-"));
+  const directory = await mkdtemp(join(tmpdir(), "bolerish-regression-"));
   try {
     await action(directory);
   } finally {

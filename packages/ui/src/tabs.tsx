@@ -74,7 +74,7 @@ const styles = stylex.create({
     width: "var(--active-tab-width)",
     zIndex: 0,
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         transitionDuration: motionVars.durationInstant,
       },
     },

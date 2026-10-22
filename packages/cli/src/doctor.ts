@@ -149,7 +149,7 @@ async function inspectLocalConfiguration(projectDirectory: string): Promise<Chec
   } catch (error) {
     return [
       {
-        detail: error instanceof Error ? error.message : "Could not resolve nuee aliases.",
+        detail: error instanceof Error ? error.message : "Could not resolve bolerish aliases.",
         name: "Aliases",
         status: "warn",
       },

@@ -69,10 +69,10 @@ for that app. This is optional for the prebuilt components and themes above.
 See [the @bolerish/ui usage guide for LLMs](docs/README.md#ai-coding-agent-references)
 for package imports, theme setup, StyleX extensions, and exact component APIs.
 
-## Upgrade to v0.10.0
+## Upgrade to v0.11.0
 
 Versions v0.9.1 and earlier used `@nuee/*`. For installed-package usage, replace
-those dependencies and imports with `@bolerish/*`, install `@bolerish/ui@0.10.0`,
+those dependencies and imports with `@bolerish/*`, install `@bolerish/ui@0.11.0`,
 and load `@bolerish/ui/global.css` once. Use the precompiled theme classes above
 instead of adding a StyleX compiler solely for built-in components.
 
@@ -86,11 +86,12 @@ For locally copied components, a package upgrade does not replace source files.
 Keep local imports and merge updated components and tokens together. The CLI is
 now `bolerish`; run `bolerish init --force` to migrate configuration to
 `.bolerish.json` and the installed schema. Existing `.nuee.json` and `nuee.json`
-remain readable. Runtime `--nuee-*` variables and `data-nuee-motion` remain
-supported. JSON settings apply to the optional source-copy path, not precompiled
+remain readable. Rename runtime `--nuee-*` variables to `--bolerish-*` and
+`data-nuee-motion` to `data-bolerish-motion`; the old runtime names are no longer
+read. JSON settings apply to the optional source-copy path, not precompiled
 package themes.
 
-See [the v0.10.0 release notes](CHANGELOG.md#version-v0100) for the full changes.
+See [the v0.11.0 release notes](CHANGELOG.md#version-v0110) for the full changes.
 
 ## Optional source ownership
 
@@ -151,10 +152,10 @@ Existing flat token files remain usable. Run `bolerish init --force` to copy the
 into `tokens` without deleting the originals or overwriting customized tokens.
 
 JSON is an installation default, not a live user-settings store. Runtime font
-choices override `--nuee-font-body` and `--nuee-font-heading` on the root; removing
+choices override `--bolerish-font-body` and `--bolerish-font-heading` on the root; removing
 an override restores the generated default. Fonts are CSS family lists; @bolerish/ui
 does not download font files. JSON accepts `system` or `off` as the app default.
-Set `data-nuee-motion="system"`, `"on"` or `"off"` on `html` for the app end
+Set `data-bolerish-motion="system"`, `"on"` or `"off"` on `html` for the app end
 user's runtime choice. `system` follows OS reduced motion; `off` suppresses
 animation, transitions and smooth scrolling. Only an explicit end-user `on`
 choice overrides OS reduction. The app owns the settings UI and persistence;

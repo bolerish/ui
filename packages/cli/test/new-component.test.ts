@@ -9,7 +9,7 @@ import { newComponent } from "../dist/new-component.js";
 import { writeTsconfig } from "./helpers.ts";
 
 test("new creates a StyleX component without overwriting an existing file", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);

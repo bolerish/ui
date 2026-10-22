@@ -26,9 +26,9 @@ import { useDocumentationGlobals } from "../src/documentation/useDocumentationGl
 
 type ColorMode = "system" | "light" | "dark";
 const typographyTheme = stylex.createTheme(typo, {
-  fontFamily: "var(--nuee-font-body)",
-  fontFamilyBody: "var(--nuee-font-body)",
-  fontFamilyHeading: "var(--nuee-font-heading, var(--nuee-font-body))",
+  fontFamily: "var(--bolerish-font-body)",
+  fontFamilyBody: "var(--bolerish-font-body)",
+  fontFamilyHeading: "var(--bolerish-font-heading, var(--bolerish-font-body))",
 });
 
 const styles = stylex.create({
@@ -114,20 +114,20 @@ function TokenPreferenceScope({
   useLayoutEffect(() => {
     const root = document.documentElement;
     const values = {
-      "--nuee-unit": settings.unit === "px" ? "16px" : "1rem",
-      "--nuee-density":
+      "--bolerish-unit": settings.unit === "px" ? "16px" : "1rem",
+      "--bolerish-density":
         settings.density === "compact" ? "0.875" : settings.density === "spacious" ? "1.125" : "1",
-      "--nuee-font-heading":
-        settings.fontPreset === "serif-heading" ? "Georgia, serif" : "var(--nuee-font-body)",
+      "--bolerish-font-heading":
+        settings.fontPreset === "serif-heading" ? "Georgia, serif" : "var(--bolerish-font-body)",
     };
     const previous = Object.entries(values).map(([name]) => [
       name,
       root.style.getPropertyValue(name),
     ]);
-    const motion = root.getAttribute("data-nuee-motion");
+    const motion = root.getAttribute("data-bolerish-motion");
     for (const [name, value] of Object.entries(values)) root.style.setProperty(name, value);
     root.setAttribute(
-      "data-nuee-motion",
+      "data-bolerish-motion",
       { system: "system", reduce: "off", "no-preference": "on" }[settings.motionPreference],
     );
     return () => {
@@ -135,8 +135,8 @@ function TokenPreferenceScope({
         if (value) root.style.setProperty(name, value);
         else root.style.removeProperty(name);
       }
-      if (motion === null) root.removeAttribute("data-nuee-motion");
-      else root.setAttribute("data-nuee-motion", motion);
+      if (motion === null) root.removeAttribute("data-bolerish-motion");
+      else root.setAttribute("data-bolerish-motion", motion);
     };
   }, [settings.unit, settings.density, settings.fontPreset, settings.motionPreference]);
   return children;
@@ -160,8 +160,8 @@ function DocumentationContainer({
               ...themes[mode],
               appContentBg: "transparent",
               colorSecondary: "currentColor",
-              fontBase: "var(--nuee-font-body)",
-              fontCode: "var(--nuee-font-code)",
+              fontBase: "var(--bolerish-font-body)",
+              fontCode: "var(--bolerish-font-code)",
             }}
           >
             <div {...stylex.props(styles.document)}>
@@ -178,7 +178,7 @@ function DocumentationContainer({
                   title={ui.onThisPage}
                   channel={context.channel}
                   headingSelector="h2, h3"
-                  ignoreSelector=".nuee-example h2, .nuee-example h3, #table-of-contents"
+                  ignoreSelector=".bolerish-example h2, .bolerish-example h3, #table-of-contents"
                 />
               </aside>
             </div>
@@ -205,7 +205,7 @@ function StoryPreview({
       if (
         event.origin !== window.location.origin ||
         event.source !== window.parent ||
-        event.data?.type !== "nuee-preview-globals"
+        event.data?.type !== "bolerish-preview-globals"
       )
         return;
       const {
@@ -228,7 +228,7 @@ function StoryPreview({
       setSettings({ colorMode, motionPreference, locale, unit, density, fontPreset });
     };
     window.addEventListener("message", update);
-    window.parent.postMessage({ type: "nuee-preview-ready" }, window.location.origin);
+    window.parent.postMessage({ type: "bolerish-preview-ready" }, window.location.origin);
     return () => window.removeEventListener("message", update);
   }, [isolated]);
   const current = settings ?? globals;

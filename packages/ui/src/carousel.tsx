@@ -22,15 +22,15 @@ import type { StyledProps } from "./styles/merge-styles";
 const styles = stylex.create({
   root: { position: "relative", width: "100%" },
   viewport: { overflow: "hidden", width: "100%" },
-  content: { display: "flex", gap: "var(--nuee-carousel-gap, 0px)" },
-  ratioRoot: { "--nuee-carousel-gap": spacingRoleVars.inlineGap },
+  content: { display: "flex", gap: "var(--bolerish-carousel-gap, 0px)" },
+  ratioRoot: { "--bolerish-carousel-gap": spacingRoleVars.inlineGap },
   ratioItem: (share: number) => ({
-    "--nuee-carousel-basis": `calc((100% - var(--nuee-carousel-gap, 0px)) * ${share})`,
+    "--bolerish-carousel-basis": `calc((100% - var(--bolerish-carousel-gap, 0px)) * ${share})`,
   }),
   item: {
     boxSizing: "border-box",
     flex: "0 0 100%",
-    flexBasis: "var(--nuee-carousel-basis, 100%)",
+    flexBasis: "var(--bolerish-carousel-basis, 100%)",
     minWidth: 0,
   },
   control: {

@@ -35,7 +35,7 @@ const styles = stylex.create({
       transitionTimingFunction: motionVars.easingExit,
     },
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         transitionDuration: motionVars.durationInstant,
         ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
       },
@@ -65,7 +65,7 @@ const styles = stylex.create({
       transitionTimingFunction: motionVars.easingExit,
     },
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         transitionDuration: motionVars.durationInstant,
         ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
       },
@@ -153,7 +153,7 @@ const popupDirectionStyles = stylex.create({
       transform: "translate3d(0, 100%, 0)",
     },
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         ":is([data-starting-style], [data-ending-style])": {
           transform: "translate3d(0, 24%, 0)",
         },
@@ -171,7 +171,7 @@ const popupDirectionStyles = stylex.create({
       transform: "translate3d(0, -100%, 0)",
     },
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         ":is([data-starting-style], [data-ending-style])": {
           transform: "translate3d(0, -24%, 0)",
         },
@@ -188,7 +188,7 @@ const popupDirectionStyles = stylex.create({
       transform: "translate3d(-100%, 0, 0)",
     },
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         ":is([data-starting-style], [data-ending-style])": {
           transform: "translate3d(-24%, 0, 0)",
         },
@@ -205,7 +205,7 @@ const popupDirectionStyles = stylex.create({
       transform: "translate3d(100%, 0, 0)",
     },
     "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-nuee-motion='on'] *)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
         ":is([data-starting-style], [data-ending-style])": {
           transform: "translate3d(24%, 0, 0)",
         },

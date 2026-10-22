@@ -54,7 +54,7 @@ test("remote registry defaults apply only to omitted fields", async () => {
 });
 
 test("invalid remote registry reports its field before writing any project files", async () => {
-  const directory = await mkdtemp(join(tmpdir(), "nuee-registry-"));
+  const directory = await mkdtemp(join(tmpdir(), "bolerish-registry-"));
   try {
     const value = { ...item, files: [{ path: "notice.ts", content: false }] };
     await assert.rejects(

@@ -13,7 +13,7 @@ import { resolveComponent } from "../dist/registry.js";
 import { writeTsconfig } from "./helpers.ts";
 
 test("add creates the default config and copies a component with its foundation", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await add(projectDirectory, "button", { defaults: true, skipDependencyInstall: true });
@@ -36,7 +36,7 @@ test("add creates the default config and copies a component with its foundation"
 });
 
 test("add installs multiple components with one command", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await add(projectDirectory, ["button", "toast"], {
@@ -52,7 +52,7 @@ test("add installs multiple components with one command", async () => {
 });
 
 test("add uses the configured local token directory", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await mkdir(join(projectDirectory, "src"), { recursive: true });
@@ -60,13 +60,13 @@ test("add uses the configured local token directory", async () => {
       defaults: true,
       "skip-dependencies": true,
       ui: "@/design/ui",
-      tokens: "@/design-system/nuee",
+      tokens: "@/design-system/bolerish",
     });
     await add(projectDirectory, "card", { skipDependencyInstall: true });
 
     assert.match(
       await readFile(join(projectDirectory, "src/design/ui/card.tsx"), "utf8"),
-      /from "@\/design-system\/nuee\/tokens\/semantic\.stylex"/,
+      /from "@\/design-system\/bolerish\/tokens\/semantic\.stylex"/,
     );
   } finally {
     await rm(projectDirectory, { recursive: true });
@@ -74,7 +74,7 @@ test("add uses the configured local token directory", async () => {
 });
 
 test("add retains OS reduced-motion rules despite legacy developer configuration", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await init(projectDirectory, { defaults: true, "skip-dependencies": true });
@@ -99,7 +99,7 @@ test("add retains OS reduced-motion rules despite legacy developer configuration
 });
 
 test("add resolves aliases from tsconfig paths", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeFile(
@@ -133,7 +133,7 @@ test("add resolves aliases from tsconfig paths", async () => {
 });
 
 test("add installs the components used by a field", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await init(projectDirectory, { defaults: true, "skip-dependencies": true });
@@ -148,7 +148,7 @@ test("add installs the components used by a field", async () => {
 });
 
 test("add skips dependencies already declared in package.json", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeFile(
@@ -177,7 +177,7 @@ test("add uses the supported external dependency versions", async () => {
 });
 
 test("add checks every overwrite before writing component dependencies", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await init(projectDirectory, { defaults: true, "skip-dependencies": true });
@@ -196,7 +196,7 @@ test("add checks every overwrite before writing component dependencies", async (
 });
 
 test("add uses packaged registry content without a UI source directory", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -213,7 +213,7 @@ test("add uses packaged registry content without a UI source directory", async (
 });
 
 test("every registry component uses the project's local StyleX tokens", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await init(projectDirectory, { defaults: true, "skip-dependencies": true });
@@ -236,7 +236,7 @@ test("every registry component uses the project's local StyleX tokens", async ()
 });
 
 test("add installs renamed and new components", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -262,7 +262,7 @@ test("add installs renamed and new components", async () => {
 });
 
 test("add dry-run does not write files", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
 
   try {
     await writeTsconfig(projectDirectory);
@@ -275,7 +275,7 @@ test("add dry-run does not write files", async () => {
 });
 
 test("add installs a component from a registry URL", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
   const item = {
     dependencies: [],
     files: [{ path: "notice.ts", content: "export const notice = true;\n" }],
@@ -303,7 +303,7 @@ test("add installs a component from a registry URL", async () => {
 });
 
 test("add rejects a registry file path that escapes the UI directory", async () => {
-  const projectDirectory = await mkdtemp(join(tmpdir(), "nuee-cli-"));
+  const projectDirectory = await mkdtemp(join(tmpdir(), "bolerish-cli-"));
   const item = {
     dependencies: [],
     files: [{ path: "../outside.ts", content: "export const outside = true;\n" }],

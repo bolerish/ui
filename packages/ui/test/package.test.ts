@@ -28,7 +28,7 @@ test("@bolerish/ui CLI builds every added component in a Vite app", async () => 
     await Promise.all([
       writeFile(
         join(projectDirectory, "package.json"),
-        JSON.stringify({ name: "nuee-vite-app", private: true, type: "module" }),
+        JSON.stringify({ name: "bolerish-vite-app", private: true, type: "module" }),
       ),
       writeFile(
         join(projectDirectory, "tsconfig.json"),
@@ -157,12 +157,13 @@ test("@bolerish/ui CLI builds every added component in a Vite app", async () => 
         `Undefined typography token in the consumer app: ${variable}`,
       );
     }
-    assert.match(compiledCss, /--nuee-density:\s*0?\.875/);
-    assert.match(compiledCss, /--nuee-font-body:\s*Arial/);
+    assert.doesNotMatch(compiledCss, /--nuee-|data-nuee-motion/);
+    assert.match(compiledCss, /--bolerish-density:\s*0?\.875/);
+    assert.match(compiledCss, /--bolerish-font-body:\s*Arial/);
     assert.match(compiledCss, /prefers-reduced-motion/);
-    assert.match(compiledCss, /data-nuee-motion/);
-    assert.match(compiledCss, /--nuee-unit:\s*16px/);
-    assert.match(compiledCss, /var\(--nuee-unit,\s*1rem\)/);
+    assert.match(compiledCss, /data-bolerish-motion/);
+    assert.match(compiledCss, /--bolerish-unit:\s*16px/);
+    assert.match(compiledCss, /var\(--bolerish-unit,\s*1rem\)/);
   } finally {
     await rm(projectDirectory, { recursive: true, force: true });
   }
@@ -175,7 +176,7 @@ test("@bolerish/ui CLI keeps the UI package out of a generated Vite app", async 
     await Promise.all([
       writeFile(
         join(projectDirectory, "package.json"),
-        JSON.stringify({ name: "nuee-vite-app", private: true, type: "module" }),
+        JSON.stringify({ name: "bolerish-vite-app", private: true, type: "module" }),
       ),
       writeFile(
         join(projectDirectory, "tsconfig.json"),

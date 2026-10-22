@@ -30,7 +30,7 @@
 `.bolerish.json`의 `theme.motion`은 앱 초기 기본값으로 `system` 또는 `off`를
 사용합니다. 생성된 `preferences.css`를 로드합니다.
 
-앱을 사용하는 최종 사용자는 루트 `data-nuee-motion`으로 `system`, `on`,
+앱을 사용하는 최종 사용자는 루트 `data-bolerish-motion`으로 `system`, `on`,
 `off`를 선택할 수 있습니다. 사용자가 명시적으로 선택한 `on`만 OS의 움직임
 줄이기를 덮어씁니다. 앱 개발자는 설정 화면과 저장을 맡고, 개발자 기본값으로
 `on`을 자동 적용하지 않습니다. 속성을 제거하면 JSON 기본값으로 돌아갑니다.
@@ -41,7 +41,7 @@ import type { MotionPreference } from "@/styles/settings.stylex";
 
 // 앱의 최종 사용자 설정 컨트롤에서 호출합니다.
 function setMotionPreference(preference: MotionPreference) {
-  document.documentElement.dataset.nueeMotion = preference;
+  document.documentElement.dataset.bolerishMotion = preference;
 }
 ```
 
