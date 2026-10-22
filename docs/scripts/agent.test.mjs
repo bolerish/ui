@@ -1,15 +1,16 @@
 import assert from "node:assert/strict";
-import { readFile, access } from "node:fs/promises";
+import { readFile, access, readdir } from "node:fs/promises";
 import test from "node:test";
-
-import { registryItems } from "../../packages/registry/dist/index.js";
 
 const root = new URL("../public/", import.meta.url);
 
-test("agent catalog covers the registry and all its linked references exist", async () => {
+test("agent catalog covers the components and all its linked references exist", async () => {
   const catalog = await readFile(new URL("agent/SKILL.md", root), "utf8");
-  for (const name of Object.keys(registryItems))
+  for (const file of await readdir(new URL("../../packages/ui/src/", import.meta.url))) {
+    if (!file.endsWith(".tsx")) continue;
+    const name = file.slice(0, -4);
     assert.ok(catalog.includes(`- [${name}](`), `Missing ${name}`);
+  }
   for (const name of ["llms.txt", "agent/SKILL.md"]) {
     const file = new URL(name, root);
     const content = await readFile(file, "utf8");

@@ -7,6 +7,5 @@
     "outDir": "dist",
     "rootDir": "src"
   },
-  "exclude": ["src/cli.ts"],
   "include": ["src"]
 }

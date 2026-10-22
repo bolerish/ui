@@ -1,3 +1,10 @@
+## Unreleased
+
+- Distribute compiled components through `@bolerish/ui` and shared tokens through
+    `@bolerish/tokens` only. Remove the source-copy CLI, registry and JSON schema.
+    Existing copied files remain yours to maintain; switch imports to the package
+    to receive component updates. Configure runtime preferences on the app root.
+
 ## Version v0.12.0
 
 Released on 2026-10-23.

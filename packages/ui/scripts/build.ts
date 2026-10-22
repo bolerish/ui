@@ -28,7 +28,6 @@ const stylexCompilerOptions: StylexCompilerOptions = {
 
 async function getEntryPoints() {
   const entries: Record<string, string> = {
-    cli: join("bin", "cli.ts"),
     index: join(sourceDirectory, "index.ts"),
     primitives: join(sourceDirectory, "primitives.ts"),
     theme: join(sourceDirectory, "theme.ts"),

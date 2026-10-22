@@ -6,11 +6,7 @@
     "type": "git",
     "url": "https://github.com/myjeong19/ui.git"
   },
-  "bin": {
-    "bolerish": "./dist/cli.js"
-  },
   "files": [
-    "configuration_schema.json",
     "dist"
   ],
   "type": "module",
@@ -89,14 +85,13 @@
     "access": "public"
   },
   "scripts": {
-    "build": "pnpm --filter @bolerish/cli build && node --experimental-strip-types scripts/build.ts && tsc -p tsconfig.build.json && tsc -p tsconfig.cli.json",
+    "build": "node --experimental-strip-types scripts/build.ts && tsc -p tsconfig.build.json",
     "prepack": "pnpm build",
     "test": "pnpm build && node --experimental-strip-types --test test/*.test.ts",
-    "typecheck": "tsc --noEmit && tsc -p tsconfig.cli.json --noEmit && pnpm build && tsc -p tsconfig.test.json"
+    "typecheck": "tsc --noEmit && pnpm build && tsc -p tsconfig.test.json"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
-    "@bolerish/cli": "workspace:*",
     "@bolerish/tokens": "workspace:*",
     "@daypicker/react": "^10.0.1",
     "@phosphor-icons/react": "^2.1.10",

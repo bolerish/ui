@@ -10,7 +10,6 @@
     "build:docs": "pnpm --filter @bolerish/docs build-storybook",
     "build:ui": "pnpm --filter @bolerish/ui build",
     "check": "pnpm palette:check && pnpm lint && pnpm format:check && pnpm typecheck",
-    "cli": "pnpm --filter @bolerish/ui build && node packages/ui/dist/cli.js",
     "dev:docs": "pnpm --filter @bolerish/docs storybook",
     "format:check": "pnpm oxfmt --check .",
     "format:write": "pnpm oxfmt .",
@@ -20,11 +19,10 @@
     "palette:generate": "node scripts/generate-palette.mjs",
     "prepare": "lefthook install",
     "release": "pnpm check && pnpm test && pnpm build:ui && pnpm pack:check && pnpm build:docs && node --experimental-strip-types scripts/publish.ts",
-    "test": "pnpm test:tokens && pnpm test:cli && pnpm test:ui",
-    "test:cli": "pnpm --filter @bolerish/cli test",
+    "test": "pnpm test:tokens && pnpm test:ui",
     "test:tokens": "node --experimental-vm-modules --test scripts/palette.test.mjs scripts/theme-contrast.test.mjs",
     "test:ui": "pnpm --filter @bolerish/ui test",
-    "typecheck": "pnpm --filter @bolerish/tokens typecheck && pnpm --filter @bolerish/registry build && pnpm --filter @bolerish/cli typecheck && pnpm --filter @bolerish/ui typecheck && pnpm --filter @bolerish/docs typecheck"
+    "typecheck": "pnpm --filter @bolerish/tokens typecheck && pnpm --filter @bolerish/ui typecheck && pnpm --filter @bolerish/docs typecheck"
   },
   "devDependencies": {
     "lefthook": "2.1.10",

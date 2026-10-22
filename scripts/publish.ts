@@ -7,7 +7,7 @@ const executeFile = promisify(execFile);
 const registryUrl = "https://registry.npmjs.org";
 const publishArguments = ["publish", "--access", "public", "--no-provenance"];
 const isGitHubActions = process.env.GITHUB_ACTIONS === "true";
-const packageDirectories = ["packages/registry", "packages/tokens", "packages/cli", "packages/ui"];
+const packageDirectories = ["packages/tokens", "packages/ui"];
 
 type Package = {
   name: string;
