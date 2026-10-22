@@ -11,7 +11,7 @@ import type { StyledProps } from "./styles/merge-styles";
 
 const styles = stylex.create({
   root: {
-    backgroundColor: colorVars.strokeDefault,
+    backgroundColor: colorVars.bgSubtle,
     borderRadius: radiusVars.full,
     height: sizeVars.trackMd,
     overflow: "hidden",

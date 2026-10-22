@@ -67,11 +67,12 @@ const styles = stylex.create({
   pressed: {
     backgroundColor: colorVars.bgSelected,
     color: colorVars.fgPrimary,
-    boxShadow: `inset 0 0 0 ${sizeVars.stroke} ${colorVars.strokeStrong}`,
+  },
+  outlinePressed: {
+    boxShadow: `inset 0 0 0 ${sizeVars.stroke} ${colorVars.strokeDefault}`,
   },
   unavailable: { backgroundColor: colorVars.interactionDisabled },
   disabled: {
-    borderColor: colorVars.strokeDefault,
     color: colorVars.fgDisabled,
     cursor: "not-allowed",
   },
@@ -125,6 +126,7 @@ export function Toggle({
         sizeStyles[size],
         variantStyles[variant],
         state.pressed && styles.pressed,
+        state.pressed && variant === "outline" && styles.outlinePressed,
         state.pressed && variant === "soft" && styles.softPressed,
         state.disabled && !state.pressed && styles.unavailable,
         state.disabled && styles.disabled,

@@ -16,7 +16,7 @@ import type { StyledProps } from "./styles/merge-styles";
 const styles = stylex.create({
   root: {
     backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeControl,
+    borderColor: colorVars.strokeDefault,
     borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
@@ -34,7 +34,7 @@ const styles = stylex.create({
     width: "100%",
     "::placeholder": { color: colorVars.fgTertiary },
     ":hover:not(:disabled):not([aria-invalid='true']):not(:user-invalid):not(:focus-visible)": {
-      borderColor: colorVars.strokeStrong,
+      borderColor: colorVars.strokeDefault,
     },
     ":focus-visible": {
       borderColor: colorVars.strokeFocus,

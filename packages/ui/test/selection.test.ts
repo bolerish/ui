@@ -64,3 +64,27 @@ test("outlined toggle groups do not clip external keyboard focus rings", () => {
     assert.doesNotMatch(rule, /overflow(?:-[xy])?:\s*(hidden|clip)/);
   }
 });
+
+test("only outline toggles add a selected inset border", () => {
+  for (const variant of ["default", "outline", "soft"] as const) {
+    for (const grouped of [false, true]) {
+      const element = createElement(Toggle, { pressed: true, variant }, "Choice");
+      const html = renderToStaticMarkup(
+        grouped
+          ? createElement(ToggleGroup, {
+              value: ["choice"],
+              variant,
+              // oxlint-disable-next-line react/no-children-prop -- Required children type in this non-JSX Node test.
+              children: createElement(ToggleGroupItem, { value: "choice" }, "Choice"),
+            })
+          : element,
+      );
+      const classes = html.match(/<button[^>]*class="([^"]+)"/)?.[1].split(" ") ?? [];
+      const inset = classes.some((name) => {
+        const rule = css.match(new RegExp(`\\.${name}\\s*\\{([^}]+)\\}`))?.[1] ?? "";
+        return /box-shadow:\s*inset/.test(rule);
+      });
+      assert.equal(inset, variant === "outline", `${grouped ? "grouped" : "single"}/${variant}`);
+    }
+  }
+});

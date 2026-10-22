@@ -119,5 +119,7 @@
   "alphaWhite10": "oklch(100% 0 0 / 10%)",
   "alphaWhite12": "oklch(100% 0 0 / 12%)",
   "alphaWhite20": "oklch(100% 0 0 / 20%)",
-  "alphaWhite50": "oklch(100% 0 0 / 50%)"
+  "alphaWhite50": "oklch(100% 0 0 / 50%)",
+  "mist": "oklch(94.91192606% 0 0)",
+  "paper": "oklch(97.01507725% 0 0)"
 }

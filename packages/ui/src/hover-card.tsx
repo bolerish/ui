@@ -16,6 +16,7 @@ import type { ComponentProps } from "react";
 
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   popup: {
@@ -92,6 +93,8 @@ export function HoverCardContent({
     return mergeStyles(
       stylex.props(
         styles.popup,
+        surfaceStyles.edge,
+        surfaceStyles.floating,
         xstyle,
         (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
           styles.transitioning,

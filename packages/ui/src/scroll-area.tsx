@@ -15,19 +15,19 @@ const styles = stylex.create({
   scrollbar: {
     display: "flex",
     padding: spacingVars.space0_5,
+    opacity: { default: 0, ":is([data-hovering], [data-scrolling])": 1 },
+    pointerEvents: { default: "none", ":is([data-hovering], [data-scrolling])": "auto" },
     touchAction: "none",
     transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color",
+    transitionProperty: "background-color, opacity",
     transitionTimingFunction: motionVars.easingStandard,
     userSelect: "none",
   },
 
   thumb: {
-    backgroundColor: colorVars.strokeDefault,
+    backgroundColor: colorVars.strokeControl,
     borderRadius: radiusVars.full,
-    flex: 1,
-    minHeight: 20,
-    minWidth: 20,
+    flexShrink: 0,
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color",
     transitionTimingFunction: motionVars.easingStandard,
@@ -37,8 +37,13 @@ const styles = stylex.create({
 });
 
 const orientationStyles = stylex.create({
-  horizontal: { flexDirection: "column", height: 10, width: "100%" },
-  vertical: { height: "100%", width: 10 },
+  horizontal: { flexDirection: "row", height: 8, width: "100%" },
+  vertical: { flexDirection: "column", height: "100%", width: 8 },
+});
+
+const thumbOrientationStyles = stylex.create({
+  horizontal: { height: "100%", minWidth: 20 },
+  vertical: { width: "100%", minHeight: 20 },
 });
 
 export type ScrollAreaProps = StyledProps<ComponentProps<typeof ScrollAreaPrimitive.Root>> & {
@@ -91,7 +96,9 @@ export function ScrollBar({
       )}
       orientation={orientation}
     >
-      <ScrollAreaPrimitive.Thumb {...stylex.props(styles.thumb)} />
+      <ScrollAreaPrimitive.Thumb
+        {...stylex.props(styles.thumb, thumbOrientationStyles[orientation])}
+      />
     </ScrollAreaPrimitive.Scrollbar>
   );
 }

@@ -4,11 +4,11 @@ import { colorPalette } from "./color-palette.stylex";
 import { colorVars, shadowVars } from "./semantic.stylex";
 
 export const lightColorTheme = stylex.createTheme(colorVars, {
-  bgCanvas: colorPalette.chalk,
+  bgCanvas: colorPalette.mist,
   bgSurface: colorPalette.white,
   bgSurfacePressed: colorPalette.chalk,
   bgInverse: colorPalette.carbon,
-  bgSubtle: colorPalette.fog,
+  bgSubtle: colorPalette.paper,
   bgRaised: colorPalette.white,
   bgRaisedPressed: colorPalette.chalk,
   bgSelected: colorPalette.fog,
@@ -35,7 +35,7 @@ export const lightColorTheme = stylex.createTheme(colorVars, {
   fgFeedbackSuccess: colorPalette.greenFeedback,
   fgFeedbackWarning: colorPalette.yellowFeedback,
   fgFeedbackError: colorPalette.redFeedback,
-  strokeDefault: colorPalette.fog,
+  strokeDefault: colorPalette.alphaBlack6,
   strokeControl: colorPalette.neutral450,
   strokeStrong: colorPalette.steel,
   strokeDropIndicator: colorPalette.carbon,
@@ -87,7 +87,7 @@ export const darkColorTheme = stylex.createTheme(colorVars, {
   fgFeedbackSuccess: colorPalette.greenContrastDark,
   fgFeedbackWarning: colorPalette.yellowContrastDark,
   fgFeedbackError: colorPalette.redContrastDark,
-  strokeDefault: colorPalette.neutral700,
+  strokeDefault: colorPalette.alphaWhite5,
   strokeControl: colorPalette.steel,
   strokeStrong: colorPalette.neutral450,
   strokeDropIndicator: colorPalette.chalk,
@@ -114,7 +114,7 @@ export const lightShadowTheme = stylex.createTheme(shadowVars, {
 });
 
 export const darkShadowTheme = stylex.createTheme(shadowVars, {
-  subtle: "0 0 0 1px oklch(100% 0 0 / 6%), 0 1px 4px oklch(0% 0 0 / 36%)",
-  floating: "0 0 0 1px oklch(100% 0 0 / 8%), 0 8px 24px oklch(0% 0 0 / 52%)",
-  overlay: "0 0 0 1px oklch(100% 0 0 / 10%), 0 16px 40px oklch(0% 0 0 / 64%)",
+  subtle: "0 1px 4px oklch(0% 0 0 / 36%)",
+  floating: "0 8px 24px oklch(0% 0 0 / 52%)",
+  overlay: "0 16px 40px oklch(0% 0 0 / 64%)",
 });

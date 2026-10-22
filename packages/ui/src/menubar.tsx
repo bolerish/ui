@@ -30,6 +30,7 @@ import {
 import type { ControlLayoutStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: {
@@ -89,7 +90,11 @@ export function Menubar({
   return (
     <MenubarPrimitive
       {...props}
-      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
+      {...mergeStyles(
+        stylex.props(styles.root, surfaceStyles.edge, surfaceStyles.translucent, xstyle),
+        className,
+        style,
+      )}
     />
   );
 }

@@ -18,6 +18,7 @@ import { Button } from "./button";
 import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   backdrop: {
@@ -144,7 +145,7 @@ export function AlertDialogContent({
       <AlertDialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <AlertDialogPrimitive.Popup
           {...props}
-          {...mergeStyles(stylex.props(styles.popup, xstyle), className, style)}
+          {...mergeStyles(stylex.props(styles.popup, surfaceStyles.edge, xstyle), className, style)}
         >
           {children}
         </AlertDialogPrimitive.Popup>

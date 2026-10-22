@@ -41,7 +41,8 @@ test("timeline progress, persistent selection and errors keep distinct surfaces"
     declaration(complete, "background-color"),
   );
   assert.deepEqual(declaration(complete, "box-shadow"), ["none"]);
-  assert.match(declaration(toggle, "box-shadow").join(" "), /inset/);
+  assert.doesNotMatch(declaration(toggle, "box-shadow").join(" "), /inset/);
+  assert.match(toggle, /aria-pressed="true"/);
 });
 
 test("timeline indicators retain decorative and explicitly named accessibility semantics", () => {

@@ -17,6 +17,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type ComponentProps } fro
 
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 import { toastViewportVars } from "./toast.stylex";
 import { typographyStyles } from "./typography";
 
@@ -468,7 +469,7 @@ function ToastStack({
           key={item.id}
           toast={item}
           data-bolerish-toast-root=""
-          {...stylex.props(styles.root, isTop && styles.rootTop)}
+          {...stylex.props(styles.root, surfaceStyles.edge, isTop && styles.rootTop)}
         >
           <ToastPrimitive.Content {...stylex.props(styles.content)}>
             <ToastStatusIcon type={item.type} />

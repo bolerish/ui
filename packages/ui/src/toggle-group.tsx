@@ -80,16 +80,16 @@ const styles = stylex.create({
 
   softPressed: {
     backgroundColor: colorVars.interactionSelected,
-    boxShadow: `inset 0 0 0 ${sizeVars.stroke} ${colorVars.strokeStrong}`,
   },
   itemPressed: {
     backgroundColor: colorVars.bgSelected,
     color: colorVars.fgPrimary,
-    boxShadow: `inset 0 0 0 ${sizeVars.stroke} ${colorVars.strokeStrong}`,
+  },
+  outlinePressed: {
+    boxShadow: `inset 0 0 0 ${sizeVars.stroke} ${colorVars.strokeDefault}`,
   },
   unavailable: { backgroundColor: colorVars.interactionDisabled },
   itemDisabled: {
-    borderColor: colorVars.strokeDefault,
     color: colorVars.fgDisabled,
     cursor: "not-allowed",
   },
@@ -196,6 +196,7 @@ export function ToggleGroupItem({
         itemSizeStyles[finalSize],
         itemVariantStyles[finalVariant],
         state.pressed && styles.itemPressed,
+        state.pressed && finalVariant === "outline" && styles.outlinePressed,
         state.pressed && finalVariant === "soft" && styles.softPressed,
         state.disabled && !state.pressed && styles.unavailable,
         state.disabled && styles.itemDisabled,

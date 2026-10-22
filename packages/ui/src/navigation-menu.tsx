@@ -18,6 +18,7 @@ import type { ComponentProps } from "react";
 import type { ControlLayoutStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: {
@@ -318,6 +319,8 @@ export function NavigationMenuViewport({
     return mergeStyles(
       stylex.props(
         styles.popup,
+        surfaceStyles.edge,
+        surfaceStyles.floating,
         (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
           styles.popupTransitioning,
         xstyle,

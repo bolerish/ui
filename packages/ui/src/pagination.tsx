@@ -63,7 +63,7 @@ const styles = stylex.create({
     },
   },
 
-  active: { backgroundColor: colorVars.bgSurfacePressed, borderColor: colorVars.strokeStrong },
+  active: { backgroundColor: colorVars.bgSurfacePressed, borderColor: colorVars.strokeDefault },
   ellipsis: {
     alignItems: "center",
     color: colorVars.fgTertiary,

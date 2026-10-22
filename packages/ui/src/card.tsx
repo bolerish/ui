@@ -10,6 +10,7 @@ import type { ComponentProps } from "react";
 
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   card: {
@@ -69,8 +70,28 @@ type ElementProps = StyledProps<ComponentProps<"div">> & StyleProps;
 type HeadingProps = StyledProps<ComponentProps<"h3">> & StyleProps;
 type ParagraphProps = StyledProps<ComponentProps<"p">> & StyleProps;
 
-export function Card({ className, style, xstyle, ...props }: ElementProps) {
-  return <div {...props} {...mergeStyles(stylex.props(styles.card, xstyle), className, style)} />;
+export function Card({
+  className,
+  style,
+  variant = "default",
+  xstyle,
+  ...props
+}: ElementProps & { variant?: "default" | "translucent" }) {
+  return (
+    <div
+      {...props}
+      {...mergeStyles(
+        stylex.props(
+          styles.card,
+          surfaceStyles.edge,
+          variant === "translucent" && surfaceStyles.translucent,
+          xstyle,
+        ),
+        className,
+        style,
+      )}
+    />
+  );
 }
 
 export function CardHeader({ className, style, xstyle, ...props }: ElementProps) {

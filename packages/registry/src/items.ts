@@ -25,7 +25,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   "alert-dialog": {
-    files: ["alert-dialog.tsx", "styles/merge-styles.ts"],
+    files: ["alert-dialog.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: ["@base-ui/react", "@bolerish/tokens", "@stylexjs/stylex"],
     registryDependencies: ["button"],
   },
@@ -70,7 +70,7 @@ export const registryItems = {
     registryDependencies: ["separator"],
   },
   card: {
-    files: ["card.tsx", "styles/merge-styles.ts"],
+    files: ["card.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: ["@bolerish/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -110,7 +110,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   combobox: {
-    files: ["combobox.tsx", "styles/merge-styles.ts"],
+    files: ["combobox.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: [
       "@base-ui/react",
       "@bolerish/tokens",
@@ -125,7 +125,7 @@ export const registryItems = {
     registryDependencies: ["dropdown-menu"],
   },
   dialog: {
-    files: ["dialog.tsx", "styles/merge-styles.ts"],
+    files: ["dialog.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: [
       "@base-ui/react",
       "@bolerish/tokens",
@@ -145,12 +145,12 @@ export const registryItems = {
     registryDependencies: ["calendar", "popover"],
   },
   drawer: {
-    files: ["drawer.tsx", "styles/merge-styles.ts"],
+    files: ["drawer.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: ["@base-ui/react", "@bolerish/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
   "dropdown-menu": {
-    files: ["dropdown-menu.tsx", "styles/merge-styles.ts"],
+    files: ["dropdown-menu.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: [
       "@base-ui/react",
       "@bolerish/tokens",
@@ -170,7 +170,7 @@ export const registryItems = {
     registryDependencies: ["checkbox", "input"],
   },
   "hover-card": {
-    files: ["hover-card.tsx", "styles/merge-styles.ts"],
+    files: ["hover-card.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: ["@base-ui/react", "@bolerish/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -220,7 +220,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   menubar: {
-    files: ["menubar.tsx", "styles/merge-styles.ts"],
+    files: ["menubar.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: ["@base-ui/react", "@bolerish/tokens", "@stylexjs/stylex"],
     registryDependencies: ["dropdown-menu"],
   },
@@ -230,7 +230,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   "navigation-menu": {
-    files: ["navigation-menu.tsx", "styles/merge-styles.ts"],
+    files: ["navigation-menu.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: [
       "@base-ui/react",
       "@bolerish/tokens",
@@ -245,7 +245,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   popover: {
-    files: ["popover.tsx", "styles/merge-styles.ts"],
+    files: ["popover.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: ["@base-ui/react", "@bolerish/tokens", "@stylexjs/stylex"],
     registryDependencies: [],
   },
@@ -265,7 +265,7 @@ export const registryItems = {
     registryDependencies: [],
   },
   select: {
-    files: ["select.tsx", "styles/merge-styles.ts"],
+    files: ["select.tsx", "styles/merge-styles.ts", "styles/surface.ts"],
     dependencies: [
       "@base-ui/react",
       "@bolerish/tokens",
@@ -320,7 +320,13 @@ export const registryItems = {
     registryDependencies: [],
   },
   toast: {
-    files: ["toast.tsx", "toast.stylex.ts", "typography.ts", "styles/merge-styles.ts"],
+    files: [
+      "toast.tsx",
+      "toast.stylex.ts",
+      "typography.ts",
+      "styles/merge-styles.ts",
+      "styles/surface.ts",
+    ],
     dependencies: [
       "@base-ui/react",
       "@bolerish/tokens",

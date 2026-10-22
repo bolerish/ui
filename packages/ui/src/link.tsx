@@ -11,6 +11,11 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
 const styles = stylex.create({
+  externalIcon: {
+    alignSelf: "flex-start",
+    flexShrink: 0,
+    marginBlockStart: "0.05em",
+  },
   root: {
     alignItems: "center",
     borderRadius: "0.125rem",
@@ -90,9 +95,9 @@ function ExternalIcon({
   return (
     <ArrowSquareOutIcon
       aria-hidden="true"
-      size="1em"
+      size="0.8em"
       {...props}
-      {...mergeStyles(stylex.props(xstyle), className, style)}
+      {...mergeStyles(stylex.props(styles.externalIcon, xstyle), className, style)}
     />
   );
 }

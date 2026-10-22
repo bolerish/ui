@@ -18,6 +18,7 @@ import type { ComponentProps, ReactNode } from "react";
 import type { ControlLayoutStyles, ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   positioner: { zIndex: layerVars.popup },
@@ -171,6 +172,8 @@ export function DropdownMenuContent({
     return mergeStyles(
       stylex.props(
         styles.popup,
+        surfaceStyles.edge,
+        surfaceStyles.floating,
         (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
           styles.popupTransitioning,
         state.transitionStatus === "ending" && styles.popupEnding,

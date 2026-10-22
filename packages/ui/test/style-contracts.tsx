@@ -114,6 +114,11 @@ export const buttonMotion: ComponentProps<typeof Button> = {
   // @ts-expect-error Motion cannot be replaced through a layout extension.
   xstyle: styles.motion,
 };
+export const translucentCard: ComponentProps<typeof Card> = { variant: "translucent" };
+export const invalidCardVariant: ComponentProps<typeof Card> = {
+  // @ts-expect-error Card supports only its documented surface treatments.
+  variant: "glass",
+};
 export const cardPaint: ComponentProps<typeof Card> = { xstyle: styles.paint };
 
 export const circleButton: ComponentProps<typeof Button> = {

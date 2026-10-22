@@ -18,6 +18,7 @@ import type { ComponentProps } from "react";
 import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   overlay: {
@@ -89,7 +90,7 @@ const styles = stylex.create({
   content: { display: "flex", flex: 1, flexDirection: "column", minHeight: 0 },
   swipeHandle: {
     alignSelf: "center",
-    backgroundColor: colorVars.strokeDefault,
+    backgroundColor: colorVars.strokeControl,
     borderRadius: radiusVars.full,
     flexShrink: 0,
     height: spacingVars.space1,
@@ -355,6 +356,7 @@ export function DrawerContent({
           data-slot="drawer-popup"
           {...stylex.props(
             styles.popup,
+            surfaceStyles.edge,
             isHorizontal ? styles.horizontalPopup : styles.verticalPopup,
             popupDirectionStyles[swipeDirection],
           )}

@@ -22,7 +22,7 @@ const styles = stylex.create({
   root: {
     alignItems: "center",
     backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeControl,
+    borderColor: colorVars.strokeDefault,
     borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,

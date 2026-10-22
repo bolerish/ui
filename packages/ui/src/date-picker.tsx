@@ -38,7 +38,7 @@ const styles = stylex.create({
     transitionProperty: "background-color, border-color, color",
     transitionTimingFunction: motionVars.easingStandard,
     width: "100%",
-    ":hover": { borderColor: colorVars.strokeStrong },
+    ":hover": { borderColor: colorVars.strokeDefault },
     ":focus-visible": {
       borderColor: colorVars.strokeFocus,
       outlineColor: colorVars.strokeFocus,

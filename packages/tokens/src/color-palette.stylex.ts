@@ -123,6 +123,8 @@ export const colorPalette = stylex.defineVars({
   alphaWhite12: "#FFFFFF1F",
   alphaWhite20: "#FFFFFF33",
   alphaWhite50: "#FFFFFF80",
+  mist: "#EEEEEE",
+  paper: "#F5F5F5",
 });
 
 export const colorPaletteGroups = {

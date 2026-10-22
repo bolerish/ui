@@ -3,12 +3,12 @@ import * as stylex from "@stylexjs/stylex";
 import { colorPalette } from "./color-palette.stylex";
 
 export const colorVars = stylex.defineVars({
-  bgCanvas: colorPalette.chalk,
+  bgCanvas: colorPalette.mist,
   bgSurface: colorPalette.white,
   bgSurfacePressed: colorPalette.chalk,
   bgInverse: colorPalette.carbon,
   /** Neutral grouping surface; does not indicate selection. */
-  bgSubtle: colorPalette.fog,
+  bgSubtle: colorPalette.paper,
   bgRaised: colorPalette.white,
   bgRaisedPressed: colorPalette.chalk,
   /** Flat persistent selection. Pair with fgPrimary and a check or boundary. */
@@ -37,7 +37,7 @@ export const colorVars = stylex.defineVars({
   fgFeedbackSuccess: colorPalette.greenFeedback,
   fgFeedbackWarning: colorPalette.yellowFeedback,
   fgFeedbackError: colorPalette.redFeedback,
-  strokeDefault: colorPalette.fog,
+  strokeDefault: colorPalette.alphaBlack6,
   /** Emphasized grouping boundary, including menu separators. */
   strokeControl: colorPalette.neutral450,
   strokeStrong: colorPalette.steel,

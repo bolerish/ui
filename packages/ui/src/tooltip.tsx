@@ -20,10 +20,13 @@ import type { StyledProps } from "./styles/merge-styles";
 const styles = stylex.create({
   positioner: { zIndex: layerVars.notification },
   popup: {
-    backgroundColor: colorVars.bgInverse,
+    backgroundColor: colorVars.bgRaised,
+    borderColor: colorVars.strokeDefault,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
     borderRadius: radiusVars.sm,
     boxShadow: shadowVars.floating,
-    color: colorVars.fgInverse,
+    color: colorVars.fgPrimary,
     fontSize: typo.fontSizeXs,
     lineHeight: typo.lineHeightNormal,
     maxWidth: sizeVars.contentXs,
@@ -51,7 +54,7 @@ const styles = stylex.create({
       },
     },
   },
-  arrow: { fill: colorVars.bgInverse, height: spacingVars.space2, width: spacingVars.space3 },
+  arrow: { fill: colorVars.bgRaised, height: spacingVars.space2, width: spacingVars.space3 },
 });
 
 export const Tooltip = TooltipPrimitive.Root;

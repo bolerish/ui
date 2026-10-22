@@ -18,13 +18,14 @@ import type { ComponentProps, ReactNode } from "react";
 import type { ControlLayoutStyles, ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   trigger: {
     alignItems: "center",
     appearance: "none",
     backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeControl,
+    borderColor: colorVars.strokeDefault,
     borderRadius: radiusVars.sm,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
@@ -101,7 +102,13 @@ const styles = stylex.create({
       },
     },
   },
-  list: { overflowY: "auto", overscrollBehavior: "contain", padding: 0 },
+  list: {
+    overflowX: "hidden",
+    minWidth: 0,
+    overflowY: "auto",
+    overscrollBehavior: "contain",
+    padding: 0,
+  },
   item: {
     alignItems: "center",
     borderRadius: radiusVars.sm,
@@ -224,6 +231,8 @@ export function SelectPopup({
     return mergeStyles(
       stylex.props(
         styles.popup,
+        surfaceStyles.edge,
+        surfaceStyles.floating,
         (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
           styles.popupTransitioning,
         state.transitionStatus === "ending" && styles.popupEnding,

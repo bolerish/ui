@@ -164,13 +164,13 @@ const variantStyles = stylex.create({
     color: colorVars.fgOnActionPrimary,
   },
   secondary: {
-    backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeControl,
+    backgroundColor: colorVars.bgSubtle,
+    borderColor: colorVars.strokeDefault,
     color: colorVars.fgPrimary,
   },
   outline: {
     backgroundColor: colorVars.interactionDefault,
-    borderColor: colorVars.strokeControl,
+    borderColor: colorVars.strokeDefault,
     color: colorVars.fgPrimary,
   },
   ghost: {
