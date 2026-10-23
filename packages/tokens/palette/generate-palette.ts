@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import { readFile, writeFile } from "node:fs/promises";
 
-import { oklchToHex } from "./palette-color.mjs";
+import { oklchToHex } from "./palette-color.ts";
 
-const source = new URL("../packages/tokens/palette.oklch.json", import.meta.url);
-const target = new URL("../packages/tokens/src/color-palette.stylex.ts", import.meta.url);
+const source = new URL("../palette.oklch.json", import.meta.url);
+const target = new URL("../src/color-palette.stylex.ts", import.meta.url);
 const colors = JSON.parse(await readFile(source, "utf8"));
 assert.ok(
   colors && typeof colors === "object" && !Array.isArray(colors) && Object.keys(colors).length > 0,

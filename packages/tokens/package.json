@@ -19,6 +19,9 @@
     "access": "public"
   },
   "scripts": {
+    "palette:check": "node --experimental-strip-types palette/generate-palette.ts --check",
+    "palette:generate": "node --experimental-strip-types palette/generate-palette.ts",
+    "test": "node --experimental-strip-types --experimental-vm-modules --test palette/*.test.ts src/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 // OKLCH → linear sRGB, following CSS Color 4 color conversions.
 // https://www.w3.org/TR/css-color-4/#color-conversion-code
-export function oklchToHex(value) {
+export function oklchToHex(value: unknown) {
   const match =
     typeof value === "string" &&
     value.match(/^oklch\(([\d.]+)% ([\d.]+) ([\d.]+)(?: \/ ([\d.]+)%)?\)$/);
