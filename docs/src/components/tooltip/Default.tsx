@@ -5,7 +5,7 @@ export default function Default() {
     <Tooltip>
       <TooltipTrigger
         render={
-          <Button size="icon-md" variant="secondary" aria-label="Help">
+          <Button size="icon" variant="secondary" aria-label="Help">
             ?
           </Button>
         }

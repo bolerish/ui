@@ -1,33 +1,35 @@
-# 디자인 토큰
+# Design Token
 
-같은 역할에 같은 토큰을 쓰면 화면마다 색상과 간격을 다시 정하지 않아도 됩니다. 값을 직접 복사하는 대신 역할을 이름으로 남겨, 화면을 수정할 때 무엇을 유지해야 하는지 알 수 있습니다.
+Using the same token for the same role avoids choosing colors and spacing again on every screen. A named role also preserves the reason for a value when the screen changes.
 
-## 선택 기준
+## Selection guidelines
 
-### 사용할 때
+### When to use tokens
 
-색상·글꼴·간격·모서리·그림자·조작 크기·모션을 정할 때 사용합니다. 컴포넌트에 이미 `size`나 `variant`가 있다면 그 속성을 먼저 사용합니다.
+Use tokens for color, typography, spacing, corners, shadows, target sizes, and motion. Prefer an existing component's `size` or `variant` prop before overriding its styles.
 
-| 역할                              | 토큰 그룹                               |
-| --------------------------------- | --------------------------------------- |
-| 표면·텍스트·경계·상태             | `colorVars`                             |
-| 요소 사이 거리·내부 여백          | `spacingVars`                           |
-| 컨트롤·아이콘·콘텐츠 폭·터치 영역 | `sizeVars`                              |
-| 글꼴·글자 크기·굵기·줄 높이       | `typo`                                  |
-| 모서리·그림자·겹침 순서           | `radiusVars`, `shadowVars`, `layerVars` |
-| 시간·가감속·비활성 투명도         | `motionVars`, `opacityVars`             |
+### Choose a group
 
-새 화면에는 역할을 이름으로 나타낸 의미 토큰을 사용합니다. 기존 토큰으로 표현할 수 없는 값은 해당 화면에서만 사용합니다. 여러 화면에서 같은 용도로 쓰이는지 확인한 뒤 공통 토큰으로 추가합니다.
+| Role                                          | Token group                             |
+| --------------------------------------------- | --------------------------------------- |
+| Surface, text, boundary, state                | `colorVars`                             |
+| Gaps and padding                              | `spacingVars`                           |
+| Controls, icons, content width, touch targets | `sizeVars`                              |
+| Font, size, weight, line height               | `typo`                                  |
+| Corners, shadows, stacking                    | `radiusVars`, `shadowVars`, `layerVars` |
+| Duration, easing, disabled opacity            | `motionVars`, `opacityVars`             |
 
-## 적용 예시
+Use semantic tokens instead of raw palette values in new screens. Keep an unmatched value local first. Add a shared token only when the same intent recurs across multiple uses.
 
-### 컴포넌트부터 선택하기
+## Examples
 
-저장 버튼의 크기를 바꿀 때는 `Button`의 `size`를 먼저 선택합니다. 새 패널의 내부 여백처럼 컴포넌트가 정하지 않은 부분에 토큰을 적용합니다. 이렇게 하면 버튼 내부의 글자·높이·간격 조합을 화면마다 다시 맞출 필요가 없습니다.
+### Start with the component
 
-### 구현 예시
+Choose `Button`'s `size` when changing a save button. Apply tokens to decisions the component does not own, such as a new panel's padding. This preserves the component's relationship between type, height, and spacing.
 
-패널의 배경·본문 색상과 내부 여백을 각각의 역할에 맞는 토큰으로 지정합니다.
+### Example
+
+Use role-based tokens for a panel’s background, text, and padding.
 
 ```tsx
 import * as stylex from "@stylexjs/stylex";
@@ -42,8 +44,8 @@ const styles = stylex.create({
 });
 ```
 
-사용자 정의 StyleX 스타일은 `@bolerish/tokens`를 참조하고 앱의 StyleX 컴파일러를 설정합니다. 화면을 작성하기 전에 실제 토큰 파일에서 이름을 확인하고 존재하지 않는 토큰을 만들지 않습니다.
+Custom StyleX styles import `@bolerish/tokens` and require the app's StyleX compiler. Check names in the actual token file before writing a screen. Do not invent tokens.
 
-## 토큰 값과 예시
+## Token values and previews
 
-각 주제에서 사용 기준과 실제 값을 함께 확인합니다. [Color](?path=/docs/foundations-color--docs), [Typography](?path=/docs/foundations-typography--docs), [Spacing](?path=/docs/foundations-spacing--docs), [Layout](?path=/docs/foundations-layout--docs), [Radius](?path=/docs/foundations-radius--docs), [Elevation](?path=/docs/foundations-elevation--docs), [State](?path=/docs/foundations-state--docs), [Motion](?path=/docs/foundations-motion--docs).
+Find values and visual samples beside each topic’s guidance: [Color](/docs/foundations/color), [Typography](/docs/foundations/typography), [Spacing](/docs/foundations/spacing), [Layout](/docs/foundations/layout), [Radius](/docs/foundations/radius), [Elevation](/docs/foundations/elevation), [State](/docs/foundations/state), [Motion](/docs/foundations/motion).

@@ -1,7 +1,7 @@
 import { createContext, useContext, type ReactNode } from "react";
 
 export type Locale = "ko" | "en";
-export const LocaleContext = createContext<Locale>("ko");
+export const LocaleContext = createContext<Locale>("en");
 export const useLocale = () => useContext(LocaleContext);
 
 export function LocaleContent({ children, locale }: { children: ReactNode; locale: Locale }) {
@@ -15,7 +15,6 @@ export const ui = {
   copy: "Copy code",
   copied: "Code copied.",
   copyFailed: "Could not copy. Select the code and copy it manually.",
-  loading: "Loading example…",
   missing: "Example not found. Refresh the page to try again.",
   onThisPage: "On this page",
   language: "Language",

@@ -4,10 +4,7 @@ import StatesSource from "./States.tsx?raw";
 import MultipleNotificationsSource from "./MultipleNotifications.tsx?raw";
 import ActionsSource from "./Actions.tsx?raw";
 import DefaultSource from "./Default.tsx?raw";
-import { Meta } from "@storybook/addon-docs/blocks";
 import { ComponentPreview } from "../../documentation/ComponentPreview";
-
-<Meta title="Components/Toast" />
 
 <LocaleContent locale="ko">
 
@@ -43,7 +40,7 @@ Use a short-lived notice for completion and keep persistent conditions in `Banne
 
 ### 사용할 때
 
-보관함으로 이동한 결과처럼 현재 작업을 벗어나지 않고 완료를 알릴 때 사용합니다. 계속 보여야 하는 상태는 [Banner](?path=/docs/components-banner--docs), 값 수정은 `FieldError`를 사용합니다. 작업을 막는 실패를 토스트에만 남기지 않습니다.
+보관함으로 이동한 결과처럼 현재 작업을 벗어나지 않고 완료를 알릴 때 사용합니다. 계속 보여야 하는 상태는 [Banner](/docs/components/banner), 값 수정은 `FieldError`를 사용합니다. 작업을 막는 실패를 토스트에만 남기지 않습니다.
 
 ### 행동과 유지할 정보
 
@@ -63,7 +60,7 @@ Use a short-lived notice for completion and keep persistent conditions in `Banne
 
 ### When to use
 
-Use Toast to confirm a completed action without taking the user away from their task, such as moving an item to an archive. Use [Banner](?path=/docs/components-banner--docs) when the condition must remain visible, and `FieldError` when a value needs correction. A toast must not be the only record of a failure that blocks the task.
+Use Toast to confirm a completed action without taking the user away from their task, such as moving an item to an archive. Use [Banner](/docs/components/banner) when the condition must remain visible, and `FieldError` when a value needs correction. A toast must not be the only record of a failure that blocks the task.
 
 ### Actions and persistence
 

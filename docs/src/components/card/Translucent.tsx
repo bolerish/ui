@@ -7,6 +7,7 @@ import {
 } from "@bolerish/tokens/semantic.stylex";
 import { Button } from "@bolerish/ui/button";
 import { Card } from "@bolerish/ui/card";
+import { gradient } from "@bolerish/ui/gradient";
 import { Input } from "@bolerish/ui/input";
 import { Label } from "@bolerish/ui/label";
 import { Textarea } from "@bolerish/ui/textarea";
@@ -27,13 +28,11 @@ const styles = stylex.create({
     width: "100%",
   },
   stage: {
-    backgroundColor: colorVars.bgCanvas,
     borderRadius: radiusVars.lg,
     color: colorVars.fgPrimary,
     display: "grid",
     gap: spacingVars.space8,
     gridTemplateRows: "auto 1fr",
-    isolation: "isolate",
     minHeight: "38rem",
     overflow: "hidden",
     padding: {
@@ -41,30 +40,8 @@ const styles = stylex.create({
       "@media (max-width: 480px)": spacingVars.space4,
     },
     position: "relative",
-    "@media (prefers-reduced-transparency: reduce)": { backgroundImage: "none" },
-    "@media (forced-colors: active)": {
-      backgroundColor: "Canvas",
-      backgroundImage: "none",
-      color: "CanvasText",
-    },
   },
-  atmosphere: (accent: string, glow: string) => ({
-    backgroundImage: `radial-gradient(ellipse at 0% 0%, ${accent}, transparent 75%), radial-gradient(ellipse at 100% 15%, ${glow}, transparent 80%)`,
-  }),
-  veil: {
-    // Bound the full background before placing prose directly on it.
-    backgroundColor: {
-      default: colorVars.bgCanvas,
-      "@supports (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, ${colorVars.bgCanvas} 62%, transparent)`,
-    },
-    backgroundImage: `linear-gradient(to bottom, transparent 25%, ${colorVars.bgCanvas} 100%)`,
-    inset: 0,
-    pointerEvents: "none",
-    position: "absolute",
-    zIndex: -1,
-    "@media (prefers-reduced-transparency: reduce)": { backgroundColor: colorVars.bgCanvas },
-    "@media (forced-colors: active)": { backgroundColor: "Canvas" },
-  },
+
   toolbar: { justifySelf: "end", maxWidth: "100%", minWidth: 0 },
   controls: {
     alignItems: "center",
@@ -173,8 +150,7 @@ export default function Translucent() {
 
   return (
     <section aria-label="Content background example" {...stylex.props(styles.example)}>
-      <div {...stylex.props(styles.stage, styles.atmosphere(accent, glow))}>
-        <div aria-hidden="true" {...stylex.props(styles.veil)} />
+      <div {...gradient.props({ colors: [accent, glow] }, styles.stage)}>
         <div {...stylex.props(styles.toolbar)}>
           <Card variant="translucent">
             <fieldset

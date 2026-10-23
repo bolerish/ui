@@ -1,10 +1,7 @@
 import { LocaleContent } from "../../documentation/locale";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import DefaultSource from "./Default.tsx?raw";
-import { Meta } from "@storybook/addon-docs/blocks";
 import { ComponentPreview } from "../../documentation/ComponentPreview";
-
-<Meta title="Components/Select" />
 
 <LocaleContent locale="ko">
 
@@ -32,7 +29,7 @@ Use it when reading the list is enough to recognize an option. Use `Combobox` wh
 
 <LocalizedMarkdown text={"## Basic example"} />
 
-<ComponentPreview name="select--Default" source={DefaultSource} isolated height={360} />
+<ComponentPreview name="select--Default" source={DefaultSource} height={360} />
 
 <LocaleContent locale="ko">
 
@@ -44,8 +41,8 @@ Use it when reading the list is enough to recognize an option. Use `Combobox` wh
 
 ### 다른 컴포넌트를 고를 때
 
-- 항목이 많거나 익숙하지 않아 입력으로 찾는 편이 빠르면 [Combobox](?path=/docs/components-combobox--docs)를 사용합니다.
-- 목록을 열지 않고 선택지를 비교해야 한다면 [Radio Group](?path=/docs/components-radio-group--docs)을 사용합니다.
+- 항목이 많거나 익숙하지 않아 입력으로 찾는 편이 빠르면 [Combobox](/docs/components/combobox)를 사용합니다.
+- 목록을 열지 않고 선택지를 비교해야 한다면 [Radio Group](/docs/components/radio-group)을 사용합니다.
 - 복제·삭제처럼 값을 선택하는 대신 명령을 실행한다면 Dropdown Menu를 사용합니다.
 
 ### 이름과 선택 전 상태
@@ -66,8 +63,8 @@ Use `Select` for a predefined value when users can recognize the option by readi
 
 ### Choose an alternative
 
-- Use [Combobox](?path=/docs/components-combobox--docs) when typing helps users find an option in a long or unfamiliar list.
-- Use [Radio Group](?path=/docs/components-radio-group--docs) when users need to compare the available choices without opening a popup.
+- Use [Combobox](/docs/components/combobox) when typing helps users find an option in a long or unfamiliar list.
+- Use [Radio Group](/docs/components/radio-group) when users need to compare the available choices without opening a popup.
 - Use Dropdown Menu for commands such as Duplicate or Delete, rather than storing a form value.
 
 ### Labels and empty selection

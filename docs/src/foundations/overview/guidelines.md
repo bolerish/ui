@@ -1,92 +1,58 @@
-# @bolerish/ui 기본 원칙
+# @bolerish/ui Foundations
 
-@bolerish/ui는 반복되는 화면 결정을 공유해 사용자가 다음 행동을 예측할 수 있도록 돕습니다. 컴포넌트와 토큰을 조합할 때 작업의 우선순위, 정보의 관계, 실패 후 복구를 같은 기준으로 판단합니다.
+@bolerish/ui shares recurring interface decisions so people can predict what to do next. Compose components and tokens around a consistent view of task priority, information relationships, and recovery from failure.
 
-## 적용 순서
+## Work in this order
 
-1. 사용자가 이 화면에서 마쳐야 하는 작업을 한 문장으로 정합니다.
-2. 정보를 제목·본문·보조 설명으로 나누고 주요 행동을 하나 정합니다.
-3. 기존 컴포넌트의 사용법과 지원하는 속성을 확인합니다.
-4. 의미에 맞는 색상과 크기·간격·모션 토큰을 선택합니다.
-5. 빈 화면, 로딩, 성공, 실패, 긴 콘텐츠, 키보드 사용을 확인합니다.
+1. Describe the task the user needs to complete in one sentence.
+2. Separate headings, content, and supporting information. Choose one primary action.
+3. Check existing components and their supported props.
+4. Choose tokens for color, size, spacing, and motion by their role.
+5. Check empty, loading, success, and error states, long content, and keyboard use.
 
-## 설정 화면에서 시작하기
+## Start with a settings screen
 
-사용자가 알림 설정을 바꾸는 화면이라면 적용 시점을 먼저 정합니다. 즉시 반영할 설정은 `Switch`, 저장할 선택은 `Checkbox`를 검토합니다. 그다음 `Field`로 이름과 설명을 연결하고, 저장 실패 시 선택을 잃지 않도록 구성합니다.
+For notification preferences, first decide when a change takes effect. Consider `Switch` for an immediate setting and `Checkbox` for a choice submitted later. Then use `Field` to connect names and descriptions, and preserve choices if saving fails.
 
-## 문서를 고르는 기준
+## Choose a guideline
 
-| 결정할 것                             | 읽을 문서                    |
-| ------------------------------------- | ---------------------------- |
-| 어떤 값과 이름을 쓸까                 | 디자인 토큰, 색상, 글자      |
-| 정보를 어떻게 묶을까                  | 레이아웃, 간격, 모서리, 높이 |
-| 조작과 결과를 어떻게 알릴까           | 상태, 움직임, 피드백         |
-| 다양한 사용자가 읽고 조작할 수 있을까 | 접근성                       |
-| 무엇을 어떻게 말할까                  | 말투와 어조, 문장 작성       |
+| Decision                                          | Read                               |
+| ------------------------------------------------- | ---------------------------------- |
+| Values and names                                  | Design Token, Color, Typography    |
+| Grouping information                              | Layout, Spacing, Radius, Elevation |
+| Interaction and results                           | State, Motion, Feedback            |
+| Access with different abilities and input methods | Accessibility                      |
+| Interface wording                                 | Voice and Tone, Writing            |
 
-## 기준이 충돌할 때
+## Resolve competing priorities
 
-화면을 간결하게 만들더라도 작업을 완료하는 데 필요한 정보와 행동은 유지합니다. 이름이나 행동이 들어가지 않으면 글자를 줄이거나 주요 행동을 숨기기보다 배치를 바꿉니다. 가까운 배치와 간격으로 먼저 관계를 표현하고, 구분이 여전히 모호할 때 테두리나 배경을 더합니다.
+Keep the task possible before reducing visual density. If labels or actions no longer fit, reflow the layout before shrinking text or hiding the main action. Prefer proximity and spacing to extra containers; add a border or surface only when the grouping remains unclear.
 
-강조는 컨트롤 수보다 작업의 우선순위를 따릅니다. 행동이 많아도 다음에 필요한 행동을 가장 강하게 표시할 수 있습니다. 오류는 색상만으로 전달하지 않고 문제와 다음 행동을 함께 안내합니다.
+Emphasis follows the task, not the number of available controls. A page can have many actions while giving the next useful step the strongest treatment. Do not communicate an error with color alone: name the problem and provide a way forward.
 
-## 기준과 구현의 관계
+## Guidelines and implementation
 
-권장 배치는 새 화면을 설계할 때의 출발점입니다. 컴포넌트가 이미 정한 글자 크기와 정렬을 화면마다 덮어쓰지 않습니다. 예외가 필요하면 이유와 적용 범위를 먼저 적습니다.
+These recommendations are starting points for new screens. Preserve the typography and alignment already defined by components. Document the reason and scope of any exception.
 
-## 외부 스타일
+Start with the [State role composition contracts](/docs/foundations/state) when choosing visual hierarchy and states. They define selection surfaces, drop areas, insertion positions and overlapping states in one place.
 
-외부 스타일은 `xstyle`, `className`, `style`로 전달할 수 있습니다.
-StyleX를 사용하는 앱은 `xstyle`을 권장하며, 여러 스타일은
-`xstyle={[styles.layout, styles.spacing]}`처럼 합칩니다. 일반 CSS나 CSS 모듈은
-문자열 `className`으로, 개별 인라인 값은 React CSS 속성 객체인 `style`로 전달합니다.
-일반 CSS와 인라인 스타일에는 소비자용 StyleX 컴파일러가 필요하지 않습니다.
+## Consumer styles
 
-세 속성은 같은 요소에 적용됩니다. 내부 StyleX와 `xstyle`을 먼저 합치고 외부
-클래스를 보존하며, 인라인 속성은 내부 동적 인라인 값 뒤에 병합합니다.
-클래스 문자열 순서는 CSS 우선순위를 보장하지 않습니다. 선택자·레이어·선언 순서의
-일반 CSS 규칙을 따르며, `!important` 같은 선언도 고려해야 합니다.
-상태나 컨텍스트만 제공하는 Root, Provider, Portal에는 스타일을 전달하지 않습니다.
+Styled components accept `xstyle`, string `className`, and a React CSS properties
+object in `style`. Use `xstyle` when the app already compiles StyleX; its existing
+placement/layout restrictions remain intact. Plain CSS, CSS modules and inline
+styles do not require a consumer StyleX compiler.
 
-콘텐츠 컨테이너는 폭넓은 스타일을 허용합니다. 컨트롤은 외형과 상호작용 상태를
-보호하며 배치와 너비를, 제목·배지·아바타 등은 배치 속성만 허용합니다.
-각 컴포넌트의 `xstyle` 타입이 허용 범위를 나타냅니다. 이 제한은 유지됩니다.
-`className`과 `style`은 외형을 조정하는 확장 경로이므로, 변경한 화면의 오류·비활성·
-선택·키보드 초점 상태와 대비는 소비자가 확인해야 합니다.
+All three target the same element. Internal StyleX and `xstyle` are merged in one
+call, consumer classes are preserved, and inline properties are merged after
+internal dynamic inline values. Class string order alone does not determine CSS
+precedence: selectors, layers, source order and important declarations still apply.
 
-각 컴포넌트는 자신이 렌더링하는 요소에 `xstyle`을 적용합니다. 패널과 콘텐츠처럼
-스타일 대상이 다르면 컴포넌트를 나누어 조합합니다. 내부 요소로 스타일을 전달하는
-별도 속성을 사용하지 않습니다.
+Containers allow broad `xstyle`; controls retain their placement and width
+contracts. `className` and `style` provide an appearance escape hatch, so check
+error, disabled, selected and keyboard-focus states and contrast after overriding.
+Context-only roots, providers and portals do not gain a styling target.
 
-| 바깥 영역                       | 내부 영역                    | 역할                           |
-| ------------------------------- | ---------------------------- | ------------------------------ |
-| CollapsiblePanel                | CollapsibleContent           | 높이 애니메이션 / 콘텐츠 간격  |
-| SelectPopup, ComboboxPopup      | SelectList, ComboboxList     | 팝업 / 선택 목록               |
-| ScrollArea → ScrollAreaViewport | ScrollAreaContent            | 영역 크기·스크롤 / 콘텐츠 배치 |
-| Banner                          | BannerContent, BannerActions | 배너 / 메시지·행동 묶음        |
-| TableContainer                  | Table                        | 가로 스크롤 / 테이블           |
-| CarouselViewport                | CarouselContent              | 스크롤 뷰포트 / 슬라이드 트랙  |
-
-```tsx
-<DrawerContent xstyle={styles.content}>
-  <DrawerTitle>설정</DrawerTitle>
-  <Separator />
-  <ThemeSelect />
-</DrawerContent>
-```
-
-`gap`은 자식들을 감싼 요소에 지정합니다. Flex나 Grid가 기본값이 아닌 콘텐츠에는
-`display`와 배치 방향도 함께 지정합니다. 팝업 위치 계산, 패널 높이 애니메이션,
-스크롤 및 스와이프에 필요한 바깥 영역은 해당 컴포넌트에 맡깁니다.
-
-버튼의 아이콘·로딩 표시처럼 독립적인 사용자 배치 영역이 아닌 내부 구조는
-컴포넌트가 관리합니다. NativeSelect와 ComboboxInput의 `xstyle`은 아이콘을 포함한
-입력 전체의 배치를 조절합니다.
-
-Accordion은 Header와 Panel을 내부에서 구성합니다. `AccordionTrigger`의 `xstyle`은
-버튼에, `AccordionContent`의 `xstyle`은 자식을 직접 감싸는 콘텐츠 영역에 적용합니다.
-
-Drawer는 Popup을 내부에서 구성합니다. `DrawerContent`의 `xstyle`은 자식을 직접
-감싸는 콘텐츠 영역에 적용하고, 방향과 스와이프·오버레이는 `Drawer`에서 설정합니다.
-
-상태와 시각적 위계를 정할 때는 [상태의 역할별 조합 계약](?path=/docs/foundations-state--docs)을 먼저 확인합니다. 선택 면, 드롭 영역, 삽입 위치와 상태 중첩 규칙을 한곳에서 정의합니다.
+Styling follows the component's documented target. AccordionContent styles its
+inner content rather than its animated panel. NativeSelect styles the wrapper,
+including the icon, and DrawerContent styles the element directly around children.

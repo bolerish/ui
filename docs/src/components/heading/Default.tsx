@@ -1,8 +1,9 @@
+import { spacingVars } from "@bolerish/tokens/semantic.stylex";
 import { Heading } from "@bolerish/ui/heading";
 
 export default function Default() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: spacingVars.space3 }}>
       <Heading level={1} size="page">
         Project settings
       </Heading>

@@ -1,10 +1,7 @@
 import { LocaleContent } from "../../documentation/locale";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import DefaultSource from "./Default.tsx?raw";
-import { Meta } from "@storybook/addon-docs/blocks";
 import { ComponentPreview } from "../../documentation/ComponentPreview";
-
-<Meta title="Components/Alert Dialog" />
 
 <LocaleContent locale="ko">
 
@@ -32,7 +29,7 @@ Pair a specific decision with a safe exit. Use `Dialog` when the task is editing
 
 <LocalizedMarkdown text={"## Basic example"} />
 
-<ComponentPreview name="alert-dialog--Default" source={DefaultSource} isolated height={360} />
+<ComponentPreview name="alert-dialog--Default" source={DefaultSource} height={360} />
 
 <LocaleContent locale="ko">
 
@@ -40,7 +37,7 @@ Pair a specific decision with a safe exit. Use `Dialog` when the task is editing
 
 ### 사용할 때
 
-중요한 결과를 낳는 행동을 진행할지 결정해야 할 때 사용합니다. 편집 폼은 [Dialog](?path=/docs/components-dialog--docs), 완료한 결과는 Toast나 화면 안의 안내로 전달합니다. 일상적인 행동마다 확인을 요구하지 않습니다.
+중요한 결과를 낳는 행동을 진행할지 결정해야 할 때 사용합니다. 편집 폼은 [Dialog](/docs/components/dialog), 완료한 결과는 Toast나 화면 안의 안내로 전달합니다. 일상적인 행동마다 확인을 요구하지 않습니다.
 
 ### 결정할 내용 설명하기
 
@@ -64,7 +61,7 @@ Pair a specific decision with a safe exit. Use `Dialog` when the task is editing
 
 ### When to use
 
-Use Alert `Dialog` when users must decide whether to proceed with a consequential action. For an edit form, use [Dialog](?path=/docs/components-dialog--docs). For a completed result, use Toast or inline feedback. Do not ask users to confirm every routine action.
+Use Alert `Dialog` when users must decide whether to proceed with a consequential action. For an edit form, use [Dialog](/docs/components/dialog). For a completed result, use Toast or inline feedback. Do not ask users to confirm every routine action.
 
 ### Explain the decision
 

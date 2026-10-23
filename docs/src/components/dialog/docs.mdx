@@ -1,10 +1,7 @@
 import { LocaleContent } from "../../documentation/locale";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import DefaultSource from "./Default.tsx?raw";
-import { Meta } from "@storybook/addon-docs/blocks";
 import { ComponentPreview } from "../../documentation/ComponentPreview";
-
-<Meta title="Components/Dialog" />
 
 <LocaleContent locale="ko">
 
@@ -32,7 +29,7 @@ Use it for a bounded edit or decision. Use a page for work that needs independen
 
 <LocalizedMarkdown text={"## Basic example"} />
 
-<ComponentPreview name="dialog--Default" source={DefaultSource} isolated height={360} />
+<ComponentPreview name="dialog--Default" source={DefaultSource} height={360} />
 
 <LocaleContent locale="ko">
 
@@ -44,9 +41,9 @@ Use it for a bounded edit or decision. Use a page for work that needs independen
 
 ### Dialog와 Drawer 선택
 
-콘텐츠와 가용 공간에 가장자리 패널이 적합하면 [Drawer](?path=/docs/components-drawer--docs)를 선택합니다. 둘 다 배경 작업을 중단할 수 있습니다. 등장 방향이 배경 조작 가능 여부를 결정하지는 않습니다. 터치 기기라는 이유만으로 `Drawer`로 바꾸지 않습니다.
+콘텐츠와 가용 공간에 가장자리 패널이 적합하면 [Drawer](/docs/components/drawer)를 선택합니다. 둘 다 배경 작업을 중단할 수 있습니다. 등장 방향이 배경 조작 가능 여부를 결정하지는 않습니다. 터치 기기라는 이유만으로 `Drawer`로 바꾸지 않습니다.
 
-콘텐츠를 편집하는 대신 중요한 결과를 낳는 행동을 확인해야 한다면 [Alert Dialog](?path=/docs/components-alert-dialog--docs)를 사용합니다.
+콘텐츠를 편집하는 대신 중요한 결과를 낳는 행동을 확인해야 한다면 [Alert Dialog](/docs/components/alert-dialog)를 사용합니다.
 
 ### 완료와 닫기
 
@@ -66,9 +63,9 @@ Use `Dialog` for a bounded task such as renaming an item or editing a few relate
 
 ### Dialog or Drawer
 
-Choose [Drawer](?path=/docs/components-drawer--docs) when an edge panel suits the content and available space. Both can interrupt the page; the entry animation does not determine whether the background stays interactive. Do not switch to `Drawer` solely because a device has touch input.
+Choose [Drawer](/docs/components/drawer) when an edge panel suits the content and available space. Both can interrupt the page; the entry animation does not determine whether the background stays interactive. Do not switch to `Drawer` solely because a device has touch input.
 
-Use [Alert Dialog](?path=/docs/components-alert-dialog--docs) when the immediate purpose is confirming a consequential action rather than editing content.
+Use [Alert Dialog](/docs/components/alert-dialog) when the immediate purpose is confirming a consequential action rather than editing content.
 
 ### Completion and dismissal
 

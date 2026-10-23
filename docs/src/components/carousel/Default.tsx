@@ -11,6 +11,7 @@ import type { CSSProperties } from "react";
 const styles = {
   carousel: {
     maxWidth: "25rem",
+    width: "calc(100% - 6rem)",
   },
   slide: {
     alignItems: "center",

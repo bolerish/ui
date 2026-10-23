@@ -1,79 +1,87 @@
-# 간격
+# Spacing
 
-간격의 차이로 관련 정보와 별개의 작업을 구별할 수 있습니다. 같은 관계에 같은 간격을 반복하면 테두리를 늘리지 않아도 화면의 묶음이 드러납니다.
+Different gaps distinguish related information from separate tasks. Repeating the same spacing for the same relationship makes groups visible without adding borders everywhere.
 
-## 선택 기준
+## Selection guidelines
 
-| 사용 상황               | 권장 선택                      | 적용 코드                     |
-| ----------------------- | ------------------------------ | ----------------------------- |
-| 아이콘·짧은 레이블 내부 | `space1`, `space2`             | `gap: spacingVars.space2`     |
-| 한 행의 요소·필드 내부  | `space2`, `space3`             | `gap: spacingVars.space3`     |
-| 관련된 필드·행 사이     | `space3`, `space4`             | `gap: spacingVars.space4`     |
-| 카드·패널 내부          | `space4`, `space6`             | `padding: spacingVars.space6` |
-| 다른 섹션 사이          | `space8`, `space10`, `space12` | `gap: spacingVars.space8`     |
+| Situation                    | Recommended choice             | Code                          |
+| ---------------------------- | ------------------------------ | ----------------------------- |
+| Icons and short labels       | `space1`, `space2`             | `gap: spacingVars.space2`     |
+| Elements in one row or field | `space2`, `space3`             | `gap: spacingVars.space3`     |
+| Related fields and rows      | `space3`, `space4`             | `gap: spacingVars.space4`     |
+| Padding in cards and panels  | `space4`, `space6`             | `padding: spacingVars.space6` |
+| Different sections           | `space8`, `space10`, `space12` | `gap: spacingVars.space8`     |
 
-모든 값은 `spacingVars`에서 선택합니다. 기본 간격의 절반인 `space0_5`는 경계 위치를 조금 조정할 때만 사용하고, 새로운 화면의 전체 배치를 정하는 기본값으로 쓰지 않습니다.
+Choose values from `spacingVars`. Reserve `space0_5` for small boundary adjustments, not the primary layout of a new screen.
 
-## 배치 레시피
+## Layout recipes
 
-| 배치             | 시작점                                                        |
-| ---------------- | ------------------------------------------------------------- |
-| 페이지 좌우 여백 | 좁은 화면은 `space4`, 넓은 화면은 `space6`                    |
-| 폼               | 레이블과 입력은 `space2`, 관련 필드 사이는 `space4`           |
-| 카드·패널        | 내부 여백은 `space4` 또는 `space6`, 카드 사이는 `space4`      |
-| 설정 화면        | 제목과 설명은 `space2`, 필드 사이는 `space4`, 그룹은 `space8` |
+| Layout              | Starting point                                                               |
+| ------------------- | ---------------------------------------------------------------------------- |
+| Page inline padding | `space4` on narrow screens and `space6` on wider screens                     |
+| Form                | `space2` between label and input; `space4` between related fields            |
+| Card or panel       | `space4` or `space6` inside; `space4` between cards                          |
+| Settings screen     | `space2` for title and description, `space4` for fields, `space8` for groups |
 
-이 값은 새 배치의 시작점입니다. 콘텐츠 양이나 화면 너비 때문에 바꾸더라도 같은 관계에는
-같은 토큰을 반복합니다. 모든 간격을 같게 만들면 설명이 어디에 속하는지, 새 그룹이나
-작업이 어디서 시작하는지 구별하기 어렵습니다.
+These values are starting points for new layouts. If content or viewport constraints
+require a change, continue using the same token for the same relationship. Equal spacing
+throughout obscures which description belongs to an item and where a new group or task begins.
 
-> 어긋난 정렬을 임의의 여백으로 가리지 않습니다. 기준선·줄 높이·컨트롤 크기·레이아웃 속성을 먼저 확인합니다. 같은 관계를 나타내는 간격에는 화면 전체에서 같은 토큰을 사용합니다.
+> Do not hide alignment problems with arbitrary margins. Check baselines, line heights, control sizes, and layout properties first. Use the same token for the same relationship throughout the screen.
 
-## 컨트롤 밀도
+## Control density
 
-일반 폼은 `md`와 `controlMd`, 조밀한 도구 모음은 지원되는 `sm`과 `controlSm`을
-기준으로 합니다. 같은 그룹에서는 높이와 안쪽 여백을 함께 맞춥니다. 밀도를 낮출 때
-본문 색상이나 오류·포커스 표시를 약하게 만들지 않습니다.
+Start with supported `md` / `controlMd` sizes for forms and `sm` / `controlSm` for dense
+toolbars. Keep heights and inner spacing consistent within a group. Compact layouts must
+not weaken content, error or focus cues.
 
-아이콘 버튼은 `icon-xs`부터 제공되는 크기를 사용하며 아이콘 자체 크기와 조작 영역을
-구분합니다. 터치가 주된 화면은 `touchTarget`을 확보할 수 있는 크기나 배치를 고릅니다.
-새 `compact` 속성을 모든 컴포넌트에 추가하지 않고 기존 크기 API를 우선합니다.
+Use `size="icon"` for icon-only buttons; distinguish glyph size from hit
+area. For touch-first layouts choose a size or layout that accommodates `touchTarget`.
+Use existing size APIs before introducing a universal `compact` prop.
 
-## 앱 밀도
+## App density
 
-`html`의 CSS 변수 `--bolerish-density`를 `1`(기본) 또는 `0.875`(조밀)로 설정합니다.
-상속된 값이 간격·컨트롤·아이콘·글자를 함께 조절합니다. `controlXs`, 터치 영역,
-초점 테두리는 이 배율과 독립적으로 유지합니다.
+Set the CSS variable `--bolerish-density` on `html` to `1` (default) or `0.875`
+(compact). The inherited value scales spacing, controls, icons and text together.
+`controlXs`, touch targets and focus strokes stay independent of this scale.
 
-`FieldSet`과 `FieldGroup`의 기본 필드 간격은 `space4`입니다. 설명과 입력 내부는
-`Field`의 `space2`를 사용합니다. 별도 섹션 간격은 부모 레이아웃이 정합니다.
-중첩된 그룹에 섹션 여백까지 반복해서 추가하지 않습니다.
+`FieldSet` and `FieldGroup` use `space4` between related fields. `Field` uses
+`space2` internally. Section separation belongs to the parent layout; avoid
+adding a second section gap to every nested group.
 
-## 용도로 선택하는 간격
+## Spacing by purpose
 
-새 화면은 `spacingRoleVars`에서 관계에 맞는 이름을 먼저 고릅니다. 숫자 스케일
-`spacingVars`는 유지하며, 의미 토큰은 그 값을 참조합니다. 안전 영역은 앱에서 더합니다.
+Use `spacingRoleVars` for new layouts. These semantic roles reference the existing
+`spacingVars` scale. Safe-area insets remain the app's responsibility.
 
-| 토큰           | 용도                     | 기본값   |
-| -------------- | ------------------------ | -------- |
-| `pageGutter`   | 페이지 좌우 여백         | `space4` |
-| `panelPadding` | 패널 안쪽 여백           | `space4` |
-| `sectionGap`   | 별개의 섹션 사이         | `space8` |
-| `fieldGap`     | 관련 필드 사이           | `space4` |
-| `labelGap`     | 레이블·입력·도움말 사이  | `space2` |
-| `inlineGap`    | 같은 행의 관련 요소 사이 | `space2` |
-| `textGap`      | 제목과 설명 사이         | `space1` |
+| Token          | Purpose                      | Default  |
+| -------------- | ---------------------------- | -------- |
+| `pageGutter`   | Page inline padding          | `space4` |
+| `panelPadding` | Card or panel padding        | `space4` |
+| `sectionGap`   | Independent sections         | `space8` |
+| `fieldGap`     | Related fields               | `space4` |
+| `labelGap`     | Label, control and help text | `space2` |
+| `inlineGap`    | Related elements in one row  | `space2` |
+| `textGap`      | Title and description        | `space1` |
 
-`FieldSet`과 `FieldGroup`은 `fieldGap`을 사용합니다. 섹션은 부모에서 `sectionGap`으로
-구분합니다. 페이지와 패널을 중첩할 때 두 padding을 기계적으로 더하지 않습니다.
-좁거나 넓은 화면의 예외는 부모 레이아웃에서 정하고 같은 관계에 같은 값을 씁니다.
+FieldSet and FieldGroup use fieldGap. Set sectionGap on the parent. Do not blindly
+stack page and panel padding. Keep responsive exceptions in the owning layout.
 
-## 단위와 배율
+## Units and scale
 
-`theme.unit`은 `rem`(기본값) 또는 `px`입니다. `px`는 1rem=16px 기준으로 의미 길이를
-보존하지만 사용자 루트 글자 크기를 따라가지 않습니다. 브라우저 확대는 여전히 적용됩니다.
-`rem`을 접근성 기본값으로 유지합니다. `theme.density`는 기존 `default`/`compact` 또는
-0보다 크고 2 이하인 숫자 배율입니다. 간격·글자·컨트롤·아이콘·콘텐츠 폭에 함께 적용합니다.
-퍼센트·뷰포트 기반 제품 배치는 앱의 책임이며 밀도로 화면 전체를 transform하지 않습니다.
-최소 버튼·터치 영역, 포커스 선, 단위 없는 줄 높이·글자 두께는 density에서 제외합니다.
-기존 커스텀 토큰은 자동으로 덮어쓰지 않으므로 새 단위 변수를 사용하도록 병합해야 합니다.
+`theme.unit` accepts `rem` (default) or `px`. Pixel mode preserves semantic lengths
+at 1rem=16px but does not follow the user's root font size; browser zoom still works.
+Keep rem as the accessibility default. `theme.density` accepts default, compact or a
+numeric multiplier greater than zero and at most two. Spacing, text, controls,
+icons and content widths use the same multiplier. Percentage and viewport-based
+product layouts remain app-owned; this is not a transform of the entire page.
+Minimum controls, touch targets, focus strokes, unitless line heights and weights
+stay independent of density. Merge the new unit variable into customized tokens;
+initialization preserves those files rather than overwriting them.
+
+## Inline geometry
+
+Use `em` margins and gaps when an icon's alignment must scale with its adjacent
+text. Use shared spacing tokens for layout gaps and padding. When joining control
+borders, derive negative overlap from `sizeVars.stroke` rather than a raw `-1`.
+These component relationships do not require lint suppression comments.

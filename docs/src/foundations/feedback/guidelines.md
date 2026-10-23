@@ -1,62 +1,62 @@
-# 피드백
+# Feedback
 
-행동 직후의 반응과 작업 결과를 이어 주면 사용자는 요청이 전달됐는지, 기다려야 하는지, 다음에 무엇을 할지 알 수 있습니다. 반응은 행동 가까이에서 시작하고 결과의 중요도에 맞는 위치에 남깁니다.
+Connecting an immediate response to the eventual result tells people whether their action registered, whether to wait, and what to do next. Begin close to the action and keep the outcome visible for as long as it matters.
 
-## 선택 기준
+## Selection guidelines
 
-### 입력 반응과 작업 결과
+### Input response and task outcome
 
-버튼을 누르는 반응과 저장이 끝났다는 안내는 서로 다른 시점에 필요합니다. 누름 색상은 입력 직후에 표시하고, 비동기 작업의 성공은 요청이 끝난 뒤에 알립니다.
+Pressing a button and completing a save need feedback at different times. Show the pressed state immediately; announce success only after the asynchronous operation completes.
 
-| 사용 상황      | 권장 선택                                                          | 적용 코드                                       |
-| -------------- | ------------------------------------------------------------------ | ----------------------------------------------- |
-| 포인터를 올림  | `interactionHover`, 채워진 행동 버튼은 `interactionSolidHover`     | `backgroundColor: colorVars.interactionHover`   |
-| 누르는 동안    | `interactionPressed`, 채워진 행동 버튼은 `interactionSolidPressed` | `backgroundColor: colorVars.interactionPressed` |
-| 짧은 색상 전환 | `Button`이 사용하는 `motionVars.durationFast`와 `easingStandard`   | `transitionDuration: motionVars.durationFast`   |
-| 요청 대기      | 처리 중 문구와 `Spinner`                                           | `<Spinner />`                                   |
-| 요청 완료      | 화면 안의 결과 안내 또는 Toast                                     | `toast.add({ title: "Changes saved." })`        |
+| Situation              | Recommended choice                                                   | Code                                            |
+| ---------------------- | -------------------------------------------------------------------- | ----------------------------------------------- |
+| Pointer hover          | `interactionHover`, or `interactionSolidHover` on filled actions     | `backgroundColor: colorVars.interactionHover`   |
+| While pressed          | `interactionPressed`, or `interactionSolidPressed` on filled actions | `backgroundColor: colorVars.interactionPressed` |
+| Short color transition | `Button`'s `motionVars.durationFast` and `easingStandard`            | `transitionDuration: motionVars.durationFast`   |
+| Request pending        | A processing label and `Spinner`                                     | `<Spinner />`                                   |
+| Request completed      | Inline confirmation or Toast                                         | `toast.add({ title: "Changes saved." })`        |
 
-색상 토큰은 `colorVars`에 정의되어 있습니다. 누름 반응을 성공 안내로 사용하지 않습니다. @bolerish/ui `Button`에는 공통 눌림 축소 효과가 없으므로 임의의 크기 변환을 기본 동작처럼 추가하지 않습니다. 실제 색상은 [State](?path=/docs/foundations-state--docs)에서 비교합니다.
+The color tokens belong to `colorVars`. A pressed response does not mean success. @bolerish/ui `Button` has no shared pressed-scale effect; do not introduce one as if it were the default. Compare actual colors in [State](/docs/foundations/state).
 
-| 사용 상황                              | 권장 선택                       | 적용 코드                                                                                     |
-| -------------------------------------- | ------------------------------- | --------------------------------------------------------------------------------------------- |
-| 입력값을 고쳐야 함                     | `FieldError`와 입력 가까운 설명 | `<FieldError>Enter a valid email address.</FieldError>`                                       |
-| 흐름을 막지 않는 작업 완료             | Toast                           | `toast.add({ title: "Changes saved." })`                                                      |
-| 되돌릴 수 있는 작업                    | Toast의 Undo 버튼과 데이터 복원 | `actionProps: { children: "Undo", onClick: restoreItem }`                                     |
-| 계속 보여야 하는 화면 수준 안내        | `Banner`                        | `<Banner><BannerContent><BannerTitle>Update available</BannerTitle></BannerContent></Banner>` |
-| 짧은 비동기 작업                       | `Spinner`와 상태 문장           | `<Spinner />`                                                                                 |
-| 진행률을 계산할 수 있는 작업           | `Progress`                      | `<Progress value={50} />`                                                                     |
-| 결정 후에만 진행할 수 있는 위험한 행동 | Alert `Dialog`                  | `<AlertDialog>…</AlertDialog>`                                                                |
+| Situation                                | Recommended choice                         | Code                                                                                          |
+| ---------------------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------------- |
+| An input needs correction                | `FieldError` and a nearby explanation      | `<FieldError>Enter a valid email address.</FieldError>`                                       |
+| Work completed without blocking the flow | Toast                                      | `toast.add({ title: "Changes saved." })`                                                      |
+| Work can be undone                       | A Toast action and actual data restoration | `actionProps: { children: "Undo", onClick: restoreItem }`                                     |
+| Page guidance must remain visible        | `Banner`                                   | `<Banner><BannerContent><BannerTitle>Update available</BannerTitle></BannerContent></Banner>` |
+| A short asynchronous operation           | `Spinner` and a status message             | `<Spinner />`                                                                                 |
+| Progress is measurable                   | `Progress`                                 | `<Progress value={50} />`                                                                     |
+| A risky action needs a decision first    | Alert `Dialog`                             | `<AlertDialog>…</AlertDialog>`                                                                |
 
-사용자가 반드시 읽어야 하는 조건은 금방 사라지는 Toast에만 표시하지 않습니다.
+Keep essential conditions visible in the page rather than only in a toast that quickly disappears.
 
-### 되돌리기와 닫기의 차이
+### Action responsibilities
 
-Undo는 실제 데이터를 복원하고 그 결과를 화면에 반영해야 합니다. 알림 닫기와 Dismiss all은 알림만 지우며, 진행 중인 요청을 취소하거나 완료한 작업을 되돌리지 않습니다.
+Undo must restore the data, then reflect the result. Closing a notification is not restoration. Dismiss all clears the notification list; it does not cancel the underlying work.
 
-> 같은 결과를 여러 경로에서 중복으로 알리지 않습니다. 로딩에서 성공·실패로 이어지는 문장을 연결하고, 알림이 사라져도 필요한 상태는 본문에 남깁니다. Toast의 Escape는 최신 알림부터 하나씩 닫히는 기존 동작을 유지합니다.
+> Avoid duplicate messages for the same result. Connect loading, success, and failure messages. Keep necessary state in the page after notifications disappear. Preserve the Toast behavior where Escape closes notifications one at a time, newest first.
 
-### 작업을 중단하기 전에
+### Before interrupting a task
 
-단순한 완료 안내나 수정 가능한 입력 오류 때문에 모달을 열지 않습니다. 사용자가 결정을 내려야 진행할 수 있을 때 확인 단계를 둡니다.
+Do not open a modal for routine completion feedback or a correctable input error. Ask for confirmation when a decision is necessary to proceed.
 
-저장 중임을 표시한 뒤에는 성공이나 실패로 상태를 갱신합니다. 실패하면 입력을 보존하고 재시도할 방법을 제공합니다. 진행률을 알 수 없을 때 임의의 백분율을 표시하지 않습니다.
+Follow a saving state with success or failure. Preserve input and provide a retry path after failure. Do not invent a percentage when progress cannot be measured.
 
-## 적용 예시
+## Examples
 
-### 저장 버튼을 누른 뒤
+### After someone selects Save
 
-누르는 동안에는 버튼의 누름 상태를 보여 줍니다. 요청이 시작되면 처리 중임을 알리고 중복 제출을 막습니다. 성공하면 저장 결과를, 실패하면 입력을 유지한 채 재시도할 방법을 제공합니다. 같은 버튼을 눌렀더라도 각 시점에 전달할 정보는 다릅니다.
+Show the pressed state while the button is held. Once the request starts, indicate progress and prevent duplicate submission. On success, confirm the result; on failure, preserve the input and offer a retry. Each stage answers a different question.
 
-## 색상 조합과 표현 범위
+## Color composition and scope
 
-| 역할                         | 조합 규칙                                                                                                                                      |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| 입력 오류                    | 입력은 기본 표면을 유지하고 오류 경계와 `FieldError`를 사용합니다. 오류 전경색만으로 입력 전체를 표시하지 않습니다.                            |
-| 지속적인 정보·성공·경고·오류 | Banner에 같은 의미의 `bgFeedback*`와 `fgFeedback*`를 함께 적용합니다. 주변 표면과 경계가 필요할 때만 같은 의미의 `strokeFeedback*`를 더합니다. |
-| 보조 설명                    | `fgSecondary`를 사용합니다. 아직 실패하지 않은 입력의 제약을 오류색으로 표시하지 않습니다.                                                     |
+| Role                                              | Composition rule                                                                                                                        |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Input error                                       | Keep the input's normal surface, use its error border and `FieldError`. Do not color the entire input foreground as the only error cue. |
+| Persistent information, success, warning or error | Apply matching `bgFeedback*` and `fgFeedback*` to Banner. Add matching `strokeFeedback*` only when a boundary is needed.                |
+| Supporting description                            | Use `fgSecondary`. A constraint is not an error before validation fails.                                                                |
 
-모든 피드백에 배경·테두리를 강제로 더하지 않습니다. 짧은 필드 오류는 입력 가까운
-문장으로, 폼 전체의 요청 실패는 지속되는 영역으로 표현합니다. 긴 배너 본문은
-`fgPrimary`를 사용할 수 있지만 제목·아이콘·배경은 같은 피드백 의미를 유지합니다.
-Banner는 `variant`를 제공하지 않으므로 `xstyle`로 위 조합을 적용합니다.
+Not every message needs both a background and a border. Keep field errors near their input
+and request failures in a persistent form-level area. Long Banner body text may use `fgPrimary`
+while its heading, icon and background retain the same feedback meaning. Banner has no
+`variant` prop; apply these combinations with `xstyle`.

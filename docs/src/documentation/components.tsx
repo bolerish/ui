@@ -7,10 +7,35 @@ import {
 } from "@bolerish/tokens/semantic.stylex";
 import { Paragraph } from "@bolerish/ui/paragraph";
 import * as stylex from "@stylexjs/stylex";
-import { isValidElement, type ReactNode } from "react";
+import { Link } from "@tanstack/react-router";
+import { isValidElement, type ReactNode, type ComponentProps } from "react";
 import type { Components } from "react-markdown";
 
+import { findDocument } from "./catalog";
 import { CodeBlock } from "./CodeBlock";
+import { useLocale } from "./locale";
+import { documentLink, legacyDocumentPath } from "./paths";
+import { tableHeaders } from "./table-headers";
+
+function DocumentationLink({ href, children, ...props }: ComponentProps<"a">) {
+  const locale = useLocale();
+  const [path, hash] = (href ?? "").split("#");
+  const canonical = legacyDocumentPath(path);
+  const [, section, slug] = canonical.replace(/^\/docs\//, "/").split("/");
+  const page =
+    canonical === "/docs/getting-started"
+      ? findDocument("guide", "getting-started")
+      : findDocument(section, slug);
+  return page ? (
+    <Link {...props} {...documentLink(page, locale)} search={{}} hash={hash}>
+      {children}
+    </Link>
+  ) : (
+    <a {...props} href={href}>
+      {children}
+    </a>
+  );
+}
 
 const styles = stylex.create({
   h1: {
@@ -60,7 +85,7 @@ const styles = stylex.create({
     lineHeight: typo.lineHeightNormal,
   },
   selectionTable: { tableLayout: "fixed" },
-  propsTable: { minWidth: "44rem" },
+  propsTable: { minWidth: "44rem", "--docs-table-header-wrap": "nowrap" },
   situationColumn: { width: "30%" },
   choiceColumn: { width: "30%" },
   codeColumn: { width: "40%" },
@@ -72,7 +97,11 @@ const styles = stylex.create({
     textAlign: "start",
     verticalAlign: "top",
   },
-  th: { backgroundColor: colorVars.bgSubtle, fontWeight: typo.fontWeightSemibold },
+  th: {
+    backgroundColor: colorVars.bgSubtle,
+    fontWeight: typo.fontWeightSemibold,
+    whiteSpace: "var(--docs-table-header-wrap, normal)",
+  },
   code: {
     whiteSpace: "nowrap",
     fontFamily: "var(--bolerish-font-code)",
@@ -121,31 +150,12 @@ export const documentationComponents: Components = {
   ),
   li: ({ node: _node, ...props }) => <li {...props} {...stylex.props(styles.item)} />,
   a: ({ node: _node, children, ...props }) => (
-    <a {...props} {...stylex.props(styles.link)}>
+    <DocumentationLink {...props} {...stylex.props(styles.link)}>
       {children}
-    </a>
+    </DocumentationLink>
   ),
-  table: ({ node, children, ...props }) => {
-    const head = node?.children.find(
-      (child) => child.type === "element" && child.tagName === "thead",
-    );
-    const row =
-      head?.type === "element"
-        ? head.children.find((child) => child.type === "element" && child.tagName === "tr")
-        : undefined;
-    const headers =
-      row?.type === "element"
-        ? row.children
-            .filter((child) => child.type === "element" && child.tagName === "th")
-            .map((cell) =>
-              cell.type === "element"
-                ? cell.children
-                    .filter((child) => child.type === "text")
-                    .map((child) => child.value)
-                    .join("")
-                : "",
-            )
-        : [];
+  table: ({ node: _node, children, ...props }) => {
+    const headers = tableHeaders(children);
     const isSelectionTable =
       headers.join("|") === "사용 상황|권장 선택|적용 코드" ||
       headers.join("|") === "Situation|Recommended choice|Code";

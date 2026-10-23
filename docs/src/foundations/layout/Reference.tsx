@@ -96,7 +96,12 @@ export function Size() {
         usage="Extra-small icon controls"
         value={sizeVars.controlXs}
       >
-        <Button size="icon-xs" variant="secondary" aria-label="Information">
+        <Button
+          size="icon"
+          variant="secondary"
+          aria-label="Information"
+          style={{ width: sizeVars.controlXs, height: sizeVars.controlXs }}
+        >
           <InfoIcon aria-hidden="true" />
         </Button>
       </TokenRow>

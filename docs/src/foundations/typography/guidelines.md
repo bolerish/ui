@@ -1,44 +1,48 @@
-# 글자
+# Typography
 
-글자의 크기·굵기·행간을 역할에 맞게 조합하면 사용자는 제목을 훑고 필요한 본문을 편하게 읽을 수 있습니다. 정보의 중요도와 읽을 분량을 먼저 정한 뒤 글꼴과 크기를 선택합니다.
+Combining size, weight, and line height by role helps people scan headings and read the content they need. Choose type after deciding the information's priority and how much reading it requires.
 
-## 선택 기준
+## Selection guidelines
 
-| 사용 상황              | 권장 선택                           | 적용 코드                                       |
-| ---------------------- | ----------------------------------- | ----------------------------------------------- |
-| 페이지 제목            | `fontSizeXl` + `fontWeightSemibold` | `<Heading level={1} size="page">…</Heading>`    |
-| 섹션 제목              | `fontSizeLg` + `fontWeightSemibold` | `<Heading level={2} size="section">…</Heading>` |
-| 긴 설명·읽기 중심 본문 | `fontSizeMd` + `lineHeightNormal`   | `<P>…</P>`                                      |
-| 컨트롤 주변 설명       | `fontSizeSm` + `lineHeightNormal`   | `<P variant="description">…</P>`                |
-| 보조 정보              | `fontSizeXs`                        | `<P variant="caption">…</P>`                    |
+| Situation                       | Recommended choice                  | Code                                            |
+| ------------------------------- | ----------------------------------- | ----------------------------------------------- |
+| Page title                      | `fontSizeXl` + `fontWeightSemibold` | `<Heading level={1} size="page">…</Heading>`    |
+| Section heading                 | `fontSizeLg` + `fontWeightSemibold` | `<Heading level={2} size="section">…</Heading>` |
+| Longer reading content          | `fontSizeMd` + `lineHeightNormal`   | `<P>…</P>`                                      |
+| Supporting text beside controls | `fontSizeSm` + `lineHeightNormal`   | `<P variant="description">…</P>`                |
+| Supporting metadata             | `fontSizeXs`                        | `<P variant="caption">…</P>`                    |
 
-짧은 제목은 `lineHeightTight`, 여러 줄을 읽는 본문은 `lineHeightNormal`을 기본으로 합니다. 위 조합은 새 화면의 시작점이며 기존 `Button`, Toast, `Field`의 내부 글자 크기를 일괄 변경하는 규칙이 아닙니다.
+Start with `lineHeightTight` for short headings and `lineHeightNormal` for multiline content. These combinations guide new screens; they do not replace typography already defined by `Button`, Toast, or `Field`.
 
-### 정렬 기준
+### Alignment
 
-제목과 버튼 글자를 나란히 놓을 때는 제목의 첫 줄 기준선에 맞춥니다. 제목의 높이를 버튼 높이로 고정하지 않습니다. 체크박스와 설명이 함께 있으면 체크박스를 첫 줄에 맞추고, 줄이 늘어나도 가운데로 이동하지 않게 합니다.
+Align adjacent titles and button labels on the title's first baseline instead of fixing the title height to the button. Align checkboxes with the first line of a label and description group, even when the description wraps.
 
-> 필수 안내를 작게 줄여 공간에 맞추거나 글꼴 크기를 줄여 긴 번역을 숨기지 않습니다. 텍스트 영역의 높이를 고정하지 않고 줄바꿈에 따라 늘어나게 합니다. 200% 확대와 긴 한국어·영문 문장으로 확인합니다.
+> Do not shrink essential guidance or long translations to fit a fixed area. Allow wrapping and content-driven height. Check 200% zoom and long Korean and English text.
 
-### 자간과 행간
+### Letter spacing and line height
 
-현재 `typo`에는 자간 토큰이 없습니다. 기본 자간은 글꼴과 브라우저 설정을 따릅니다. 문서를 촘촘하게 보이게 하려고 본문 자간을 일괄 축소하지 않습니다.
+`typo` currently has no letter-spacing token. Default tracking follows the font and browser settings. Do not tighten all body text simply to make documentation look denser.
 
-행간은 짧은 제목의 `lineHeightTight`(1.25)와 여러 줄 본문의 `lineHeightNormal`(1.5)을 구분합니다. 이 값은 글자 크기에 곱해지는 비율입니다. 정보 밀도는 먼저 항목 간 간격과 배치로 조정하고, 사용자가 자간·행간을 넓혀도 내용이 잘리지 않게 합니다. 확인 방법은 [Accessibility](?path=/docs/foundations-accessibility--docs)를 참고합니다.
+Use `lineHeightTight` (1.25) for short headings and `lineHeightNormal` (1.5) for multi-line body text. These values multiply the font size. Adjust grouping and layout spacing first, and preserve content when users increase text spacing. See [Accessibility](/docs/foundations/accessibility) for verification.
 
-## 적용 예시
+## Examples
 
-### 제목 아래 설명이 두 줄이 될 때
+### When a description wraps to two lines
 
-짧은 제목에는 `lineHeightTight`, 여러 줄 설명에는 `lineHeightNormal`을 사용합니다. 옆에 버튼이 있으면 제목 첫 줄을 기준으로 정렬하고 설명은 아래로 늘어나게 합니다. 제목 높이를 버튼 높이에 맞추면 줄바꿈에 따라 관계가 흔들릴 수 있습니다.
+Use `lineHeightTight` for the short heading and `lineHeightNormal` for the description. Align an adjacent button with the heading's first line and let the description grow below it. Fixing the heading to the button height makes that relationship fragile when text wraps.
 
-### 태그에 스타일 적용하기
+### Apply styles to semantic elements
 
-문단은 [P](?path=/docs/components-p--docs)를 사용합니다. `body`, `description`, `caption` 변형이 해당 역할의 크기·행간·색상을 조합합니다. 문장 안의 텍스트는 `span`에 토큰을 적용할 수 있으며, 입력 설명과 오류는 전용 Field 컴포넌트를 사용합니다.
+Use [P](/docs/components/p) for paragraphs. Its `body`, `description` and `caption` variants combine the corresponding size, line height and color roles. Inline text can use `span` with tokens; field descriptions and errors keep their dedicated Field components.
 
-제목은 [Heading](?path=/docs/components-heading--docs)을 사용해 HTML 단계와 시각적 크기를 따로 정할 수 있습니다.
+Use [Heading](/docs/components/heading) to choose an HTML heading level independently from its visual size.
 
-글자 토큰의 새 이름은 `typo`입니다. 기존 `typographyVars`는 같은 변수 그룹을 가리키는
-호환 export로 유지합니다. 새 예제에서는 `typo.fontSizeMd`처럼 사용합니다. 동일한 그룹에
-이름별로 두 theme을 적용하지 않습니다. 단위·배율은 [간격](?path=/docs/foundations-spacing--docs)의
-공통 설정을 사용하고, 실제 사용자 폰트 선택은 설치 기본값보다 우선합니다.
+Typography tokens are exported as `typo`. The existing `typographyVars` name remains a compatibility export of the same variable group; do not apply two separate themes. `spacingRoleVars` provides purpose-based spacing. Configure `theme.unit` as `rem` (default) or `px`, and `theme.density` as `default`, `compact`, or a positive number up to 2. Pixel mode uses 1rem=16px and does not follow root font-size preferences.
+
+## Relative reading styles
+
+Prefer typography tokens for shared roles. Inline code may use a positive `em`
+font size to follow the surrounding prose. Reading surfaces may choose a positive
+unitless line height, which scales with their text. Foundations lint accepts these
+relative relationships while still reporting fixed raw font sizes and line heights.

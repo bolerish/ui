@@ -1,5 +1,50 @@
 # @bolerish/ui documentation
 
+## Run and deploy
+
+The docs application uses TanStack Start, file-based TanStack Router routes and
+Cloudflare Workers. From the repository root run `pnpm dev:docs` (port 3000) or
+`pnpm build:docs`. From `docs/`, run `pnpm preview` to exercise the built Worker
+locally. With preview running, `pnpm test:runtime` verifies every document,
+SSR settings, legacy links, missing pages and the client/server bundle boundary.
+Use `DOCS_URL` to check another local port. Run `pnpm deploy` to build and deploy with your Cloudflare account.
+The compatibility date is pinned to the installed local Workers runtime.
+For Cloudflare Workers Builds with the repository root as its working directory,
+use `pnpm build:docs` as the build command and
+`pnpm --filter @bolerish/docs exec wrangler deploy` as the deploy command.
+This explicitly selects the docs app instead of asking Wrangler to detect a
+project at the workspace root.
+
+- `/` and `/ko`: English and Korean home pages with live component and block
+  examples in a responsive, variable-height gallery. Each example has a title and documentation link; card height follows its content. There is no configuration sidebar.
+  The first three examples render on the server; lower examples load near the viewport.
+- `/docs/getting-started`, `/docs/components/$slug`, `/docs/foundations/$slug`, `/docs/patterns/$slug`:
+  full-document SSR. English is the default; append `/ko` for Korean.
+  The loader preloads MDX and its examples together before switching documents.
+  Intent preloads and a five-minute cache avoid repeated cold loads.
+- `/preview/$example`: standalone server-rendered examples; Toast docs retain
+  iframe isolation because their global manager broadcasts to every demo.
+- Previous short paths, Storybook links and `?locale=ko` redirect to
+  the short localized paths.
+
+The generated `src/routeTree.gen.ts` is committed and excluded from lint/format.
+Run the dev server or build after changing route files.
+
+Theme, motion and density are validated and saved in a cookie for SSR and client
+navigation. Changing controls does not add preferences to the URL. Explicit URL
+preferences still override cookies for shared links. Language follows the path,
+not the cookie. System color mode resolves after hydration to keep markup consistent.
+Documentation navigation sections are expanded by default and can be collapsed.
+
+Component source references are available through the generated agent API documents,
+not appended to component pages. Examples use build-time raw imports, without
+runtime filesystem access. Keep deploy-specific configuration in `vite.config.ts`
+and `wrangler.jsonc`.
+
+Storybook has been removed. Component examples render inline with code views;
+Storybook's addon panel is replaced by browser checks. Run automated accessibility
+checks separately when adding interaction patterns.
+
 ## Component examples
 
 Keep `docs.mdx` and React examples together in `src/components/{component}/`.
@@ -9,7 +54,9 @@ static Markdown blocks per language: overview, then usage. Shared previews stay
 outside these blocks; the Markdown exports read the same text for coding agents.
 Pass the example's `?raw` import to `ComponentPreview` to display its usage code.
 Import components from `@bolerish/ui/{component}` so examples exercise the built package.
-Use `isolated height={360}` for examples that need an overlay boundary.
+Render examples inline by default; their overlays use the same document as the docs.
+Use `isolated height={420}` only for Toast demos, which share a global manager.
+Documentation and preview canvases use plain theme backgrounds.
 Keep preview-only layout in `ComponentPreview` and the isolated preview canvas.
 Show only imports, app state and composition needed to use the component in examples.
 Use the installed `className`/`style` APIs for simple placement; reserve `xstyle`
@@ -17,7 +64,8 @@ for examples that actually demonstrate StyleX customization.
 
 ## Foundations
 
-Edit `src/foundations/{topic}/guidelines.md` and `guidelines.en.md` together.
+Edit `src/foundations/{topic}/guidelines.md` (English) and `guidelines.kr.md`
+(Korean) together.
 These files supply localized user documentation. Agent entry points, API links
 and full LLM guidelines use the English foundation files and English MDX blocks.
 
@@ -28,7 +76,7 @@ for the user documentation. To regenerate them during development,
 run this from `docs/`:
 
 ```sh
-node scripts/build-guidelines.mjs
+node --experimental-strip-types scripts/build-guidelines.ts
 ```
 
 See [translation conventions](src/documentation/locales/README.md).
@@ -82,3 +130,13 @@ Vite test also compiles the README examples against the package APIs. A separate
 The toolbar uses the package runtime attribute: System → `system`, Reduce Motion
 → `off`, Allow Motion → `on`. Keep both inline and isolated examples on that
 contract instead of rewriting stylesheet media queries.
+
+## Foundations lint
+
+Run `pnpm --filter @bolerish/docs lint` to check documentation TS/TSX sources and
+examples with the workspace `@bolerish/eslint-plugin-ui`. The repository lint
+command runs the same color, typography and spacing rules. Use tokens for shared
+values. Component-relative `em` typography, margins and gaps, and positive
+unitless line heights pass directly. Use narrow, reasoned comment exceptions for
+other deliberate deviations. Raw CSS and MDX code strings are outside these AST
+rules.

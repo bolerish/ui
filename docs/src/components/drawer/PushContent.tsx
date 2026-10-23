@@ -25,11 +25,11 @@ export default function PushContent() {
 
   return (
     <Drawer open={open} onOpenChange={setOpen} swipeDirection="left">
-      <main {...stylex.props(open && styles.shifted)}>
+      <section aria-label="Projects" {...stylex.props(open && styles.shifted)}>
         <h2>Projects</h2>
         <p>Make room for the panel on wide screens.</p>
         <DrawerTrigger render={<Button variant="outline">Open filters</Button>} />
-      </main>
+      </section>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Filters</DrawerTitle>

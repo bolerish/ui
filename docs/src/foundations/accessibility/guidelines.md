@@ -1,56 +1,56 @@
-# 접근성
+# Accessibility
 
-키보드로 이동하거나 화면을 확대하는 사용자도 같은 작업을 끝낼 수 있게 합니다. 컴포넌트의 기본 동작 위에 이름, 초점 순서, 실제 색상 조합을 함께 설계하면 조작 방법이 달라져도 정보와 행동이 유지됩니다.
+Help people complete the same task with a keyboard, assistive technology, or enlarged text. Pair component behavior with meaningful names, focus order, and tested color combinations so changing how someone uses the screen does not remove an action.
 
-## 설계 기준
+## Design guidelines
 
-### 구조와 이름
+### Structure and names
 
-행동에는 `Button`, 이동에는 링크를 사용합니다. 제목은 내용의 계층에 맞춰 배치하고, 반복되는 탐색을 건너뛰어 본문으로 이동할 방법을 제공합니다. 페이지 언어는 `lang`으로 지정합니다.
+Use `Button` for actions and links for navigation. Follow the content hierarchy with headings, provide a way to skip repeated navigation, and set the page language with `lang`.
 
-입력 이름은 `FieldLabel`의 `htmlFor`와 입력의 `id`로 연결합니다. 아이콘 버튼에는 `aria-label`로 이름을 지정하고 장식 아이콘에는 `aria-hidden`을 적용합니다. 이미지가 전달하는 정보는 대체 텍스트로 제공하며 장식 이미지에는 빈 `alt`를 사용합니다. 이름만으로 용도를 알 수 있어야 하며 `Tooltip`에 필수 안내를 숨기지 않습니다.
+Connect `FieldLabel`'s `htmlFor` to the input's `id`. Name icon buttons with `aria-label` and hide decorative icons with `aria-hidden`. Provide alternative text for informative images and empty `alt` for decorative images. Keep essential instructions visible rather than only in `Tooltip`.
 
-### 키보드와 초점
+### Keyboard and focus
 
-| 확인할 동작 | 확인 방법                                              |
-| ----------- | ------------------------------------------------------ |
-| 이동        | Tab과 Shift+Tab으로 조작 요소를 자연스러운 순서로 이동 |
-| 실행        | 버튼의 Enter·Space, 링크의 Enter 동작 확인             |
-| 복합 컨트롤 | `Select`·`Tabs`·Radio Group의 방향키 동작을 유지       |
-| 팝업 종료   | 해당 컴포넌트의 닫기 버튼과 Escape 동작 확인           |
-| 초점 복귀   | 닫은 뒤 실행 요소나 작업을 이어 갈 위치로 이동         |
+| Interaction        | Verification                                                     |
+| ------------------ | ---------------------------------------------------------------- |
+| Navigation         | Tab and Shift+Tab follow a meaningful order                      |
+| Activation         | Buttons support Enter and Space; links support Enter             |
+| Composite controls | Preserve arrow-key behavior in `Select`, `Tabs`, and Radio Group |
+| Closing popups     | Verify the component's close button and Escape behavior          |
+| Returning focus    | Return to the trigger or a useful continuation point             |
 
-모달 안에서는 초점을 유지하되, 닫아서 빠져나올 수 있어야 합니다. 고정 헤더나 패널이 초점을 받은 요소를 완전히 가리지 않게 합니다. 초점 표시를 제거하거나 양수 `tabIndex`로 읽기 순서를 억지로 바꾸지 않습니다. 드래그 기능에는 버튼 등 드래그 없이 조작할 수 있는 대안도 제공합니다.
+Keep focus within a modal while it is open, with a working way to close it. Sticky headers and panels must not completely obscure the focused element. Preserve focus indicators and avoid positive `tabIndex` values. Provide a non-dragging alternative for drag interactions.
 
-### 대비와 조작 영역
+### Contrast and target size
 
-일반 텍스트의 AA 대비 기준은 **4.5:1**, 큰 텍스트는 **3:1**입니다. 큰 텍스트는 18pt 이상 또는 굵은 14pt 이상으로, CSS 기준 각각 24px와 약 18.67px에 해당합니다. 비활성 요소·로고 등에는 예외가 있으므로 세부 조건은 [텍스트 대비 기준](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)을 확인합니다.
+AA text contrast is **4.5:1** for ordinary text and **3:1** for large text. Large text is at least 18pt, or bold 14pt: 24 CSS px or approximately 18.67 CSS px respectively. Exceptions include inactive elements and logos; see [text contrast requirements](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
 
-의미 토큰도 실제 전경·배경 조합에서 검사합니다. 반투명 레이어는 합성된 색으로 확인하고 오류나 선택을 색만으로 전달하지 않습니다.
+Check semantic tokens in their actual foreground/background combinations, including composited translucent layers. Do not communicate errors or selection through color alone.
 
-AA의 포인터 대상 크기 기준은 24×24 CSS px이며 간격·문장 안 링크 등에 예외가 있습니다. 작은 아이콘의 크기와 클릭 영역을 구분합니다. `sizeVars.touchTarget`은 2.75rem이므로 루트 글자 크기가 16px일 때 44px입니다. 모든 컨트롤이 자동으로 이 크기를 갖는 것은 아닙니다. [대상 크기와 예외](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)를 확인합니다.
+AA pointer targets are at least 24×24 CSS px, with exceptions for spacing, inline links, and other cases. Distinguish icon size from the clickable area. `sizeVars.touchTarget` is 2.75rem, equivalent to 44px at a 16px root font size; not every control automatically uses it. See [target size and exceptions](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
 
-### 확대와 텍스트 간격
+### Zoom and text spacing
 
-200% 확대와 좁은 화면에서 내용·버튼·오류가 잘리지 않는지 확인합니다. 사용자가 행간을 글자 크기의 1.5배, 문단 뒤 간격을 2배, 자간을 0.12배, 단어 간격을 0.16배로 바꿔도 내용과 기능을 유지해야 합니다. 이는 기본 디자인에 강제하는 수치가 아니라 사용자 설정을 견디는지 확인하는 기준입니다. 언어별 적용 조건은 [텍스트 간격 기준](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html)을 따릅니다.
+Check 200% zoom and narrow viewports for clipped content, controls, and errors. Content and functionality must remain available when users set line height to 1.5 times the font size, paragraph spacing to 2 times, letter spacing to 0.12 times, and word spacing to 0.16 times. These are resilience checks, not mandatory default design values. See [text spacing requirements](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html) for language-specific applicability.
 
-### 오류와 상태 알림
+### Errors and status announcements
 
-`Field`의 `invalid`와 입력의 `aria-invalid`로 오류 상태를 표시하고, 오류 설명의 ID를 `aria-describedby`로 연결합니다. 제출에 실패하면 입력값을 유지하고 수정 방법을 알립니다. 상세 구성은 [Field](?path=/docs/components-field--docs)를 참고합니다.
+Set `Field`'s `invalid` and the input's `aria-invalid`, and connect the error description through `aria-describedby`. Preserve values after failed submission and explain how to correct them. See [Field](/docs/components/field) for composition.
 
-결과 수나 저장 완료는 초점을 옮기지 않는 상태 알림으로 전달합니다. `Banner`의 `announce="polite"`는 일반 상태에, `assertive`는 즉시 알려야 하는 경우에 사용합니다. 같은 일을 여러 알림에서 중복으로 읽어 주지 않습니다. 인증 입력에서 붙여 넣기와 자동 완성을 막지 않습니다.
+Announce result counts and completion without moving focus. Use `Banner`'s `announce="polite"` for routine status and `assertive` for urgent information. Avoid duplicate announcements. Allow paste and autofill in authentication fields.
 
-## 적용 예시
+## Examples
 
-### 설정 저장을 끝까지 확인하기
+### Follow a settings change through to completion
 
-Tab으로 입력에 도달해 값을 바꾸고 저장한 뒤, 화면 낭독기로 완료 안내를 확인합니다. 오류가 나면 입력값과 수정 안내가 남아 있어야 합니다. 이 한 흐름으로 이름, 키보드, 오류, 상태 알림을 함께 점검할 수 있습니다.
+Tab to a field, change its value, save, and check the completion announcement with a screen reader. If saving fails, keep the value and correction guidance. This one task exercises names, keyboard behavior, errors, and status messages.
 
-## 검증 순서
+## Verification order
 
-1. 자동 검사로 이름·역할·구조 오류를 찾습니다.
-2. 키보드만으로 주요 작업을 완료하고, 취소와 실패 후 복구도 확인합니다.
-3. 화면 낭독기로 이름·역할·값·오류·동적 결과를 확인합니다.
-4. 라이트·다크, 확대, 텍스트 간격 변경, 고대비와 모션 줄임 설정을 확인합니다.
+1. Use automated checks to find name, role, and structure issues.
+2. Complete primary tasks with the keyboard, including cancellation and recovery.
+3. Check names, roles, values, errors, and dynamic results with a screen reader.
+4. Check light and dark themes, zoom, text spacing overrides, high contrast, and reduced motion.
 
-자동 검사 통과는 전체 접근성 준수를 보장하지 않습니다. 사용한 화면과 환경, 수동으로 확인한 작업을 기록합니다. 이 문서는 점검 기준이며 @bolerish/ui 전체에 대한 WCAG 인증을 뜻하지 않습니다.
+Passing automated checks does not establish full conformance. Record the screens, environments, and tasks verified manually. This guide is a verification baseline, not WCAG certification for @bolerish/ui.

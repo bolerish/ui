@@ -2,10 +2,7 @@ import { LocaleContent } from "../../documentation/locale";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import RangeSelectionSource from "./RangeSelection.tsx?raw";
 import DefaultSource from "./Default.tsx?raw";
-import { Meta } from "@storybook/addon-docs/blocks";
 import { ComponentPreview } from "../../documentation/ComponentPreview";
-
-<Meta title="Components/Calendar" />
 
 <LocaleContent locale="ko">
 
@@ -31,6 +28,8 @@ Let people compare nearby dates while choosing a day or period.
 
 ## 사용 가이드
 
+`fixedWeeks`를 설정하면 항상 6주를 표시해 월을 바꿔도 달력 높이가 유지됩니다.
+
 날짜 사이의 관계가 중요하면 달력을 펼쳐 둡니다. 선택할 때만 열어도 된다면 Date Picker를 사용합니다.
 
 > 확정하기 전에 선택할 수 없는 날짜를 표시하고 선택에 영향을 주는 조건을 안내합니다.
@@ -40,6 +39,8 @@ Let people compare nearby dates while choosing a day or period.
 <LocaleContent locale="en">
 
 ## Usage guidelines
+
+Set `fixedWeeks` to always show six weeks and keep the calendar height stable between months.
 
 Keep the calendar visible when date relationships matter. Use Date Picker when the calendar should open only during selection.
 

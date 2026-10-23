@@ -33,30 +33,42 @@ const rows = [
 export default function Default() {
   return (
     <TableContainer>
-      <Table>
+      <Table style={{ tableLayout: "fixed" }}>
         <TableCaption>Three recently updated projects</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Project</TableHead>
-            <TableHead>Owner</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Updated</TableHead>
+            <TableHead style={{ whiteSpace: "normal", overflowWrap: "anywhere" }}>
+              Project
+            </TableHead>
+            <TableHead style={{ whiteSpace: "normal", overflowWrap: "anywhere" }}>Owner</TableHead>
+            <TableHead style={{ whiteSpace: "normal", overflowWrap: "anywhere" }}>Status</TableHead>
+            <TableHead style={{ whiteSpace: "normal", overflowWrap: "anywhere" }}>
+              Updated
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.owner}</TableCell>
-              <TableCell>{row.status}</TableCell>
-              <TableCell>{row.updated}</TableCell>
+              <TableCell style={{ whiteSpace: "normal", overflowWrap: "anywhere" }}>
+                {row.name}
+              </TableCell>
+              <TableCell style={{ whiteSpace: "normal", overflowWrap: "anywhere" }}>
+                {row.owner}
+              </TableCell>
+              <TableCell style={{ whiteSpace: "normal", overflowWrap: "anywhere" }}>
+                {row.status}
+              </TableCell>
+              <TableCell style={{ whiteSpace: "normal", overflowWrap: "anywhere" }}>
+                {row.updated}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
         <TableFooter>
           <TableRow>
             <TableCell colSpan={3}>All projects</TableCell>
-            <TableCell>3</TableCell>
+            <TableCell style={{ whiteSpace: "normal", overflowWrap: "anywhere" }}>3</TableCell>
           </TableRow>
         </TableFooter>
       </Table>

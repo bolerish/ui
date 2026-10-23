@@ -7,11 +7,9 @@ import {
 } from "@bolerish/tokens/semantic.stylex";
 import { Button } from "@bolerish/ui/button";
 import { CheckIcon, CopyIcon } from "@phosphor-icons/react";
-import { DocsContext } from "@storybook/addon-docs/blocks";
 import * as stylex from "@stylexjs/stylex";
-import { type ComponentProps, useEffect, useState, useContext } from "react";
-import { SyntaxHighlighter } from "storybook/internal/components";
-import { ThemeProvider, convert, themes } from "storybook/theming";
+import { Highlight, themes } from "prism-react-renderer";
+import { useEffect, useState } from "react";
 
 import { ui } from "./locale";
 import { useColorMode } from "./useColorMode";
@@ -26,17 +24,20 @@ const styles = stylex.create({
     borderRadius: radiusVars.md,
     marginBlock: spacingVars.space4,
     overflow: "hidden",
+    position: "relative",
   },
   toolbar: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
-    padding: spacingVars.space2,
+    position: "absolute",
+    top: spacingVars.space2,
+    right: spacingVars.space2,
     gap: spacingVars.space2,
   },
   content: {
-    paddingInline: spacingVars.space4,
-    paddingBottom: spacingVars.space4,
+    padding: spacingVars.space4,
+    paddingRight: spacingVars.space12,
     fontSize: typo.fontSizeSm,
     lineHeight: typo.lineHeightNormal,
     overflowX: "auto",
@@ -44,14 +45,8 @@ const styles = stylex.create({
   status: { color: colorVars.fgSecondary, fontSize: typo.fontSizeXs },
 });
 
-export function CodeBlock({
-  code,
-  language = "tsx",
-}: {
-  code: string;
-  language?: ComponentProps<typeof SyntaxHighlighter>["language"];
-}) {
-  const globals = useDocumentationGlobals(useContext(DocsContext));
+export function CodeBlock({ code, language = "tsx" }: { code: string; language?: string }) {
+  const globals = useDocumentationGlobals();
   const colorMode = useColorMode(globals.colorMode);
   const [status, setStatus] = useState<"copied" | "failed" | null>(null);
   useEffect(() => {
@@ -67,7 +62,7 @@ export function CodeBlock({
       <div {...stylex.props(styles.toolbar)}>
         <output {...stylex.props(styles.status)}>{status ? statusMessages[status] : ""}</output>
         <Button
-          size="icon-sm"
+          size="icon"
           variant="ghost"
           aria-label={ui.copy}
           onClick={async () => {
@@ -83,17 +78,25 @@ export function CodeBlock({
         </Button>
       </div>
       <div {...stylex.props(styles.content)}>
-        <ThemeProvider
-          theme={convert({
-            ...themes[colorMode],
-            fontBase: "var(--bolerish-font-body)",
-            fontCode: "var(--bolerish-font-code)",
-          })}
+        <Highlight
+          code={code}
+          language={language}
+          theme={colorMode === "dark" ? themes.vsDark : themes.vsLight}
         >
-          <SyntaxHighlighter language={language} copyable={false} format={false}>
-            {code}
-          </SyntaxHighlighter>
-        </ThemeProvider>
+          {({ tokens, getLineProps, getTokenProps }) => (
+            <pre>
+              <code>
+                {tokens.map((line, index) => (
+                  <div key={index} {...getLineProps({ line })}>
+                    {line.map((token, tokenIndex) => (
+                      <span key={tokenIndex} {...getTokenProps({ token })} />
+                    ))}
+                  </div>
+                ))}
+              </code>
+            </pre>
+          )}
+        </Highlight>
       </div>
     </div>
   );

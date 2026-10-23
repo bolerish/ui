@@ -1,37 +1,37 @@
-# 레이아웃
+# Layout
 
-정보와 행동의 관계가 배치에 드러나면 사용자는 무엇을 읽고 어디에서 조작할지 빠르게 파악할 수 있습니다. 먼저 작업 단위로 묶고, 각 묶음에 맞는 컴포넌트를 선택합니다.
+When layout expresses relationships, people can see what to read and where to act. Group content by task, then choose a component that supports each group.
 
-## 선택 기준
+## Selection guidelines
 
-| 사용 상황                     | 권장 선택                | 적용 코드                    |
-| ----------------------------- | ------------------------ | ---------------------------- |
-| 제목·설명·보조 행동이 있는 행 | Content Row              | `<ContentRow>…</ContentRow>` |
-| 이름·설명·오류가 있는 입력    | `Field`                  | `<Field>…</Field>`           |
-| 독립된 정보 묶음              | `Card`                   | `<Card>…</Card>`             |
-| 짧은 맥락 메뉴·선택           | `Popover`, Dropdown Menu | `<Popover>…</Popover>`       |
-| 집중이 필요한 작업            | `Dialog`, `Drawer`       | `<Dialog>…</Dialog>`         |
-| 결과 목록·비교 가능한 값      | `Table`                  | `<Table>…</Table>`           |
+| Situation                                              | Recommended choice       | Code                         |
+| ------------------------------------------------------ | ------------------------ | ---------------------------- |
+| A row with a title, description, and supporting action | Content Row              | `<ContentRow>…</ContentRow>` |
+| An input with a name, description, and error           | `Field`                  | `<Field>…</Field>`           |
+| An independent information group                       | `Card`                   | `<Card>…</Card>`             |
+| Short contextual choices                               | `Popover`, Dropdown Menu | `<Popover>…</Popover>`       |
+| A focused task                                         | `Dialog`, `Drawer`       | `<Dialog>…</Dialog>`         |
+| Results and comparable values                          | `Table`                  | `<Table>…</Table>`           |
 
-### 폭과 간격
+### Width and spacing
 
-짧은 입력 묶음에는 `sizeVars.contentSm`, 읽기 영역에는 `contentMd` 등을 시작점으로 검토합니다. 고정 폭을 강제하지 않고 좁은 화면에서 사용 가능한 폭을 넘지 않게 합니다. 관계에 따른 간격은 Spacing 문서를 따릅니다.
+Consider `sizeVars.contentSm` for a short input group and `contentMd` for reading areas. Keep the layout within the available width on narrow screens. Follow Spacing for gaps that communicate relationships.
 
-페이지 본문은 `width: 100%`, `maxWidth: layoutVars.contentMaxWidth`,
-`marginInline: auto`를 조합합니다. 좁은 화면의 좌우 여백은 `space4`, 넓은 화면은
-`space6`을 시작점으로 사용합니다. `sizeVars.content*`는 팝오버·패널·다이얼로그 같은
-컴포넌트 폭에 사용하고 페이지 최대 폭으로 확장하지 않습니다.
+For page content, combine `width: 100%`, `maxWidth: layoutVars.contentMaxWidth`, and
+`marginInline: auto`. Start with `space4` inline padding on narrow screens and `space6` on
+wider screens. Reserve `sizeVars.content*` for component widths such as popovers, panels,
+and dialogs instead of stretching them into page-width tokens.
 
-### 첫 줄 정렬
+### First-line alignment
 
-Content Row의 제목과 행동 버튼은 첫 줄 기준선에 맞춥니다. `Checkbox`와 `FieldContent`가 함께 있으면 제목 첫 줄에 정렬합니다. 설명의 줄 수가 바뀌어도 사용자가 보정용 위·아래 여백을 추가하지 않게 합니다.
+Align Content Row titles and actions on their first baseline. Align `Checkbox` to the first title line when paired with `FieldContent`. A wrapping description should not require manual top or bottom padding.
 
-### 좁은 화면
+### Narrow screens
 
-충분한 폭이 없으면 보조 행동을 다음 줄로 보내거나 관련 메뉴에 모읍니다. 주요 행동을 숨기지 않습니다. 고정 높이, 넘치는 폭, 가로 스크롤을 기본 해결책으로 사용하지 않습니다.
+Move secondary actions to the next row or a related menu when space is limited. Keep the primary action visible. Avoid fixed heights, overflowing widths, and horizontal scrolling as default solutions.
 
-## 적용 예시
+## Examples
 
-### 파일 목록 구성하기
+### Compose a file list
 
-파일 이름·수정 시각·추가 행동은 Content Row로 한 항목에 묶습니다. 항목마다 여러 수치를 비교해야 한다면 `Table`을 검토합니다. 같은 자료라도 읽는 목적이 목록 탐색인지 열 간 비교인지에 따라 구성이 달라집니다.
+Use Content Row to group a file name, modified time, and secondary action. Consider `Table` when people need to compare several values across items. The same data can need a different layout depending on whether the task is browsing or comparison.

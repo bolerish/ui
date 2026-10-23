@@ -1,38 +1,38 @@
-# 말투와 어조
+# Voice and Tone
 
-일관된 말투는 화면이 바뀌어도 같은 제품을 사용한다는 감각을 줍니다. 상황에 맞춰 설명의 양과 어조를 조절하면 평소에는 빠르게 읽고, 손실이나 실패 앞에서는 충분히 이해한 뒤 결정할 수 있습니다.
+A consistent voice makes different screens feel like the same product. Adjust the tone and amount of explanation so routine tasks stay quick while loss or failure gets enough context for an informed decision.
 
-## 작성 기준
+## Writing guidelines
 
-### 유지할 말투
+### Keep a consistent voice
 
-확인된 사실부터 씁니다. 내부 오류명이나 구현 용어 대신 사용자가 하던 작업을 기준으로 설명합니다. 사용자를 탓하거나 실제 결과보다 과장해 말하지 않습니다.
+Lead with confirmed facts. Describe the user's task rather than internal error names or implementation terms. Avoid blame and claims that exceed the actual result.
 
-제품에서 정한 존댓말과 끝맺음을 유지합니다. 버튼은 “저장”처럼 짧게 쓰고 설명은 문장으로 쓸 수 있습니다. 형식이 다르다는 이유만으로 모든 문구를 같은 어미로 맞출 필요는 없습니다.
+Follow the product's chosen formality and sentence style. Buttons can use short labels such as “Save” while descriptions use complete sentences. Different text roles do not need identical grammatical forms.
 
-### 상황에 맞게 조절하기
+### Adapt to the situation
 
-| 상황                | 전달할 내용                    | 예시                                                          |
-| ------------------- | ------------------------------ | ------------------------------------------------------------- |
-| 일반 안내           | 필요한 조건이나 다음 단계      | “초대할 이메일 주소를 입력해 주세요.”                         |
-| 완료                | 실제로 끝난 작업               | “변경 사항을 저장했어요.”                                     |
-| 실패                | 실패한 작업과 가능한 다음 행동 | “저장하지 못했어요. 다시 시도해 주세요.”                      |
-| 되돌릴 수 없는 작업 | 대상과 복구 가능 여부          | “프로젝트와 파일을 삭제합니다. 삭제 후에는 복구할 수 없어요.” |
+| Situation           | Include                                | Example                                                            |
+| ------------------- | -------------------------------------- | ------------------------------------------------------------------ |
+| Routine guidance    | A condition or next step               | “Enter the email address to invite.”                               |
+| Completion          | What actually finished                 | “Changes saved.”                                                   |
+| Failure             | What failed and an available next step | “Could not save. Try again.”                                       |
+| Irreversible action | The target and recovery limits         | “This deletes the project and its files. They cannot be restored.” |
 
-실패 원인을 확인했다면 설명에 포함합니다. 원인을 모를 때 연결 문제나 사용자 실수라고 단정하지 않습니다. 중요한 결과를 친근한 표현으로 흐리거나, 긴 사과로 해결 방법을 뒤로 미루지 않습니다.
+Include the cause when it is known. Do not assume a connection problem or user mistake when the cause is unknown. Keep important consequences explicit, and do not delay the solution with a long apology.
 
-## 적용 예시
+## Examples
 
-### 같은 저장 작업, 다른 상황
+### The same save action in different situations
 
-성공했을 때는 “변경 사항을 저장했어요.”로 결과를 짧게 알립니다. 실패했을 때는 “저장하지 못했어요. 다시 시도해 주세요.”처럼 다음 행동을 더합니다. 친근함을 유지하더라도 실패를 가볍게 넘기거나 확인하지 못한 원인을 덧붙이지 않습니다.
+On success, “Changes saved.” briefly confirms the result. On failure, “Couldn't save changes. Try again.” adds a next step. A friendly voice should not minimize failure or invent its cause.
 
-### 고쳐 쓰기
+### Revise the message
 
-| 수정 전                | 수정 후                            | 수정 이유                            |
-| ---------------------- | ---------------------------------- | ------------------------------------ |
-| “잘못 입력하셨습니다.” | “이메일 주소에 @를 포함해 주세요.” | 책임을 묻는 대신 수정 방법을 알려 줌 |
-| “정말 진행하시겠어요?” | “프로젝트를 삭제할까요?”           | 결정할 행동과 대상을 드러냄          |
-| “완벽하게 처리됐어요!” | “파일을 업로드했어요.”             | 확인된 결과만 전달함                 |
+| Before                              | After                             | Rationale                                     |
+| ----------------------------------- | --------------------------------- | --------------------------------------------- |
+| “You entered an invalid value.”     | “Include @ in the email address.” | Gives a correction instead of assigning blame |
+| “Are you sure you want to proceed?” | “Delete this project?”            | Names the decision and target                 |
+| “Everything worked perfectly!”      | “File uploaded.”                  | Reports only the confirmed result             |
 
-예시 문구는 실제 동작에 맞게 바꿉니다. 재시도나 복구 기능이 없다면 있다고 안내하지 않습니다. 버튼·오류·빈 화면의 구성은 [Writing](?path=/docs/foundations-writing--docs)을 참고합니다.
+Adapt examples to actual behavior. Do not promise retry or recovery when unavailable. See [Writing](/docs/foundations/writing) for button labels, errors, and empty states.

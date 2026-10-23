@@ -3,10 +3,7 @@ import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import PushContentSource from "./PushContent.tsx?raw";
 import PositionSource from "./Position.tsx?raw";
 import DefaultSource from "./Default.tsx?raw";
-import { Meta } from "@storybook/addon-docs/blocks";
 import { ComponentPreview } from "../../documentation/ComponentPreview";
-
-<Meta title="Components/Drawer" />
 
 <LocaleContent locale="ko">
 
@@ -34,7 +31,7 @@ Choose a `Drawer` for filters or focused supporting work. Decide whether the bac
 
 <LocalizedMarkdown text={"## Basic example"} />
 
-<ComponentPreview name="drawer--Default" source={DefaultSource} isolated height={360} />
+<ComponentPreview name="drawer--Default" source={DefaultSource} height={360} />
 
 <LocaleContent locale="ko">
 
@@ -42,7 +39,7 @@ Choose a `Drawer` for filters or focused supporting work. Decide whether the bac
 
 ### 사용할 때
 
-목록 필터처럼 보조 컨트롤이나 범위가 분명한 작업을 가장자리 패널에 담을 때 사용합니다. 작고 중앙에 집중할 작업은 [Dialog](?path=/docs/components-dialog--docs), 독립적인 탐색이 필요한 작업은 페이지를 선택합니다.
+목록 필터처럼 보조 컨트롤이나 범위가 분명한 작업을 가장자리 패널에 담을 때 사용합니다. 작고 중앙에 집중할 작업은 [Dialog](/docs/components/dialog), 독립적인 탐색이 필요한 작업은 페이지를 선택합니다.
 
 ### 위치보다 상호작용 먼저 결정하기
 
@@ -77,7 +74,7 @@ Choose a `Drawer` for filters or focused supporting work. Decide whether the bac
 
 ### When to use
 
-Use `Drawer` for an edge panel containing a focused task or supporting controls, such as list filters. Use [Dialog](?path=/docs/components-dialog--docs) for a compact, centered task, and a page when the work needs independent navigation.
+Use `Drawer` for an edge panel containing a focused task or supporting controls, such as list filters. Use [Dialog](/docs/components/dialog) for a compact, centered task, and a page when the work needs independent navigation.
 
 ### Choose interaction before position
 
@@ -122,7 +119,7 @@ hiding a screen separately in application code.
 <Drawer swipeDirection="right">...</Drawer>
 ```
 
-<ComponentPreview name="drawer--Position" source={PositionSource} isolated height={360} />
+<ComponentPreview name="drawer--Position" source={PositionSource} height={360} />
 
 <LocalizedMarkdown text={"### Swipe and snap points"} />
 
@@ -160,7 +157,7 @@ hiding a screen separately in application code.
   }
 />
 
-<ComponentPreview name="drawer--PushContent" source={PushContentSource} isolated height={360} />
+<ComponentPreview name="drawer--PushContent" source={PushContentSource} height={360} />
 
 <LocalizedMarkdown text={"### Responsive layouts"} />
 

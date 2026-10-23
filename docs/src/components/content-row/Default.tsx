@@ -21,7 +21,7 @@ export default function Default() {
           <ContentRowDescription>Last edited today at 2:18 PM</ContentRowDescription>
         </ContentRowContent>
         <ContentRowActions>
-          <Button aria-label="More actions" size="icon-sm" variant="ghost">
+          <Button aria-label="More actions" size="icon" variant="ghost">
             <DotsThreeIcon aria-hidden="true" size="1rem" />
           </Button>
         </ContentRowActions>

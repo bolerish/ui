@@ -6,9 +6,8 @@ import {
   spacingVars,
   typo,
 } from "@bolerish/tokens/semantic.stylex";
-import { DocsContext } from "@storybook/addon-docs/blocks";
 import * as stylex from "@stylexjs/stylex";
-import { useContext, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
 import { useLocale } from "../../documentation/locale";
@@ -120,7 +119,7 @@ function TokenCard({ children, name, usage, value }: TokenCardProps) {
   );
 }
 function TokenValue({ token }: { token: string }) {
-  const globals = useDocumentationGlobals(useContext(DocsContext));
+  const globals = useDocumentationGlobals();
   const colorMode = useColorMode(globals.colorMode);
   const elementRef = useRef<HTMLSpanElement>(null);
   const [value, setValue] = useState(token);

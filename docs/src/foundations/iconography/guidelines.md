@@ -1,23 +1,23 @@
-# 아이콘
+# Iconography
 
-익숙한 그림을 일관되게 사용하면 반복되는 행동을 더 빨리 찾을 수 있습니다. 아이콘이 뜻을 충분히 전달하지 못하는 곳에는 텍스트를 함께 두어 처음 사용하는 사람도 행동을 이해하게 합니다.
+Consistent, familiar symbols make repeated actions easier to find. Add visible text where the symbol alone would leave a first-time user guessing.
 
-## 선택 기준
+## Selection guidelines
 
-`@phosphor-icons/react`에서 필요한 아이콘을 직접 가져옵니다. 이미 사용하는 Phosphor 아이콘을 먼저 확인합니다. 같은 화면의 같은 역할에는 동일한 아이콘과 굵기를 유지합니다. 크기는 `sizeVars.iconXs`, `iconSm`, `iconMd`, `iconLg`에서 선택합니다.
+Import icons directly from `@phosphor-icons/react`. Check existing Phosphor icons first. Use the same icon and weight for the same role. Choose from `sizeVars.iconXs`, `iconSm`, `iconMd`, and `iconLg`.
 
-아이콘 그림의 크기와 실제로 누를 수 있는 영역은 다릅니다. 작은 아이콘도 충분한 터치 영역을 확보하고, 기존 `Button`의 아이콘 크기 속성을 먼저 사용합니다.
+An icon's visible size is different from its touch target. Provide enough space to press small icons, and prefer the existing icon size props on `Button`.
 
-### 접근 가능한 이름
+### Accessible names
 
-아이콘만 있는 버튼에는 `aria-label`로 이름을 지정합니다. 텍스트 옆 장식 아이콘에는 `aria-hidden`을 사용해 같은 내용을 두 번 읽지 않게 합니다. `Tooltip`만으로 필수 레이블을 대신하지 않습니다.
+Add an `aria-label` to icon-only buttons. Hide decorative icons beside text with `aria-hidden` to avoid repeating the label. A tooltip does not replace a required accessible name.
 
-### 정렬
+### Alignment
 
-Toast 상태 아이콘은 제목 첫 줄에 맞추고, 닫기 아이콘은 오른쪽의 첫 줄 위치를 유지합니다. 설명이 늘어났다고 전체 콘텐츠의 가운데로 내리지 않습니다. 같은 행동을 서로 다른 그림으로 번갈아 표현하지 않습니다.
+Align Toast status icons to the title's first line and keep the close icon at that line on the right. Do not move icons to the center of the entire message when the description wraps. Keep one icon for the same action.
 
-## 적용 예시
+## Examples
 
-### 파일 행의 아이콘 배치하기
+### Place icons in a file row
 
-파일 종류 아이콘은 이름을 찾는 단서로, 추가 행동 아이콘은 메뉴를 여는 버튼으로 사용합니다. 전자는 텍스트 옆 장식이고 후자는 조작 요소이므로, 같은 크기의 그림이어도 접근 가능한 이름과 누를 영역을 다르게 다룹니다.
+A file-type icon helps identify the item; a more-actions icon opens a menu. One decorates a name and the other is a control. Even when their drawings are the same size, their accessible names and interactive areas serve different purposes.

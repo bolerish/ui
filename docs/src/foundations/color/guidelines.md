@@ -1,124 +1,123 @@
-# 색상
+# Color
 
-색상의 역할을 일관되게 쓰면 사용자는 제목, 보조 설명, 필요한 행동을 빠르게 구별할 수 있습니다. 역할에 맞는 의미 토큰을 선택하면 라이트·다크 모드에서도 같은 기준으로 화면을 구성할 수 있습니다.
+Consistent color roles help people distinguish essential content, supporting text, and available actions. Semantic tokens let you compose light and dark screens using the same decisions.
 
-## 선택 기준
+## Selection guidelines
 
-| 사용 상황                 | 권장 선택                 | 적용 코드                              |
-| ------------------------- | ------------------------- | -------------------------------------- |
-| 화면의 가장 바깥 배경     | `colorVars.bgCanvas`      | `backgroundColor: colorVars.bgCanvas`  |
-| 일반 콘텐츠 영역          | `colorVars.bgSurface`     | `backgroundColor: colorVars.bgSurface` |
-| 약하게 구별할 영역        | `colorVars.bgSubtle`      | `backgroundColor: colorVars.bgSubtle`  |
-| 팝업처럼 떠 있는 표면     | `colorVars.bgRaised`      | `backgroundColor: colorVars.bgRaised`  |
-| 제목·필수 본문            | `colorVars.fgPrimary`     | `color: colorVars.fgPrimary`           |
-| 설명·보조 정보            | `colorVars.fgSecondary`   | `color: colorVars.fgSecondary`         |
-| 일반 구분선               | `colorVars.strokeDefault` | `borderColor: colorVars.strokeDefault` |
-| 반드시 구별해야 하는 경계 | `colorVars.strokeControl` | `borderColor: colorVars.strokeControl` |
+| Situation                          | Recommended choice        | Code                                   |
+| ---------------------------------- | ------------------------- | -------------------------------------- |
+| Outer page background              | `colorVars.bgCanvas`      | `backgroundColor: colorVars.bgCanvas`  |
+| Content surface                    | `colorVars.bgSurface`     | `backgroundColor: colorVars.bgSurface` |
+| Subtle separation                  | `colorVars.bgSubtle`      | `backgroundColor: colorVars.bgSubtle`  |
+| Raised surface, such as a popup    | `colorVars.bgRaised`      | `backgroundColor: colorVars.bgRaised`  |
+| Headings and essential content     | `colorVars.fgPrimary`     | `color: colorVars.fgPrimary`           |
+| Supporting information             | `colorVars.fgSecondary`   | `color: colorVars.fgSecondary`         |
+| Standard divider                   | `colorVars.strokeDefault` | `borderColor: colorVars.strokeDefault` |
+| Boundary that must remain distinct | `colorVars.strokeControl` | `borderColor: colorVars.strokeControl` |
 
-주요 행동이나 파괴적 행동의 배경에는 대응하는 `fgOnActionPrimary` 또는 `fgOnActionDestructive`를 사용합니다. 오류는 `fgFeedbackError` 같은 상태 토큰과 구체적인 설명을 함께 사용합니다.
+Pair strong action backgrounds with `fgOnActionPrimary` or `fgOnActionDestructive`. Pair feedback tokens such as `fgFeedbackError` with a specific explanation.
 
-## 적용 예시
+## Examples
 
-### 설정 패널에 적용하기
+### Apply roles to a settings panel
 
-패널은 `bgSurface`, 제목은 `fgPrimary`, 보조 설명은 `fgSecondary`로 구성합니다. 저장 오류가 생기면 오류 색과 함께 수정 방법을 표시합니다. 설명과 오류를 모두 약한 색으로 처리하면 지금 해결할 문제가 묻힙니다.
+Use `bgSurface` for the panel, `fgPrimary` for its title, and `fgSecondary` for supporting text. When saving fails, add an error role and a recovery message. Giving both supporting text and the error a muted treatment hides what needs attention.
 
-> 라이트·다크 모드에서 같은 의미 토큰을 유지합니다. 의미 토큰을 썼다는 이유만으로 모든 전경·배경 조합의 대비가 보장되지는 않습니다. 실제 조합을 검사하고, 상태를 색만으로 전달하지 않습니다.
+> Keep the same semantic token across light and dark modes. Semantic tokens do not guarantee contrast for every foreground and background combination. Test the actual pairing and communicate state through more than color.
 
-## 위계와 경계
+## Hierarchy and boundaries
 
-`fgPrimary`는 필수 본문, `fgSecondary`는 읽을 수 있어야 하는 보조 설명에 사용합니다.
-`fgTertiary`는 중요도가 낮은 부가 표시, `fgDisabled`는 실제로 사용할 수 없는 조작에만
-사용합니다. 보조 설명을 비활성 색으로 처리하지 않습니다.
+Use `fgPrimary` for essential content, `fgSecondary` for readable supporting text,
+`fgTertiary` for low-priority supplementary marks, and `fgDisabled` only for unavailable
+controls. Supporting descriptions are not disabled content.
 
-단순 구획에는 `strokeDefault`, 메뉴 안의 행동 그룹처럼 더 분명한 구분에는
-`strokeStrong`을 사용합니다. `strokeStrong`은 선택·오류·포커스의 대체 색이 아니며,
-그 자체로 접근성 대비를 보장하지 않습니다. Dropdown Menu 구분선은 이 기준을 따릅니다.
+Use `strokeDefault` for ordinary divisions and `strokeStrong` for a clearer separation
+between action groups in menus. Dropdown Menu separators follow this rule. A strong border
+is not a substitute for selection, error or focus, and does not guarantee sufficient contrast.
 
-선택과 드롭의 배경·전경·경계 조합은 [상태](?path=/docs/foundations-state--docs)의
-역할별 조합 계약을 따릅니다. `bgSubtle`만으로 선택을 표시하지 않습니다.
+Follow the role composition contracts in [State](/docs/foundations/state)
+for selection and drop backgrounds, foregrounds and borders. `bgSubtle` alone does not mean selected.
 
-## 팔레트
+## Palette
 
-거의 검정인 차가운 표면과 Zinc 계열의 흑백 주요 행동을 사용합니다. 라이트 표면과 필수 컨트롤 경계는 읽기와 조작에 필요한 대비를 유지합니다.
+Use cool near-black surfaces and monochrome Zinc primary actions. Light surfaces and essential control boundaries preserve contrast for reading and interaction.
 
-| 역할                  | 값      | 적용                        |
-| --------------------- | ------- | --------------------------- |
-| 다크 캔버스           | #08090A | 화면의 가장 낮은 면         |
-| 다크 콘텐츠           | #0F1011 | 카드·입력·기본 표면         |
-| 다크 팝업             | #161718 | 떠 있는 면·약한 묶음        |
-| 다크 선택 면          | #23252A | 선택 상태                   |
-| 다크 보조 글자        | #8A8F98 | 읽을 수 있는 설명·메타 정보 |
-| 라이트 캔버스         | #EEEEEE | 밝은 화면의 기본 면         |
-| 라이트 콘텐츠         | #FFFFFF | 카드·입력                   |
-| 라이트 묶음           | #F5F5F5 | 약한 묶음                   |
-| 라이트 주요 행동      | #18181B | 밝은 면 위의 어두운 버튼    |
-| 라이트 주요 행동 글자 | #FFFFFF | 어두운 버튼 위의 밝은 글자  |
-| 다크 주요 행동        | #E4E4E7 | 어두운 면 위의 밝은 버튼    |
-| 다크 주요 행동 글자   | #18181B | 밝은 버튼 위의 어두운 글자  |
-| 라이트 주요 행동 호버 | #3F3F46 | 어두운 버튼의 호버          |
-| 다크 주요 행동 호버   | #D4D4D8 | 밝은 버튼의 호버            |
+| Role                  | Value   | Use                                |
+| --------------------- | ------- | ---------------------------------- |
+| Dark canvas           | #08090A | Lowest screen surface              |
+| Dark content          | #0F1011 | Cards, inputs and default surfaces |
+| Dark raised surface   | #161718 | Popups and subtle grouping         |
+| Dark selected surface | #23252A | Selected surfaces                  |
+| Dark supporting text  | #8A8F98 | Descriptions and metadata          |
+| Light canvas          | #EEEEEE | Lowest light surface               |
+| Light content         | #FFFFFF | Cards and inputs                   |
+| Light grouping        | #F5F5F5 | Subtle groups                      |
+| Light primary action  | #18181B | Dark button on a light surface     |
+| Light primary label   | #FFFFFF | Light label on a dark button       |
+| Dark primary action   | #E4E4E7 | Light button on a dark surface     |
+| Dark primary label    | #18181B | Dark label on a light button       |
+| Light primary hover   | #3F3F46 | Dark button hover                  |
+| Dark primary hover    | #D4D4D8 | Light button hover                 |
 
-주요 행동과 현재 단계는 흑백 대비로 구분합니다. 정보·성공·경고·오류 색은 각각의 상태를 알리는 데 사용합니다.
+Distinguish primary actions and current progress through monochrome contrast. Information, success, warning and error colors communicate their respective states.
 
-라이트 입력의 `strokeControl`은 #81868F, 다크는 #62666D입니다. `strokeDefault`는 장식용 구분선이며 필수 경계를 대신하지 않습니다. 다크 선택 경계의 `strokeStrong`은 #81868F로 구별합니다. 포커스는 라이트 #383B3F, 다크 #8A8F98을 사용합니다. 검사한 조합에서 글자는 4.5:1, 필수 컨트롤·포커스 경계는 3:1을 기준으로 확인합니다.
+Essential input boundaries use #81868F in light mode and #62666D in dark mode.
+Decorative strokeDefault does not replace them. Dark selected boundaries use
+#81868F via strokeStrong. Focus uses #383B3F in light and #8A8F98 in dark. Tested
+text pairings target 4.5:1 and essential control/focus boundaries target 3:1.
 
-## 팔레트 작성과 생성
+## Palette authoring and generation
 
-팔레트 원본은 `packages/tokens/palette.oklch.json`에서 OKLCH로 작성합니다.
-명도·채도·색상을 조정한 뒤 `pnpm palette:generate`로 StyleX 토큰의 HEX 값을 생성합니다.
-생성된 `color-palette.stylex.ts`의 팔레트 값은 직접 수정하지 않습니다.
-불투명 색은 6자리 HEX, 반투명 색은 8자리 HEX로 저장하며 알파는 8비트로 반올림됩니다.
-sRGB 범위를 벗어나면 생성을 중단하므로 채도를 줄여 다시 검토합니다.
-`pnpm palette:check`는 원본과 생성 결과의 일치를, `pnpm test:tokens`는 변환과 대비를 확인합니다.
-소비자에게는 생성된 토큰만 전달되며 OKLCH 변환을 런타임에서 실행하지 않습니다.
+Author colors in OKLCH in `packages/tokens/palette.oklch.json`. Adjust lightness,
+chroma and hue, then run `pnpm palette:generate` to emit literal HEX StyleX tokens.
+Do not edit the palette values in generated `color-palette.stylex.ts` directly.
+Solid colors use six-digit HEX; translucent colors use eight-digit HEX with
+eight-bit alpha rounding. Generation rejects colors outside sRGB; reduce chroma
+and review them again. `pnpm palette:check` checks generated values against the
+source, and `pnpm test:tokens` checks conversion and contrast. Consumers receive
+generated tokens without runtime OKLCH conversion.
 
-## 콘텐츠 배경과 반투명 표면
+## Content backgrounds and translucent surfaces
 
-앨범 커버처럼 콘텐츠에서 가져온 색상은 앱이 관리하는 배경 그라디언트에 사용합니다.
-주요 행동·오류·선택 토큰을 배경색에 맞춰 함께 바꾸지 않습니다. 일반 화면에는 기존 의미 토큰을 유지합니다.
+Use colors derived from content, such as album artwork, in an app-owned background gradient.
+Do not remap action, error, or selection tokens to match the content. Keep existing semantic tokens for ordinary screens.
 
-배경을 조금 비쳐 보이게 하려면 `Card`의 `variant="translucent"`를 사용합니다.
-그라디언트는 카드의 바깥 영역에 적용합니다. 반투명 표면은 읽기 영역을 구분하는 용도이며,
-전체 화면이나 긴 본문에 블러를 반복해서 적용하지 않습니다.
-카드 전체의 `opacity`를 낮추면 글자와 컨트롤도 흐려지므로 표면 배경만 조정합니다.
+Use `Card` with `variant="translucent"` when its background should show through slightly.
+Apply the gradient to the surrounding container. Translucent surfaces separate a reading area;
+avoid repeating backdrop blur across the screen or behind long passages of text.
+Adjust the surface background rather than the entire card's `opacity`, which would also fade text and controls.
 
-글을 카드 밖에 직접 배치하는 읽기 화면에는 전체 배경 보정층으로 명도 범위를 제한합니다.
-본문과 날짜·곡 정보는 보정된 배경에 맞는 전경색을 유지하며, 주변 글을 흐리게 만들어 위계를 표현하지 않습니다.
-반투명 표면은 떠 있는 조작부에 제한하고, 작성 영역은 불투명 표면으로 분리할 수 있습니다.
-보정층의 농도·글자색·사용자 테마가 바뀌면 대비를 다시 확인합니다.
+For prose placed directly on the background, use a full-surface contrast veil to bound luminance.
+Keep a readable foreground for prose, dates and song details rather than blurring surrounding text.
+Reserve translucent surfaces for floating controls and use an opaque surface for editing.
+Recheck contrast when changing veil strength, text colors or consumer themes.
 
-기본 테마의 본문과 보조 글자를 기준으로 밝고 어두운 배경에서 대비를 확인합니다.
-사용자 테마, 이미지 위의 외부 글자, 입력·초점 상태는 실제 조합을 추가로 검사합니다.
-예제와 적용 범위는 [Card](?path=/docs/components-card--docs)에서 확인합니다.
+Check body and secondary text contrast on light and dark backgrounds with the default themes.
+Custom themes, text placed directly on images, and input or focus states need checks against their actual combinations.
+See [Card](/docs/components/card) for the example and its scope.
 
-## 부드러운 표면 경계
+## Soft surface boundaries
 
-장식 경계는 전체 컴포넌트에서 `strokeDefault`를 그대로 사용합니다.
-기본 테마는 라이트 검정 6%, 다크 흰색 5%이며 별도로 농도를 낮추지 않습니다.
-입력·선택·오류·초점에 필요한 경계에는 이 처리를 적용하지 않습니다.
-메뉴·팝오버·선택 목록은 `bgRaised`를 94% 농도로, Menubar와 반투명 Card는
-`bgSurface`를 92% 농도로 사용하고 배경에만 16px 블러를 적용합니다.
-Dialog·Drawer·Toast와 일반 Card, 입력은 불투명하게 유지합니다.
-불투명 표면이 대체값이며 투명도 줄이기·강제 색상에서는 블러를 제거합니다.
-Tooltip도 Popover와 같은 `bgRaised`·`fgPrimary` 색상을 사용하며 불투명하게 유지합니다.
+Decorative boundaries across components use `strokeDefault` directly: black at 6%
+in light mode and white at 5% in dark mode. Do not reduce its opacity again.
+Essential input, selection, error and focus boundaries keep their existing tokens.
+Menus, popovers and selection lists use 94% `bgRaised`; Menubar and translucent
+Card use 92% `bgSurface`, with a 16px backdrop blur. Dialog, Drawer, Toast,
+ordinary Card and inputs remain opaque. Opaque surfaces are the fallback;
+reduced transparency and forced colors remove the blur. Tooltip uses the same opaque bgRaised/fgPrimary colors as Popover.
 
-콘텐츠 배경은 아래쪽에서 `bgCanvas`로 수렴하도록 배경층만 보정합니다.
-글자·카드·조작부 전체에 마스크나 `opacity`를 적용하지 않습니다.
+Blend only the content background into `bgCanvas` toward its lower edge.
+Do not mask or reduce opacity on the text, cards or controls themselves.
 
-### 전체 컴포넌트에 적용하는 기준
+### Coverage across components
 
-| 역할                                            | 적용                                                                                            |
-| ----------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| 버튼·탭·토글·토글 그룹                          | 주요 행동과 선택 표시는 유지하고, 보조 버튼·묶음은 `bgSubtle`, 장식 경계는 `strokeDefault` 사용 |
-| 입력·체크박스·라디오·스위치·슬라이더            | 불투명 표면과 필수 경계 유지. 배경에 블러를 추가하지 않음                                       |
-| 카드·테이블·아코디언·첨부·빈 상태·타임라인·배지 | 기존 의미 배경 유지, 장식 구분선과 외곽선은 공통 `strokeDefault` 사용                           |
-| 메뉴·선택 목록·팝오버·Menubar                   | 위의 공통 반투명 표면과 대체값 사용                                                             |
-| Dialog·Drawer·Toast·Banner                      | 불투명 표면과 오류·안내의 의미 색상 유지                                                        |
-| Progress·Scroll Area                            | 진행 막대의 트랙은 `bgSubtle`, 조작 가능한 스크롤 손잡이는 `strokeControl` 사용                 |
-| 레이아웃·조합 컴포넌트                          | 독립된 표면을 추가하지 않고 포함한 컴포넌트의 기준을 따름                                       |
+Secondary buttons and grouped tabs/toggles use `bgSubtle`; decorative boundaries
+on cards, tables, accordions, attachments, empty states, timelines and badges
+share `strokeDefault`. Essential input, checkbox, radio, switch and slider
+boundaries remain distinct. Progress uses `bgSubtle` for its track; draggable
+scrollbar thumbs use `strokeControl`. Dialogs, drawers, toasts and banners keep
+opaque or semantic feedback surfaces. Layout-only components add no new surface.
+Typography components, selection, error and focus styling remain unchanged.
+This is a shared visual language, not a requirement to blur every component.
 
-글자·제목·문단·링크·레이블 등 타이포그래피 컴포넌트의 표현은 바꾸지 않습니다.
-모든 컴포넌트에 같은 불투명도나 블러를 적용하는 규칙은 아닙니다.
-
-기본 입력 경계는 약한 `strokeDefault`를 사용합니다. 입력 표면·레이블로 조작 위치를 구별하고, 키보드 초점과 오류에는 기존 전용 경계·아웃라인을 유지합니다. `strokeControl`은 스크롤 손잡이처럼 별도로 뚜렷해야 하는 조작부에 사용합니다.
+Resting form boundaries use strokeDefault; filled surfaces and labels identify fields. Focus and invalid outlines keep their dedicated tokens. strokeControl remains available for distinct affordances such as scrollbar thumbs.

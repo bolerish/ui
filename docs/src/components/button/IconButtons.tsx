@@ -1,23 +1,17 @@
 import { Button } from "@bolerish/ui/button";
-import { PlusIcon } from "@phosphor-icons/react";
+import { PlusIcon, DotsThreeIcon, XIcon } from "@phosphor-icons/react";
 
 export default function IconButtons() {
   return (
     <>
-      <Button aria-label="Add item" size="icon-xs">
+      <Button aria-label="Add item" size="icon">
         <PlusIcon aria-hidden="true" />
       </Button>
-      <Button aria-label="Add item" size="icon-sm">
-        <PlusIcon aria-hidden="true" />
+      <Button aria-label="More actions" size="icon" variant="secondary">
+        <DotsThreeIcon aria-hidden="true" />
       </Button>
-      <Button aria-label="Add item" size="icon-md">
-        <PlusIcon aria-hidden="true" />
-      </Button>
-      <Button aria-label="Add item" size="icon-lg">
-        <PlusIcon aria-hidden="true" />
-      </Button>
-      <Button aria-label="Add item" size="icon-xl">
-        <PlusIcon aria-hidden="true" />
+      <Button aria-label="Close" size="icon" variant="ghost">
+        <XIcon aria-hidden="true" />
       </Button>
     </>
   );

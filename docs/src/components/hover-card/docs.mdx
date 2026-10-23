@@ -1,10 +1,7 @@
 import { LocaleContent } from "../../documentation/locale";
 import { LocalizedMarkdown } from "../../documentation/LocalizedMarkdown";
 import DefaultSource from "./Default.tsx?raw";
-import { Meta } from "@storybook/addon-docs/blocks";
 import { ComponentPreview } from "../../documentation/ComponentPreview";
-
-<Meta title="Components/Hover Card" />
 
 <LocaleContent locale="ko">
 
@@ -32,7 +29,7 @@ Use a small preview for a person or item. Keep the destination page useful witho
 
 <LocalizedMarkdown text={"## Basic example"} />
 
-<ComponentPreview name="hover-card--Default" source={DefaultSource} isolated height={360} />
+<ComponentPreview name="hover-card--Default" source={DefaultSource} height={360} />
 
 <LocaleContent locale="ko">
 
@@ -40,7 +37,7 @@ Use a small preview for a person or item. Keep the destination page useful witho
 
 ### 사용할 때
 
-사람의 프로필 요약처럼 링크 목적지를 선택적으로 미리 보여 줄 때 사용합니다. 미리보기가 없어도 링크의 뜻을 이해하고 유용한 내용으로 이동할 수 있어야 합니다. 컨트롤의 짧은 설명은 [Tooltip](?path=/docs/components-tooltip--docs), 명시적으로 열어 조작하는 내용은 `Popover`를 사용합니다.
+사람의 프로필 요약처럼 링크 목적지를 선택적으로 미리 보여 줄 때 사용합니다. 미리보기가 없어도 링크의 뜻을 이해하고 유용한 내용으로 이동할 수 있어야 합니다. 컨트롤의 짧은 설명은 [Tooltip](/docs/components/tooltip), 명시적으로 열어 조작하는 내용은 `Popover`를 사용합니다.
 
 ### 필수 단계가 아닌 미리보기
 
@@ -56,7 +53,7 @@ Use a small preview for a person or item. Keep the destination page useful witho
 
 ### When to use
 
-Use Hover `Card` for an optional preview of a link destination, such as a person's profile summary. The link must still make sense and lead to useful content without the preview. Use [Tooltip](?path=/docs/components-tooltip--docs) for a short control explanation and `Popover` for explicitly opened interactive content.
+Use Hover `Card` for an optional preview of a link destination, such as a person's profile summary. The link must still make sense and lead to useful content without the preview. Use [Tooltip](/docs/components/tooltip) for a short control explanation and `Popover` for explicitly opened interactive content.
 
 ### Preview, not a required step
 

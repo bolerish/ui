@@ -1,0 +1,128 @@
+import assert from "node:assert/strict";
+import { readdir, readFile } from "node:fs/promises";
+import test from "node:test";
+const base = process.env.DOCS_URL ?? "http://localhost:3000";
+
+test("all documents render through the Workers SSR entry", async () => {
+  let count = 0;
+  for (const group of ["components", "foundations", "patterns"]) {
+    const root = new URL(`../src/${group}/`, import.meta.url);
+    for (const entry of await readdir(root, { withFileTypes: true })) {
+      if (
+        !entry.isDirectory() ||
+        !(await readdir(new URL(`${entry.name}/`, root))).includes("docs.mdx")
+      )
+        continue;
+      const response = await fetch(`${base}/docs/${group}/${entry.name}`);
+      assert.equal(response.status, 200, `${group}/${entry.name}`);
+      const html = await response.text();
+      assert.match(html, /<!DOCTYPE html>/i);
+      assert.match(html, /<h1[ >]/);
+      assert.doesNotMatch(
+        html,
+        /Could not load this page|Example not found|Loading document…|Source reference|Loading source reference…|Loading example…/,
+      );
+      count++;
+    }
+  }
+  assert.equal(count, 73);
+});
+
+test("SSR settings, saved preferences, legacy links and missing pages", async () => {
+  const dark = await fetch(
+    `${base}/docs/components/button?locale=en&colorMode=dark&density=compact`,
+  );
+  const html = await dark.text();
+  assert.match(html, /data-color-mode="dark"/);
+  assert.match(html, /--bolerish-density:0.875/);
+  assert.match(html, /Make the next useful action/);
+  assert.doesNotMatch(html, /Source reference/);
+  const saved = encodeURIComponent(JSON.stringify({ colorMode: "dark", locale: "en" }));
+  const preferences = await fetch(`${base}/docs/components/input`, {
+    headers: { cookie: `bolerish-docs-settings=${saved}` },
+    redirect: "manual",
+  });
+  assert.equal(preferences.status, 200);
+  assert.equal(preferences.headers.get("location"), null);
+  assert.match(await preferences.text(), /data-color-mode="dark"/);
+  const defaults = await fetch(`${base}/docs/components/button`, {
+    headers: {
+      cookie: `bolerish-docs-settings=${encodeURIComponent(JSON.stringify({ colorMode: "light", locale: "ko" }))}`,
+    },
+  });
+  assert.equal(defaults.status, 200, "default saved preferences must not redirect forever");
+  const explicit = await fetch(`${base}/docs/components/button?colorMode=light`, {
+    headers: { cookie: `bolerish-docs-settings=${saved}` },
+  });
+  assert.match(await explicit.text(), /data-color-mode="light"/);
+  const legacy = await fetch(`${base}/?path=/docs/components-dialog--docs`);
+  assert.match(legacy.url, /\/docs\/components\/dialog/);
+  const missing = await fetch(`${base}/docs/components/not-a-component?locale=en`);
+  assert.equal(missing.status, 404);
+  assert.match(await missing.text(), /Page not found/);
+  const inlineDialog = await (await fetch(`${base}/docs/components/dialog?locale=en`)).text();
+  assert.match(inlineDialog, /<button[^>]*>Open profile/);
+  assert.doesNotMatch(inlineDialog, /<iframe/);
+  const inlineTooltip = await (await fetch(`${base}/docs/components/tooltip?locale=en`)).text();
+  assert.match(inlineTooltip, /<button[^>]*aria-label="Help"/);
+  assert.doesNotMatch(inlineTooltip, /<iframe/);
+  const preview = await fetch(`${base}/preview/dialog--Default?locale=en`);
+  assert.equal(preview.status, 200);
+  assert.equal((await fetch(`${base}/preview/toString?locale=en`)).status, 404);
+  assert.match(await preview.text(), /<button[^>]*>Open profile/);
+});
+
+test("server reference corpus stays out of the client bundle", async () => {
+  for (const file of await readdir(new URL("../dist/client/assets/", import.meta.url))) {
+    if (!file.endsWith(".js")) continue;
+    const source = await readFile(
+      new URL(`../dist/client/assets/${file}`, import.meta.url),
+      "utf8",
+    );
+    assert.doesNotMatch(source, /async function readReference\(|export interface ButtonProps/);
+  }
+});
+
+test("localized home gallery and canonical redirects", async () => {
+  for (const suffix of ["", "/ko"]) {
+    const response = await fetch(`${base}${suffix || "/"}`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, new RegExp(`lang="${suffix ? "ko" : "en"}"`));
+    assert.match(html, /bolerish<span>\/ui/);
+    assert.equal((html.match(/class="gallery-item"/g) ?? []).length, 57);
+    assert.match(html, /Create account/);
+    assert.equal((html.match(/<header><h3>/g) ?? []).length, 57);
+    assert.doesNotMatch(html, /<iframe/);
+  }
+  for (const path of [
+    "/docs/getting-started",
+    "/docs/getting-started/ko",
+    "/docs/components/button/ko",
+    "/docs/foundations/color/ko",
+  ]) {
+    const response = await fetch(`${base}${path}`);
+    assert.equal(response.status, 200, path);
+    assert.match(await response.text(), /<h1[ >]/);
+  }
+  const redirect = await fetch(`${base}/docs/components/button?locale=ko&colorMode=dark`, {
+    redirect: "manual",
+  });
+  assert.equal(redirect.status, 308);
+  assert.equal(redirect.headers.get("location"), "/docs/components/button/ko?colorMode=dark");
+  for (const path of ["/docs/components/button/kr", "/docs/getting-started/fr"])
+    assert.equal((await fetch(`${base}${path}`)).status, 404);
+});
+
+test("previous short URLs redirect to the docs hierarchy", async () => {
+  for (const [from, to] of [
+    ["/docs", "/docs/getting-started"],
+    ["/docs/ko", "/docs/getting-started/ko"],
+    ["/components/button", "/docs/components/button"],
+    ["/foundations/color/ko", "/docs/foundations/color/ko"],
+  ]) {
+    const response = await fetch(`${base}${from}`, { redirect: "manual" });
+    assert.equal(response.status, 308);
+    assert.equal(response.headers.get("location"), to);
+  }
+});

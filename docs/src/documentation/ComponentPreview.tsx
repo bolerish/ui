@@ -6,26 +6,14 @@ import {
   typo,
 } from "@bolerish/tokens/semantic.stylex";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@bolerish/ui/tabs";
-import { DocsContext } from "@storybook/addon-docs/blocks";
 import * as stylex from "@stylexjs/stylex";
-import { useContext, useEffect, useRef, useState, lazy, Suspense, type ComponentType } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 
 import { CodeBlock } from "./CodeBlock";
+import { loadedExamples, examples } from "./examples";
 import { ui } from "./locale";
 import { useColorMode } from "./useColorMode";
 import { useDocumentationGlobals } from "./useDocumentationGlobals";
-
-const modules = import.meta.glob<{ default: ComponentType }>([
-  "../components/*/*.tsx",
-  "../patterns/*/*.tsx",
-  "../foundations/*/*Example.tsx",
-]);
-const examples = Object.fromEntries(
-  Object.entries(modules).map(([path, load]) => [
-    path.split("/").slice(-2).join("--").replace(".tsx", ""),
-    lazy(load),
-  ]),
-);
 
 const styles = stylex.create({
   content: {
@@ -37,10 +25,11 @@ const styles = stylex.create({
     justifyContent: "center",
     lineHeight: typo.lineHeightNormal,
     padding: spacingVars.space6,
+    minHeight: "100%",
   },
   frame: { borderWidth: 0, display: "block", height: "100%", width: "100%" },
   root: { marginBlock: spacingVars.space6, minWidth: 0 },
-  lightCanvas: { backgroundColor: "#FFFFFF" },
+  lightCanvas: { backgroundColor: "var(--docs-preview-light-canvas)" },
   preview: {
     backgroundColor: colorVars.bgCanvas,
     borderColor: colorVars.strokeDefault,
@@ -48,6 +37,7 @@ const styles = stylex.create({
     borderWidth: sizeVars.stroke,
     borderRadius: radiusVars.lg,
     overflow: "auto",
+    scrollbarGutter: "stable",
     resize: "vertical",
     minHeight: sizeVars.controlLg,
   },
@@ -65,14 +55,14 @@ export function ComponentPreview({
   height?: number;
   isolated?: boolean;
 }) {
-  const globals = useDocumentationGlobals(useContext(DocsContext));
+  const globals = useDocumentationGlobals();
   const colorMode = useColorMode(globals.colorMode);
-  const Example = examples[name];
+  const Example = loadedExamples[name] ?? examples[name];
   const [initialGlobals] = useState(globals);
   const frameRef = useRef<HTMLIFrameElement>(null);
   useEffect(() => {
     if (!isolated) return;
-    const syncGlobals = () =>
+    const sync = () =>
       frameRef.current?.contentWindow?.postMessage(
         { type: "bolerish-preview-globals", globals },
         window.location.origin,
@@ -83,19 +73,19 @@ export function ComponentPreview({
         event.source === frameRef.current?.contentWindow &&
         event.data?.type === "bolerish-preview-ready"
       )
-        syncGlobals();
+        sync();
     };
     window.addEventListener("message", ready);
-    syncGlobals();
+    sync();
     return () => window.removeEventListener("message", ready);
   }, [globals, isolated]);
-  const query = new URLSearchParams({
-    id: "internal-preview--example",
-    viewMode: "story",
-    args: `example:${name}`,
-    globals: `colorMode:${initialGlobals.colorMode};motionPreference:${initialGlobals.motionPreference};locale:${initialGlobals.locale};unit:${initialGlobals.unit};density:${initialGlobals.density};fontPreset:${initialGlobals.fontPreset}`,
-  });
+  const query = new URLSearchParams(Object.entries(initialGlobals));
 
+  const canvas = stylex.props(
+    styles.preview,
+    colorMode === "light" && styles.lightCanvas,
+    height !== undefined ? styles.height(height) : undefined,
+  );
   return (
     <div {...stylex.props(styles.root)}>
       <Tabs defaultValue="preview">
@@ -104,29 +94,21 @@ export function ComponentPreview({
           <TabsTrigger value="code">{ui.code}</TabsTrigger>
         </TabsList>
         <TabsContent value="preview" keepMounted>
-          <div
-            {...stylex.props(
-              styles.preview,
-              colorMode === "light" && styles.lightCanvas,
-              height !== undefined ? styles.height(height) : undefined,
-            )}
-          >
+          <div {...canvas} className={`preview-canvas ${canvas.className}`}>
             {isolated ? (
               <iframe
                 {...stylex.props(styles.frame)}
                 ref={frameRef}
                 title={name}
-                src={`iframe.html?${query}`}
-                loading="lazy"
+                src={`/preview/${encodeURIComponent(name)}?${query}`}
+                loading="eager"
               />
             ) : (
               <div
                 className={`bolerish-example sb-unstyled ${stylex.props(styles.content).className}`}
                 lang="en"
               >
-                <Suspense fallback={<p>{ui.loading}</p>}>
-                  {Example ? <Example /> : <p>{ui.missing}</p>}
-                </Suspense>
+                <Suspense fallback={null}>{Example ? <Example /> : <p>{ui.missing}</p>}</Suspense>
               </div>
             )}
           </div>
