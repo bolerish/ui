@@ -1,9 +1,17 @@
-## Unreleased
+# Changelog
 
-- Distribute compiled components through `@bolerish/ui` and shared tokens through
-    `@bolerish/tokens` only. Remove the source-copy CLI, registry and JSON schema.
-    Existing copied files remain yours to maintain; switch imports to the package
-    to receive component updates. Configure runtime preferences on the app root.
+New package release notes are written once in [Changesets](.changeset/).
+`pnpm version:packages` generates each package's `CHANGELOG.md`:
+
+- [UI](packages/ui/): `packages/ui/CHANGELOG.md`
+- [Tokens](packages/tokens/): `packages/tokens/CHANGELOG.md`
+- [Foundations lint](packages/eslint-plugin-ui/):
+  `packages/eslint-plugin-ui/CHANGELOG.md` (currently private)
+
+These files are created on the first Changesets version preparation. Until then,
+read the pending changesets. Do not add new release entries to this root file.
+
+The releases below are preserved as historical records.
 
 ## Version v0.12.0
 

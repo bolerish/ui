@@ -7,27 +7,37 @@
   "author": "Minyeong Jeong",
   "type": "module",
   "scripts": {
-    "build:docs": "pnpm --filter @bolerish/docs build-storybook",
+    "build:docs": "pnpm --filter @bolerish/docs build",
     "build:ui": "pnpm --filter @bolerish/ui build",
+    "changeset": "changeset",
     "check": "pnpm palette:check && pnpm lint && pnpm format:check && pnpm typecheck",
-    "dev:docs": "pnpm --filter @bolerish/docs storybook",
+    "dev:docs": "pnpm --filter @bolerish/docs dev",
     "format:check": "pnpm oxfmt --check .",
     "format:write": "pnpm oxfmt .",
-    "lint": "pnpm oxlint .",
+    "lint": "pnpm --filter @bolerish/eslint-plugin-ui build && pnpm oxlint .",
     "pack:check": "node --experimental-strip-types scripts/verify-packages.ts",
-    "palette:check": "node scripts/generate-palette.mjs --check",
-    "palette:generate": "node scripts/generate-palette.mjs",
+    "palette:check": "pnpm --filter @bolerish/tokens palette:check",
+    "palette:generate": "pnpm --filter @bolerish/tokens palette:generate",
     "prepare": "lefthook install",
-    "release": "pnpm check && pnpm test && pnpm build:ui && pnpm pack:check && pnpm build:docs && node --experimental-strip-types scripts/publish.ts",
-    "test": "pnpm test:tokens && pnpm test:ui",
-    "test:tokens": "node --experimental-vm-modules --test scripts/palette.test.mjs scripts/theme-contrast.test.mjs",
+    "release": "pnpm check && pnpm test && pnpm build:ui && pnpm pack:check && pnpm build:docs && changeset publish",
+    "release:status": "changeset status",
+    "test": "pnpm test:tokens && pnpm test:ui && pnpm test:lint && pnpm test:release && pnpm test:docs-theme",
+    "test:docs-theme": "node --experimental-strip-types --experimental-vm-modules --test docs/src/documentation/theme.test.ts",
+    "test:lint": "pnpm --filter @bolerish/eslint-plugin-ui test",
+    "test:release": "node --experimental-strip-types --test .changeset/release.test.ts",
+    "test:tokens": "pnpm --filter @bolerish/tokens test",
     "test:ui": "pnpm --filter @bolerish/ui test",
-    "typecheck": "pnpm --filter @bolerish/tokens typecheck && pnpm --filter @bolerish/ui typecheck && pnpm --filter @bolerish/docs typecheck"
+    "typecheck": "pnpm --filter @bolerish/eslint-plugin-ui typecheck && pnpm --filter @bolerish/tokens typecheck && pnpm --filter @bolerish/ui typecheck && pnpm --filter @bolerish/docs typecheck && pnpm typecheck:scripts",
+    "typecheck:scripts": "tsc -p scripts/tsconfig.json",
+    "version:packages": "changeset version && pnpm install --lockfile-only"
   },
   "devDependencies": {
+    "@changesets/cli": "3.0.3",
+    "@types/node": "catalog:2026-08-27-stable",
     "lefthook": "2.1.10",
     "oxfmt": "0.65.0",
-    "oxlint": "1.80.0"
+    "oxlint": "1.80.0",
+    "typescript": "catalog:2026-08-27-stable"
   },
   "packageManager": "pnpm@11.23.0"
 }

@@ -29,12 +29,12 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Verify the tag matches every published package version
+      - name: Verify the tag matches the UI and tokens release group
         if: github.event_name == 'push'
         run: |
           tag_version="${GITHUB_REF_NAME#v}"
 
-          for package_file in packages/*/package.json; do
+          for package_file in packages/tokens/package.json packages/ui/package.json; do
             package_name="$(node -p "require('./' + process.argv[1]).name" "$package_file")"
             package_version="$(node -p "require('./' + process.argv[1]).version" "$package_file")"
 

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
+  "baseBranch": "main",
+  "access": "public",
+  "format": "oxfmt",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [["@bolerish/ui", "@bolerish/tokens"]],
+  "linked": [],
+  "updateInternalDependencies": "patch",
+  "ignore": ["@bolerish/docs"],
+  "privatePackages": {
+    "version": true,
+    "tag": false
+  }
+}

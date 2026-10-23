@@ -32,6 +32,28 @@ export function SaveButton() {
 
 Root imports such as `import { Button } from "@bolerish/ui"` also work.
 
+## Content-colored backgrounds
+
+Apply a compiled gradient to an existing element; no wrapper or StyleX compiler
+is required. Load the package stylesheet as described above.
+
+```tsx
+import { gradient } from "@bolerish/ui/gradient";
+
+export function MusicBackground({ children }: { children: React.ReactNode }) {
+  return <section {...gradient.props({ colors: ["#80414b", "#b49058"] })}>{children}</section>;
+}
+```
+
+For StyleX consumers, pass the original styles:
+`gradient.props({ colors }, styles.layout, styles.dynamic(value))`.
+The helper calls `stylex.props()` once with its background first and consumer
+styles last, so StyleX handles conflicts and dynamic variables. Do not pass an
+already converted `stylex.props()` result or spread both results separately.
+The gradient follows the active theme and uses a solid fallback for unsupported
+color mixing, reduced transparency or forced colors. Chosen colors still require
+a contrast check for text placed directly over them.
+
 ## Light and dark themes
 
 The default theme is light. `themeClassNames` contains precompiled color and shadow
@@ -139,3 +161,33 @@ Typography tokens are exported as `typo`. `typographyVars` remains a compatibili
 export of the same variable group. `spacingRoleVars` provides purpose-based spacing.
 For custom StyleX styles, import tokens from `@bolerish/tokens` and configure your
 app's StyleX compiler.
+
+## Foundations lint (workspace preview)
+
+[`@bolerish/eslint-plugin-ui`](packages/eslint-plugin-ui/README.md) warns about direct
+color, typography and spacing values in custom StyleX or JSX inline styles.
+It includes ESLint and Oxlint configuration and focused exceptions. The package
+is currently private and has not been published to npm. Its shared Foundations
+metadata links rules to token groups and the corresponding guidance for agents.
+
+## Releases
+
+UI and tokens share a release version; the lint plugin has its own version.
+Record package changes with `pnpm changeset`, inspect them with
+`pnpm release:status`, and prepare versions with `pnpm version:packages`.
+Publishing remains a separate, authenticated action. See the
+[release guide](.changeset/README.md) for compatibility rules and the workflow.
+Write release notes only in changeset files; package changelogs are generated.
+The root [changelog](CHANGELOG.md) preserves historical releases.
+
+## Development tooling ownership
+
+- `packages/tokens/palette/`: authoring color conversion, palette generation and
+  their tests. Root palette commands delegate to the token package.
+- `packages/ui/scripts/build.ts`: compile UI modules, declarations and CSS.
+- `docs/scripts/build-guidelines.ts`: generate documentation and agent references.
+- `scripts/verify-packages.ts`: check both published packages' archives and
+  exported declarations before a release. This cross-package check stays at root.
+
+These are development/build tools, not application runtime imports. Tests stay
+beside the code or package contract they verify.

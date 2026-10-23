@@ -5,6 +5,7 @@ node_modules/
 
 # Build output and caches
 dist/
+.dist-build-*/
 storybook-static/
 debug-storybook.log
 .registry/
@@ -46,3 +47,7 @@ docs/public/bolerish-for-llms.md
 # Local build and design review artifacts
 .artifacts/
 .taste-skill/
+
+# TanStack Start / Cloudflare
+.tanstack/
+.wrangler/

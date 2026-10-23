@@ -29,3 +29,4 @@ jobs:
       - run: pnpm check
       - run: pnpm test
       - run: pnpm build:docs
+      - run: pnpm --filter @bolerish/docs test:agent
