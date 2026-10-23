@@ -318,3 +318,6 @@ export { P } from "./p";
 export type { PProps } from "./p";
 
 export { themeClassNames } from "./theme";
+
+export { gradient } from "./gradient";
+export type { GradientOptions, GradientProps } from "./gradient";

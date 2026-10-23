@@ -125,35 +125,11 @@ const sizeStyles = stylex.create({
     height: sizeVars.controlLg,
     paddingInline: spacingVars.space5,
   },
-  "icon-xs": {
-    borderRadius: radiusVars.sm,
-    height: sizeVars.controlXs,
-    paddingInline: 0,
-    width: sizeVars.controlXs,
-  },
-  "icon-sm": {
-    borderRadius: radiusVars.sm,
-    height: sizeVars.controlSm,
-    paddingInline: 0,
-    width: sizeVars.controlSm,
-  },
-  "icon-md": {
+  icon: {
     borderRadius: radiusVars.sm,
     height: sizeVars.controlMd,
     paddingInline: 0,
     width: sizeVars.controlMd,
-  },
-  "icon-lg": {
-    borderRadius: radiusVars.sm,
-    height: sizeVars.controlLg,
-    paddingInline: 0,
-    width: sizeVars.controlLg,
-  },
-  "icon-xl": {
-    borderRadius: radiusVars.sm,
-    height: sizeVars.controlXl,
-    paddingInline: 0,
-    width: sizeVars.controlXl,
   },
 });
 
@@ -198,13 +174,13 @@ const squareStyles = stylex.create({
 });
 
 type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "destructive";
-type ButtonSize = "sm" | "md" | "lg" | "icon-xs" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl";
+type ButtonSize = "sm" | "md" | "lg" | "icon";
 
 export type ButtonProps = StyledProps<ComponentProps<typeof ButtonPrimitive>> & {
   align?: "start" | "center" | "end" | "space-between";
   children: ReactNode;
   size?: ButtonSize;
-  /** Use an icon size for icon-only buttons, and add an accessible name. */
+  /** Use size="icon" for icon-only buttons, and add an accessible name. */
   shape?: "default" | "square" | "circle";
   variant?: ButtonVariant;
   xstyle?: ControlLayoutStyles;

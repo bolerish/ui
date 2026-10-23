@@ -5,16 +5,16 @@ import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import { Button } from "../dist/button.js";
-import { Card } from "../dist/card.js";
-import { Collapsible, CollapsibleTrigger } from "../dist/collapsible.js";
-import { Input } from "../dist/input.js";
-import { Link } from "../dist/link.js";
-import { NativeSelect } from "../dist/native-select.js";
-import { ScrollArea, ScrollBar } from "../dist/scroll-area.js";
-import { Textarea } from "../dist/textarea.js";
+import { Button } from "../../dist/button.js";
+import { Card } from "../../dist/card.js";
+import { Collapsible, CollapsibleTrigger } from "../../dist/collapsible.js";
+import { Input } from "../../dist/input.js";
+import { Link } from "../../dist/link.js";
+import { NativeSelect } from "../../dist/native-select.js";
+import { ScrollArea, ScrollBar } from "../../dist/scroll-area.js";
+import { Textarea } from "../../dist/textarea.js";
 
-const css = readFileSync(new URL("../dist/stylex.css", import.meta.url), "utf8");
+const css = readFileSync(new URL("../../dist/stylex.css", import.meta.url), "utf8");
 function declarations(html: string, property: string) {
   const classes = [...html.matchAll(/class="([^"]+)"/g)].flatMap((match) => match[1].split(" "));
   return classes.flatMap((name) => {

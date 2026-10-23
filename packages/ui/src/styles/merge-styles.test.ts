@@ -5,15 +5,20 @@ import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../dist/accordion.js";
-import { Button } from "../dist/button.js";
-import { Card } from "../dist/card.js";
-import { Carousel, CarouselItem } from "../dist/carousel.js";
-import { Input } from "../dist/input.js";
-import { NativeSelect } from "../dist/native-select.js";
-import { Paragraph } from "../dist/paragraph.js";
-import { Textarea } from "../dist/textarea.js";
-import { Timeline } from "../dist/timeline.js";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "../../dist/accordion.js";
+import { Button } from "../../dist/button.js";
+import { Card } from "../../dist/card.js";
+import { Carousel, CarouselItem } from "../../dist/carousel.js";
+import { Input } from "../../dist/input.js";
+import { NativeSelect } from "../../dist/native-select.js";
+import { Paragraph } from "../../dist/paragraph.js";
+import { Textarea } from "../../dist/textarea.js";
+import { Timeline } from "../../dist/timeline.js";
 
 const styling = { className: "consumer-class", style: { opacity: 0.5 } };
 

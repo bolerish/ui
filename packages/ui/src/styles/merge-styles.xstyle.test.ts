@@ -5,12 +5,17 @@ import type { StyleXStyles } from "@stylexjs/stylex";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../dist/accordion.js";
-import { Banner, BannerContent } from "../dist/banner.js";
-import { Combobox, ComboboxInput } from "../dist/combobox.js";
-import { Label } from "../dist/label.js";
-import { NativeSelect } from "../dist/native-select.js";
-import { TableContainer, Table, TableBody, TableCell, TableRow } from "../dist/table.js";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../../dist/accordion.js";
+import { Banner, BannerContent } from "../../dist/banner.js";
+import { Combobox, ComboboxInput } from "../../dist/combobox.js";
+import { Label } from "../../dist/label.js";
+import { NativeSelect } from "../../dist/native-select.js";
+import { TableContainer, Table, TableBody, TableCell, TableRow } from "../../dist/table.js";
 
 // Compiled StyleX values let these tests isolate prop forwarding from the compiler.
 const spacing = { $$css: true, marginBlockStart: "consumer-spacing" } as unknown as StyleXStyles<{

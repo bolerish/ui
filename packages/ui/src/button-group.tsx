@@ -50,7 +50,12 @@ const styles = stylex.create({
     minHeight: sizeVars.controlMd,
     paddingInline: spacingVars.space3,
   },
-  separator: { alignSelf: "stretch", height: "auto", marginInline: -1, minHeight: "auto" },
+  separator: {
+    alignSelf: "stretch",
+    height: "auto",
+    marginInline: `calc(${sizeVars.stroke} * -1)`,
+    minHeight: "auto",
+  },
 });
 
 const orientationStyles = stylex.create({
@@ -59,8 +64,8 @@ const orientationStyles = stylex.create({
 });
 
 const itemOrientationStyles = stylex.create({
-  horizontal: { marginInlineStart: -1 },
-  vertical: { marginBlockStart: -1 },
+  horizontal: { marginInlineStart: `calc(${sizeVars.stroke} * -1)` },
+  vertical: { marginBlockStart: `calc(${sizeVars.stroke} * -1)` },
 });
 
 const firstItemStyles = stylex.create({

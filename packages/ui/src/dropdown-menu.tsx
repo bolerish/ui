@@ -101,7 +101,7 @@ const styles = stylex.create({
     paddingInline: spacingVars.space2,
   },
   separator: {
-    backgroundColor: colorVars.strokeStrong,
+    backgroundColor: colorVars.strokeDefault,
     height: sizeVars.stroke,
     marginBlock: spacingVars.space1,
   },

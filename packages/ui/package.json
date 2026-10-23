@@ -43,6 +43,7 @@
     "./empty": "./dist/empty.js",
     "./field": "./dist/field.js",
     "./hover-card": "./dist/hover-card.js",
+    "./gradient": "./dist/gradient.js",
     "./global.css": "./dist/global.css",
     "./primitives": "./dist/primitives.js",
     "./reset.css": "./dist/reset.css",
@@ -85,9 +86,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "node --experimental-strip-types scripts/build.ts && tsc -p tsconfig.build.json",
+    "build": "node --experimental-strip-types scripts/build.ts",
     "prepack": "pnpm build",
-    "test": "pnpm build && node --experimental-strip-types --test test/*.test.ts",
+    "test": "pnpm build && node --experimental-strip-types --test src/*.test.ts src/styles/*.test.ts package.test.ts",
     "typecheck": "tsc --noEmit && pnpm build && tsc -p tsconfig.test.json"
   },
   "dependencies": {

@@ -35,7 +35,7 @@ const styles = stylex.create({
   },
   control: {
     position: "absolute",
-    top: `calc(50% - ${sizeVars.controlSm} / 2)`,
+    top: `calc(50% - ${sizeVars.controlMd} / 2)`,
   },
   previous: { insetInlineStart: `calc(${sizeVars.controlSm} * -1.5)` },
   next: { insetInlineEnd: `calc(${sizeVars.controlSm} * -1.5)` },
@@ -219,7 +219,7 @@ export function CarouselPrevious({ disabled, xstyle, ...props }: CarouselControl
       aria-label="Previous slide"
       disabled={disabled ?? !canScrollPrevious}
       onClick={scrollPrevious}
-      size="icon-sm"
+      size="icon"
       shape="circle"
       variant="secondary"
       xstyle={[styles.control, styles.previous, xstyle]}
@@ -237,7 +237,7 @@ export function CarouselNext({ disabled, xstyle, ...props }: CarouselControlProp
       aria-label="Next slide"
       disabled={disabled ?? !canScrollNext}
       onClick={scrollNext}
-      size="icon-sm"
+      size="icon"
       shape="circle"
       variant="secondary"
       xstyle={[styles.control, styles.next, xstyle]}

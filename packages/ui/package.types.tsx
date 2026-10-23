@@ -1,31 +1,32 @@
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
-import type { AccordionTrigger } from "../dist/accordion.js";
-import type { Avatar } from "../dist/avatar.js";
-import type { Badge } from "../dist/badge.js";
-import type { BannerProps } from "../dist/banner.js";
-import type { Button } from "../dist/button.js";
-import type { Calendar } from "../dist/calendar.js";
-import type { Card } from "../dist/card.js";
-import type { Carousel } from "../dist/carousel.js";
-import type { Checkbox } from "../dist/checkbox.js";
-import type { InputOTP } from "../dist/input-otp.js";
-import type { Input } from "../dist/input.js";
-import type { Kbd } from "../dist/kbd.js";
-import type { Label } from "../dist/label.js";
-import type { Link } from "../dist/link.js";
-import type { NativeSelect } from "../dist/native-select.js";
-import type { Progress } from "../dist/progress.js";
-import type { SelectTrigger } from "../dist/select.js";
-import type { Slider } from "../dist/slider.js";
-import type { Spinner } from "../dist/spinner.js";
-import type { Switch } from "../dist/switch.js";
-import type { Table } from "../dist/table.js";
-import type { Textarea } from "../dist/textarea.js";
-import type { Timeline, TimelineItem } from "../dist/timeline.js";
-import type { ToggleGroupItem } from "../dist/toggle-group.js";
-import type { Toggle } from "../dist/toggle.js";
+import type { AccordionTrigger } from "./dist/accordion.js";
+import type { Avatar } from "./dist/avatar.js";
+import type { Badge } from "./dist/badge.js";
+import type { BannerProps } from "./dist/banner.js";
+import type { Button } from "./dist/button.js";
+import type { Calendar } from "./dist/calendar.js";
+import type { Card } from "./dist/card.js";
+import type { Carousel } from "./dist/carousel.js";
+import type { Checkbox } from "./dist/checkbox.js";
+import { gradient } from "./dist/gradient.js";
+import type { InputOTP } from "./dist/input-otp.js";
+import type { Input } from "./dist/input.js";
+import type { Kbd } from "./dist/kbd.js";
+import type { Label } from "./dist/label.js";
+import type { Link } from "./dist/link.js";
+import type { NativeSelect } from "./dist/native-select.js";
+import type { Progress } from "./dist/progress.js";
+import type { SelectTrigger } from "./dist/select.js";
+import type { Slider } from "./dist/slider.js";
+import type { Spinner } from "./dist/spinner.js";
+import type { Switch } from "./dist/switch.js";
+import type { Table } from "./dist/table.js";
+import type { Textarea } from "./dist/textarea.js";
+import type { Timeline, TimelineItem } from "./dist/timeline.js";
+import type { ToggleGroupItem } from "./dist/toggle-group.js";
+import type { Toggle } from "./dist/toggle.js";
 
 type Assert<Value extends true> = Value;
 type HasStylingProps<Props> = "className" | "style" extends keyof Props ? true : false;
@@ -124,12 +125,12 @@ export const cardPaint: ComponentProps<typeof Card> = { xstyle: styles.paint };
 export const circleButton: ComponentProps<typeof Button> = {
   children: "×",
   shape: "circle",
-  size: "icon-sm",
+  size: "icon",
   "aria-label": "Close",
 };
 export const iconButton: ComponentProps<typeof Button> = {
   children: "×",
-  size: "icon-sm",
+  size: "icon",
   "aria-label": "Close",
 };
 export const invalidButtonShape: ComponentProps<typeof Button> = {
@@ -138,24 +139,24 @@ export const invalidButtonShape: ComponentProps<typeof Button> = {
   shape: "oval",
 };
 
-export const toasterWithCustomClearContent: import("../dist/toast.js").ToasterProps = {
+export const toasterWithCustomClearContent: import("./dist/toast.js").ToasterProps = {
   clearAllProps: { children: <span>모두 지우기</span>, "aria-label": "Clear all" },
 };
 
-export const headingSection: import("../dist/heading.js").HeadingProps = {
+export const headingSection: import("./dist/heading.js").HeadingProps = {
   level: 2,
   size: "section",
 };
 // @ts-expect-error A heading must declare its document level.
-export const headingWithoutLevel: import("../dist/heading.js").HeadingProps = { size: "page" };
+export const headingWithoutLevel: import("./dist/heading.js").HeadingProps = { size: "page" };
 // @ts-expect-error HTML has six heading levels.
-export const headingInvalidLevel: import("../dist/heading.js").HeadingProps = { level: 7 };
-export const headingInvalidSize: import("../dist/heading.js").HeadingProps = {
+export const headingInvalidLevel: import("./dist/heading.js").HeadingProps = { level: 7 };
+export const headingInvalidSize: import("./dist/heading.js").HeadingProps = {
   level: 2,
   // @ts-expect-error Heading sizes are role names, not free-form token sizes.
   size: "xl",
 };
-export const headingLineHeight: import("../dist/heading.js").HeadingProps = {
+export const headingLineHeight: import("./dist/heading.js").HeadingProps = {
   level: 2,
   // @ts-expect-error Individual line-height overrides bypass the typography contract.
   lineHeight: 2,
@@ -171,13 +172,13 @@ export const accordionPaint: ComponentProps<typeof AccordionTrigger> = { xstyle:
 export const selectLayout: ComponentProps<typeof SelectTrigger> = { xstyle: styles.layout };
 
 export const drawerContentPaint: import("react").ComponentProps<
-  typeof import("../dist/drawer.js").DrawerContent
+  typeof import("./dist/drawer.js").DrawerContent
 > = { xstyle: styles.paint };
 export const drawerContentStyle: import("react").ComponentProps<
-  typeof import("../dist/drawer.js").DrawerContent
+  typeof import("./dist/drawer.js").DrawerContent
 > = { xstyle: styles.layout };
 export const removedContentStyle: import("react").ComponentProps<
-  typeof import("../dist/drawer.js").DrawerContent
+  typeof import("./dist/drawer.js").DrawerContent
 > = {
   // @ts-expect-error Each part accepts its own xstyle.
   contentXstyle: styles.layout,
@@ -192,3 +193,19 @@ export const buttonCss: ComponentProps<typeof Button> = {
   className: "consumer-button",
   style: { maxWidth: 320, opacity: 0.9 },
 };
+
+export const gradientStyleX = gradient.props({ colors: ["red", "blue"] }, styles.layout);
+export const gradientConvertedProps = gradient.props(
+  { colors: ["red", "blue"] },
+  // @ts-expect-error Pass source StyleX styles, not the already converted DOM props.
+  stylex.props(styles.layout),
+);
+// @ts-expect-error The public API requires exactly two colors.
+export const gradientMissingColor = gradient.props({ colors: ["red"] });
+
+const removedButtonSizes = ["icon-xs", "icon-sm", "icon-md", "icon-lg", "icon-xl"] as const;
+for (const size of removedButtonSizes) {
+  // @ts-expect-error Icon buttons now have one size; visual variants remain independent.
+  const props: ComponentProps<typeof Button> = { children: "+", size };
+  void props;
+}

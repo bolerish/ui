@@ -79,7 +79,7 @@ const styles = stylex.create({
     textAlign: "center",
   },
   week: { height: sizeVars.controlMd },
-  day: { height: sizeVars.controlMd, textAlign: "center" },
+  day: { height: sizeVars.controlMd, padding: 0, textAlign: "center" },
   dayButton: {
     alignItems: "center",
     appearance: "none",
@@ -89,7 +89,7 @@ const styles = stylex.create({
     borderWidth: 0,
     color: colorVars.fgPrimary,
     cursor: "pointer",
-    display: "inline-flex",
+    display: "flex",
     font: "inherit",
     height: sizeVars.controlMd,
     justifyContent: "center",

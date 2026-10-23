@@ -24,7 +24,7 @@ const styles = stylex.create({
   outlineItem: {
     borderColor: "transparent",
     borderRadius: 0,
-    marginInlineStart: -1,
+    marginInlineStart: `calc(${sizeVars.stroke} * -1)`,
     ":first-child": {
       borderStartStartRadius: radiusVars.sm,
       borderEndStartRadius: radiusVars.sm,

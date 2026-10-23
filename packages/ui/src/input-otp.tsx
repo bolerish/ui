@@ -31,7 +31,7 @@ const styles = stylex.create({
     fontFamily: typo.fontFamilyBody,
     fontSize: typo.fontSizeSm,
     height: sizeVars.controlLg,
-    marginInlineStart: -1,
+    marginInlineStart: `calc(${sizeVars.stroke} * -1)`,
     outline: "none",
     textAlign: "center",
     transitionDuration: motionVars.durationFast,
