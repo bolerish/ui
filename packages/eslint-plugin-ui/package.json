@@ -1,0 +1,44 @@
+{
+  "name": "@bolerish/eslint-plugin-ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Foundations diagnostics for custom bolerish UI.",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./foundations": "./dist/foundations.json"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "pnpm build",
+    "test": "pnpm typecheck && node --experimental-strip-types --test src/*.test.ts package.test.ts",
+    "typecheck": "pnpm build && tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:2026-08-27-stable",
+    "@typescript-eslint/parser": "^8.72.0",
+    "@typescript-eslint/utils": "^8.72.0",
+    "eslint": "^9.39.5",
+    "oxlint": "1.80.0",
+    "typescript": "~6.0.3"
+  },
+  "peerDependencies": {
+    "eslint": "^9.0.0"
+  },
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

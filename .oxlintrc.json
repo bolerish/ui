@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "ignorePatterns": [],
+  "ignorePatterns": ["docs/src/routeTree.gen.ts"],
   "plugins": [
     "oxc",
     "unicorn",
@@ -18,5 +18,21 @@
   "rules": {},
   "env": {
     "builtin": true
-  }
+  },
+  "jsPlugins": [
+    {
+      "name": "bolerish-ui",
+      "specifier": "./packages/eslint-plugin-ui/dist/index.js"
+    }
+  ],
+  "overrides": [
+    {
+      "files": ["packages/ui/src/**/*.{ts,tsx}", "docs/src/**/*.{ts,tsx}"],
+      "rules": {
+        "bolerish-ui/color-tokens": "warn",
+        "bolerish-ui/typography-tokens": "warn",
+        "bolerish-ui/spacing-tokens": "warn"
+      }
+    }
+  ]
 }
