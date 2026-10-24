@@ -35,7 +35,8 @@ const styles = stylex.create({
   },
   control: {
     position: "absolute",
-    top: `calc(50% - ${sizeVars.controlMd} / 2)`,
+    top: `calc(50% - ${sizeVars.controlXs} / 2)`,
+    width: sizeVars.controlXs,
   },
   previous: { insetInlineStart: `calc(${sizeVars.controlSm} * -1.5)` },
   next: { insetInlineEnd: `calc(${sizeVars.controlSm} * -1.5)` },
@@ -212,7 +213,7 @@ type CarouselControlProps = StyledProps<
   Omit<ComponentProps<typeof Button>, "children" | "onClick">
 >;
 
-export function CarouselPrevious({ disabled, xstyle, ...props }: CarouselControlProps) {
+export function CarouselPrevious({ disabled, style, xstyle, ...props }: CarouselControlProps) {
   const { canScrollPrevious, scrollPrevious } = useCarousel();
   return (
     <Button
@@ -221,6 +222,7 @@ export function CarouselPrevious({ disabled, xstyle, ...props }: CarouselControl
       onClick={scrollPrevious}
       size="icon"
       shape="circle"
+      style={{ aspectRatio: "1", height: "auto", ...style }}
       variant="secondary"
       xstyle={[styles.control, styles.previous, xstyle]}
       {...props}
@@ -230,7 +232,7 @@ export function CarouselPrevious({ disabled, xstyle, ...props }: CarouselControl
   );
 }
 
-export function CarouselNext({ disabled, xstyle, ...props }: CarouselControlProps) {
+export function CarouselNext({ disabled, style, xstyle, ...props }: CarouselControlProps) {
   const { canScrollNext, scrollNext } = useCarousel();
   return (
     <Button
@@ -239,6 +241,7 @@ export function CarouselNext({ disabled, xstyle, ...props }: CarouselControlProp
       onClick={scrollNext}
       size="icon"
       shape="circle"
+      style={{ aspectRatio: "1", height: "auto", ...style }}
       variant="secondary"
       xstyle={[styles.control, styles.next, xstyle]}
       {...props}
