@@ -54,7 +54,7 @@ function HomeGallery({ items }: { items: ReturnType<typeof getHomeGallery> }) {
               <Link
                 {...documentLink(page, locale)}
                 search={{}}
-                aria-label={`${page.title} ${ko ? "문서" : "documentation"}`}
+                aria-label={`${page.title} ${ko ? "문서" : "Docs"}`}
               >
                 {ko ? "문서" : "Docs"}
                 <ArrowUpRightIcon aria-hidden="true" />
