@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./test",
-  testMatch: "responsive.browser.spec.ts",
+  testMatch: "*.browser.spec.ts",
   fullyParallel: true,
   workers: 2,
   timeout: 180000,

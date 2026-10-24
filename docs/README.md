@@ -79,6 +79,10 @@ resolve in the browser. The 404 document has a working docs link and no hydratio
 Browser settings persist in a cookie. Explicit URL values take precedence;
 language follows the path. A head script applies color mode before React loads.
 Home examples load as one group and retain content height in responsive columns.
+The home loader and initial router hydration prepare the same component references.
+Render the resolved gallery directly; wrapping it in another lazy/Suspense boundary
+can replace prerendered content during startup. Other document entries do not
+preload home examples. A failed preparation uses the existing route retry UI.
 
 ## Generated files and checks
 
