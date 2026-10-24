@@ -5,7 +5,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   build: { outDir: fileURLToPath(new URL("./.browser-dist/", import.meta.url)), emptyOutDir: true },
-  plugins: [stylex({ useCSSLayers: false })],
+  plugins: [stylex({ useCSSLayers: true })],
   publicDir: fileURLToPath(new URL("../../docs/public/", import.meta.url)),
   optimizeDeps: { exclude: ["@bolerish/tokens"] },
   root: fileURLToPath(new URL("./test/browser/", import.meta.url)),

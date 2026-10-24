@@ -67,7 +67,8 @@ export default defineConfig({
       }),
       enforce: "pre",
     },
-    stylex({ useCSSLayers: false, babelConfig: { plugins: [reactCompiler] } } as Parameters<
+    // Keep shell media rules above shared component atoms in the cascade.
+    stylex({ useCSSLayers: true, babelConfig: { plugins: [reactCompiler] } } as Parameters<
       typeof stylex
     >[0]),
     tanstackStart({
