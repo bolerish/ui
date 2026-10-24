@@ -19,7 +19,12 @@ workspace are private applications, not npm releases.
    tests, package verification and the docs build before `changeset publish`.
    It publishes only public packages whose versions are absent from npm.
 
-The existing Publish workflow can be dispatched manually or triggered by a
+The Publish job is currently disabled while the design system is under
+development. Keep version preparation available, but do not publish npm packages
+until publication is explicitly resumed. Docs previews the current workspace API
+and can be deployed independently.
+
+Once re-enabled, the Publish workflow can be dispatched manually or triggered by a
 legacy `vX.Y.Z` tag matching **UI and tokens only**. Changesets also creates
 package-specific tags when publishing; those do not trigger this workflow.
 Publishing requires npm authentication; preparing versions does not publish.

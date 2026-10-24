@@ -11,6 +11,8 @@ permissions:
 
 jobs:
   publish:
+    # Publishing is paused while the design system is under development.
+    if: ${{ false }}
     name: publish npm package
     runs-on: ubuntu-latest
 
