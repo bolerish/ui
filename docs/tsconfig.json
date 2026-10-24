@@ -3,7 +3,7 @@
   "compilerOptions": {
     "types": ["vite/client", "node"],
     "paths": {
-      "@/components/ui/*": ["../packages/ui/src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src", "vite.config.ts", "scripts", "test"]

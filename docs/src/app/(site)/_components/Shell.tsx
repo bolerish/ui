@@ -29,14 +29,14 @@ import {
 import { Link, useNavigate, useLocation } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 
-import { catalog } from "../../../shared/lib/catalog";
-import { documentLink, localizedPath } from "../../../shared/lib/paths";
-import { searchDocuments, type SearchDocument } from "../../../shared/lib/search";
-import type { DocumentationGlobals } from "../../../shared/model/settings";
+import { catalog } from "@/app/(site)/docs/_lib/catalog";
+import { documentLink, localizedPath } from "@/shared/lib/paths";
+import { searchDocuments, type SearchDocument } from "@/shared/lib/search";
+import type { DocumentationGlobals } from "@/shared/model/settings";
 import {
   useDocumentationGlobals,
   useDocumentationPreferences,
-} from "../../../shared/model/useDocumentationGlobals";
+} from "@/shared/model/useDocumentationGlobals";
 
 const sectionNames: Record<string, string> = {
   guide: "Guides",

@@ -1,9 +1,10 @@
 import { MDXProvider } from "@mdx-js/react";
 import { Suspense } from "react";
 
-import { documentationComponents } from "../../../../shared/ui/markdown/components";
-import { documentKey, loadedPages, pages } from "../_lib/documents";
-import type { loadDocumentPage } from "../_lib/documents";
+import { documentKey, loadedPages, pages } from "@/app/(site)/docs/_lib/documents";
+import type { loadDocumentPage } from "@/app/(site)/docs/_lib/documents";
+
+import { documentationComponents } from "./components";
 import { TableOfContents } from "./TableOfContents";
 
 export function DocumentPage({ page }: Awaited<ReturnType<typeof loadDocumentPage>>) {

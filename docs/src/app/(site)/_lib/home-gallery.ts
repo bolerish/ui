@@ -1,5 +1,5 @@
-import { catalog } from "../../../shared/lib/catalog";
-import { examples, loadExample } from "../../../shared/lib/examples";
+import { catalog } from "@/app/(site)/docs/_lib/catalog";
+import { examples, loadExample } from "@/app/(site)/docs/_lib/examples";
 
 const featured = ["card", "calendar", "search-and-filter"];
 const items = catalog

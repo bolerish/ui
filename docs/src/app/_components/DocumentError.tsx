@@ -1,7 +1,7 @@
 import { Button } from "@bolerish/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyTitle } from "@bolerish/ui/empty";
 
-import { useLocale } from "../../shared/model/locale";
+import { useLocale } from "@/shared/model/locale";
 
 export function DocumentError() {
   const ko = useLocale() === "ko";

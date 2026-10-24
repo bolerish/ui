@@ -4,9 +4,9 @@ import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
 
-import { documentLink } from "../../../shared/lib/paths";
-import { useDocumentationGlobals } from "../../../shared/model/useDocumentationGlobals";
-import { loadHomeGallery } from "../_lib/home-gallery";
+import { loadHomeGallery } from "@/app/(site)/_lib/home-gallery";
+import { documentLink } from "@/shared/lib/paths";
+import { useDocumentationGlobals } from "@/shared/model/useDocumentationGlobals";
 
 const Gallery = lazy(async () => {
   const items = await loadHomeGallery();

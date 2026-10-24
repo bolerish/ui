@@ -1,7 +1,7 @@
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
-import { findDocument } from "../../../../../shared/lib/catalog";
-import { documentPath } from "../../../../../shared/lib/paths";
+import { findDocument } from "@/app/(site)/docs/_lib/catalog";
+import { documentPath } from "@/shared/lib/paths";
 export const Route = createFileRoute("/(site)/$section/$slug/{-$locale}/")({
   beforeLoad: ({ params }) => {
     const page = findDocument(params.section, params.slug);

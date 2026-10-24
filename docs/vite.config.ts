@@ -1,4 +1,5 @@
 import { readdirSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 
 import mdx from "@mdx-js/rollup";
 import stylex from "@stylexjs/unplugin/vite";
@@ -13,7 +14,7 @@ const markdownDependencies = ["react-markdown", "rehype-slug", "remark-gfm"];
 
 const pages = ["/", "/ko"];
 for (const section of ["guides", "components", "foundations", "patterns"]) {
-  const directory = new URL(`./src/shared/ui/docs/${section}/`, import.meta.url);
+  const directory = new URL(`./src/app/(site)/docs/_content/${section}/`, import.meta.url);
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
     if (
       section === "guides"
@@ -37,7 +38,10 @@ for (const section of ["guides", "components", "foundations", "patterns"]) {
 
 export default defineConfig({
   server: { port: 3000 },
-  resolve: { dedupe: ["react", "react-dom", "@stylexjs/stylex"] },
+  resolve: {
+    alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
+    dedupe: ["react", "react-dom", "@stylexjs/stylex"],
+  },
   // Discover MDX-only imports before requests; SSR optimizer reloads can split React instances.
   optimizeDeps: { include: markdownDependencies },
   ssr: {
@@ -72,7 +76,7 @@ export default defineConfig({
         generatedRouteTree: "app/routeTree.gen.ts",
         indexToken: "page",
         routeFileIgnorePattern:
-          "(^|/)(_components|_lib)(/|$)|(^|/)(router[.]tsx|routeTree[.]gen[.]ts)$|[.](test|spec)[.]",
+          "(^|/)(_components|_lib|_content|_config)(/|$)|(^|/)(router[.]tsx|routeTree[.]gen[.]ts)$|[.](test|spec)[.]",
       },
       prerender: {
         enabled: true,

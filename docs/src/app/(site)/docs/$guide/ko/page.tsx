@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { documentHead } from "../../../../../shared/lib/head";
-import { DocumentPage } from "../../_components/DocumentPage";
-import { loadDocumentPage } from "../../_lib/documents";
+import { DocumentPage } from "@/app/(site)/docs/_components/DocumentPage";
+import { loadDocumentPage } from "@/app/(site)/docs/_lib/documents";
+import { documentHead } from "@/shared/lib/head";
 export const Route = createFileRoute("/(site)/docs/$guide/ko/")({
   ssr: true,
   pendingMs: Infinity,

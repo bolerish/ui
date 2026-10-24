@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { Suspense } from "react";
 
-import { examples, loadedExamples, loadExample } from "../../../shared/lib/examples";
+import { examples, loadedExamples, loadExample } from "@/app/(site)/docs/_lib/examples";
 export const Route = createFileRoute("/preview/$example/")({
   // Render the trigger immediately; interactivity stays isolated in its own document.
   ssr: true,

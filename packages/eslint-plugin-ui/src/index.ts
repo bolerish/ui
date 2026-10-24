@@ -152,7 +152,7 @@ function createTokenRule(group: Group, policy: Policy): Rule.RuleModule {
       type: "suggestion",
       docs: {
         description: `Use Foundations ${group} tokens in custom UI`,
-        url: `https://github.com/myjeong19/ui/blob/main/docs/src/shared/ui/docs/foundations/${group}/guidelines.md`,
+        url: `https://github.com/myjeong19/ui/blob/main/docs/src/app/(site)/docs/_content/foundations/${group}/guidelines.md`,
       },
       schema: [],
       messages: {

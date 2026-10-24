@@ -1,0 +1,44 @@
+import { LocaleContent } from "@/shared/model/locale";
+import { LocalizedMarkdown } from "@/app/(site)/docs/_components/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "@/app/(site)/docs/_components/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Input OTP
+
+짧은 인증 코드를 입력하거나 붙여 넣으며 각 문자의 위치를 확인할 수 있습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Input OTP
+
+Help people enter or paste a short verification code with a clear position for each character.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="input-otp--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+길이가 정해진 코드에 사용하고 코드를 보낸 곳을 안내합니다. 재전송과 만료 안내는 입력 가까이에 둡니다.
+
+> 붙여 넣기와 자동 완성을 허용합니다. 코드를 외워 한 글자씩 다시 입력하게 하지 않습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+Use it for a fixed-length code and explain where the code was sent. Keep resend and expiry information near the input.
+
+> Allow paste and autofill; do not require users to remember and retype the code character by character.
+
+</LocaleContent>

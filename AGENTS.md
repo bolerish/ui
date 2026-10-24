@@ -24,8 +24,8 @@ See `.changeset/README.md` for compatibility rules and the release procedure.
 ## UI composition
 
 Before creating or changing screens, read
-`docs/src/shared/ui/docs/foundations/overview/guidelines.md` and the relevant topic's
-`guidelines.md` in `docs/src/shared/ui/docs/foundations/`. Use these rules for component choice,
+`docs/src/app/(site)/docs/_content/foundations/overview/guidelines.md` and the relevant topic's
+`guidelines.md` in `docs/src/app/(site)/docs/_content/foundations/`. Use these rules for component choice,
 semantic tokens, layout, states, accessible interactions, and interface copy.
 Verify names and supported props against the component source; documentation
 does not authorize inventing APIs. State any necessary exception.

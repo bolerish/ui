@@ -1,21 +1,21 @@
 import { notFound } from "@tanstack/react-router";
 import { lazy, type ComponentType } from "react";
 
-import { findDocument } from "../../../../shared/lib/catalog";
-import { preloadExamples } from "../../../../shared/lib/examples";
+import { findDocument } from "./catalog";
+import { preloadExamples } from "./examples";
 
 const modules = import.meta.glob<{ default: ComponentType }>([
-  "../../../../shared/ui/docs/components/*/docs.mdx",
-  "../../../../shared/ui/docs/foundations/*/docs.mdx",
-  "../../../../shared/ui/docs/patterns/*/docs.mdx",
-  "../../../../shared/ui/docs/guides/*.mdx",
+  "../_content/components/*/docs.mdx",
+  "../_content/foundations/*/docs.mdx",
+  "../_content/patterns/*/docs.mdx",
+  "../_content/guides/*.mdx",
 ]);
 export const loadedPages: Record<string, ComponentType> = {};
 const loadingPages: Record<string, Promise<{ default: ComponentType }>> = {};
 export function documentKey(page: { section: string; slug: string }) {
   return page.section === "guide"
-    ? `../../../../shared/ui/docs/guides/${page.slug}.mdx`
-    : `../../../../shared/ui/docs/${page.section}/${page.slug}/docs.mdx`;
+    ? `../_content/guides/${page.slug}.mdx`
+    : `../_content/${page.section}/${page.slug}/docs.mdx`;
 }
 async function loadDocument(key: string) {
   try {

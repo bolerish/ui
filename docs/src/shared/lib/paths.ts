@@ -1,4 +1,4 @@
-import type { DocumentationGlobals } from "../model/settings";
+import type { DocumentationGlobals } from "@/shared/model/settings";
 
 type Page = { section: string; slug: string };
 export function localizedPath(path: string, locale: DocumentationGlobals["locale"]) {

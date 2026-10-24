@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { localizedLinks } from "../../shared/lib/head";
-import { Home } from "./_components/Home";
-import { preloadHome } from "./_lib/home-gallery";
+import { Home } from "@/app/(site)/_components/Home";
+import { preloadHome } from "@/app/(site)/_lib/home-gallery";
+import { localizedLinks } from "@/shared/lib/head";
 export const Route = createFileRoute("/(site)/")({
   ssr: true,
   loader: preloadHome,

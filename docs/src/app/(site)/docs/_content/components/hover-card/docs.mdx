@@ -1,0 +1,64 @@
+import { LocaleContent } from "@/shared/model/locale";
+import { LocalizedMarkdown } from "@/app/(site)/docs/_components/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "@/app/(site)/docs/_components/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Hover Card
+
+링크를 열기 전에 목적지의 보조 정보를 미리 확인할 수 있습니다.
+
+사람이나 항목의 짧은 미리보기에 사용합니다. 미리보기를 보지 않아도 목적지 페이지에서 필요한 정보를 얻을 수 있게 합니다.
+
+> 필수 정보를 읽기 위해 링크 위에 포인터를 계속 올려 두게 하지 않습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Hover Card
+
+Let people preview a link destination before deciding to open it.
+
+Use a small preview for a person or item. Keep the destination page useful without the preview.
+
+> Required information must not depend on keeping the pointer over a link.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="hover-card--Default" source={DefaultSource} height={360} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 사용할 때
+
+사람의 프로필 요약처럼 링크 목적지를 선택적으로 미리 보여 줄 때 사용합니다. 미리보기가 없어도 링크의 뜻을 이해하고 유용한 내용으로 이동할 수 있어야 합니다. 컨트롤의 짧은 설명은 [Tooltip](/docs/components/tooltip), 명시적으로 열어 조작하는 내용은 `Popover`를 사용합니다.
+
+### 필수 단계가 아닌 미리보기
+
+목적지를 식별하는 데 필요한 내용에 집중합니다. 필수 정보와 행동은 목적지 페이지에도 제공합니다. 폼 작성이나 필수 행동 찾기가 호버 카드를 계속 열어 두는 데 의존하지 않게 합니다.
+
+> `HoverCardTrigger`의 `href`에는 실제 목적지를 지정합니다. 예제의 임시 값은 제품 경로가 아닙니다. 터치와 키보드에서 일반 링크로 이동하는 흐름을 확인합니다. 링크를 따라가기 위해 미리보기를 열 필요는 없어야 합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### When to use
+
+Use Hover `Card` for an optional preview of a link destination, such as a person's profile summary. The link must still make sense and lead to useful content without the preview. Use [Tooltip](/docs/components/tooltip) for a short control explanation and `Popover` for explicitly opened interactive content.
+
+### Preview, not a required step
+
+Keep the preview focused on identifying the destination. Put required details and actions on the destination page as well. Do not make completing a form or finding an essential action depend on keeping a hover card open.
+
+> Provide a real destination in `HoverCardTrigger`'s `href`; the example's placeholder is not a product route. Check the ordinary link flow on touch devices and with keyboard navigation. Opening a preview must not be necessary to follow the link.
+
+</LocaleContent>

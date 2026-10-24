@@ -80,11 +80,18 @@ than pretending Next.js `layout.tsx` or `[param]` files have routing behavior.
 - `app/(site)/docs/_components` and `_lib`: the document page, table of contents
   and document loading, beside the nested guide/component routes.
 - `app/_components`: application error and not-found UI shared by app routes.
-- `shared/ui`: Markdown rendering, previews, token tables and the documentation
-  examples/content reused by the home, docs and isolated preview routes.
-- `shared/lib`: catalog, paths, example loading, search and color-mode helpers.
+- `app/(site)/docs/_content`: MDX, Foundations and live examples, kept together
+  as documentation content rather than a copied component registry.
+- `app/(site)/docs/_components`, `_lib` and `_config`: documentation renderers,
+  example/catalog loading and document translations.
+- `shared/lib`: pure paths, search, metadata and color-mode helpers shared by routes.
 - `shared/model`: locale and validated documentation preference contexts.
-- `shared/config/locales` and `shared/styles`: translations and shared theme CSS.
+- `shared/styles`: common semantic theme CSS.
+
+Within this app, `@/` resolves to `docs/src/` in both TypeScript and Vite.
+Use it for cross-directory application imports and keep adjacent imports relative.
+Node-run tools/tests keep resolvable relative imports. Cross-package components
+are imported through `@bolerish/ui` public subpaths, never a source-copy alias.
 
 Tests stay beside these owners. Shared code does not import route internals.
 `_components` and `_lib` are ignored by route discovery. No feature/entity layers
@@ -92,7 +99,7 @@ or barrel exports are required for this app.
 
 ## Component examples
 
-Keep `docs.mdx` and React examples together in `src/shared/ui/docs/components/{component}/`.
+Keep `docs.mdx` and React examples together in `src/app/(site)/docs/_content/components/{component}/`.
 Write the overview and usage text directly in `docs.mdx`, inside
 `<LocaleContent locale="ko">` and `<LocaleContent locale="en">` blocks. Keep two
 static Markdown blocks per language: overview, then usage. Shared previews stay
@@ -109,7 +116,7 @@ for examples that actually demonstrate StyleX customization.
 
 ## Foundations
 
-Edit `src/shared/ui/docs/foundations/{topic}/guidelines.md` (English) and `guidelines.kr.md`
+Edit `src/app/(site)/docs/_content/foundations/{topic}/guidelines.md` (English) and `guidelines.kr.md`
 (Korean) together.
 These files supply localized user documentation. Agent entry points, API links
 and full LLM guidelines use the English foundation files and English MDX blocks.
@@ -137,7 +144,7 @@ from the localized guides, Foundations, patterns and component usage docs.
 The search dialog loads the active language's index on demand, searches titles
 and body text locally, and shows matching excerpts with category filters.
 
-See [translation conventions](src/shared/config/locales/README.md).
+See [translation conventions](<src/app/(site)/docs/_config/locales/README.md>).
 
 ## Page structure and tables
 

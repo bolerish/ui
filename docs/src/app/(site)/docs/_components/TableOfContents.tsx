@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useLocale } from "../../../../shared/model/locale";
+import { useLocale } from "@/shared/model/locale";
 export function TableOfContents() {
   const locale = useLocale();
   const [headings, setHeadings] = useState<{ id: string; title: string }[]>([]);

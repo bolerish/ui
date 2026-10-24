@@ -10,17 +10,17 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 
-import { catalog } from "../shared/lib/catalog";
-import { documentPath, legacyDocumentPath, localizedPath } from "../shared/lib/paths";
-import { useColorMode } from "../shared/lib/useColorMode";
-import { LocaleContext } from "../shared/model/locale";
-import { validateSettings, validateSearch, parseSavedPreferences } from "../shared/model/settings";
+import { Shell } from "@/app/(site)/_components/Shell";
+import { catalog } from "@/app/(site)/docs/_lib/catalog";
+import { DocumentError, DocumentNotFound } from "@/app/_components/DocumentError";
+import { documentPath, legacyDocumentPath, localizedPath } from "@/shared/lib/paths";
+import { useColorMode } from "@/shared/lib/useColorMode";
+import { LocaleContext } from "@/shared/model/locale";
+import { validateSettings, validateSearch, parseSavedPreferences } from "@/shared/model/settings";
 import {
   DocumentationContext,
   DocumentationPreferencesContext,
-} from "../shared/model/useDocumentationGlobals";
-import { Shell } from "./(site)/_components/Shell";
-import { DocumentError, DocumentNotFound } from "./_components/DocumentError";
+} from "@/shared/model/useDocumentationGlobals";
 
 import stylesheet from "./styles.css?url";
 

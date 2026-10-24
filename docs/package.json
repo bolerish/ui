@@ -9,7 +9,7 @@
     "dev": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && vite --port 3000",
     "lint": "pnpm --filter @bolerish/eslint-plugin-ui build && pnpm --workspace-root exec oxlint docs/src",
     "preview": "wrangler dev --config wrangler.jsonc --port 3000",
-    "test:agent": "node --experimental-strip-types scripts/build-guidelines.ts --check && node --experimental-strip-types --experimental-vm-modules --test scripts/build-guidelines.test.ts scripts/guide-markdown.test.ts src/shared/lib/search.test.ts src/shared/lib/head.test.ts src/shared/model/settings.test.ts src/shared/lib/paths.test.ts src/shared/lib/catalog.test.ts src/shared/ui/docs/foundations/guidelines.test.ts src/shared/lib/table-headers.test.ts 'src/app/(site)/_lib/home-gallery.test.ts'",
+    "test:agent": "node --experimental-strip-types scripts/build-guidelines.ts --check && node --experimental-strip-types --experimental-vm-modules --test scripts/build-guidelines.test.ts scripts/guide-markdown.test.ts src/shared/lib/search.test.ts src/shared/lib/head.test.ts src/shared/model/settings.test.ts src/shared/lib/paths.test.ts 'src/app/(site)/docs/_lib/catalog.test.ts' 'src/app/(site)/docs/_content/foundations/guidelines.test.ts' src/shared/lib/table-headers.test.ts 'src/app/(site)/_lib/home-gallery.test.ts'",
     "test:dev": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && node --experimental-strip-types --test test/dev.test.ts",
     "test:runtime": "node --experimental-strip-types --test test/runtime.test.ts",
     "test:static": "node --experimental-strip-types --test test/static.test.ts",

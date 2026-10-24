@@ -1,0 +1,44 @@
+import { LocaleContent } from "@/shared/model/locale";
+import { LocalizedMarkdown } from "@/app/(site)/docs/_components/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "@/app/(site)/docs/_components/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Context Menu
+
+행마다 버튼을 늘리지 않고 대상 가까이에서 관련 명령을 실행할 수 있습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Context Menu
+
+Put object-specific commands close to the object without filling every row with buttons.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="context-menu--Default" source={DefaultSource} height={360} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+선택한 대상의 명령을 빠르게 여는 수단으로 사용합니다. 명령을 쉽게 발견해야 한다면 보이는 메뉴 버튼도 제공합니다.
+
+> 보조 클릭만으로 필수 행동에 접근하게 하지 않습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+Use it as a shortcut to commands for the selected target. Keep a visible menu button when those commands must be discoverable.
+
+> Secondary click must not be the only way to reach an essential action.
+
+</LocaleContent>

@@ -1,6 +1,7 @@
 import { createRouter } from "@tanstack/react-router";
 
-import { DocumentError } from "./_components/DocumentError";
+import { DocumentError } from "@/app/_components/DocumentError";
+
 import { routeTree } from "./routeTree.gen";
 export function getRouter() {
   return createRouter({

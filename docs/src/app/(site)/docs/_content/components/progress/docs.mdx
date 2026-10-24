@@ -1,0 +1,44 @@
+import { LocaleContent } from "@/shared/model/locale";
+import { LocalizedMarkdown } from "@/app/(site)/docs/_components/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "@/app/(site)/docs/_components/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Progress
+
+측정할 수 있는 작업의 완료량을 보여 줘 남은 정도를 판단하게 합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Progress
+
+Show how much measurable work is complete so people can judge what remains.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="progress--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+실제 작업에서 계산한 값을 표시합니다. 남은 양을 모르면 `Spinner`를 사용합니다.
+
+> 불확실한 진행을 정확하게 보이게 하려고 백분율을 만들어 표시하지 않습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+Use a value derived from actual work. Use `Spinner` when the amount remaining is unknown.
+
+> Do not invent percentages to make uncertain progress look precise.
+
+</LocaleContent>

@@ -1,0 +1,65 @@
+import { LocaleContent } from "@/shared/model/locale";
+import { LocalizedMarkdown } from "@/app/(site)/docs/_components/LocalizedMarkdown";
+import VariantsSource from "./Variants.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "@/app/(site)/docs/_components/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Badge
+
+항목 이름을 읽으면서 상태나 분류도 빠르게 확인할 수 있습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Badge
+
+Make an item's status or category easy to scan alongside its name.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="badge--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 주요 속성
+
+| 속성      | 기본값    | 값                                                        | 용도                                                    |
+| --------- | --------- | --------------------------------------------------------- | ------------------------------------------------------- |
+| `variant` | `primary` | `primary`, `secondary`, `outline`, `ghost`, `destructive` | 강조·보조·윤곽·최소 강조·오류 표식의 표현을 선택합니다. |
+
+초안·보관됨처럼 유지되는 속성을 짧은 이름으로 표시합니다. 행동의 결과는 피드백 컴포넌트로 알립니다.
+
+> 실제로 필터링할 수 없다면 정적인 배지를 필터 버튼처럼 보이게 하지 않습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### Props
+
+| Prop      | Default   | Values                                                    | Meaning                                                          |
+| --------- | --------- | --------------------------------------------------------- | ---------------------------------------------------------------- |
+| `variant` | `primary` | `primary`, `secondary`, `outline`, `ghost`, `destructive` | Emphasized, supporting, outlined, minimal, or destructive label. |
+
+Use a short label for a persistent attribute, such as Draft or Archived. Use feedback components for the result of an action.
+
+> Do not give a static badge the appearance of a clickable filter unless it actually supports that action.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## More examples"} />
+
+<LocalizedMarkdown text={"### Variants"} />
+
+<LocalizedMarkdown text={"Match the badge treatment to the status or category it represents."} />
+
+<ComponentPreview name="badge--Variants" source={VariantsSource} />

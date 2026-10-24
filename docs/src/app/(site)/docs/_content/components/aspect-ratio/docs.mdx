@@ -1,0 +1,44 @@
+import { LocaleContent } from "@/shared/model/locale";
+import { LocalizedMarkdown } from "@/app/(site)/docs/_components/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "@/app/(site)/docs/_components/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Aspect Ratio
+
+이미지나 영상이 차지할 모양을 미리 정해 주변 콘텐츠의 위치를 유지합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Aspect Ratio
+
+Reserve the shape of an image or video so nearby content keeps its place.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="aspect-ratio--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+미디어와 주변 배치에 맞는 비율을 선택합니다. 여러 썸네일을 비교하는 목록에서는 비율을 맞춥니다.
+
+> 비율을 정하는 것과 이미지를 자르는 것은 별개입니다. 미디어의 맞춤 방식과 중요한 내용이 잘리는지 확인합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+Choose a ratio that suits the media and the surrounding layout. Use consistent ratios when people compare a set of thumbnails.
+
+> A fixed ratio does not decide whether media is cropped. Check the media's own fit behavior and important details.
+
+</LocaleContent>

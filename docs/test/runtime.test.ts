@@ -18,7 +18,7 @@ test("localized search indexes are served independently from document HTML", asy
 test("all documents are served as prerendered HTML", async () => {
   let count = 0;
   for (const group of ["components", "foundations", "patterns"]) {
-    const root = new URL(`../src/shared/ui/docs/${group}/`, import.meta.url);
+    const root = new URL(`../src/app/(site)/docs/_content/${group}/`, import.meta.url);
     for (const entry of await readdir(root, { withFileTypes: true })) {
       if (
         !entry.isDirectory() ||

@@ -1,0 +1,11 @@
+import { Size } from "./Reference";
+import { LocalizedMarkdown } from "@/app/(site)/docs/_components/LocalizedMarkdown";
+import { Guideline } from "@/app/(site)/docs/_components/Guideline";
+import guidelines from "./guidelines.kr.md?raw";
+import english from "./guidelines.md?raw";
+
+<Guideline content={guidelines} english={english} />
+
+<LocalizedMarkdown text={"## Size"} />
+
+<Size />
