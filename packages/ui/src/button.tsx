@@ -15,6 +15,7 @@ import type { ComponentProps, ReactNode } from "react";
 import type { ControlLayoutStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: {
@@ -211,6 +212,8 @@ export function Button({
           styles.root,
           alignStyles[align],
           variantStyles[variant],
+          !disabled && variant === "secondary" && surfaceStyles.subtle,
+          !disabled && variant === "outline" && surfaceStyles.outline,
           sizeStyles[size],
           !isStandardSize && styles.iconContent,
           shapeStyles[shape],

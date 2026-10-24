@@ -12,6 +12,7 @@ import type { ComponentProps } from "react";
 import type { ControlFieldStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: {
@@ -85,7 +86,12 @@ export function Textarea({
       {...props}
       aria-invalid={ariaInvalid}
       {...mergeStyles(
-        stylex.props(styles.root, isInvalid && styles.invalid, xstyle),
+        stylex.props(
+          styles.root,
+          !props.disabled && surfaceStyles.control,
+          isInvalid && styles.invalid,
+          xstyle,
+        ),
         className,
         style,
       )}

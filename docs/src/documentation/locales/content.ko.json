@@ -100,5 +100,6 @@
   "### Translucent surface": "### 반투명 표면",
   "Change the background color to compare the gradient and translucent surface. Use the documentation theme setting to compare light and dark modes.": "배경색을 바꿔 그라디언트와 반투명 표면의 조합을 확인합니다. 문서의 테마 설정에서 라이트·다크 모드를 비교할 수 있습니다.",
   "Read the entry on a shared, softly colored background. Compare Burgundy, Navy and Apricot palettes or choose a custom color. Use Edit entry to change the note and song, then Read entry to return. Use the documentation theme setting to compare light and dark modes. Changes stay in this example.": "하나의 부드러운 색상 배경 위에서 기록을 읽습니다. 버건디·네이비·살구색 팔레트를 비교하거나 직접 색상을 선택합니다. Edit entry로 본문과 곡을 수정하고 Read entry로 읽기 화면에 돌아옵니다. 문서의 테마 설정으로 라이트·다크를 비교합니다. 변경은 이 예제 안에서만 유지됩니다.",
-  "The source-copy CLI is no longer distributed. Existing copied files remain local and are not updated by package upgrades. Import from @bolerish/ui to adopt packaged components.": "소스를 복사하는 CLI는 더 이상 배포하지 않습니다. 기존에 복사한 파일은 로컬에 남으며 패키지를 업데이트해도 바뀌지 않습니다. 패키지 컴포넌트를 사용하려면 @bolerish/ui에서 가져옵니다."
+  "The source-copy CLI is no longer distributed. Existing copied files remain local and are not updated by package upgrades. Import from @bolerish/ui to adopt packaged components.": "소스를 복사하는 CLI는 더 이상 배포하지 않습니다. 기존에 복사한 파일은 로컬에 남으며 패키지를 업데이트해도 바뀌지 않습니다. 패키지 컴포넌트를 사용하려면 @bolerish/ui에서 가져옵니다.",
+  "### Global surface modes": "### 전역 표면 모드"
 }

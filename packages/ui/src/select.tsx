@@ -189,7 +189,12 @@ export function SelectTrigger({
 }) {
   function getTriggerStyles(state: SelectPrimitive.Trigger.State) {
     return mergeStyles(
-      stylex.props(styles.trigger, state.disabled && styles.triggerDisabled, xstyle),
+      stylex.props(
+        styles.trigger,
+        !state.disabled && surfaceStyles.control,
+        state.disabled && styles.triggerDisabled,
+        xstyle,
+      ),
       className,
       style,
     );

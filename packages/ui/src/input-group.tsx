@@ -16,6 +16,7 @@ import { Button, type ButtonProps } from "./button";
 import type { InputProps } from "./input";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 import type { TextareaProps } from "./textarea";
 
 const styles = stylex.create({
@@ -143,7 +144,7 @@ export function InputGroup({
       {...props}
       data-invalid={invalid || undefined}
       {...mergeStyles(
-        stylex.props(styles.root, invalid && styles.invalid, xstyle),
+        stylex.props(styles.root, surfaceStyles.control, invalid && styles.invalid, xstyle),
         className,
         style,
       )}

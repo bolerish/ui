@@ -13,6 +13,7 @@ import { useState } from "react";
 
 import { Calendar } from "./calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: { display: "inline-flex", minWidth: "13rem" },
@@ -98,7 +99,11 @@ export function DatePicker(props: DatePickerProps) {
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger
           render={
-            <button disabled={disabled} type="button" {...stylex.props(styles.trigger)}>
+            <button
+              disabled={disabled}
+              type="button"
+              {...stylex.props(styles.trigger, !disabled && surfaceStyles.control)}
+            >
               {selectedValue ? (
                 <span {...stylex.props(styles.value)}>{format(selectedValue)}</span>
               ) : (

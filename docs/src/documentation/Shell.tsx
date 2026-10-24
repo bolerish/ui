@@ -43,6 +43,14 @@ const sectionNames: Record<string, string> = {
 
 const controls = [
   [
+    "surface",
+    "Surface",
+    [
+      ["solid", "Solid"],
+      ["liquid", "Liquid"],
+    ],
+  ],
+  [
     "locale",
     "Language",
     [

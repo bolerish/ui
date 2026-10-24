@@ -15,6 +15,7 @@ import type { ComponentProps } from "react";
 import type { ControlLayoutStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: {
@@ -125,6 +126,7 @@ export function Toggle({
         styles.root,
         sizeStyles[size],
         variantStyles[variant],
+        variant === "outline" && !state.pressed && !state.disabled && surfaceStyles.control,
         state.pressed && styles.pressed,
         state.pressed && variant === "outline" && styles.outlinePressed,
         state.pressed && variant === "soft" && styles.softPressed,

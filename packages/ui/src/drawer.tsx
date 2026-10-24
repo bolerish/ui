@@ -356,6 +356,7 @@ export function DrawerContent({
           data-slot="drawer-popup"
           {...stylex.props(
             styles.popup,
+            surfaceStyles.raised,
             surfaceStyles.edge,
             isHorizontal ? styles.horizontalPopup : styles.verticalPopup,
             popupDirectionStyles[swipeDirection],

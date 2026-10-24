@@ -15,6 +15,7 @@ import type { ComponentProps } from "react";
 import type { ControlLayoutStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: { display: "inline-flex", position: "relative", width: "fit-content" },
@@ -84,7 +85,10 @@ export function NativeSelect({
 }: NativeSelectProps) {
   return (
     <span {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}>
-      <select {...props} {...stylex.props(styles.select, sizeStyles[size])}>
+      <select
+        {...props}
+        {...stylex.props(styles.select, !props.disabled && surfaceStyles.control, sizeStyles[size])}
+      >
         {children}
       </select>
       <CaretDownIcon aria-hidden="true" {...stylex.props(styles.icon)} />

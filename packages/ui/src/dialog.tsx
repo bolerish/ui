@@ -192,7 +192,11 @@ export function DialogContent({
       <DialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <DialogPrimitive.Popup
           {...props}
-          {...mergeStyles(stylex.props(styles.popup, surfaceStyles.edge, xstyle), className, style)}
+          {...mergeStyles(
+            stylex.props(styles.popup, surfaceStyles.raised, surfaceStyles.edge, xstyle),
+            className,
+            style,
+          )}
         >
           {children}
           {showCloseButton ? (

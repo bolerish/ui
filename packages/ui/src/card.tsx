@@ -83,6 +83,7 @@ export function Card({
       {...mergeStyles(
         stylex.props(
           styles.card,
+          surfaceStyles.panel,
           surfaceStyles.edge,
           variant === "translucent" && surfaceStyles.translucent,
           xstyle,

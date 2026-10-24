@@ -16,6 +16,7 @@ import type { ComponentProps } from "react";
 
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   positioner: { zIndex: layerVars.notification },
@@ -54,7 +55,16 @@ const styles = stylex.create({
       },
     },
   },
-  arrow: { fill: colorVars.bgRaised, height: spacingVars.space2, width: spacingVars.space3 },
+  arrow: {
+    fill: {
+      default: colorVars.bgRaised,
+      "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, ${colorVars.bgRaised} var(--bolerish-material-opacity, 100%), transparent)`,
+    },
+    height: spacingVars.space2,
+    width: spacingVars.space3,
+    "@media (prefers-reduced-transparency: reduce)": { fill: colorVars.bgRaised },
+    "@media (forced-colors: active)": { fill: "Canvas" },
+  },
 });
 
 export const Tooltip = TooltipPrimitive.Root;
@@ -90,6 +100,7 @@ export function TooltipContent({
     return mergeStyles(
       stylex.props(
         styles.popup,
+        surfaceStyles.raised,
         (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
           styles.popupTransitioning,
         state.transitionStatus === "ending" && styles.popupEnding,

@@ -16,6 +16,7 @@ import type { ComponentProps } from "react";
 import type { ControlLayoutStyles, ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
@@ -65,7 +66,7 @@ export function InputOTP({ className, style, xstyle, ...props }: InputOTPProps) 
   return (
     <OTPField.Root
       {...props}
-      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
+      {...mergeStyles(stylex.props(styles.root, surfaceStyles.control, xstyle), className, style)}
     />
   );
 }

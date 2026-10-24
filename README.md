@@ -32,6 +32,27 @@ export function SaveButton() {
 
 Root imports such as `import { Button } from "@bolerish/ui"` also work.
 
+## Global surface treatment
+
+After loading the stylesheet, set `data-bolerish-surface="solid"` or `"liquid"`
+on `html`. Component variants and color themes remain independent. A nested
+`solid` scope can opt out; portaled content follows the attribute on `html`.
+Omitting the attribute preserves the previous appearance, including
+`Card variant="translucent"`. No StyleX compiler is required for the attribute.
+Reduced transparency, forced colors and unsupported CSS retain solid fallbacks.
+
+```tsx
+import type { ReactNode } from "react";
+
+export function Document({ children }: { children: ReactNode }) {
+  return (
+    <html data-bolerish-surface="liquid">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
 ## Content-colored backgrounds
 
 Apply a compiled gradient to an existing element; no wrapper or StyleX compiler

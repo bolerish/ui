@@ -16,6 +16,7 @@ import { createContext, useContext, type ComponentProps, type ReactNode } from "
 import type { ControlLayoutStyles, ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 import type { ToggleSize, ToggleVariant } from "./toggle";
 
 const styles = stylex.create({
@@ -165,7 +166,16 @@ export function ToggleGroup({
   return (
     <ToggleGroupPrimitive
       {...props}
-      {...mergeStyles(stylex.props(styles.root, variantStyles[variant], xstyle), className, style)}
+      {...mergeStyles(
+        stylex.props(
+          styles.root,
+          variantStyles[variant],
+          variant === "outline" && surfaceStyles.control,
+          xstyle,
+        ),
+        className,
+        style,
+      )}
     >
       <ToggleGroupContext value={{ size, variant }}>{children}</ToggleGroupContext>
     </ToggleGroupPrimitive>
@@ -195,6 +205,7 @@ export function ToggleGroupItem({
         styles.item,
         itemSizeStyles[finalSize],
         itemVariantStyles[finalVariant],
+        finalVariant === "outline" && !state.pressed && !state.disabled && surfaceStyles.control,
         state.pressed && styles.itemPressed,
         state.pressed && finalVariant === "outline" && styles.outlinePressed,
         state.pressed && finalVariant === "soft" && styles.softPressed,

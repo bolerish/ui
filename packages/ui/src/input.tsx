@@ -15,6 +15,7 @@ import type { ComponentProps } from "react";
 import type { ControlLayoutStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: {
@@ -108,6 +109,7 @@ export function Input({
       {...mergeStyles(
         stylex.props(
           styles.root,
+          variant !== "inline" && !props.disabled && surfaceStyles.control,
           variant === "inline" && styles.inline,
           isInvalid && styles.invalid,
           xstyle,

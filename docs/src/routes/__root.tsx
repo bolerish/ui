@@ -142,6 +142,7 @@ function Document({ children }: { children: ReactNode }) {
       lang={settings.locale}
       className={themeClassNames[mode]}
       data-color-mode={mode}
+      data-bolerish-surface={settings.surface}
       data-bolerish-motion={
         { system: "system", reduce: "off", "no-preference": "on" }[settings.motionPreference]
       }

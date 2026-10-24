@@ -15,6 +15,7 @@ import { Button, type ButtonProps } from "./button";
 import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: {
@@ -155,6 +156,7 @@ export function Attachment({
       {...mergeStyles(
         stylex.props(
           styles.root,
+          state !== "error" && surfaceStyles.panel,
           orientationStyles[orientation],
           sizeStyles[size],
           state === "error" && styles.error,

@@ -217,7 +217,12 @@ export function ComboboxInput({
   return (
     <ComboboxPrimitive.InputGroup
       {...mergeStyles(
-        stylex.props(styles.inputGroup, variant === "inline" && styles.inline, xstyle),
+        stylex.props(
+          styles.inputGroup,
+          variant !== "inline" && surfaceStyles.control,
+          variant === "inline" && styles.inline,
+          xstyle,
+        ),
         className,
         style,
       )}

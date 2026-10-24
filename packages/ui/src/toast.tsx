@@ -469,7 +469,12 @@ function ToastStack({
           key={item.id}
           toast={item}
           data-bolerish-toast-root=""
-          {...stylex.props(styles.root, surfaceStyles.edge, isTop && styles.rootTop)}
+          {...stylex.props(
+            styles.root,
+            surfaceStyles.raised,
+            surfaceStyles.edge,
+            isTop && styles.rootTop,
+          )}
         >
           <ToastPrimitive.Content {...stylex.props(styles.content)}>
             <ToastStatusIcon type={item.type} />

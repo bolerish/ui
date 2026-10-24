@@ -78,6 +78,20 @@ Load your font separately. Default density is `1`; compact is `0.875`. Keep the 
 
 Motion follows the OS by default. `data-bolerish-motion="off"` on `html` reduces motion; `on` explicitly overrides the OS and should only follow an end-user choice. See [Motion](/docs/foundations/motion) and [Accessibility](/docs/foundations/accessibility).
 
+## Select a surface treatment
+
+Set `data-bolerish-surface="solid"` or `"liquid"` on `html`. This is independent of light/dark themes and component variants. Panels, resting controls and floating surfaces have different transparency and blur strengths. Primary/destructive fills, selection, error and disabled treatments keep their semantic roles.
+
+```tsx
+<html className={themeClassNames.dark} data-bolerish-surface="liquid">
+  <body>{children}</body>
+</html>
+```
+
+A nested `data-bolerish-surface="solid"` region can opt out. Portals mounted outside that region follow `html`, so set the app-wide choice on the document. Omitting the attribute keeps the existing behavior, including `Card variant="translucent"`.
+
+Liquid surfaces use CSS transparency and backdrop blur; browsers without the required features, reduced-transparency preferences and forced-color modes use solid fallbacks. Keep text contrast readable over your own backgrounds. See the [Card comparison](/docs/components/card#global-surface-modes).
+
 ## Extend the palette
 
 For a custom app surface, choose existing [Color](/docs/foundations/color) roles before adding values. Use [Styling](/docs/styling) for StyleX token imports. Generated StyleX class and variable names are not stable customization hooks; use exported tokens and the documented CSS variables.
@@ -89,6 +103,20 @@ For a custom app surface, choose existing [Color](/docs/foundations/color) roles
 글꼴 파일은 별도로 로드합니다. 기본 밀도는 `1`, compact는 `0.875`입니다. 루트 글자 크기 설정을 따르려면 기본 `rem` 단위를 유지하세요. 밀도가 모든 접근성 대상 크기를 줄이지는 않습니다.
 
 모션은 기본적으로 OS 설정을 따릅니다. `html`의 `data-bolerish-motion="off"`는 움직임을 줄입니다. `on`은 OS 설정까지 덮어쓰므로 사용자가 직접 선택했을 때만 적용하세요. [Motion](/docs/foundations/motion)과 [Accessibility](/docs/foundations/accessibility)를 참고하세요.
+
+## 표면 표현 선택하기
+
+`html`에 `data-bolerish-surface="solid"` 또는 `"liquid"`를 설정합니다. 라이트·다크 테마와 컴포넌트 배리언트는 별도로 유지됩니다. 패널, 기본 상태의 컨트롤과 떠 있는 표면은 서로 다른 투명도·블러 강도를 사용합니다. 주요/위험 행동의 채움색과 선택·오류·비활성 표현은 의미를 유지합니다.
+
+```tsx
+<html className={themeClassNames.dark} data-bolerish-surface="liquid">
+  <body>{children}</body>
+</html>
+```
+
+하위 영역의 `data-bolerish-surface="solid"`로 부분 적용을 해제할 수 있습니다. 영역 밖에 마운트되는 포털은 `html` 설정을 따르므로 앱 전체 선택은 문서에 두세요. 속성을 생략하면 `Card variant="translucent"`를 포함한 기존 동작을 유지합니다.
+
+Liquid는 CSS 투명도와 배경 블러를 사용합니다. 필요한 기능이 없는 브라우저, 투명도 줄이기 설정과 강제 색상 모드에서는 불투명한 표면으로 대체합니다. 앱 배경 위의 글자 대비는 별도로 확인하세요. [Card 비교 예제](/docs/components/card#global-surface-modes)를 참고하세요.
 
 ## 팔레트 확장하기
 

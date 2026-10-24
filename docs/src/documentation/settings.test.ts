@@ -8,6 +8,7 @@ test("invalid URL and saved preferences normalize to safe defaults", () => {
   assert.deepEqual(
     validateSettings({
       colorMode: "purple",
+      surface: "glass",
       locale: [],
       density: -1,
       unit: "vw",
@@ -24,11 +25,19 @@ test("invalid URL and saved preferences normalize to safe defaults", () => {
     locale: "en",
     density: "compact",
     colorMode: "dark",
+    surface: "liquid",
     motionPreference: "reduce",
     unit: "px",
     fontPreset: "serif-heading",
   });
   assert.equal(settings.colorMode, "dark");
+  assert.equal(settings.surface, "liquid");
+  assert.equal(validateSettings({}).surface, "solid");
+  assert.deepEqual(validateSearch({ surface: "liquid" }), { surface: "liquid" });
+  assert.equal(
+    parseSavedPreferences(encodeURIComponent('{"surface":"liquid"}'))!.surface,
+    "liquid",
+  );
   assert.equal(settings.density, "compact");
   assert.equal(settings.locale, "en");
 });

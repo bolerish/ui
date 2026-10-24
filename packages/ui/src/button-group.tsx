@@ -21,6 +21,7 @@ import {
 import { Separator } from "./separator";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: {
@@ -199,7 +200,12 @@ export function ButtonGroupText({
   xstyle,
   ...props
 }: StyledProps<ComponentProps<"span">> & StyleProps) {
-  return <span {...props} {...mergeStyles(stylex.props(styles.text, xstyle), className, style)} />;
+  return (
+    <span
+      {...props}
+      {...mergeStyles(stylex.props(styles.text, surfaceStyles.control, xstyle), className, style)}
+    />
+  );
 }
 
 export function ButtonGroupSeparator({
