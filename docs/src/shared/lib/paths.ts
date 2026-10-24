@@ -26,5 +26,5 @@ export function documentLink(page: Page, locale: DocumentationGlobals["locale"])
 export function legacyDocumentPath(path: string) {
   if (/^\/docs(?:\/ko)?$/.test(path)) return path.replace("/docs", "/docs/getting-started");
   if (path.startsWith("/docs/guide/")) return path.replace("/docs/guide/", "/docs/");
-  return path.replace(/^\/(components|foundations|patterns)\//, "/docs/$1/");
+  return path.replace(/^\/(components|foundations)\//, "/docs/$1/");
 }

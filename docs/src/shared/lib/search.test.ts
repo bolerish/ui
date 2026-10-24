@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 import { searchDocuments, searchText, type SearchDocument } from "./search.ts";
@@ -28,12 +28,27 @@ test("search finds body text, combines terms and shows a nearby excerpt", () => 
 });
 
 test("generated localized indexes cover all docs and search actual body content", async () => {
+  const content = new URL("../../app/(site)/docs/_content/", import.meta.url);
+  const expected = (await readdir(new URL("guides/", content)))
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => `guide/${file.slice(0, -4)}`);
+  for (const section of ["components", "foundations"]) {
+    for (const entry of await readdir(new URL(`${section}/`, content), { withFileTypes: true })) {
+      if (
+        entry.isDirectory() &&
+        (await readdir(new URL(`${section}/${entry.name}/`, content))).includes("docs.mdx")
+      )
+        expected.push(`${section}/${entry.name}`);
+    }
+  }
   for (const locale of ["en", "ko"]) {
     const index: SearchDocument[] = JSON.parse(
       await readFile(new URL(`../../../public/search.${locale}.json`, import.meta.url), "utf8"),
     );
-    assert.equal(index.length, 79);
-    assert.equal(new Set(index.map((item) => `${item.section}/${item.slug}`)).size, 79);
+    assert.deepEqual(
+      index.map((item) => `${item.section}/${item.slug}`).sort(),
+      [...expected].sort(),
+    );
     assert.ok(index.every((item) => item.title && item.text));
     const results = searchDocuments(index, locale === "en" ? "portals" : "포털");
     assert.ok(results.some((item) => item.slug === "theming"));

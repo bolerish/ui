@@ -9,7 +9,6 @@ test("localized metadata points to the canonical language and matching Markdown"
     ["guide", "theming", "guides/theming"],
     ["components", "item", "guidelines/item"],
     ["foundations", "color", "guidelines/color"],
-    ["patterns", "search-and-filter", "guidelines/pattern-search-and-filter"],
   ])
     for (const locale of ["en", "ko"] as const) {
       const head = documentHead({ section, slug, title: slug }, locale);

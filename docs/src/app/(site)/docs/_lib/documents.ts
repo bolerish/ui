@@ -7,7 +7,6 @@ import { preloadExamples } from "./examples";
 const modules = import.meta.glob<{ default: ComponentType }>([
   "../_content/components/*/docs.mdx",
   "../_content/foundations/*/docs.mdx",
-  "../_content/patterns/*/docs.mdx",
   "../_content/guides/*.mdx",
 ]);
 export const loadedPages: Record<string, ComponentType> = {};

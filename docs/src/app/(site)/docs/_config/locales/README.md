@@ -24,8 +24,8 @@ controls, and example code stay in English. English is the default locale.
 
 ## Editing guidance
 
-Keep Foundations focused on shared decisions, component pages on choosing and
-using the component, and Patterns on a working combination with explicit tradeoffs.
+Keep Foundations focused on shared decisions and component pages on choosing and
+using the component.
 Put a rule in one place and link to it when another page needs the detail.
 
 In Korean, use direct sentences with a clear subject or action. Prefer concrete

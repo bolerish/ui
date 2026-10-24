@@ -2,6 +2,16 @@ import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 const base = process.env.DOCS_URL ?? "http://localhost:3000";
+const contentRoot = new URL("../src/app/(site)/docs/_content/", import.meta.url);
+const componentCount = (
+  await readdir(new URL("components/", contentRoot), { withFileTypes: true })
+).filter((entry) => entry.isDirectory()).length;
+const foundationCount = JSON.parse(
+  await readFile(new URL("foundations/order.json", contentRoot), "utf8"),
+).length;
+const guideCount = (await readdir(new URL("guides/", contentRoot))).filter((name) =>
+  name.endsWith(".mdx"),
+).length;
 
 test("localized search indexes are served independently from document HTML", async () => {
   for (const locale of ["en", "ko"]) {
@@ -9,7 +19,12 @@ test("localized search indexes are served independently from document HTML", asy
     assert.equal(response.status, 200);
     assert.match(response.headers.get("content-type") ?? "", /application\/json/);
     const index = await response.json();
-    assert.equal(index.length, 79);
+    assert.equal(index.length, componentCount + foundationCount + guideCount);
+    assert.ok(
+      index.every((item: { section: string }) =>
+        ["guide", "components", "foundations"].includes(item.section),
+      ),
+    );
     const theming = index.find((item: { slug: string }) => item.slug === "theming");
     assert.match(theming.text, locale === "en" ? /portals/i : /포털/);
   }
@@ -17,7 +32,7 @@ test("localized search indexes are served independently from document HTML", asy
 
 test("all documents are served as prerendered HTML", async () => {
   let count = 0;
-  for (const group of ["components", "foundations", "patterns"]) {
+  for (const group of ["components", "foundations"]) {
     const root = new URL(`../src/app/(site)/docs/_content/${group}/`, import.meta.url);
     for (const entry of await readdir(root, { withFileTypes: true })) {
       if (
@@ -39,7 +54,7 @@ test("all documents are served as prerendered HTML", async () => {
       count++;
     }
   }
-  assert.equal(count, 73);
+  assert.equal(count, componentCount + foundationCount);
 });
 
 test("static HTML ignores personal settings while retaining previews and real 404s", async () => {
@@ -102,13 +117,17 @@ test("localized home gallery and canonical redirects", async () => {
     const html = await response.text();
     assert.match(html, new RegExp(`lang="${suffix ? "ko" : "en"}"`));
     assert.match(html, /bolerish<span>\/ui/);
-    assert.equal((html.match(/class="gallery-item"/g) ?? []).length, 57);
+    assert.equal((html.match(/class="gallery-item"/g) ?? []).length, componentCount);
     assert.match(html, /Create account/);
-    assert.equal((html.match(/<header><h3>/g) ?? []).length, 57);
+    assert.equal((html.match(/<header><h3>/g) ?? []).length, componentCount);
     assert.doesNotMatch(html, /<iframe/);
     assert.doesNotMatch(html, /gallery-placeholder|Could not load this page/);
     const previews = html.match(/<div class="gallery-preview" lang="en">/g) ?? [];
-    assert.equal(previews.length, 57, "every example must exist in the prerendered response");
+    assert.equal(
+      previews.length,
+      componentCount,
+      "every example must exist in the prerendered response",
+    );
     assert.doesNotMatch(html, /<div class="gallery-preview" lang="en"><\/div>/);
   }
   for (const path of [
@@ -221,5 +240,15 @@ test("removed brand previews and custom-theme guide are absent", async () => {
       await fetch(`${base}/guides/theming${locale === "en" ? ".en" : ""}.md`)
     ).text();
     assert.doesNotMatch(content, /Ocean|createTheme|brand\.stylex/);
+  }
+});
+
+test("removed pattern documents and preview return 404", async () => {
+  for (const path of [
+    "/docs/patterns/search-and-filter",
+    "/docs/patterns/search-and-filter/ko",
+    "/preview/search-and-filter--ProjectSearch",
+  ]) {
+    assert.equal((await fetch(`${base}${path}`)).status, 404, path);
   }
 });

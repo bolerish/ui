@@ -1,7 +1,6 @@
 import { lazy, type ComponentType } from "react";
 const modules = import.meta.glob<{ default: ComponentType }>([
   "../_content/components/*/*.tsx",
-  "../_content/patterns/*/*.tsx",
   "../_content/foundations/*/*Example.tsx",
 ]);
 const loaders = Object.fromEntries(

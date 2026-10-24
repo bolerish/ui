@@ -1,5 +1,4 @@
 import foundations from "@/app/(site)/docs/_content/foundations/order.json";
-import patterns from "@/app/(site)/docs/_content/patterns/order.json";
 const components = import.meta.glob("../_content/components/*/docs.mdx");
 export const catalog = [
   { section: "guide", slug: "getting-started", title: "Introduction" },
@@ -9,7 +8,6 @@ export const catalog = [
   { section: "guide", slug: "lint", title: "Lint" },
   { section: "guide", slug: "changelog", title: "Changelog" },
   ...foundations.map((item) => ({ ...item, section: "foundations" })),
-  ...patterns.map((item) => ({ ...item, section: "patterns" })),
   ...Object.keys(components)
     .sort()
     .map((path) => {

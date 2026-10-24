@@ -35,8 +35,6 @@ async function readPage(directory: URL, suffix: string) {
 }
 
 const order = JSON.parse(await readFile(new URL("order.json", source), "utf8"));
-const patterns = new URL("../src/app/(site)/docs/_content/patterns/", import.meta.url);
-const patternOrder = JSON.parse(await readFile(new URL("order.json", patterns), "utf8"));
 const components = new URL("../src/app/(site)/docs/_content/components/", import.meta.url);
 const componentNames = (await readdir(components)).sort();
 const guideSource = new URL("../src/app/(site)/docs/_content/guides/", import.meta.url);
@@ -64,7 +62,6 @@ for (const file of guides) {
 const documentPaths = [
   ...guides.map((file) => `/docs/${file.slice(0, -4)}`),
   ...order.map(({ slug }: { slug: string }) => `/docs/foundations/${slug}`),
-  ...patternOrder.map(({ slug }: { slug: string }) => `/docs/patterns/${slug}`),
   ...componentNames.map((slug) => `/docs/components/${slug}`),
 ];
 await emitFile(
@@ -151,19 +148,6 @@ for (const locale of ["ko", "en"]) {
     entries.push(content);
     if (locale === "en") links.push(`- [${title}](./guidelines/${slug}${suffix}.md)`);
     await emitFile(new URL(`guidelines/${slug}${suffix}.md`, output), content);
-  }
-  for (const { slug } of patternOrder) {
-    const { content } = await readPage(new URL(`${slug}/`, patterns), suffix);
-    const title = content.split("\n")[0].slice(2);
-    search.push({
-      section: "patterns",
-      slug,
-      title,
-      text: searchText(content.replace(/^# .*\n/, "")),
-    });
-    entries.push(content);
-    if (locale === "en") links.push(`- [${title}](./guidelines/pattern-${slug}${suffix}.md)`);
-    await emitFile(new URL(`guidelines/pattern-${slug}${suffix}.md`, output), content);
   }
   for (const slug of componentNames) {
     const { overview, content } = await readPage(new URL(`${slug}/`, components), suffix);

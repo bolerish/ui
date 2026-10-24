@@ -1,9 +1,9 @@
 import { catalog } from "@/app/(site)/docs/_lib/catalog";
 import { examples, loadExample } from "@/app/(site)/docs/_lib/examples";
 
-const featured = ["card", "calendar", "search-and-filter"];
+const featured = ["card", "calendar"];
 const items = catalog
-  .filter((page) => page.section === "components" || page.section === "patterns")
+  .filter((page) => page.section === "components")
   .sort((a, b) => {
     const position = (slug: string) => {
       const index = featured.indexOf(slug);
