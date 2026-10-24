@@ -1,7 +1,14 @@
 {
   "name": "@bolerish/lint",
-  "version": "0.1.2",
-  "description": "Foundations diagnostics for custom bolerish UI.",
+  "version": "0.2.0",
+  "description": "Foundations token rules for custom React UI in ESLint and Oxlint.",
+  "keywords": [
+    "design-system",
+    "eslint",
+    "eslintplugin",
+    "oxlint",
+    "stylex"
+  ],
   "homepage": "https://ui.bolerish.com/docs/lint",
   "license": "MIT",
   "repository": {

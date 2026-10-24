@@ -1,5 +1,37 @@
 # @bolerish/ui
 
+## 0.15.0
+
+### Minor Changes
+
+- e8196f2: Require `aria-label` or `aria-labelledby` when Button size is `icon`, including through InputGroupButton. Add one of these names to existing icon-only callers; regular text button sizes are unchanged.
+  
+  Check the built-in Toast icon mapping exhaustively while preserving custom type strings. Unknown types, including inherited object-property names, render their text without a status icon.
+- afca7c0: Add Input variants `none` and `underline`. Both retain the normal field sizing and
+  text styles. `none` removes the resting border and fill while preserving visible
+  keyboard focus and an error outline. `underline` limits the border and focused
+  emphasis to the bottom edge, including a thicker-line fallback in forced colors.
+  The default `outline` and typography-inheriting `inline` remain available.
+- e8196f2: Refine Liquid surfaces with a bright edge, inner reflection and role-specific transparency while preserving the existing DOM and solid accessibility fallbacks.
+  
+  Keep notifications open when Escape belongs to an editing field. Unhandled Escape elsewhere still dismisses the newest notification. Add `Toaster.closeLabel` and `ComboboxInput.triggerLabel` for localized accessible names.
+  
+  Keep keyboard-highlighted options visible in forced-color modes across Select, Combobox and menus. Passing `null` to ComboboxInput addons now removes them; omit an addon to retain its default.
+
+### Patch Changes
+
+- e8196f2: Raise the Base UI minimum to 1.9 for valid Menubar portal ownership. Forward Slider accessible names to its native inputs and retain visible Calendar day numerals in accessible names. Default examples include explicit field/slot labels and matching Tabs panels; automated WCAG checks exercise resting and opened states.
+- 16cb516: Reduce the default circular CarouselPrevious and CarouselNext buttons to 1.5rem
+  (24px at the default root size), retaining their icon size, accessible names and
+  vertical centering. Other icon buttons and carousel navigation behavior are unchanged.
+- Keep Calendar months within narrow containers and let Pagination controls wrap
+  without shrinking their labels or overflowing. Let Select and Combobox lists
+  scroll within the popup's available height instead of clipping their final items.
+  Keep dropdown menus and popovers within the available viewport height with
+  scrollable content.
+  Existing props remain unchanged.
+- @bolerish/tokens@0.15.0
+
 ## 0.14.0
 
 ### Minor Changes
