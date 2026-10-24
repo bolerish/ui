@@ -23,8 +23,8 @@ export function Home() {
         </h1>
         <p>
           {ko
-            ? "일관된 표면과 상호작용을 위한 React 컴포넌트."
-            : "React components for consistent surfaces and interactions."}
+            ? "일관된 인터페이스를 위한 React 디자인 시스템."
+            : "A React design system for consistent interfaces."}
         </p>
         <Button
           nativeButton={false}
