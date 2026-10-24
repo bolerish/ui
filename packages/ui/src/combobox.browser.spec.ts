@@ -1,5 +1,23 @@
 import { test, expect } from "@playwright/test";
 
+test("Combobox scrolls every option within a height-limited popup", async ({ page }) => {
+  await page.goto("/?fixture=documentation&example=combobox");
+  await page.getByRole("combobox", { name: "Framework" }).fill("a");
+  const list = page.getByRole("listbox");
+  await expect(list).toBeVisible();
+  await list.evaluate((node) => {
+    node.parentElement!.style.maxHeight = "48px";
+  });
+  expect(await list.evaluate((node) => node.scrollHeight > node.clientHeight)).toBe(true);
+  await list.evaluate((node) => {
+    node.scrollTop = node.scrollHeight;
+  });
+  const last = page.getByRole("option").last();
+  expect((await last.boundingBox())!.y + (await last.boundingBox())!.height).toBeLessThanOrEqual(
+    (await list.boundingBox())!.y + (await list.boundingBox())!.height + 1,
+  );
+});
+
 test("Combobox filters and selects with keyboard without losing its name", async ({ page }) => {
   await page.goto("/?fixture=combobox");
   const input = page.getByRole("combobox", { name: "Framework" });

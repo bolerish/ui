@@ -102,6 +102,8 @@ const styles = stylex.create({
     boxShadow: shadowVars.floating,
     color: colorVars.fgPrimary,
     maxHeight: "min(20rem, var(--available-height))",
+    display: "flex",
+    flexDirection: "column",
     minWidth: "var(--anchor-width)",
     outline: "none",
     overflow: "hidden",
@@ -128,7 +130,13 @@ const styles = stylex.create({
       },
     },
   },
-  list: { overflowX: "hidden", minWidth: 0, overflowY: "auto", overscrollBehavior: "contain" },
+  list: {
+    overflowX: "hidden",
+    minWidth: 0,
+    minHeight: 0,
+    overflowY: "auto",
+    overscrollBehavior: "contain",
+  },
   item: {
     alignItems: "center",
     borderRadius: radiusVars.sm,

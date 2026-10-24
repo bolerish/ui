@@ -21,6 +21,8 @@ const styles = stylex.create({
   content: {
     alignItems: "center",
     display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
     gap: spacingVars.space1,
     listStyle: "none",
     margin: 0,

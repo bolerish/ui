@@ -1,5 +1,22 @@
 import { test, expect } from "@playwright/test";
 
+test("Select scrolls every option within a height-limited popup", async ({ page }) => {
+  await page.goto("/?fixture=documentation&example=select");
+  await page.getByRole("combobox", { name: "Theme" }).click();
+  const list = page.getByRole("listbox");
+  await list.evaluate((node) => {
+    node.parentElement!.style.maxHeight = "80px";
+  });
+  expect(await list.evaluate((node) => node.scrollHeight > node.clientHeight)).toBe(true);
+  await list.evaluate((node) => {
+    node.scrollTop = node.scrollHeight;
+  });
+  const last = page.getByRole("option").last();
+  expect((await last.boundingBox())!.y + (await last.boundingBox())!.height).toBeLessThanOrEqual(
+    (await list.boundingBox())!.y + (await list.boundingBox())!.height + 1,
+  );
+});
+
 test("Select supports keyboard choice and restores trigger focus", async ({ page }) => {
   await page.goto("/?fixture=select");
   const trigger = page.getByRole("combobox", { name: "Framework" });

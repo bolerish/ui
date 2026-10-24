@@ -30,6 +30,8 @@ const styles = stylex.create({
     boxShadow: shadowVars.floating,
     color: colorVars.fgPrimary,
     maxWidth: "calc(100vw - 2rem)",
+    maxHeight: "var(--available-height)",
+    overflowY: "auto",
     outline: "none",
     padding: spacingVars.space4,
     transform: "scale(1)",
