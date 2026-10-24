@@ -19,6 +19,7 @@ import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: {
+    "--bolerish-input-focus-color": colorVars.strokeFocus,
     appearance: "none",
     backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
@@ -44,7 +45,7 @@ const styles = stylex.create({
       borderColor: colorVars.strokeDefault,
     },
     ":focus-visible": {
-      outlineColor: colorVars.strokeFocus,
+      outlineColor: "var(--bolerish-input-focus-color)",
       outlineOffset: sizeVars.stroke,
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
@@ -57,6 +58,7 @@ const styles = stylex.create({
       ":hover": { borderColor: colorVars.strokeDefault },
     },
     ":user-invalid": {
+      "--bolerish-input-focus-color": colorVars.strokeFeedbackError,
       borderColor: colorVars.strokeFeedbackError,
       ":focus-visible": {
         outlineColor: colorVars.strokeFeedbackError,
@@ -74,13 +76,40 @@ const styles = stylex.create({
     lineHeight: "inherit",
     color: "inherit",
     ":focus-visible": {
-      outlineColor: colorVars.strokeFocus,
+      outlineColor: "var(--bolerish-input-focus-color)",
       outlineStyle: "solid",
       outlineWidth: sizeVars.focusRing,
       outlineOffset: sizeVars.stroke,
     },
   },
+  none: {
+    backgroundColor: "transparent",
+    borderWidth: 0,
+    ":is([aria-invalid='true'],:user-invalid)": {
+      outlineColor: colorVars.strokeFeedbackError,
+      outlineOffset: sizeVars.stroke,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.stroke,
+      ":focus-visible": { outlineWidth: sizeVars.focusRing },
+    },
+  },
+  underline: {
+    backgroundColor: "transparent",
+    borderRadius: 0,
+    borderWidth: 0,
+    borderBottomWidth: sizeVars.stroke,
+    ":focus-visible": {
+      borderBottomColor: "var(--bolerish-input-focus-color)",
+      boxShadow: `0 ${sizeVars.stroke} 0 var(--bolerish-input-focus-color)`,
+      outlineStyle: "none",
+      "@media (forced-colors: active)": {
+        borderBottomWidth: sizeVars.focusRing,
+        boxShadow: "none",
+      },
+    },
+  },
   invalid: {
+    "--bolerish-input-focus-color": colorVars.strokeFeedbackError,
     borderColor: colorVars.strokeFeedbackError,
     ":focus-visible": {
       outlineColor: colorVars.strokeFeedbackError,
@@ -90,7 +119,7 @@ const styles = stylex.create({
 
 export type InputProps = StyledProps<ComponentProps<typeof InputPrimitive>> & {
   xstyle?: ControlLayoutStyles;
-  variant?: "outline" | "inline";
+  variant?: "outline" | "inline" | "none" | "underline";
 };
 
 export function Input({
@@ -109,8 +138,10 @@ export function Input({
       {...mergeStyles(
         stylex.props(
           styles.root,
-          variant !== "inline" && !props.disabled && surfaceStyles.control,
+          variant === "outline" && !props.disabled && surfaceStyles.control,
           variant === "inline" && styles.inline,
+          variant === "none" && styles.none,
+          variant === "underline" && styles.underline,
           isInvalid && styles.invalid,
           xstyle,
         ),

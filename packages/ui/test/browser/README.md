@@ -31,6 +31,10 @@ tab, arrows move roving focus, Enter/Space select in the default manual mode,
 and Tab/Shift+Tab enter/leave the panel and group. Menubar and existing overlays
 also retain direct keyboard checks.
 
+Input checks reuse the actual Variants example in light/dark, verify normal field
+sizing, editing, `none` focus/error outlines, bottom-only `underline` focus,
+explicit/native invalid states, disabled fields and the forced-colors fallback.
+
 ## Limits
 
 This does not audit every prop combination, every non-Default documentation

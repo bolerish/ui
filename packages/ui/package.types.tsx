@@ -251,3 +251,8 @@ export const namedGroupIcon: ComponentProps<typeof InputGroupButton> = {
   children: "×",
   "aria-labelledby": "close-label",
 };
+
+export const unborderedInput: ComponentProps<typeof Input> = { variant: "none" };
+export const underlinedInput: ComponentProps<typeof Input> = { variant: "underline" };
+// @ts-expect-error The documented lower-edge variant is named underline.
+export const unknownInputVariant: ComponentProps<typeof Input> = { variant: "bottom-line" };

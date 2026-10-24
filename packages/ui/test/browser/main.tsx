@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 
+import InputVariants from "../../../../docs/src/app/(site)/docs/_content/components/input/Variants";
 import { Button } from "../../dist/button.js";
 import { Card, CardContent, CardDescription } from "../../dist/card.js";
 import {
@@ -108,6 +109,29 @@ function DialogExample() {
   );
 }
 function App() {
+  if (fixture === "input-variants")
+    return (
+      <main>
+        <h1>Input variants</h1>
+        <InputVariants />
+        <Input aria-label="Invalid none" variant="none" aria-invalid defaultValue="Invalid" />
+        <Input
+          aria-label="Invalid underline"
+          variant="underline"
+          aria-invalid
+          defaultValue="Invalid"
+        />
+        <Input aria-label="Required none" variant="none" required />
+        <Input aria-label="Required underline" variant="underline" required />
+        <Input aria-label="Disabled none" variant="none" disabled defaultValue="Disabled" />
+        <Input
+          aria-label="Disabled underline"
+          variant="underline"
+          disabled
+          defaultValue="Disabled"
+        />
+      </main>
+    );
   if (fixture === "documentation") return <DocumentationExample name={params.get("example")!} />;
   if (fixture === "select") return <SelectExample />;
   if (fixture === "combobox") return <ComboboxExample />;
