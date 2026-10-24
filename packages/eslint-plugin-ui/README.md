@@ -7,11 +7,11 @@ monorepo, or pack it locally to try it in another app.
 
 ## Rules
 
-| Rule                            | Foundation                                                        | Suggested tokens                 |
-| ------------------------------- | ----------------------------------------------------------------- | -------------------------------- |
-| `bolerish-ui/color-tokens`      | [Color](../../docs/src/foundations/color/guidelines.md)           | `colorVars`                      |
-| `bolerish-ui/typography-tokens` | [Typography](../../docs/src/foundations/typography/guidelines.md) | `typo`                           |
-| `bolerish-ui/spacing-tokens`    | [Spacing](../../docs/src/foundations/spacing/guidelines.md)       | `spacingRoleVars`, `spacingVars` |
+| Rule                            | Foundation                                                                       | Suggested tokens                 |
+| ------------------------------- | -------------------------------------------------------------------------------- | -------------------------------- |
+| `bolerish-ui/color-tokens`      | [Color](../../docs/src/shared/ui/docs/foundations/color/guidelines.md)           | `colorVars`                      |
+| `bolerish-ui/typography-tokens` | [Typography](../../docs/src/shared/ui/docs/foundations/typography/guidelines.md) | `typo`                           |
+| `bolerish-ui/spacing-tokens`    | [Spacing](../../docs/src/shared/ui/docs/foundations/spacing/guidelines.md)       | `spacingRoleVars`, `spacingVars` |
 
 The rules inspect literal values in imported `stylex.create()` calls and JSX
 `style={{ ... }}` objects, including conditional values and nested StyleX states.
