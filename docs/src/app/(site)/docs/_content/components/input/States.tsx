@@ -31,7 +31,31 @@ export default function States() {
     <div {...stylex.props(layout.preview, layout.column)}>
       <div {...stylex.props(layout.stack, layout.formWidth)}>
         <Input aria-label="Invalid email" aria-invalid defaultValue="min@" />
-        <Input aria-label="Read-only name" disabled defaultValue="Jordan Lee" />
+        <Input aria-label="Disabled name" disabled defaultValue="Jordan Lee" />
+        <Input
+          variant="none"
+          aria-label="Invalid borderless email"
+          aria-invalid
+          defaultValue="min@"
+        />
+        <Input
+          variant="none"
+          aria-label="Disabled borderless name"
+          disabled
+          defaultValue="Jordan Lee"
+        />
+        <Input
+          variant="underline"
+          aria-label="Invalid underlined email"
+          aria-invalid
+          defaultValue="min@"
+        />
+        <Input
+          variant="underline"
+          aria-label="Disabled underlined name"
+          disabled
+          defaultValue="Jordan Lee"
+        />
       </div>
     </div>
   );
