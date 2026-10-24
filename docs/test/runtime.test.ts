@@ -156,3 +156,37 @@ test("previous short URLs redirect to the docs hierarchy", async () => {
     assert.equal(response.headers.get("location"), to);
   }
 });
+
+test("surface preferences, Item docs and crawler discovery cross real HTTP boundaries", async () => {
+  const response = await fetch(`${base}/docs/installation/ko?surface=liquid`);
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /data-bolerish-surface="liquid"/);
+  const links = [...html.matchAll(/<link\b[^>]*>/g)].map((match) => match[0]);
+  assert.ok(
+    links.some((link) => link.includes('rel="describedby"') && link.includes('href="/llms.txt"')),
+  );
+  assert.ok(
+    links.some(
+      (link) =>
+        link.includes('type="text/markdown"') && link.includes('href="/guides/installation.md"'),
+    ),
+  );
+  assert.ok(
+    links.some(
+      (link) =>
+        link.includes('rel="canonical"') &&
+        link.includes('/docs/installation/ko"') &&
+        !link.includes("?"),
+    ),
+  );
+  const markdown = await fetch(`${base}/guides/installation.md`);
+  assert.equal(markdown.status, 200);
+  assert.match(await markdown.text(), /^# 설치/m);
+  assert.equal((await fetch(`${base}/docs/components/item`)).status, 200);
+  assert.equal((await fetch(`${base}/docs/components/content-row`)).status, 404);
+  for (const file of ["llms.txt", "llms-full.txt", "robots.txt", "sitemap.xml"])
+    assert.equal((await fetch(`${base}/${file}`)).status, 200, file);
+  const preview = await (await fetch(`${base}/preview/card--Default`)).text();
+  assert.match(preview, /name="robots" content="noindex"/);
+});

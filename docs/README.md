@@ -95,6 +95,14 @@ run this from `docs/`:
 node --experimental-strip-types scripts/build-guidelines.ts
 ```
 
+Package guides also export clean English/Korean Markdown under `public/guides/`.
+Keep guide MDX to static LocaleContent blocks, one-line imports and fenced code;
+the exporter rejects other JSX rather than publishing incomplete text.
+The same build generates `robots.txt` and `sitemap.xml`. `documentation/site.ts`
+defines the public origin used by canonical, language and sitemap URLs.
+Pages link their Markdown alternate and `/llms.txt`; standalone previews are noindex.
+These discovery links help agents read the docs but do not guarantee search inclusion.
+
 See [translation conventions](src/documentation/locales/README.md).
 
 ## Page structure and tables

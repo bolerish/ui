@@ -43,6 +43,9 @@ docs/public/installation.md
 
 # Generated English coding-agent entry point
 docs/public/bolerish-for-llms.md
+docs/public/guides/
+docs/public/robots.txt
+docs/public/sitemap.xml
 
 # Local build and design review artifacts
 .artifacts/

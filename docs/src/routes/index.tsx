@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { localizedLinks } from "../documentation/head";
 import { Home } from "../documentation/Home";
 import { preloadHome } from "../documentation/home-gallery";
 export const Route = createFileRoute("/")({
@@ -8,6 +9,7 @@ export const Route = createFileRoute("/")({
   pendingMs: Infinity,
   staleTime: 300_000,
   head: () => ({
+    links: localizedLinks("/", "en"),
     meta: [
       { title: "bolerish/ui — React components" },
       {

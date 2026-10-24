@@ -1,5 +1,8 @@
 import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 
+import { siteOrigin } from "../src/documentation/site.ts";
+import { guideMarkdown } from "./guide-markdown.ts";
+
 const source = new URL("../src/foundations/", import.meta.url);
 const output = new URL("../public/", import.meta.url);
 const checking = process.argv.includes("--check");
@@ -35,6 +38,48 @@ const patterns = new URL("../src/patterns/", import.meta.url);
 const patternOrder = JSON.parse(await readFile(new URL("order.json", patterns), "utf8"));
 const components = new URL("../src/components/", import.meta.url);
 const componentNames = (await readdir(components)).sort();
+const guideSource = new URL("../src/guides/", import.meta.url);
+const guides = (await readdir(guideSource)).filter((name) => name.endsWith(".mdx")).sort();
+const guideOutput = new URL("guides/", output);
+if (!checking) {
+  await rm(guideOutput, { recursive: true, force: true });
+  await mkdir(guideOutput, { recursive: true });
+}
+const guideLinks: string[] = [];
+const englishGuides: string[] = [];
+for (const file of guides) {
+  const slug = file.slice(0, -4);
+  const content = await readFile(new URL(file, guideSource), "utf8");
+  for (const locale of ["en", "ko"] as const) {
+    const markdown = guideMarkdown(content, locale);
+    const name = `${slug}${locale === "en" ? ".en" : ""}.md`;
+    await emitFile(new URL(name, guideOutput), markdown);
+    if (locale === "en") {
+      guideLinks.push(`- [${markdown.split("\n")[0].slice(2)}](./guides/${name})`);
+      englishGuides.push(markdown);
+    }
+  }
+}
+const documentPaths = [
+  ...guides.map((file) => `/docs/${file.slice(0, -4)}`),
+  ...order.map(({ slug }: { slug: string }) => `/docs/foundations/${slug}`),
+  ...patternOrder.map(({ slug }: { slug: string }) => `/docs/patterns/${slug}`),
+  ...componentNames.map((slug) => `/docs/components/${slug}`),
+];
+await emitFile(
+  new URL("robots.txt", output),
+  `User-agent: *\nAllow: /\nSitemap: ${siteOrigin}/sitemap.xml\n`,
+);
+await emitFile(
+  new URL("sitemap.xml", output),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[
+    "/",
+    "/ko",
+    ...documentPaths.flatMap((path) => [path, `${path}/ko`]),
+  ]
+    .map((path) => `  <url><loc>${siteOrigin}${path}</loc></url>`)
+    .join("\n")}\n</urlset>\n`,
+);
 const links: string[] = [];
 const apiOutput = new URL("api/", output);
 if (!checking) await rm(apiOutput, { recursive: true, force: true });
@@ -73,7 +118,7 @@ if (!checking) await rm(new URL("guidelines/", output), { recursive: true, force
 if (!checking) await mkdir(new URL("guidelines/", output), { recursive: true });
 for (const locale of ["ko", "en"]) {
   const suffix = locale === "ko" ? "" : ".en";
-  const entries = [];
+  const entries = locale === "en" ? [...englishGuides] : [];
   for (const { slug } of order) {
     let content = await readFile(
       new URL(`${slug}/guidelines${locale === "ko" ? ".kr" : ""}.md`, source),
@@ -129,10 +174,16 @@ await emitFile(
     "",
     "> Read these rules before composing screens with @bolerish/ui. Verify component APIs against the installed source.",
     "",
+    "## Package guides",
+    ...guideLinks,
+    "",
+    "## Reference",
     "- [Installation and appearance defaults](./installation.md)",
     "- [Generated agent skill](./agent/SKILL.md)",
     "- [Complete guidelines](./llms-full.txt)",
     "- [LLM usage guide](./bolerish-for-llms.md)",
+    "",
+    "## Foundations and components",
     ...links,
     "",
     "## Exact API and token source",

@@ -2,14 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { DocumentPage } from "../documentation/DocumentPage";
 import { loadDocumentPage } from "../documentation/documents";
+import { documentHead } from "../documentation/head";
 export const Route = createFileRoute("/docs/$guide")({
   ssr: true,
   pendingMs: Infinity,
   staleTime: 300_000,
   loader: ({ params }) => loadDocumentPage("guide", params.guide),
-  head: ({ loaderData }) => ({
-    meta: [{ title: `${loaderData?.page.title ?? "Not found"} · bolerish/ui` }],
-  }),
+  head: ({ loaderData }) => documentHead(loaderData?.page, "en"),
   component: Page,
 });
 function Page() {

@@ -35,3 +35,28 @@ test("canonical agent entry points use English and link English references", asy
   const index = await readFile(new URL("llms.txt", root), "utf8");
   assert.doesNotMatch(index, /\.\/guidelines\/[^)]+(?<!\.en)\.md\)/);
 });
+
+test("public guides are readable Markdown and search discovery lists canonical pages", async () => {
+  for (const slug of ["getting-started", "installation", "theming", "styling", "changelog"]) {
+    const english = await readFile(new URL(`guides/${slug}.en.md`, root), "utf8");
+    const korean = await readFile(new URL(`guides/${slug}.md`, root), "utf8");
+    assert.match(english, /^# /);
+    assert.match(korean, /^# /);
+    assert.doesNotMatch(english, /[가-힣]|LocaleContent/);
+    assert.doesNotMatch(korean, /LocaleContent/);
+  }
+  const installation = await readFile(new URL("guides/installation.en.md", root), "utf8");
+  assert.ok(installation.includes('import { Button } from "@bolerish/ui/button";'));
+  const sitemap = await readFile(new URL("sitemap.xml", root), "utf8");
+  for (const path of [
+    "/docs/installation",
+    "/docs/installation/ko",
+    "/docs/components/item",
+    "/docs/components/item/ko",
+  ])
+    assert.ok(sitemap.includes(`${path}</loc>`), path);
+  for (const match of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g))
+    assert.doesNotMatch(match[1], /\/preview\/|content-row|\?/);
+  const robots = await readFile(new URL("robots.txt", root), "utf8");
+  assert.match(robots, /User-agent: \*\nAllow: \/\nSitemap: https:\/\/.+\/sitemap.xml/);
+});

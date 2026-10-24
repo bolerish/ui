@@ -73,6 +73,7 @@ export const Route = createRootRoute({
       { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon/favicon-16x16.png" },
       { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon/apple-touch-icon.png" },
       { rel: "manifest", href: "/favicon/site.webmanifest" },
+      { rel: "describedby", type: "text/plain", href: "/llms.txt" },
       { rel: "stylesheet", href: stylesheet },
       ...(import.meta.env.DEV ? [{ rel: "stylesheet", href: "/virtual:stylex.css" }] : []),
     ],

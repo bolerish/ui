@@ -7,6 +7,7 @@ export const Route = createFileRoute("/preview/$example")({
   ssr: true,
   pendingMs: Infinity,
   staleTime: 300_000,
+  head: () => ({ meta: [{ name: "robots", content: "noindex" }] }),
   loader: async ({ params }) => {
     if (!Object.hasOwn(examples, params.example)) throw notFound();
     await loadExample(params.example);
