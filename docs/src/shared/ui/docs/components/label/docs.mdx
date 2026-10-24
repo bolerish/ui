@@ -1,0 +1,44 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Label
+
+컨트롤에 이름을 붙여 무엇을 선택하거나 입력하는지 계속 알 수 있게 합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Label
+
+Give a control a persistent name that explains what the user is choosing or entering.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="label--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+짧고 보이는 이름을 컨트롤에 연결합니다. 입력 조건과 오류도 함께 다룬다면 `Field`를 사용합니다.
+
+> 플레이스홀더만으로 입력 이름을 대신하지 않습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+Use a short visible name and associate it with its control. Use `Field` when instructions and errors also belong to the input.
+
+> Do not use placeholder text as the only label.
+
+</LocaleContent>

@@ -1,0 +1,44 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Input Group
+
+입력의 단위·접두사·관련 행동을 한곳에서 확인할 수 있습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Input Group
+
+Keep an input's units, prefixes, and related actions in one place.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="input-group--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+고정된 맥락은 부가 요소로, 수정할 값은 입력으로 구분합니다. 관련 없는 행동은 그룹 밖에 둡니다.
+
+> 보이는 접두사가 제출값에 자동으로 포함되는 것은 아닙니다. 애플리케이션에서 값 구성을 정합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+Use addons for fixed context and an input for the editable value. Keep unrelated actions outside the group.
+
+> A visible prefix is not necessarily part of the submitted value; define that in application logic.
+
+</LocaleContent>

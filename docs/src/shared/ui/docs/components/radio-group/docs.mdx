@@ -1,0 +1,75 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import StatesSource from "./States.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Radio Group
+
+함께 선택할 수 없는 항목들을 비교한 뒤 하나를 고를 수 있습니다.
+
+항목 사이의 차이가 중요하면 선택지를 펼쳐 둡니다. 작은 목록으로 충분하면 `Select`를 사용합니다.
+
+> 선택이 필수가 아니고 해제가 필요하면 “없음” 항목을 명시합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Radio Group
+
+Let people compare mutually exclusive choices before selecting one.
+
+Keep choices visible when their differences matter. Use `Select` when a compact list is sufficient.
+
+> If users must clear an optional selection, provide an explicit “None” choice.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="radio-group--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 사용할 때
+
+배송 방법처럼 차이를 비교하며 하나를 선택할 때 사용합니다. 선택지의 차이가 결정에 영향을 주면 항목을 펼쳐 보여 줍니다. 작은 목록으로 충분하면 [Select](/docs/components/select), 서로 독립적인 선택이면 `Checkbox`를 사용합니다.
+
+### 선택지와 기본값
+
+그룹 이름과 구별되는 항목 이름을 제공합니다. 가격·시간·결과의 차이가 있다면 짧은 설명을 붙입니다. 사용자가 직접 결정해야 하는 항목은 기본값으로 미리 선택하지 않습니다. 선택이 필수가 아니고 해제할 필요가 있다면 “없음” 항목을 명시합니다.
+
+> 관련 항목을 함께 배치하고 그룹의 키보드 동작을 유지합니다. 독립적으로 제어하는 체크박스로 단일 선택을 만들지 않습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### When to use
+
+Use Radio Group for one choice from a set users need to compare, such as a delivery method. Keep options visible when their differences affect the decision. Use [Select](/docs/components/select) when a compact list is sufficient, or `Checkbox` when choices are independent.
+
+### Choices and defaults
+
+Give the group a name and each option a distinct label. Add a short description when price, timing, or consequences distinguish the options. Do not use a default to conceal a required decision. If selection is optional and users need to clear it, include an explicit “None” option.
+
+> Keep related options together and preserve the group's keyboard behavior. Do not build mutually exclusive choices from independently controlled checkboxes.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## More examples"} />
+
+<LocalizedMarkdown text={"### States"} />
+
+<LocalizedMarkdown
+  text={"Clearly show the selected option and any choice that is not currently available."}
+/>
+
+<ComponentPreview name="radio-group--States" source={StatesSource} />

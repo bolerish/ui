@@ -2,6 +2,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "bolerish-docs",
   "compatibility_date": "2026-10-12",
-  "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry",
+  "assets": {
+    "directory": "./dist/client",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page",
+  },
 }

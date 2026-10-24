@@ -1,0 +1,58 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+import source from "./Default.tsx?raw";
+
+<LocaleContent locale="ko">
+
+# Heading
+
+제목의 단계와 시각적 크기를 따로 정해 문서 구조를 유지하면서 정보의 우선순위를 드러냅니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Heading
+
+Set heading level independently from visual size to preserve document structure while expressing priority.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="heading--Default" source={source} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 주요 속성
+
+| 속성    | 기본값    | 값                              | 용도                                          |
+| ------- | --------- | ------------------------------- | --------------------------------------------- |
+| `level` | 필수      | `1`, `2`, `3`, `4`, `5`, `6`    | 문서 구조에 맞는 HTML 제목 단계를 선택합니다. |
+| `size`  | `section` | `page`, `section`, `subsection` | 제목 단계와 별개로 시각적 크기를 선택합니다.  |
+
+`level`은 필수이며 1부터 6까지의 HTML 제목 단계를 정합니다. `size`는 `page`, `section`, `subsection` 중 선택하고 기본값은 `section`입니다. 세 크기는 각각 `fontSizeXl`, `fontSizeLg`, `fontSizeMd`에 `fontWeightSemibold`와 `lineHeightTight`를 조합합니다.
+
+> 크게 보이게 하려고 제목 단계를 바꾸지 않습니다. 예제는 지원하는 h1–h6을 모두 보여줍니다. 실제 페이지에서는 문서 구조에 맞는 단계만 사용합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### Props
+
+| Prop    | Default   | Values                          | Meaning                                                 |
+| ------- | --------- | ------------------------------- | ------------------------------------------------------- |
+| `level` | Required  | `1`, `2`, `3`, `4`, `5`, `6`    | Sets the HTML heading level for document structure.     |
+| `size`  | `section` | `page`, `section`, `subsection` | Chooses visual size independently of the heading level. |
+
+The required `level` selects an HTML heading from 1 to 6. Choose `page`, `section`, or `subsection` for `size`; the default is `section`. These sizes pair `fontSizeXl`, `fontSizeLg`, or `fontSizeMd` with `fontWeightSemibold` and `lineHeightTight`.
+
+> Do not change the heading level just to make text larger. The example demonstrates all supported headings from h1 to h6. In a real page, choose levels according to the document structure.
+
+</LocaleContent>

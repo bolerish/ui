@@ -22,7 +22,7 @@
     "release": "pnpm check && pnpm test && pnpm build:ui && pnpm pack:check && pnpm build:docs && changeset publish",
     "release:status": "changeset status",
     "test": "pnpm test:tokens && pnpm test:ui && pnpm test:lint && pnpm test:release && pnpm test:docs-theme",
-    "test:docs-theme": "node --experimental-strip-types --experimental-vm-modules --test docs/src/documentation/theme.test.ts",
+    "test:docs-theme": "node --experimental-strip-types --experimental-vm-modules --test docs/src/shared/styles/theme.test.ts",
     "test:lint": "pnpm --filter @bolerish/eslint-plugin-ui test",
     "test:release": "node --experimental-strip-types --test .changeset/release.test.ts",
     "test:tokens": "pnpm --filter @bolerish/tokens test",

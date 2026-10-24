@@ -1,0 +1,92 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import StatesSource from "./States.tsx?raw";
+import SizesSource from "./Sizes.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Switch
+
+켜기·끄기 설정을 바꾸고 현재 상태를 바로 확인할 수 있습니다.
+
+즉시 적용되는 설정에 사용합니다. 폼과 함께 제출하는 선택은 `Checkbox`를 사용합니다.
+
+> 저장에 실패하면 확인된 상태로 되돌리고 실패를 알립니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Switch
+
+Let people change an on/off setting and immediately see its current state.
+
+Use it for immediately applied settings. Use `Checkbox` for choices that are submitted with a form.
+
+> If saving fails, restore the confirmed state and explain what happened.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="switch--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 주요 속성
+
+| 속성   | 기본값 | 값         | 용도                                       |
+| ------ | ------ | ---------- | ------------------------------------------ |
+| `size` | `md`   | `sm`, `md` | 스위치 트랙과 손잡이 크기를 함께 바꿉니다. |
+
+### 사용할 때
+
+알림 활성화처럼 즉시 적용되는 켜기·끄기 설정에 사용합니다. 폼과 함께 제출하는 선택이나 여러 항목 중 포함 여부는 [Checkbox](/docs/components/checkbox)를 사용합니다.
+
+### 상태와 저장
+
+다음 행동보다 설정의 이름을 씁니다. “이메일 알림”은 켜짐·꺼짐 모두에서 유지합니다. 저장에 실패하면 확인된 상태로 되돌리고 가까운 곳에 실패 이유를 알립니다. 저장에 실패한 값을 적용된 상태처럼 표시하지 않습니다.
+
+> 기본값인 `md`에서 시작하고 주변 컨트롤에 작은 배치가 필요할 때 `sm`을 사용합니다. 어느 크기에서도 이름과 현재 상태를 명확히 전달합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### Props
+
+| Prop   | Default | Values     | Meaning                                |
+| ------ | ------- | ---------- | -------------------------------------- |
+| `size` | `md`    | `sm`, `md` | Changes track and thumb size together. |
+
+### When to use
+
+Use `Switch` for an on/off setting whose effect is immediate, such as enabling notifications. Use [Checkbox](/docs/components/checkbox) for a choice submitted with a form or membership in a selection group.
+
+### State and saving
+
+Name the setting, not the next action: “Email notifications” remains the label in both states. If saving fails, restore the confirmed state and explain the failure nearby. Do not leave an optimistic state looking successfully saved after a rejected request.
+
+> Start with the default `md` size; use `sm` only when the surrounding controls need a compact layout. Keep the name and current state clear at either size.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## More examples"} />
+
+<LocalizedMarkdown text={"### Sizes"} />
+
+<LocalizedMarkdown text={"Choose a control size that matches nearby form controls."} />
+
+<ComponentPreview name="switch--Sizes" source={SizesSource} />
+
+<LocalizedMarkdown text={"### States"} />
+
+<LocalizedMarkdown text={"Make checked and unavailable settings clearly distinguishable."} />
+
+<ComponentPreview name="switch--States" source={StatesSource} />

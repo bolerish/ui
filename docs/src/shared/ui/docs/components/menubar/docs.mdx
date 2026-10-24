@@ -1,0 +1,44 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Menubar
+
+자주 쓰는 명령 그룹을 일정한 위치에서 찾을 수 있습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Menubar
+
+Keep frequently used command groups in a predictable place.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="menubar--Default" source={DefaultSource} height={360} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+편집기처럼 명령이 많은 작업 공간에 사용합니다. 사이트 영역을 이동할 때는 Navigation Menu를 사용합니다.
+
+> 데스크톱과 비슷한 모양이어도 웹에서 키보드 탐색과 명령 발견이 가능해야 합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+Use it for command-heavy workspaces such as editors. Use Navigation Menu for moving between site sections.
+
+> A familiar desktop appearance still needs working keyboard navigation and discoverable commands on the web.
+
+</LocaleContent>

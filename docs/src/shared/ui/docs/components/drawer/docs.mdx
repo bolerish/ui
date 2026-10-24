@@ -1,0 +1,168 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import PushContentSource from "./PushContent.tsx?raw";
+import PositionSource from "./Position.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Drawer
+
+보조 작업을 콘텐츠에 맞는 공간의 가장자리 패널에 담을 수 있습니다.
+
+필터나 집중이 필요한 보조 작업에 사용합니다. 열리는 방향보다 배경 조작을 허용할지 먼저 정합니다.
+
+> `Drawer`는 기본적으로 모달입니다. 옆에서 열린다는 이유로 배경을 조작할 수 있는 것은 아닙니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Drawer
+
+Keep a supporting task in an edge panel with space suited to its content.
+
+Choose a `Drawer` for filters or focused supporting work. Decide whether the background should remain interactive before choosing an edge.
+
+> A `Drawer` is modal by default; sliding in from the side does not make the page interactive.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="drawer--Default" source={DefaultSource} height={360} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 사용할 때
+
+목록 필터처럼 보조 컨트롤이나 범위가 분명한 작업을 가장자리 패널에 담을 때 사용합니다. 작고 중앙에 집중할 작업은 [Dialog](/docs/components/dialog), 독립적인 탐색이 필요한 작업은 페이지를 선택합니다.
+
+### 위치보다 상호작용 먼저 결정하기
+
+`Drawer`는 기본적으로 모달입니다. 투명한 배경은 모양을 바꾸며 배경 조작을 허용하지는 않습니다. 패널을 연 채 페이지를 조작해야 한다면 `modal={false}`와 `overlay="none"`을 사용하고 필요한 컨트롤을 가리지 않는지 확인합니다.
+
+배치와 읽을 공간에 맞게 열리는 방향을 정합니다. 모바일에서 모든 `Dialog`를 하단 `Drawer`로 자동 대체하지 않습니다. 화면 너비에 따라 표현을 바꾼다면 입력한 값이 유지되고 컴포넌트가 교체될 때 초점을 잃지 않게 합니다.
+
+### 닫기와 제스처
+
+> `DrawerClose`로 보이는 닫기나 취소 행동을 제공합니다. 스와이프 핸들과 별개로 버튼으로도 닫을 수 있게 합니다. 닫기를 허용하기 전에 저장하지 않은 값의 처리 방식을 정합니다. 좁은 화면에서 키보드 접근과 긴 콘텐츠를 확인합니다.
+
+### 구성과 스타일
+
+`DrawerContent`가 포털·오버레이·팝업과 콘텐츠 영역을 내부에서 구성합니다.
+`DrawerPopup`으로 별도 감싸지 않습니다. `xstyle`은 자식을 직접 감싸는 영역에
+적용되어 `gap`과 내부 배치를 조절합니다. 나머지 속성과 `ref`는 팝업에 전달됩니다.
+오버레이와 스와이프 핸들은 `Drawer`의 `overlay`, `showSwipeHandle`로 설정합니다.
+
+### 화면 전환과 초점
+
+패널을 닫은 뒤 트리거로 초점이 돌아오는지 확인합니다. 트리거가 화면 전환으로
+사라지는 경우 `DrawerContent`의 `finalFocus`로 새 화면의 제목이나 적절한
+컨트롤을 지정합니다. 초점이 남아 있는 앱 영역에 직접 `aria-hidden`을 적용하지
+않습니다. 모달의 배경 비활성화는 Base UI에 맡기고, 앱이 별도로 화면을 숨기는
+경우에는 먼저 초점을 보이는 영역으로 옮깁니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### When to use
+
+Use `Drawer` for an edge panel containing a focused task or supporting controls, such as list filters. Use [Dialog](/docs/components/dialog) for a compact, centered task, and a page when the work needs independent navigation.
+
+### Choose interaction before position
+
+The default `Drawer` is modal. A transparent overlay changes appearance, not background interactivity. For a panel that must stay open while users operate the page, use `modal={false}` with `overlay="none"` and verify that the panel does not cover needed controls.
+
+Choose the opening edge from the layout and reading space. Do not treat a bottom `Drawer` as an automatic mobile replacement for every `Dialog`. When changing presentation at a breakpoint, preserve draft values and avoid losing focus through a remount.
+
+### Closing and gestures
+
+> Provide a visible close or cancel action using `DrawerClose`. A swipe handle is an additional affordance, not the only exit. Decide how unsaved values behave before enabling dismissal. Check keyboard access and long content at narrow viewport widths.
+
+### Composition and styling
+
+DrawerContent includes the portal, backdrop, popup, and content region. Do not
+wrap it in DrawerPopup. Its `xstyle` applies directly around children for gap
+and inner layout. Other props and `ref` apply to the popup. Configure the
+backdrop and swipe handle through Drawer `overlay` and `showSwipeHandle`.
+
+### Screen transitions and focus
+
+Check that closing returns focus to the trigger. If navigation removes the trigger,
+use `DrawerContent`'s `finalFocus` to target a heading or appropriate control on the
+new screen. Do not apply `aria-hidden` to an app region that still contains focus.
+Let Base UI manage the modal background; move focus into a visible region before
+hiding a screen separately in application code.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## More examples"} />
+
+<LocalizedMarkdown text={"### Position"} />
+
+<LocalizedMarkdown
+  text={
+    "`swipeDirection` controls the edge the Drawer opens from. The default `down` value opens it from the bottom and occupies at least half of the viewport; `up` opens it from the top and follows the same minimum height; `left` and `right` select a side panel. Drawer actions align left; side-panel actions center on narrow screens."
+  }
+/>
+
+```tsx
+<Drawer swipeDirection="up">...</Drawer>
+<Drawer swipeDirection="left">...</Drawer>
+<Drawer swipeDirection="right">...</Drawer>
+```
+
+<ComponentPreview name="drawer--Position" source={PositionSource} height={360} />
+
+<LocalizedMarkdown text={"### Swipe and snap points"} />
+
+<LocalizedMarkdown
+  text={
+    "Set `showSwipeHandle` to expose a drag affordance. `snapPoints` accepts viewport fractions, pixel values, or `rem` values and applies to vertical Drawers only. In `[0.5, 1]`, `0.5` is half the viewport height and `1` is its full height; swiping settles the Drawer on either height. `defaultSnapPoint` selects its initial height. Top and bottom Drawers retain at least half of the viewport height."
+  }
+/>
+
+```tsx
+<Drawer showSwipeHandle defaultSnapPoint={0.5} snapPoints={[0.5, 1]}>
+  <DrawerContent>...</DrawerContent>
+</Drawer>
+```
+
+<LocalizedMarkdown text={"### Modal behavior"} />
+
+<LocalizedMarkdown
+  text={
+    'Drawers are modal with a visible overlay by default. Use `overlay="transparent"` to retain modal behavior without dimming the page. To keep the page interactive, use `modal={false}` with `overlay="none"`.'
+  }
+/>
+
+```tsx
+<Drawer modal={false} overlay="none" disablePointerDismissal>
+  <DrawerContent>...</DrawerContent>
+</Drawer>
+```
+
+<LocalizedMarkdown text={"### Pushing page content"} />
+
+<LocalizedMarkdown
+  text={
+    "Control `open` in the application and use StyleX to reserve space beside the panel. This example matches the left Drawer width with a left margin on wide screens; narrow screens keep the overlay layout. The Drawer remains modal. The layout follows open and closed states, not the swipe movement or animation progress."
+  }
+/>
+
+<ComponentPreview name="drawer--PushContent" source={PushContentSource} height={360} />
+
+<LocalizedMarkdown text={"### Responsive layouts"} />
+
+<LocalizedMarkdown
+  text={
+    "A Drawer is not a Dialog mode. For a responsive flow, render Drawer on narrow viewports and Dialog on wider viewports while sharing the form content and open state in the application."
+  }
+/>

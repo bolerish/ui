@@ -1,0 +1,68 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Popover
+
+작은 맥락 작업을 여는 컨트롤 가까이에서 마칠 수 있습니다.
+
+짧은 설명이나 적은 수의 컨트롤에 사용합니다. 넓은 공간과 지속적인 집중이 필요하면 `Dialog`를 사용합니다.
+
+> 외부 영역을 눌러 닫았다는 이유로 중요한 입력을 조용히 버리지 않습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Popover
+
+Keep a small contextual task close to the control that opens it.
+
+Use `Popover` for a short explanation or a few controls. Use `Dialog` when the task needs sustained attention and more room.
+
+> Do not let outside dismissal silently discard meaningful input.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="popover--Default" source={DefaultSource} height={360} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 사용할 때
+
+실행 컨트롤에 붙는 짧은 맥락 정보나 컨트롤에 사용합니다. 명령 목록은 Dropdown Menu, 넓은 공간과 지속적인 집중이 필요한 작업은 [Dialog](/docs/components/dialog)를 선택합니다.
+
+### 맥락 유지하기
+
+실행 컨트롤을 보이게 유지하고 그와 관련된 내용만 담습니다. 한 작업을 마치려고 여러 팝오버를 탐색하게 하지 않습니다. 필수 안내는 팝업을 열어야 읽을 수 있게 하기보다 페이지에 남깁니다.
+
+### 닫기
+
+> 변경을 즉시 적용할지 명시적인 행동으로 확정할지 정합니다. 외부 영역을 눌러 닫았다는 이유로 중요한 입력을 조용히 버리지 않습니다. 조작할 내용이 많다면 보이는 닫기 행동을 제공하고 키보드 진입·닫기·초점 복귀를 확인합니다. 화면 가장자리에서 긴 번역 문구의 배치도 확인합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### When to use
+
+Use `Popover` for a small amount of contextual content or controls attached to a trigger. Use Dropdown Menu for a list of commands and [Dialog](/docs/components/dialog) for a task that needs more space and sustained attention.
+
+### Keep context clear
+
+Keep the trigger visible and the content related to it. Avoid making users navigate through several popovers to finish one task. Essential instructions should remain in the page rather than require opening a popup.
+
+### Dismissal
+
+> Decide whether changes apply immediately or need an explicit action. Do not let outside dismissal silently discard meaningful input. Provide a visible close action for substantial interactive content and verify keyboard entry, dismissal, and focus return. Check placement near viewport edges with long translated text.
+
+</LocaleContent>

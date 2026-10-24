@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": ["CHANGELOG.md", "docs/src/routeTree.gen.ts"],
+  "ignorePatterns": ["CHANGELOG.md", "docs/src/app/routeTree.gen.ts"],
   "sortPackageJson": {
     "sortScripts": true
   },

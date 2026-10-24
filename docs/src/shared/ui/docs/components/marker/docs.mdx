@@ -1,0 +1,67 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import VariantsSource from "./Variants.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Marker
+
+대화나 활동 흐름에서 상태가 바뀌는 지점을 쉽게 찾을 수 있습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Marker
+
+Make a transition in a conversation or activity stream easy to spot.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="marker--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 주요 속성
+
+| 속성      | 기본값    | 값                               | 용도                                                           |
+| --------- | --------- | -------------------------------- | -------------------------------------------------------------- |
+| `variant` | `default` | `default`, `border`, `separator` | 기본 상태 안내·경계가 있는 안내·콘텐츠 사이 구분을 선택합니다. |
+
+날짜나 읽지 않은 구간처럼 의미 있는 경계를 흐름 안에 표시합니다.
+
+> 행동이나 설명이 필요한 메시지를 마커로 대신하지 않습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### Props
+
+| Prop      | Default   | Values                           | Meaning                                                        |
+| --------- | --------- | -------------------------------- | -------------------------------------------------------------- |
+| `variant` | `default` | `default`, `border`, `separator` | Default status, bordered notice, or separator between content. |
+
+Use a marker for a meaningful boundary, such as a date or unread section, without interrupting the sequence.
+
+> Do not use a marker in place of a message that needs an action or explanation.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## More examples"} />
+
+<LocalizedMarkdown text={"### Variants"} />
+
+<LocalizedMarkdown
+  text={"Choose default, outline, or separator treatments to fit the surrounding structure."}
+/>
+
+<ComponentPreview name="marker--Variants" source={VariantsSource} />

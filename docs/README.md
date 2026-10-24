@@ -4,9 +4,9 @@
 
 The docs application uses TanStack Start, file-based TanStack Router routes and
 Cloudflare Workers. From the repository root run `pnpm dev:docs` (port 3000) or
-`pnpm build:docs`. From `docs/`, run `pnpm preview` to exercise the built Worker
+`pnpm build:docs`. From `docs/`, run `pnpm preview` to exercise the built static assets
 locally. With preview running, `pnpm test:runtime` verifies every document,
-SSR settings, legacy links, missing pages and the client/server bundle boundary.
+static HTML, legacy links, real missing-page statuses and the client bundle boundary.
 Use `DOCS_URL` to check another local port. Run `pnpm deploy` to build and deploy with your Cloudflare account.
 Run `pnpm test:dev` from `docs/` to check the first SSR requests with an isolated,
 empty dependency cache. Markdown-only dependencies are optimized at startup in
@@ -14,7 +14,7 @@ both client and SSR environments to avoid a React instance split on late discove
 The compatibility date is pinned to the installed local Workers runtime.
 For Cloudflare Workers Builds with the repository root as its working directory,
 use `pnpm build:docs` as the build command and
-`pnpm --filter @bolerish/docs exec wrangler deploy` as the deploy command.
+`pnpm --filter @bolerish/docs exec wrangler deploy --config wrangler.jsonc` as the deploy command.
 This explicitly selects the docs app instead of asking Wrangler to detect a
 project at the workspace root.
 
@@ -29,15 +29,15 @@ project at the workspace root.
   `/docs/styling`, `/docs/changelog`: package guides with English and `/ko` pages.
   Explicit Korean guide routes avoid collisions with the section/slug routes.
 - `/docs/components/$slug`, `/docs/foundations/$slug`, `/docs/patterns/$slug`:
-  full-document SSR. English is the default; append `/ko` for Korean.
+  prerendered full-document HTML. English is the default; append `/ko` for Korean.
   The loader preloads MDX and its examples together before switching documents.
   Intent preloads and a five-minute cache avoid repeated cold loads.
-- `/preview/$example`: standalone server-rendered examples; Toast docs retain
+- `/preview/$example`: standalone prerendered examples; Toast docs retain
   iframe isolation because their global manager broadcasts to every demo.
-- Previous short paths, Storybook links and `?locale=ko` redirect to
-  the short localized paths.
+- Previous short paths redirect at the asset host. Storybook links and
+  `?locale=ko` resolve to localized paths after browser initialization.
 
-The generated `src/routeTree.gen.ts` is committed and excluded from lint/format.
+The generated `src/app/routeTree.gen.ts` is committed and excluded from lint/format.
 Run the dev server or build after changing route files.
 
 Keep route loaders and import caches in `documents.ts` and `home-gallery.ts`.
@@ -46,10 +46,18 @@ in `components.ts` and references named renderers in `MarkdownElements.tsx`.
 Gallery entries retain their resolved components instead of reading a mutable
 example cache during rendering, including after development hot updates.
 
-Theme, motion and density are validated and saved in a cookie for SSR and client
-navigation. Changing controls does not add preferences to the URL. Explicit URL
-preferences still override cookies for shared links. Language follows the path,
-not the cookie. System color mode resolves after hydration to keep markup consistent.
+The build prerenders all known English/Korean documents, home pages and isolated
+examples. Production uploads only `dist/client` as Cloudflare Static Assets;
+there is no request-time React server or server-function endpoint. Local Vite
+SSR is retained for development and build-time rendering. Unknown paths return
+`404.html` with HTTP 404, and `_redirects` preserves previous short paths.
+
+Theme, motion and density are validated and saved in a browser cookie. Hydration
+starts from the same defaults as the static HTML, then applies saved and explicit
+URL preferences. A small head script applies the saved/query/system color mode
+before paint. Language follows the path, not the cookie. Changing controls does
+not add preferences to the URL. Storybook query links and `?locale=ko` redirects
+are resolved in the browser; static hosting does not inspect query strings.
 Documentation navigation sections are expanded by default and can be collapsed.
 
 Component source references are available through the generated agent API documents,
@@ -61,9 +69,30 @@ Storybook has been removed. Component examples render inline with code views;
 Storybook's addon panel is replaced by browser checks. Run automated accessibility
 checks separately when adding interaction patterns.
 
+## Source layout
+
+Only `app/` and `shared/` live under `src/`. Routes use nested directories under
+`app/`, with `(site)` as a URL-neutral group and `page.tsx` as the index route
+token. TanStack keeps its required `__root.tsx` entry and `$param` syntax rather
+than pretending Next.js `layout.tsx` or `[param]` files have routing behavior.
+
+- `app/(site)/_components` and `_lib`: home, site shell and home loading.
+- `app/(site)/docs/_components` and `_lib`: the document page, table of contents
+  and document loading, beside the nested guide/component routes.
+- `app/_components`: application error and not-found UI shared by app routes.
+- `shared/ui`: Markdown rendering, previews, token tables and the documentation
+  examples/content reused by the home, docs and isolated preview routes.
+- `shared/lib`: catalog, paths, example loading, search and color-mode helpers.
+- `shared/model`: locale and validated documentation preference contexts.
+- `shared/config/locales` and `shared/styles`: translations and shared theme CSS.
+
+Tests stay beside these owners. Shared code does not import route internals.
+`_components` and `_lib` are ignored by route discovery. No feature/entity layers
+or barrel exports are required for this app.
+
 ## Component examples
 
-Keep `docs.mdx` and React examples together in `src/components/{component}/`.
+Keep `docs.mdx` and React examples together in `src/shared/ui/docs/components/{component}/`.
 Write the overview and usage text directly in `docs.mdx`, inside
 `<LocaleContent locale="ko">` and `<LocaleContent locale="en">` blocks. Keep two
 static Markdown blocks per language: overview, then usage. Shared previews stay
@@ -80,7 +109,7 @@ for examples that actually demonstrate StyleX customization.
 
 ## Foundations
 
-Edit `src/foundations/{topic}/guidelines.md` (English) and `guidelines.kr.md`
+Edit `src/shared/ui/docs/foundations/{topic}/guidelines.md` (English) and `guidelines.kr.md`
 (Korean) together.
 These files supply localized user documentation. Agent entry points, API links
 and full LLM guidelines use the English foundation files and English MDX blocks.
@@ -108,7 +137,7 @@ from the localized guides, Foundations, patterns and component usage docs.
 The search dialog loads the active language's index on demand, searches titles
 and body text locally, and shows matching excerpts with category filters.
 
-See [translation conventions](src/documentation/locales/README.md).
+See [translation conventions](src/shared/config/locales/README.md).
 
 ## Page structure and tables
 

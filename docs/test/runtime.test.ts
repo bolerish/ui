@@ -15,38 +15,40 @@ test("localized search indexes are served independently from document HTML", asy
   }
 });
 
-test("all documents render through the Workers SSR entry", async () => {
+test("all documents are served as prerendered HTML", async () => {
   let count = 0;
   for (const group of ["components", "foundations", "patterns"]) {
-    const root = new URL(`../src/${group}/`, import.meta.url);
+    const root = new URL(`../src/shared/ui/docs/${group}/`, import.meta.url);
     for (const entry of await readdir(root, { withFileTypes: true })) {
       if (
         !entry.isDirectory() ||
         !(await readdir(new URL(`${entry.name}/`, root))).includes("docs.mdx")
       )
         continue;
-      const response = await fetch(`${base}/docs/${group}/${entry.name}`);
-      assert.equal(response.status, 200, `${group}/${entry.name}`);
-      const html = await response.text();
-      assert.match(html, /<!DOCTYPE html>/i);
-      assert.match(html, /<h1[ >]/);
-      assert.doesNotMatch(
-        html,
-        /Could not load this page|Example not found|Loading document…|Source reference|Loading source reference…|Loading example…/,
-      );
+      for (const suffix of ["", "/ko"]) {
+        const response = await fetch(`${base}/docs/${group}/${entry.name}${suffix}`);
+        assert.equal(response.status, 200, `${group}/${entry.name}${suffix}`);
+        const html = await response.text();
+        assert.match(html, /<!DOCTYPE html>/i);
+        assert.match(html, /<h1[ >]/);
+        assert.doesNotMatch(
+          html,
+          /Could not load this page|Example not found|Loading document…|Source reference|Loading source reference…|Loading example…/,
+        );
+      }
       count++;
     }
   }
   assert.equal(count, 73);
 });
 
-test("SSR settings, saved preferences, legacy links and missing pages", async () => {
+test("static HTML ignores personal settings while retaining previews and real 404s", async () => {
   const dark = await fetch(
     `${base}/docs/components/button?locale=en&colorMode=dark&density=compact`,
   );
   const html = await dark.text();
-  assert.match(html, /data-color-mode="dark"/);
-  assert.match(html, /--bolerish-density:0.875/);
+  assert.match(html, /data-color-mode="light"/);
+  assert.match(html, /--bolerish-density:1/);
   assert.match(html, /Make the next useful action/);
   assert.doesNotMatch(html, /Source reference/);
   const saved = encodeURIComponent(JSON.stringify({ colorMode: "dark", locale: "en" }));
@@ -56,7 +58,7 @@ test("SSR settings, saved preferences, legacy links and missing pages", async ()
   });
   assert.equal(preferences.status, 200);
   assert.equal(preferences.headers.get("location"), null);
-  assert.match(await preferences.text(), /data-color-mode="dark"/);
+  assert.match(await preferences.text(), /data-color-mode="light"/);
   const defaults = await fetch(`${base}/docs/components/button`, {
     headers: {
       cookie: `bolerish-docs-settings=${encodeURIComponent(JSON.stringify({ colorMode: "light", locale: "ko" }))}`,
@@ -67,8 +69,6 @@ test("SSR settings, saved preferences, legacy links and missing pages", async ()
     headers: { cookie: `bolerish-docs-settings=${saved}` },
   });
   assert.match(await explicit.text(), /data-color-mode="light"/);
-  const legacy = await fetch(`${base}/?path=/docs/components-dialog--docs`);
-  assert.match(legacy.url, /\/docs\/components\/dialog/);
   const missing = await fetch(`${base}/docs/components/not-a-component?locale=en`);
   assert.equal(missing.status, 404);
   assert.match(await missing.text(), /Page not found/);
@@ -108,7 +108,7 @@ test("localized home gallery and canonical redirects", async () => {
     assert.doesNotMatch(html, /<iframe/);
     assert.doesNotMatch(html, /gallery-placeholder|Could not load this page/);
     const previews = html.match(/<div class="gallery-preview" lang="en">/g) ?? [];
-    assert.equal(previews.length, 57, "every example must render on the initial SSR response");
+    assert.equal(previews.length, 57, "every example must exist in the prerendered response");
     assert.doesNotMatch(html, /<div class="gallery-preview" lang="en"><\/div>/);
   }
   for (const path of [
@@ -124,8 +124,8 @@ test("localized home gallery and canonical redirects", async () => {
   const redirect = await fetch(`${base}/docs/components/button?locale=ko&colorMode=dark`, {
     redirect: "manual",
   });
-  assert.equal(redirect.status, 308);
-  assert.equal(redirect.headers.get("location"), "/docs/components/button/ko?colorMode=dark");
+  assert.equal(redirect.status, 200, "query preferences are applied in the browser");
+  assert.equal(redirect.headers.get("location"), null);
   for (const path of ["/docs/components/button/kr", "/docs/getting-started/fr"])
     assert.equal((await fetch(`${base}${path}`)).status, 404);
 });
@@ -173,7 +173,7 @@ test("surface preferences, Item docs and crawler discovery cross real HTTP bound
   const response = await fetch(`${base}/docs/installation/ko?surface=liquid`);
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /data-bolerish-surface="liquid"/);
+  assert.match(html, /data-bolerish-surface="solid"/);
   const links = [...html.matchAll(/<link\b[^>]*>/g)].map((match) => match[0]);
   assert.ok(
     links.some((link) => link.includes('rel="describedby"') && link.includes('href="/llms.txt"')),

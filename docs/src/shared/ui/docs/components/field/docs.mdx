@@ -1,0 +1,96 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Field
+
+무엇을 입력할지 이해하고 문제가 생긴 입력에서 바로 수정할 수 있습니다.
+
+이름·입력 조건·입력·오류를 함께 둡니다. 같은 목적의 필드는 묶어 배치합니다.
+
+> 가까이 배치하는 것만으로 레이블이나 오류가 입력에 연결되지는 않습니다. ID로 연결합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Field
+
+Help people understand what to enter and correct mistakes at the input where they occur.
+
+Keep the name, instructions, input, and error together. Group related fields when they share a purpose.
+
+> Visual proximity does not associate a label or error programmatically; connect their IDs.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="field--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 사용할 때
+
+입력의 레이블·도움말·오류를 묶을 때 `Field`를 사용합니다. 관련 입력 여러 개는 `FieldGroup`으로, 공통 이름이 필요한 선택 그룹은 `FieldSet`과 `FieldLegend`로 묶습니다.
+
+### 레이블과 설명 연결
+
+`FieldLabel`의 `htmlFor`를 입력의 `id`와 맞춥니다. 입력 형식이나 제약은 `FieldDescription`에 쓰고, 설명의 ID를 입력의 `aria-describedby`에 지정합니다. 플레이스홀더는 입력 예시로 사용합니다.
+
+체크박스 옆에 설명을 함께 배치하려면 가로 방향 `Field` 안에 `FieldContent`를 사용합니다. 설명이 여러 줄이어도 체크박스는 제목 첫 줄에 맞춥니다. `FieldTitle`을 썼다는 이유만으로 컨트롤에 접근 가능한 이름이 생기지는 않으므로 레이블 연결을 확인합니다.
+
+### 오류 표시
+
+제출할 때 필수 값을 검증합니다. 제출에 실패한 뒤에는 사용자가 수정한 필드의 오류를 갱신하고 입력값을 유지합니다. 아직 입력하지 않은 필드에 오류부터 표시하지 않습니다.
+
+잘못된 값이 있으면 `Field`에 `invalid`, 입력에 `aria-invalid`를 지정합니다. `FieldError`의 ID도 입력의 `aria-describedby`에 포함합니다. 오류 스타일과 설명 연결은 각각 필요합니다.
+
+“이메일 주소에 @를 포함해 주세요.”처럼 수정 방법을 씁니다. 긴 폼은 오류가 있는 입력으로 이동하는 요약을 제공하고, 제출 후 요약이나 첫 오류 입력으로 초점을 옮깁니다.
+
+### 제출 상태
+
+값 검증과 서버 요청은 애플리케이션에서 처리합니다. 제출 중에는 중복 요청을 막습니다. 실패하면 값을 보존하고 재시도를 제공합니다.
+
+> 잘못된 값은 해당 `Field`에, 네트워크 실패는 폼의 제출 상태에 표시합니다. 폼 완료를 막는 오류를 Toast에만 표시하지 않습니다.
+
+입력 오류는 기본 입력 표면과 오류 경계, `FieldError`를 조합합니다. 서버 등 외부에서 판정한 오류 문구를 항상 표시할 때는 `FieldError match`를 사용합니다. `invalid`는 오류 상태이며 오류 문구의 표시 조건과는 별개입니다. 폼 전체의 요청 실패는 입력값을 유지한 채 Banner로 표현합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### When to use
+
+Use `Field` to group an input's label, help, and error. Use `FieldGroup` for related inputs, and `FieldSet` with `FieldLegend` for choices that need a shared name.
+
+### Connect labels and descriptions
+
+Match `FieldLabel`'s `htmlFor` to the input's `id`. Put format requirements or constraints in `FieldDescription` and include its ID in the input's `aria-describedby`. Use placeholders for example values.
+
+For a checkbox with supporting text, place `FieldContent` inside a horizontal `Field`. The checkbox aligns with the title's first line even when the description wraps. `FieldTitle` alone does not give a control an accessible name, so verify its label association.
+
+### Show errors
+
+Validate required values on submission. After a failed attempt, update each field's error as the user corrects it and preserve entered values. Do not show errors before users have had a chance to enter a value.
+
+Set `invalid` on `Field` and `aria-invalid` on an invalid input. Include `FieldError`'s ID in the input's `aria-describedby`. Error styling and the description association are separate requirements.
+
+Describe the correction, such as “Include @ in the email address.” For long forms, provide a summary linking to invalid inputs and move focus to the summary or first invalid input after submission.
+
+### Submission state
+
+Validation and server requests belong to the application. Prevent duplicate requests while submitting. Preserve values and offer a retry after failure.
+
+> Show rejected values in their `Field` and network failures with the form's submission status. Do not put errors that block completion only in a Toast.
+
+Combine the normal input surface, an error border and `FieldError`. Use `FieldError match` to show an externally determined error, such as a server validation message. `invalid` sets the invalid state separately from the message matching condition. Keep input values and use Banner for a form-level request failure.
+
+</LocaleContent>

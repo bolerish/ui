@@ -1,0 +1,53 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import StatesSource from "./States.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Slider
+
+정해진 범위에서 상대적인 위치를 보며 값을 빠르게 조절할 수 있습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Slider
+
+Let people adjust a bounded value quickly while seeing its relative position.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="slider--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+음량처럼 대략적인 조정에 사용합니다. 정확한 값 입력이 중요하면 숫자 입력도 제공합니다.
+
+> 드래그만으로 값을 바꾸게 하지 않습니다. 키보드와 드래그 없는 조작 방법을 유지합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+Use it for approximate adjustment such as volume. Add a numeric input when entering an exact value matters.
+
+> Dragging must not be the only way to change the value; preserve keyboard and pointer alternatives.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## More examples"} />
+
+<LocalizedMarkdown text={"### States"} />
+
+<LocalizedMarkdown text={"Keep an unavailable value distinct from an adjustable one."} />
+
+<ComponentPreview name="slider--States" source={StatesSource} />

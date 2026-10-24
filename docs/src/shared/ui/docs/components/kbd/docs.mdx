@@ -1,0 +1,44 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Kbd
+
+안내와 메뉴에서 키보드 단축키를 쉽게 알아볼 수 있습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Kbd
+
+Make keyboard shortcuts recognizable within instructions and menus.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="kbd--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+누르는 순서대로 키를 표시하고 실제 동작하는 환경의 단축키를 안내합니다.
+
+> `Kbd`는 단축키를 표시합니다. 키보드 동작은 애플리케이션에서 구현해야 합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+Display the keys in the order people press them and match the shortcut to the platform where it works.
+
+> `Kbd` displays a shortcut; the application must implement the keyboard action.
+
+</LocaleContent>

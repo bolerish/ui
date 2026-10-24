@@ -1,0 +1,125 @@
+import { LocaleContent } from "../../../model/locale";
+
+<LocaleContent locale="en">
+
+# Theming
+
+Components share semantic color and shadow tokens. The installed stylesheet includes light and dark values; changing the theme updates surfaces, text, boundaries and overlays together.
+
+## Apply a color mode
+
+Light is the default. Apply `themeClassNames.light` or `themeClassNames.dark` to `html` after loading the package CSS. The exported classes also set the matching `color-scheme`. A `.dark` class by itself does not activate the package theme.
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+# 테마
+
+컴포넌트는 의미 기반 색상·그림자 토큰을 공유합니다. 설치한 스타일시트에 라이트·다크 값이 포함되어 있어 테마를 바꾸면 표면, 글자, 경계와 오버레이가 함께 바뀝니다.
+
+## 색상 모드 적용하기
+
+기본은 라이트입니다. 패키지 CSS를 로드한 뒤 `html`에 `themeClassNames.light` 또는 `themeClassNames.dark`를 적용합니다. 내보낸 클래스에는 해당 모드의 `color-scheme`도 포함됩니다. `.dark` 클래스만 붙여서는 패키지 테마가 활성화되지 않습니다.
+
+</LocaleContent>
+
+```tsx
+import { themeClassNames } from "@bolerish/ui/theme";
+
+<html className={themeClassNames.dark}>
+  <body>{children}</body>
+</html>;
+```
+
+<LocaleContent locale="en">
+
+Use your framework's document or root layout for this markup. Applying the theme to `html` lets dialogs and menus rendered through a portal inherit the same tokens. Keep unrelated classes when changing modes: replace the previous theme's classes rather than the entire `className`.
+
+## System preference and SSR
+
+Your app owns the `light`, `dark` and `system` choice, saved preferences and the initial document theme. Resolve `system` with `matchMedia("(prefers-color-scheme: dark)")` in the browser and listen for changes only while system mode is selected.
+
+For SSR, a saved cookie can provide an explicit initial mode. Keep the initial server and client markup consistent, then resolve unavailable browser preferences after hydration. A pre-hydration theme script is an app-level alternative that must match your framework and CSP. Do not read `window` during server rendering.
+
+## Fonts, density and motion
+
+These public CSS variables inherit from the document. Choose fonts and a density for your app; they do not require a StyleX compiler.
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+이 마크업은 프레임워크의 문서 또는 루트 레이아웃에 적용합니다. 테마를 `html`에 두면 포털로 렌더링되는 대화상자와 메뉴도 같은 토큰을 상속합니다. 모드를 바꿀 때는 이전 테마 클래스만 교체하고 다른 클래스는 보존하세요.
+
+## 시스템 설정과 SSR
+
+`light`, `dark`, `system` 선택과 설정 저장, 첫 문서의 테마는 앱이 관리합니다. 브라우저에서 `matchMedia("(prefers-color-scheme: dark)")`로 시스템 모드를 확인하고, 시스템 모드를 선택한 동안에만 변경을 구독합니다.
+
+SSR에서는 저장한 쿠키로 명시적인 초기 모드를 정할 수 있습니다. 서버와 클라이언트의 첫 마크업을 일치시키고 서버가 알 수 없는 브라우저 설정은 하이드레이션 후 확인하세요. 하이드레이션 전 테마 스크립트를 사용한다면 프레임워크와 CSP에 맞춰야 합니다. 서버 렌더링 중에는 `window`를 읽지 마세요.
+
+## 글꼴·밀도·모션
+
+다음 공개 CSS 변수는 문서에서 상속됩니다. 앱에 맞는 글꼴과 밀도를 선택하세요. StyleX 컴파일러는 필요하지 않습니다.
+
+</LocaleContent>
+
+```css
+:root {
+  --bolerish-font-body: "Your Sans", sans-serif;
+  --bolerish-font-heading: "Your Sans", sans-serif;
+  --bolerish-density: 1;
+}
+```
+
+<LocaleContent locale="en">
+
+Load your font separately. Default density is `1`; compact is `0.875`. Keep the default `rem` unit to follow root text-size preferences. Density does not shrink every accessibility target.
+
+Motion follows the OS by default. `data-bolerish-motion="off"` on `html` reduces motion; `on` explicitly overrides the OS and should only follow an end-user choice. See [Motion](/docs/foundations/motion) and [Accessibility](/docs/foundations/accessibility).
+
+## Select a surface treatment
+
+Set `data-bolerish-surface="solid"` or `"liquid"` on `html`. This is independent of light/dark themes and component variants. Panels, resting controls and floating surfaces have different transparency and blur strengths. Primary/destructive fills, selection, error and disabled treatments keep their semantic roles.
+
+```tsx
+<html className={themeClassNames.dark} data-bolerish-surface="liquid">
+  <body>{children}</body>
+</html>
+```
+
+A nested `data-bolerish-surface="solid"` region can opt out. Portals mounted outside that region follow `html`, so set the app-wide choice on the document. Omitting the attribute keeps the existing behavior, including `Card variant="translucent"`.
+
+Liquid surfaces use CSS transparency and backdrop blur; browsers without the required features, reduced-transparency preferences and forced-color modes use solid fallbacks. Keep text contrast readable over your own backgrounds. See the [Card comparison](/docs/components/card#global-surface-modes).
+
+## Extend the palette
+
+For a custom app surface, choose existing [Color](/docs/foundations/color) roles before adding values. Use [Styling](/docs/styling) for StyleX token imports. Generated StyleX class and variable names are not stable customization hooks; use exported tokens and the documented CSS variables.
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+글꼴 파일은 별도로 로드합니다. 기본 밀도는 `1`, compact는 `0.875`입니다. 루트 글자 크기 설정을 따르려면 기본 `rem` 단위를 유지하세요. 밀도가 모든 접근성 대상 크기를 줄이지는 않습니다.
+
+모션은 기본적으로 OS 설정을 따릅니다. `html`의 `data-bolerish-motion="off"`는 움직임을 줄입니다. `on`은 OS 설정까지 덮어쓰므로 사용자가 직접 선택했을 때만 적용하세요. [Motion](/docs/foundations/motion)과 [Accessibility](/docs/foundations/accessibility)를 참고하세요.
+
+## 표면 표현 선택하기
+
+`html`에 `data-bolerish-surface="solid"` 또는 `"liquid"`를 설정합니다. 라이트·다크 테마와 컴포넌트 배리언트는 별도로 유지됩니다. 패널, 기본 상태의 컨트롤과 떠 있는 표면은 서로 다른 투명도·블러 강도를 사용합니다. 주요/위험 행동의 채움색과 선택·오류·비활성 표현은 의미를 유지합니다.
+
+```tsx
+<html className={themeClassNames.dark} data-bolerish-surface="liquid">
+  <body>{children}</body>
+</html>
+```
+
+하위 영역의 `data-bolerish-surface="solid"`로 부분 적용을 해제할 수 있습니다. 영역 밖에 마운트되는 포털은 `html` 설정을 따르므로 앱 전체 선택은 문서에 두세요. 속성을 생략하면 `Card variant="translucent"`를 포함한 기존 동작을 유지합니다.
+
+Liquid는 CSS 투명도와 배경 블러를 사용합니다. 필요한 기능이 없는 브라우저, 투명도 줄이기 설정과 강제 색상 모드에서는 불투명한 표면으로 대체합니다. 앱 배경 위의 글자 대비는 별도로 확인하세요. [Card 비교 예제](/docs/components/card#global-surface-modes)를 참고하세요.
+
+## 팔레트 확장하기
+
+앱의 새로운 표면에는 값을 추가하기 전에 [Color](/docs/foundations/color)의 기존 역할을 선택합니다. StyleX 토큰 가져오기는 [스타일링](/docs/styling)을 확인하세요. 생성된 StyleX 클래스·변수 이름은 안정적인 확장 지점이 아닙니다. 내보낸 토큰과 문서화한 CSS 변수를 사용하세요.
+
+</LocaleContent>

@@ -1,4 +1,5 @@
-import { cloudflare } from "@cloudflare/vite-plugin";
+import { readdirSync, existsSync } from "node:fs";
+
 import mdx from "@mdx-js/rollup";
 import stylex from "@stylexjs/unplugin/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -9,6 +10,30 @@ import remarkGfm from "remark-gfm";
 import { defineConfig } from "vite";
 
 const markdownDependencies = ["react-markdown", "rehype-slug", "remark-gfm"];
+
+const pages = ["/", "/ko"];
+for (const section of ["guides", "components", "foundations", "patterns"]) {
+  const directory = new URL(`./src/shared/ui/docs/${section}/`, import.meta.url);
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    if (
+      section === "guides"
+        ? entry.name.endsWith(".mdx")
+        : entry.isDirectory() && existsSync(new URL(`${entry.name}/docs.mdx`, directory))
+    ) {
+      const path =
+        section === "guides"
+          ? `/docs/${entry.name.slice(0, -4)}`
+          : `/docs/${section}/${entry.name}`;
+      pages.push(path, `${path}/ko`);
+    }
+    if (entry.isDirectory() && section !== "guides") {
+      for (const file of readdirSync(new URL(`${entry.name}/`, directory))) {
+        if (section === "foundations" ? file.endsWith("Example.tsx") : file.endsWith(".tsx"))
+          pages.push(`/preview/${entry.name}--${file.slice(0, -4)}`);
+      }
+    }
+  }
+}
 
 export default defineConfig({
   server: { port: 3000 },
@@ -40,8 +65,27 @@ export default defineConfig({
     stylex({ useCSSLayers: true, babelConfig: { plugins: [reactCompiler] } } as Parameters<
       typeof stylex
     >[0]),
-    cloudflare({ viteEnvironment: { name: "ssr" } }),
-    tanstackStart(),
+    tanstackStart({
+      router: {
+        entry: "./app/router.tsx",
+        routesDirectory: "app",
+        generatedRouteTree: "app/routeTree.gen.ts",
+        indexToken: "page",
+        routeFileIgnorePattern:
+          "(^|/)(_components|_lib)(/|$)|(^|/)(router[.]tsx|routeTree[.]gen[.]ts)$|[.](test|spec)[.]",
+      },
+      prerender: {
+        enabled: true,
+        autoStaticPathsDiscovery: false,
+        crawlLinks: false,
+        concurrency: 4,
+        failOnError: true,
+      },
+      pages: [
+        ...pages.map((path) => ({ path })),
+        { path: "/404", prerender: { autoSubfolderIndex: false } },
+      ],
+    }),
     react({ include: /\.[jt]sx?$|\.mdx$/ }),
   ],
 });

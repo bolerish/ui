@@ -1,0 +1,6 @@
+/docs /docs/getting-started 308
+/docs/ko /docs/getting-started/ko 308
+/docs/guide/* /docs/:splat 308
+/components/* /docs/components/:splat 308
+/foundations/* /docs/foundations/:splat 308
+/patterns/* /docs/patterns/:splat 308

@@ -1,0 +1,76 @@
+import { LocaleContent } from "../../../../model/locale";
+import { LocalizedMarkdown } from "../../../markdown/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "../../../preview/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Select
+
+정해진 선택지를 간결하게 담으면서 선택한 값은 계속 보여 줍니다.
+
+목록을 읽고 항목을 알아볼 수 있을 때 사용합니다. 입력으로 찾는 편이 쉬우면 `Combobox`를 사용합니다.
+
+> 필드 이름과 선택한 값을 구분해 표시합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Select
+
+Keep a fixed choice compact while leaving the selected value visible.
+
+Use it when reading the list is enough to recognize an option. Use `Combobox` when typing makes selection easier.
+
+> Keep the field name separate from the selected value.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="select--Default" source={DefaultSource} height={360} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 사용할 때
+
+상태나 팀처럼 목록을 읽고 알아볼 수 있는 정해진 값을 선택할 때 사용합니다. 목록을 닫은 뒤에도 선택한 값이 보여야 합니다.
+
+### 다른 컴포넌트를 고를 때
+
+- 항목이 많거나 익숙하지 않아 입력으로 찾는 편이 빠르면 [Combobox](/docs/components/combobox)를 사용합니다.
+- 목록을 열지 않고 선택지를 비교해야 한다면 [Radio Group](/docs/components/radio-group)을 사용합니다.
+- 복제·삭제처럼 값을 선택하는 대신 명령을 실행한다면 Dropdown Menu를 사용합니다.
+
+### 이름과 선택 전 상태
+
+현재 값과 별개로 필드 이름을 제공합니다. 플레이스홀더는 선택을 안내하며 이름을 대신하지 않습니다. 기본값은 유효하고 유용한 시작점일 때만 정합니다. 동의나 비용이 발생하는 선택을 임의로 미리 적용하지 않습니다.
+
+> `SelectTrigger`에는 @bolerish/ui의 `size`나 `variant` 속성이 없습니다. `Button`의 속성을 전달하기보다 기본 컨트롤 크기를 유지합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### When to use
+
+Use `Select` for a predefined value when users can recognize the option by reading the list, such as a status or team. Keep the selected value visible after the list closes.
+
+### Choose an alternative
+
+- Use [Combobox](/docs/components/combobox) when typing helps users find an option in a long or unfamiliar list.
+- Use [Radio Group](/docs/components/radio-group) when users need to compare the available choices without opening a popup.
+- Use Dropdown Menu for commands such as Duplicate or Delete, rather than storing a form value.
+
+### Labels and empty selection
+
+Name the field independently of its current value. Use a placeholder to prompt a choice, not to replace the label. Choose a default only when it is a valid, useful starting value; do not silently select consent or a costly option.
+
+> `SelectTrigger` has no @bolerish/ui `size` or `variant` prop. Keep its built-in control sizing instead of passing `Button` props to it.
+
+</LocaleContent>

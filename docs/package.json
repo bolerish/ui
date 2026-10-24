@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "build": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && vite build",
-    "deploy": "pnpm build && wrangler deploy",
+    "deploy": "pnpm build && wrangler deploy --config wrangler.jsonc",
     "dev": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && vite --port 3000",
     "lint": "pnpm --filter @bolerish/eslint-plugin-ui build && pnpm --workspace-root exec oxlint docs/src",
-    "preview": "vite preview --port 3000",
-    "test:agent": "node --experimental-strip-types scripts/build-guidelines.ts --check && node --experimental-strip-types --experimental-vm-modules --test scripts/build-guidelines.test.ts scripts/guide-markdown.test.ts src/documentation/search.test.ts src/documentation/head.test.ts src/documentation/settings.test.ts src/documentation/paths.test.ts src/documentation/catalog.test.ts src/foundations/guidelines.test.ts src/documentation/table-headers.test.ts src/documentation/home-gallery.test.ts",
+    "preview": "wrangler dev --config wrangler.jsonc --port 3000",
+    "test:agent": "node --experimental-strip-types scripts/build-guidelines.ts --check && node --experimental-strip-types --experimental-vm-modules --test scripts/build-guidelines.test.ts scripts/guide-markdown.test.ts src/shared/lib/search.test.ts src/shared/lib/head.test.ts src/shared/model/settings.test.ts src/shared/lib/paths.test.ts src/shared/lib/catalog.test.ts src/shared/ui/docs/foundations/guidelines.test.ts src/shared/lib/table-headers.test.ts 'src/app/(site)/_lib/home-gallery.test.ts'",
     "test:dev": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && node --experimental-strip-types --test test/dev.test.ts",
     "test:runtime": "node --experimental-strip-types --test test/runtime.test.ts",
+    "test:static": "node --experimental-strip-types --test test/static.test.ts",
     "typecheck": "pnpm --filter @bolerish/ui build && tsc --noEmit"
   },
   "dependencies": {
@@ -27,7 +28,6 @@
   },
   "devDependencies": {
     "@bolerish/eslint-plugin-ui": "workspace:*",
-    "@cloudflare/vite-plugin": "^1.64.0",
     "@mdx-js/react": "3.1.1",
     "@mdx-js/rollup": "^3.1.1",
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",
