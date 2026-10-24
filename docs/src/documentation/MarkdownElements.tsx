@@ -23,8 +23,8 @@ function DocumentationLink({ href, children, ...props }: ComponentProps<"a">) {
   const canonical = legacyDocumentPath(path);
   const [, section, slug] = canonical.replace(/^\/docs\//, "/").split("/");
   const page =
-    canonical === "/docs/getting-started"
-      ? findDocument("guide", "getting-started")
+    canonical.startsWith("/docs/") && slug === undefined
+      ? findDocument("guide", section)
       : findDocument(section, slug);
   return page ? (
     <Link {...props} {...documentLink(page, locale)} search={{}} hash={hash}>
@@ -123,82 +123,103 @@ const styles = stylex.create({
   },
 });
 
-export const documentationComponents: Components = {
-  h1: ({ node: _node, children, ...props }) => (
-    <h1 {...props} {...stylex.props(styles.h1)}>
-      {children}
-    </h1>
-  ),
-  h2: ({ node: _node, children, ...props }) => (
-    <h2 {...props} {...stylex.props(styles.h2)}>
-      {children}
-    </h2>
-  ),
-  h3: ({ node: _node, children, ...props }) => (
-    <h3 {...props} {...stylex.props(styles.h3)}>
-      {children}
-    </h3>
-  ),
-  p: ({ node: _node, ...props }) => (
-    <Paragraph {...props} variant="description" xstyle={styles.p} />
-  ),
-  ul: ({ node: _node, ...props }) => (
-    <ul {...props} {...stylex.props(styles.list, styles.unordered)} />
-  ),
-  ol: ({ node: _node, ...props }) => (
-    <ol {...props} {...stylex.props(styles.list, styles.ordered)} />
-  ),
-  li: ({ node: _node, ...props }) => <li {...props} {...stylex.props(styles.item)} />,
-  a: ({ node: _node, children, ...props }) => (
-    <DocumentationLink {...props} {...stylex.props(styles.link)}>
-      {children}
-    </DocumentationLink>
-  ),
-  table: ({ node: _node, children, ...props }) => {
-    const headers = tableHeaders(children);
-    const isSelectionTable =
-      headers.join("|") === "사용 상황|권장 선택|적용 코드" ||
-      headers.join("|") === "Situation|Recommended choice|Code";
-    const isPropsTable =
-      headers.join("|") === "속성|기본값|값|용도" ||
-      headers.join("|") === "Prop|Default|Values|Meaning";
+export const MarkdownH1: Components["h1"] = ({ node: _node, children, ...props }) => (
+  <h1 {...props} {...stylex.props(styles.h1)}>
+    {children}
+  </h1>
+);
 
-    return (
-      <div {...stylex.props(styles.scroll)}>
-        <table
-          {...props}
-          {...stylex.props(
-            styles.table,
-            isSelectionTable && styles.selectionTable,
-            isPropsTable && styles.propsTable,
-          )}
-        >
-          {isSelectionTable ? (
-            <colgroup>
-              <col {...stylex.props(styles.situationColumn)} />
-              <col {...stylex.props(styles.choiceColumn)} />
-              <col {...stylex.props(styles.codeColumn)} />
-            </colgroup>
-          ) : null}
-          {children}
-        </table>
-      </div>
-    );
-  },
-  th: ({ node: _node, ...props }) => <th {...props} {...stylex.props(styles.cell, styles.th)} />,
-  td: ({ node: _node, ...props }) => <td {...props} {...stylex.props(styles.cell)} />,
-  code: ({ node: _node, ...props }) => <code {...props} {...stylex.props(styles.code)} />,
-  blockquote: ({ node: _node, ...props }) => <aside {...props} {...stylex.props(styles.quote)} />,
-  pre: ({ children }) => {
-    if (!isValidElement<{ children?: ReactNode; className?: string }>(children))
-      return <pre>{children}</pre>;
-    const code = String(children.props.children ?? "").trimEnd();
-    const languages: Record<string, "tsx" | "json" | "bash"> = {
-      "language-tsx": "tsx",
-      "language-json": "json",
-      "language-bash": "bash",
-    };
-    const language = languages[children.props.className ?? ""] ?? "tsx";
-    return <CodeBlock code={code} language={language} />;
-  },
+export const MarkdownH2: Components["h2"] = ({ node: _node, children, ...props }) => (
+  <h2 {...props} {...stylex.props(styles.h2)}>
+    {children}
+  </h2>
+);
+
+export const MarkdownH3: Components["h3"] = ({ node: _node, children, ...props }) => (
+  <h3 {...props} {...stylex.props(styles.h3)}>
+    {children}
+  </h3>
+);
+
+export const MarkdownP: Components["p"] = ({ node: _node, ...props }) => (
+  <Paragraph {...props} variant="description" xstyle={styles.p} />
+);
+
+export const MarkdownUl: Components["ul"] = ({ node: _node, ...props }) => (
+  <ul {...props} {...stylex.props(styles.list, styles.unordered)} />
+);
+
+export const MarkdownOl: Components["ol"] = ({ node: _node, ...props }) => (
+  <ol {...props} {...stylex.props(styles.list, styles.ordered)} />
+);
+
+export const MarkdownLi: Components["li"] = ({ node: _node, ...props }) => (
+  <li {...props} {...stylex.props(styles.item)} />
+);
+
+export const MarkdownA: Components["a"] = ({ node: _node, children, ...props }) => (
+  <DocumentationLink {...props} {...stylex.props(styles.link)}>
+    {children}
+  </DocumentationLink>
+);
+
+export const MarkdownTable: Components["table"] = ({ node: _node, children, ...props }) => {
+  const headers = tableHeaders(children);
+  const isSelectionTable =
+    headers.join("|") === "사용 상황|권장 선택|적용 코드" ||
+    headers.join("|") === "Situation|Recommended choice|Code";
+  const isPropsTable =
+    headers.join("|") === "속성|기본값|값|용도" ||
+    headers.join("|") === "Prop|Default|Values|Meaning";
+
+  return (
+    <div {...stylex.props(styles.scroll)}>
+      <table
+        {...props}
+        {...stylex.props(
+          styles.table,
+          isSelectionTable && styles.selectionTable,
+          isPropsTable && styles.propsTable,
+        )}
+      >
+        {isSelectionTable ? (
+          <colgroup>
+            <col {...stylex.props(styles.situationColumn)} />
+            <col {...stylex.props(styles.choiceColumn)} />
+            <col {...stylex.props(styles.codeColumn)} />
+          </colgroup>
+        ) : null}
+        {children}
+      </table>
+    </div>
+  );
+};
+
+export const MarkdownTh: Components["th"] = ({ node: _node, ...props }) => (
+  <th {...props} {...stylex.props(styles.cell, styles.th)} />
+);
+
+export const MarkdownTd: Components["td"] = ({ node: _node, ...props }) => (
+  <td {...props} {...stylex.props(styles.cell)} />
+);
+
+export const MarkdownCode: Components["code"] = ({ node: _node, ...props }) => (
+  <code {...props} {...stylex.props(styles.code)} />
+);
+
+export const MarkdownBlockquote: Components["blockquote"] = ({ node: _node, ...props }) => (
+  <aside {...props} {...stylex.props(styles.quote)} />
+);
+
+export const MarkdownPre: Components["pre"] = ({ children }) => {
+  if (!isValidElement<{ children?: ReactNode; className?: string }>(children))
+    return <pre>{children}</pre>;
+  const code = String(children.props.children ?? "").trimEnd();
+  const languages: Record<string, "tsx" | "json" | "bash"> = {
+    "language-tsx": "tsx",
+    "language-json": "json",
+    "language-bash": "bash",
+  };
+  const language = languages[children.props.className ?? ""] ?? "tsx";
+  return <CodeBlock code={code} language={language} />;
 };

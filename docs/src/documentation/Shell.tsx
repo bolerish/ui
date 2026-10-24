@@ -35,7 +35,7 @@ import type { DocumentationGlobals } from "./settings";
 import { useDocumentationGlobals, useDocumentationPreferences } from "./useDocumentationGlobals";
 
 const sectionNames: Record<string, string> = {
-  guide: "Getting started",
+  guide: "Guides",
   foundations: "Foundations",
   patterns: "Patterns",
   components: "Components",
@@ -303,14 +303,19 @@ export function Shell({ children }: { children: ReactNode }) {
         {!home ? (
           <aside className={menuOpen ? "sidebar open" : "sidebar"} id="docs-navigation">
             <nav aria-label="Documentation">
-              <Link
-                {...documentLink({ section: "guide", slug: "getting-started" }, settings.locale)}
-                search={{}}
-                activeProps={{ "aria-current": "page", className: "active" }}
-                onClick={() => setMenuOpen(false)}
-              >
-                Getting Started
-              </Link>
+              {catalog
+                .filter((item) => item.section === "guide")
+                .map((item) => (
+                  <Link
+                    key={item.slug}
+                    {...documentLink(item, settings.locale)}
+                    search={{}}
+                    activeProps={{ "aria-current": "page", className: "active" }}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
               <Accordion
                 defaultValue={["foundations", "patterns", "components"]}
                 multiple

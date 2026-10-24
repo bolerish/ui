@@ -11,9 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as KoRouteImport } from './routes/ko'
+import { Route as DocsGuideRouteImport } from './routes/docs.$guide'
 import { Route as PreviewExampleRouteImport } from './routes/preview.$example'
 import { Route as SectionSlugChar123LocaleChar125RouteImport } from './routes/$section.$slug.{-$locale}'
-import { Route as DocsGettingStartedChar123LocaleChar125RouteImport } from './routes/docs.getting-started.{-$locale}'
+import { Route as DocsGuideKoRouteImport } from './routes/docs.$guide_.ko'
 import { Route as DocsSectionSlugChar123LocaleChar125RouteImport } from './routes/docs.$section.$slug.{-$locale}'
 
 const IndexRoute = IndexRouteImport.update({
@@ -24,6 +25,11 @@ const IndexRoute = IndexRouteImport.update({
 const KoRoute = KoRouteImport.update({
   id: '/ko',
   path: '/ko',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsGuideRoute = DocsGuideRouteImport.update({
+  id: '/docs/$guide',
+  path: '/docs/$guide',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PreviewExampleRoute = PreviewExampleRouteImport.update({
@@ -37,12 +43,11 @@ const SectionSlugChar123LocaleChar125Route =
     path: '/$section/$slug/{-$locale}',
     getParentRoute: () => rootRouteImport,
   } as any)
-const DocsGettingStartedChar123LocaleChar125Route =
-  DocsGettingStartedChar123LocaleChar125RouteImport.update({
-    id: '/docs/getting-started/{-$locale}',
-    path: '/docs/getting-started/{-$locale}',
-    getParentRoute: () => rootRouteImport,
-  } as any)
+const DocsGuideKoRoute = DocsGuideKoRouteImport.update({
+  id: '/docs/$guide_/ko',
+  path: '/docs/$guide/ko',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocsSectionSlugChar123LocaleChar125Route =
   DocsSectionSlugChar123LocaleChar125RouteImport.update({
     id: '/docs/$section/$slug/{-$locale}',
@@ -53,26 +58,29 @@ const DocsSectionSlugChar123LocaleChar125Route =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ko': typeof KoRoute
+  '/docs/$guide': typeof DocsGuideRoute
   '/preview/$example': typeof PreviewExampleRoute
   '/$section/$slug/{-$locale}': typeof SectionSlugChar123LocaleChar125Route
-  '/docs/getting-started/{-$locale}': typeof DocsGettingStartedChar123LocaleChar125Route
+  '/docs/$guide/ko': typeof DocsGuideKoRoute
   '/docs/$section/$slug/{-$locale}': typeof DocsSectionSlugChar123LocaleChar125Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ko': typeof KoRoute
+  '/docs/$guide': typeof DocsGuideRoute
   '/preview/$example': typeof PreviewExampleRoute
   '/$section/$slug/{-$locale}': typeof SectionSlugChar123LocaleChar125Route
-  '/docs/getting-started/{-$locale}': typeof DocsGettingStartedChar123LocaleChar125Route
+  '/docs/$guide/ko': typeof DocsGuideKoRoute
   '/docs/$section/$slug/{-$locale}': typeof DocsSectionSlugChar123LocaleChar125Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/ko': typeof KoRoute
+  '/docs/$guide': typeof DocsGuideRoute
   '/preview/$example': typeof PreviewExampleRoute
   '/$section/$slug/{-$locale}': typeof SectionSlugChar123LocaleChar125Route
-  '/docs/getting-started/{-$locale}': typeof DocsGettingStartedChar123LocaleChar125Route
+  '/docs/$guide_/ko': typeof DocsGuideKoRoute
   '/docs/$section/$slug/{-$locale}': typeof DocsSectionSlugChar123LocaleChar125Route
 }
 export interface FileRouteTypes {
@@ -80,34 +88,38 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/ko'
+    | '/docs/$guide'
     | '/preview/$example'
     | '/$section/$slug/{-$locale}'
-    | '/docs/getting-started/{-$locale}'
+    | '/docs/$guide/ko'
     | '/docs/$section/$slug/{-$locale}'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/ko'
+    | '/docs/$guide'
     | '/preview/$example'
     | '/$section/$slug/{-$locale}'
-    | '/docs/getting-started/{-$locale}'
+    | '/docs/$guide/ko'
     | '/docs/$section/$slug/{-$locale}'
   id:
     | '__root__'
     | '/'
     | '/ko'
+    | '/docs/$guide'
     | '/preview/$example'
     | '/$section/$slug/{-$locale}'
-    | '/docs/getting-started/{-$locale}'
+    | '/docs/$guide_/ko'
     | '/docs/$section/$slug/{-$locale}'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   KoRoute: typeof KoRoute
+  DocsGuideRoute: typeof DocsGuideRoute
   PreviewExampleRoute: typeof PreviewExampleRoute
   SectionSlugChar123LocaleChar125Route: typeof SectionSlugChar123LocaleChar125Route
-  DocsGettingStartedChar123LocaleChar125Route: typeof DocsGettingStartedChar123LocaleChar125Route
+  DocsGuideKoRoute: typeof DocsGuideKoRoute
   DocsSectionSlugChar123LocaleChar125Route: typeof DocsSectionSlugChar123LocaleChar125Route
 }
 
@@ -127,6 +139,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/docs/$guide': {
+      id: '/docs/$guide'
+      path: '/docs/$guide'
+      fullPath: '/docs/$guide'
+      preLoaderRoute: typeof DocsGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/preview/$example': {
       id: '/preview/$example'
       path: '/preview/$example'
@@ -141,11 +160,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SectionSlugChar123LocaleChar125RouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/docs/getting-started/{-$locale}': {
-      id: '/docs/getting-started/{-$locale}'
-      path: '/docs/getting-started/{-$locale}'
-      fullPath: '/docs/getting-started/{-$locale}'
-      preLoaderRoute: typeof DocsGettingStartedChar123LocaleChar125RouteImport
+    '/docs/$guide_/ko': {
+      id: '/docs/$guide_/ko'
+      path: '/docs/$guide/ko'
+      fullPath: '/docs/$guide/ko'
+      preLoaderRoute: typeof DocsGuideKoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/docs/$section/$slug/{-$locale}': {
@@ -161,10 +180,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   KoRoute: KoRoute,
+  DocsGuideRoute: DocsGuideRoute,
   PreviewExampleRoute: PreviewExampleRoute,
   SectionSlugChar123LocaleChar125Route: SectionSlugChar123LocaleChar125Route,
-  DocsGettingStartedChar123LocaleChar125Route:
-    DocsGettingStartedChar123LocaleChar125Route,
+  DocsGuideKoRoute: DocsGuideKoRoute,
   DocsSectionSlugChar123LocaleChar125Route:
     DocsSectionSlugChar123LocaleChar125Route,
 }

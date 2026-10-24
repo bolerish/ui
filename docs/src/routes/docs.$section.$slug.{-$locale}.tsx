@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 
-import { DocumentPage, loadDocumentPage } from "../documentation/DocumentPage";
+import { DocumentPage } from "../documentation/DocumentPage";
+import { loadDocumentPage } from "../documentation/documents";
 export const Route = createFileRoute("/docs/$section/$slug/{-$locale}")({
   ssr: true,
   pendingMs: Infinity,
