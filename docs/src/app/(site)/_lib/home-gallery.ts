@@ -28,7 +28,14 @@ export async function loadHomeGallery() {
     })),
   );
 }
+let gallery: Awaited<ReturnType<typeof loadHomeGallery>> | undefined;
+
+export function getHomeGallery() {
+  if (!gallery) throw new Error("Home gallery must be preloaded before rendering.");
+  return gallery;
+}
+
 export async function preloadHome() {
-  await loadHomeGallery();
+  gallery = await loadHomeGallery();
   return null;
 }

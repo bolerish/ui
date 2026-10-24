@@ -2,16 +2,11 @@ import { Button } from "@bolerish/ui/button";
 import { Separator } from "@bolerish/ui/separator";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
 
-import { loadHomeGallery } from "@/app/(site)/_lib/home-gallery";
+import { getHomeGallery } from "@/app/(site)/_lib/home-gallery";
 import { documentLink } from "@/shared/lib/paths";
 import { useDocumentationGlobals } from "@/shared/model/useDocumentationGlobals";
 
-const Gallery = lazy(async () => {
-  const items = await loadHomeGallery();
-  return { default: () => <HomeGallery items={items} /> };
-});
 export function Home() {
   const { locale } = useDocumentationGlobals();
   const ko = locale === "ko";
@@ -39,13 +34,11 @@ export function Home() {
           <ArrowUpRightIcon aria-hidden="true" />
         </Button>
       </section>
-      <Suspense fallback={null}>
-        <Gallery />
-      </Suspense>
+      <HomeGallery items={getHomeGallery()} />
     </div>
   );
 }
-function HomeGallery({ items }: { items: Awaited<ReturnType<typeof loadHomeGallery>> }) {
+function HomeGallery({ items }: { items: ReturnType<typeof getHomeGallery> }) {
   const { locale } = useDocumentationGlobals();
   const ko = locale === "ko";
   return (

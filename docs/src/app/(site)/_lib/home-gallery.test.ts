@@ -38,10 +38,13 @@ test("the gallery retains resolved components when the example cache is replaced
   const module = new SourceTextModule(stripTypeScriptTypes(source), { context });
   await module.link((specifier) => (specifier.endsWith("/catalog") ? catalog : examples));
   await module.evaluate();
-  const { loadHomeGallery, preloadHome } = module.namespace as {
+  const { loadHomeGallery, getHomeGallery, preloadHome } = module.namespace as {
     loadHomeGallery(): Promise<Array<{ slug: string; Example: () => string }>>;
+    getHomeGallery(): Array<{ slug: string; Example: () => string }>;
     preloadHome(): Promise<null>;
   };
+
+  assert.throws(getHomeGallery, /must be preloaded/);
 
   const gallery = await loadHomeGallery();
   assert.deepEqual(
@@ -56,4 +59,11 @@ test("the gallery retains resolved components when the example cache is replaced
     ["card--AccountCreationForm", "calendar--Default", "other--Default"],
   );
   assert.equal(await preloadHome(), null);
+  const prepared = getHomeGallery();
+  for (const key of Object.keys(cache)) delete cache[key];
+  assert.equal(getHomeGallery(), prepared);
+  assert.deepEqual(
+    Array.from(prepared, (item) => item.Example()),
+    ["card--AccountCreationForm", "calendar--Default", "other--Default"],
+  );
 });
