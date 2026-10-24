@@ -55,5 +55,3 @@ Report detected, surviving, compile-invalid and unexecuted cases separately.
 Investigate survivors for missing branches and boundary inputs; document equivalent
 or non-behavioral mutations instead of chasing a 100% score. Passing tests and
 mutation checks do not establish that the requirements themselves are correct.
-
-Reference: [AI-generated tests and mutation testing](https://velog.io/@k-svelte-master/ai-generated-tests-mutation-testing).
