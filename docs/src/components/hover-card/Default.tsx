@@ -1,30 +1,24 @@
 import { Avatar, AvatarFallback } from "@bolerish/ui/avatar";
-import {
-  ContentRow,
-  ContentRowContent,
-  ContentRowDescription,
-  ContentRowMedia,
-  ContentRowTitle,
-} from "@bolerish/ui/content-row";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@bolerish/ui/hover-card";
+import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@bolerish/ui/item";
 export default function Default() {
   return (
     <HoverCard>
       <HoverCardTrigger href="#">@bolerish</HoverCardTrigger>
       <HoverCardContent align="start">
-        <ContentRow size="sm">
-          <ContentRowMedia variant="avatar">
+        <Item size="sm">
+          <ItemMedia variant="avatar">
             <Avatar>
               <AvatarFallback>CA</AvatarFallback>
             </Avatar>
-          </ContentRowMedia>
-          <ContentRowContent>
-            <ContentRowTitle>@bolerish/ui</ContentRowTitle>
-            <ContentRowDescription>
+          </ItemMedia>
+          <ItemContent>
+            <ItemTitle>@bolerish/ui</ItemTitle>
+            <ItemDescription>
               A calm, consistent design system for product experiences
-            </ContentRowDescription>
-          </ContentRowContent>
-        </ContentRow>
+            </ItemDescription>
+          </ItemContent>
+        </Item>
       </HoverCardContent>
     </HoverCard>
   );

@@ -11,8 +11,11 @@ import type { Card } from "./dist/card.js";
 import type { Carousel } from "./dist/carousel.js";
 import type { Checkbox } from "./dist/checkbox.js";
 import { gradient } from "./dist/gradient.js";
+// @ts-expect-error ContentRow types were removed with the public rename.
+import type { ContentRowProps } from "./dist/index.js";
 import type { InputOTP } from "./dist/input-otp.js";
 import type { Input } from "./dist/input.js";
+import type { Item } from "./dist/item.js";
 import type { Kbd } from "./dist/kbd.js";
 import type { Label } from "./dist/label.js";
 import type { Link } from "./dist/link.js";
@@ -29,6 +32,8 @@ import type { ToggleGroupItem } from "./dist/toggle-group.js";
 import type { Toggle } from "./dist/toggle.js";
 
 type Assert<Value extends true> = Value;
+export type ItemContract = Assert<HasStylingProps<ComponentProps<typeof Item>>>;
+export type RemovedContentRowContract = ContentRowProps;
 type HasStylingProps<Props> = "className" | "style" extends keyof Props ? true : false;
 type HasXstyle<Props> = "xstyle" extends keyof Props ? true : false;
 export type ButtonContract = Assert<HasStylingProps<ComponentProps<typeof Button>>>;

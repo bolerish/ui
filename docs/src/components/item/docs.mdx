@@ -8,7 +8,7 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <LocaleContent locale="ko">
 
-# Content Row
+# Item
 
 텍스트가 여러 줄이어도 목록의 제목·설명·미디어·행동을 일관되게 정렬할 수 있습니다.
 
@@ -16,7 +16,7 @@ import { ComponentPreview } from "../../documentation/ComponentPreview";
 
 <LocaleContent locale="en">
 
-# Content Row
+# Item
 
 Keep titles, descriptions, media, and actions aligned across a list even when text wraps.
 
@@ -24,7 +24,7 @@ Keep titles, descriptions, media, and actions aligned across a list even when te
 
 <LocalizedMarkdown text={"## Basic example"} />
 
-<ComponentPreview name="content-row--Default" source={DefaultSource} />
+<ComponentPreview name="item--Default" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
@@ -32,11 +32,11 @@ Keep titles, descriptions, media, and actions aligned across a list even when te
 
 ### 주요 속성
 
-| 속성                      | 기본값    | 값                            | 용도                                                  |
-| ------------------------- | --------- | ----------------------------- | ----------------------------------------------------- |
-| `variant`                 | `default` | `default`, `muted`, `outline` | 기본·약한 배경·윤곽으로 행을 구분합니다.              |
-| `size`                    | `default` | `default`, `sm`, `xs`         | 행의 여백과 최소 높이를 선택합니다.                   |
-| `ContentRowMedia.variant` | `icon`    | `icon`, `avatar`, `image`     | 앞쪽 미디어를 아이콘·아바타·이미지 크기로 배치합니다. |
+| 속성                | 기본값    | 값                            | 용도                                                  |
+| ------------------- | --------- | ----------------------------- | ----------------------------------------------------- |
+| `variant`           | `default` | `default`, `muted`, `outline` | 기본·약한 배경·윤곽으로 행을 구분합니다.              |
+| `size`              | `default` | `default`, `sm`, `xs`         | 행의 여백과 최소 높이를 선택합니다.                   |
+| `ItemMedia.variant` | `icon`    | `icon`, `avatar`, `image`     | 앞쪽 미디어를 아이콘·아바타·이미지 크기로 배치합니다. |
 
 항목을 하나씩 훑어보는 목록에 사용합니다. 행 사이에서 여러 속성을 비교한다면 `Table`을 사용합니다.
 
@@ -50,11 +50,11 @@ Keep titles, descriptions, media, and actions aligned across a list even when te
 
 ### Props
 
-| Prop                      | Default   | Values                        | Meaning                                            |
-| ------------------------- | --------- | ----------------------------- | -------------------------------------------------- |
-| `variant`                 | `default` | `default`, `muted`, `outline` | Default, muted background, or outlined row.        |
-| `size`                    | `default` | `default`, `sm`, `xs`         | Controls row spacing and minimum height.           |
-| `ContentRowMedia.variant` | `icon`    | `icon`, `avatar`, `image`     | Sizes leading media for an icon, avatar, or image. |
+| Prop                | Default   | Values                        | Meaning                                            |
+| ------------------- | --------- | ----------------------------- | -------------------------------------------------- |
+| `variant`           | `default` | `default`, `muted`, `outline` | Default, muted background, or outlined row.        |
+| `size`              | `default` | `default`, `sm`, `xs`         | Controls row spacing and minimum height.           |
+| `ItemMedia.variant` | `icon`    | `icon`, `avatar`, `image`     | Sizes leading media for an icon, avatar, or image. |
 
 Use it for items people scan individually. Use `Table` when comparing several attributes across rows.
 
@@ -72,7 +72,7 @@ Use it for items people scan individually. Use `Table` when comparing several at
   }
 />
 
-<ComponentPreview name="content-row--ActionAlignment" source={ActionAlignmentSource} />
+<ComponentPreview name="item--ActionAlignment" source={ActionAlignmentSource} />
 
 <LocalizedMarkdown text={"### Variants"} />
 
@@ -80,7 +80,7 @@ Use it for items people scan individually. Use `Table` when comparing several at
   text={"Choose a surface that fits the row’s grouping and emphasis in its parent layout."}
 />
 
-<ComponentPreview name="content-row--Variants" source={VariantsSource} />
+<ComponentPreview name="item--Variants" source={VariantsSource} />
 
 <LocalizedMarkdown text={"### Sizes"} />
 
@@ -88,4 +88,4 @@ Use it for items people scan individually. Use `Table` when comparing several at
   text={"Choose a row density that matches the amount of information in the list."}
 />
 
-<ComponentPreview name="content-row--Sizes" source={SizesSource} />
+<ComponentPreview name="item--Sizes" source={SizesSource} />

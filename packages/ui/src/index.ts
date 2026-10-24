@@ -141,20 +141,15 @@ export type { InputGroupProps } from "./input-group";
 export { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "./input-otp";
 export type { InputOTPProps } from "./input-otp";
 export {
-  ContentRow,
-  ContentRowActions,
-  ContentRowContent,
-  ContentRowDescription,
-  ContentRowGroup,
-  ContentRowMedia,
-  ContentRowTitle,
-} from "./content-row";
-export type {
-  ContentRowMediaProps,
-  ContentRowProps,
-  ContentRowSize,
-  ContentRowVariant,
-} from "./content-row";
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemMedia,
+  ItemTitle,
+} from "./item";
+export type { ItemMediaProps, ItemProps, ItemSize, ItemVariant } from "./item";
 export { Kbd, KbdGroup } from "./kbd";
 export { Label } from "./label";
 export type { LabelProps } from "./label";

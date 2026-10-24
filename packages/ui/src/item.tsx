@@ -5,6 +5,7 @@ import type { ComponentProps } from "react";
 import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { surfaceStyles } from "./styles/surface";
 import { typographyStyles } from "./typography";
 
 const styles = stylex.create({
@@ -78,28 +79,35 @@ const variantStyles = stylex.create({
   outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
 });
 
-export type ContentRowSize = "default" | "sm" | "xs";
-export type ContentRowVariant = "default" | "muted" | "outline";
+export type ItemSize = "default" | "sm" | "xs";
+export type ItemVariant = "default" | "muted" | "outline";
 
-export type ContentRowProps = StyledProps<ComponentProps<"div">> & {
-  size?: ContentRowSize;
-  variant?: ContentRowVariant;
+export type ItemProps = StyledProps<ComponentProps<"div">> & {
+  size?: ItemSize;
+  variant?: ItemVariant;
   xstyle?: stylex.StyleXStyles;
 };
 
-export function ContentRow({
+export function Item({
   className,
   style,
   size = "default",
   variant = "default",
   xstyle,
   ...props
-}: ContentRowProps) {
+}: ItemProps) {
   return (
     <div
       {...props}
       {...mergeStyles(
-        stylex.props(styles.root, sizeStyles[size], variantStyles[variant], xstyle),
+        stylex.props(
+          styles.root,
+          sizeStyles[size],
+          variantStyles[variant],
+          variant === "outline" && surfaceStyles.panel,
+          variant === "muted" && surfaceStyles.subtle,
+          xstyle,
+        ),
         className,
         style,
       )}
@@ -107,7 +115,7 @@ export function ContentRow({
   );
 }
 
-export function ContentRowGroup({
+export function ItemGroup({
   className,
   style,
   xstyle,
@@ -116,18 +124,18 @@ export function ContentRowGroup({
   return <div {...props} {...mergeStyles(stylex.props(styles.group, xstyle), className, style)} />;
 }
 
-export type ContentRowMediaProps = StyledProps<ComponentProps<"div">> & {
+export type ItemMediaProps = StyledProps<ComponentProps<"div">> & {
   variant?: "avatar" | "icon" | "image";
   xstyle?: stylex.StyleXStyles;
 };
 
-export function ContentRowMedia({
+export function ItemMedia({
   className,
   style,
   xstyle,
   variant = "icon",
   ...props
-}: ContentRowMediaProps) {
+}: ItemMediaProps) {
   return (
     <div
       {...props}
@@ -140,7 +148,7 @@ export function ContentRowMedia({
   );
 }
 
-export function ContentRowContent({
+export function ItemContent({
   className,
   style,
   xstyle,
@@ -151,7 +159,7 @@ export function ContentRowContent({
   );
 }
 
-export function ContentRowTitle({
+export function ItemTitle({
   className,
   style,
   xstyle,
@@ -165,7 +173,7 @@ export function ContentRowTitle({
   );
 }
 
-export function ContentRowDescription({
+export function ItemDescription({
   className,
   style,
   xstyle,
@@ -183,7 +191,7 @@ export function ContentRowDescription({
   );
 }
 
-export function ContentRowActions({
+export function ItemActions({
   className,
   style,
   xstyle,

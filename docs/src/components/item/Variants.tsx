@@ -1,5 +1,5 @@
 import { spacingVars, typo } from "@bolerish/tokens/semantic.stylex";
-import { ContentRow } from "@bolerish/ui/content-row";
+import { Item } from "@bolerish/ui/item";
 import * as stylex from "@stylexjs/stylex";
 const layout = stylex.create({
   preview: {
@@ -24,9 +24,9 @@ const layout = stylex.create({
 export default function Variants() {
   return (
     <div {...stylex.props(layout.preview, [layout.column, layout.componentWidth])}>
-      <ContentRow>Default row</ContentRow>
-      <ContentRow variant="muted">Muted row</ContentRow>
-      <ContentRow variant="outline">Outlined row</ContentRow>
+      <Item>Default row</Item>
+      <Item variant="muted">Muted row</Item>
+      <Item variant="outline">Outlined row</Item>
     </div>
   );
 }

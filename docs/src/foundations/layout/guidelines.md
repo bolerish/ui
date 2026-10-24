@@ -4,14 +4,14 @@ When layout expresses relationships, people can see what to read and where to ac
 
 ## Selection guidelines
 
-| Situation                                              | Recommended choice       | Code                         |
-| ------------------------------------------------------ | ------------------------ | ---------------------------- |
-| A row with a title, description, and supporting action | Content Row              | `<ContentRow>…</ContentRow>` |
-| An input with a name, description, and error           | `Field`                  | `<Field>…</Field>`           |
-| An independent information group                       | `Card`                   | `<Card>…</Card>`             |
-| Short contextual choices                               | `Popover`, Dropdown Menu | `<Popover>…</Popover>`       |
-| A focused task                                         | `Dialog`, `Drawer`       | `<Dialog>…</Dialog>`         |
-| Results and comparable values                          | `Table`                  | `<Table>…</Table>`           |
+| Situation                                              | Recommended choice       | Code                   |
+| ------------------------------------------------------ | ------------------------ | ---------------------- |
+| A row with a title, description, and supporting action | Item                     | `<Item>…</Item>`       |
+| An input with a name, description, and error           | `Field`                  | `<Field>…</Field>`     |
+| An independent information group                       | `Card`                   | `<Card>…</Card>`       |
+| Short contextual choices                               | `Popover`, Dropdown Menu | `<Popover>…</Popover>` |
+| A focused task                                         | `Dialog`, `Drawer`       | `<Dialog>…</Dialog>`   |
+| Results and comparable values                          | `Table`                  | `<Table>…</Table>`     |
 
 ### Width and spacing
 
@@ -24,7 +24,7 @@ and dialogs instead of stretching them into page-width tokens.
 
 ### First-line alignment
 
-Align Content Row titles and actions on their first baseline. Align `Checkbox` to the first title line when paired with `FieldContent`. A wrapping description should not require manual top or bottom padding.
+Align Item titles and actions on their first baseline. Align `Checkbox` to the first title line when paired with `FieldContent`. A wrapping description should not require manual top or bottom padding.
 
 ### Narrow screens
 
@@ -34,4 +34,4 @@ Move secondary actions to the next row or a related menu when space is limited. 
 
 ### Compose a file list
 
-Use Content Row to group a file name, modified time, and secondary action. Consider `Table` when people need to compare several values across items. The same data can need a different layout depending on whether the task is browsing or comparison.
+Use Item to group a file name, modified time, and secondary action. Consider `Table` when people need to compare several values across items. The same data can need a different layout depending on whether the task is browsing or comparison.

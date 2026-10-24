@@ -12,6 +12,26 @@ import { build } from "vite";
 const execFile = promisify(execFileCallback);
 const testDirectory = dirname(fileURLToPath(import.meta.url));
 
+test("Item is the public entry point and ContentRow has no compatibility export", async () => {
+  const entry = await import("@bolerish/ui/item");
+  const root = await import("./dist/index.js");
+  for (const name of [
+    "Item",
+    "ItemGroup",
+    "ItemMedia",
+    "ItemContent",
+    "ItemTitle",
+    "ItemDescription",
+    "ItemActions",
+  ]) {
+    assert.equal(typeof entry[name as keyof typeof entry], "function", name);
+    assert.equal(root[name as keyof typeof root], entry[name as keyof typeof entry]);
+  }
+  assert.equal("ContentRow" in root, false);
+  const removedPath = "@bolerish/ui/content-row";
+  await assert.rejects(import(removedPath), { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" });
+});
+
 test("package distribution has no source-copy CLI dependencies", async () => {
   const manifest = JSON.parse(await readFile(new URL("./package.json", import.meta.url), "utf8"));
   assert.equal(manifest.bin, undefined);

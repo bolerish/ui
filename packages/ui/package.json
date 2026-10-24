@@ -50,7 +50,7 @@
     "./input": "./dist/input.js",
     "./input-group": "./dist/input-group.js",
     "./input-otp": "./dist/input-otp.js",
-    "./content-row": "./dist/content-row.js",
+    "./item": "./dist/item.js",
     "./kbd": "./dist/kbd.js",
     "./label": "./dist/label.js",
     "./link": "./dist/link.js",
