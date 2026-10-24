@@ -12,6 +12,7 @@ import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
   carousel: {
     maxWidth: "25rem",
+    width: "calc(100% - 6rem)",
   },
   slide: {
     flexBasis: {

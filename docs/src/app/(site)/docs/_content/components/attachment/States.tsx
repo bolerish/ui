@@ -24,6 +24,7 @@ const layout = stylex.create({
   column: {
     alignItems: "stretch",
     flexDirection: "column",
+    flexWrap: "nowrap",
   },
   componentWidth: {
     maxWidth: "28rem",
