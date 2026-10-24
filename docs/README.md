@@ -8,6 +8,9 @@ Cloudflare Workers. From the repository root run `pnpm dev:docs` (port 3000) or
 locally. With preview running, `pnpm test:runtime` verifies every document,
 SSR settings, legacy links, missing pages and the client/server bundle boundary.
 Use `DOCS_URL` to check another local port. Run `pnpm deploy` to build and deploy with your Cloudflare account.
+Run `pnpm test:dev` from `docs/` to check the first SSR requests with an isolated,
+empty dependency cache. Markdown-only dependencies are optimized at startup in
+both client and SSR environments to avoid a React instance split on late discovery.
 The compatibility date is pinned to the installed local Workers runtime.
 For Cloudflare Workers Builds with the repository root as its working directory,
 use `pnpm build:docs` as the build command and
@@ -18,6 +21,9 @@ project at the workspace root.
 - `/` and `/ko`: English and Korean home pages with live component and block
   examples in a responsive, variable-height gallery. Each example has a title and documentation link; card height follows its content. There is no configuration sidebar.
   The first three examples render on the server; lower examples load near the viewport.
+  Cards keep their content height in CSS columns: three above 1200px, two through
+  1200px, and one through 760px. Reading order runs down each column; resizing
+  repositions the same elements and preserves example state.
 - `/docs/getting-started`, `/docs/components/$slug`, `/docs/foundations/$slug`, `/docs/patterns/$slug`:
   full-document SSR. English is the default; append `/ko` for Korean.
   The loader preloads MDX and its examples together before switching documents.

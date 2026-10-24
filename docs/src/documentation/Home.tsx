@@ -64,27 +64,21 @@ export function Home() {
           {ko ? "컴포넌트와 블록" : "Components & blocks"}
         </h2>
         <div className="gallery-grid">
-          {[0, 1, 2].map((column) => (
-            <div className="gallery-column" key={column}>
-              {items
-                .filter((_, index) => index % 3 === column)
-                .map((page) => (
-                  <article key={`${page.section}/${page.slug}`} className="gallery-item">
-                    <header>
-                      <h3>{page.title}</h3>
-                      <Link
-                        {...documentLink(page, locale)}
-                        search={{}}
-                        aria-label={`${page.title} ${ko ? "문서" : "documentation"}`}
-                      >
-                        {ko ? "문서" : "Docs"}
-                        <ArrowUpRightIcon aria-hidden="true" />
-                      </Link>
-                    </header>
-                    <GalleryExample name={page.example} initial={items.indexOf(page) < 3} />
-                  </article>
-                ))}
-            </div>
+          {items.map((page, index) => (
+            <article key={`${page.section}/${page.slug}`} className="gallery-item">
+              <header>
+                <h3>{page.title}</h3>
+                <Link
+                  {...documentLink(page, locale)}
+                  search={{}}
+                  aria-label={`${page.title} ${ko ? "문서" : "documentation"}`}
+                >
+                  {ko ? "문서" : "Docs"}
+                  <ArrowUpRightIcon aria-hidden="true" />
+                </Link>
+              </header>
+              <GalleryExample name={page.example} initial={index < 3} />
+            </article>
           ))}
         </div>
       </section>

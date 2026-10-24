@@ -47,7 +47,7 @@ body {
   white-space: nowrap;
 }
 .brand {
-  font-size: 19px;
+  font-size: 14px;
   text-decoration: none;
 }
 .brand span {
@@ -313,9 +313,6 @@ pre {
     padding-inline: 16px;
     gap: 8px;
   }
-  .brand {
-    font-size: 18px;
-  }
   .header-actions > .documentation-search {
     width: 32px;
   }
@@ -335,8 +332,8 @@ pre {
 
 .floating-preferences {
   position: fixed;
-  right: max(calc((100vw - 1440px) / 2 + 72px), 72px, env(safe-area-inset-right));
-  bottom: max(15dvh, env(safe-area-inset-bottom));
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
   z-index: 25;
 }
 .floating-preferences > button {
@@ -380,8 +377,8 @@ pre {
     display: none;
   }
   .floating-preferences {
-    right: max(32px, env(safe-area-inset-right));
-    bottom: max(32px, env(safe-area-inset-bottom));
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
   }
 }
 .preferences select {
@@ -480,8 +477,7 @@ pre {
   display: block;
 }
 .home {
-  max-width: 1240px;
-  margin: auto;
+  width: 100%;
   padding: 0 32px 96px;
 }
 .home-hero {
@@ -517,19 +513,20 @@ pre {
   margin: 0 0 24px;
 }
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  align-items: start;
+  columns: 3;
+  column-gap: 24px;
 }
-.gallery-column {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+@media (max-width: 1200px) {
+  .gallery-grid {
+    columns: 2;
+  }
 }
 
 .gallery-item {
+  break-inside: avoid;
+  margin-bottom: 32px;
   min-width: 0;
+  background: var(--docs-subtle);
   border: 1px solid var(--docs-border);
   border-radius: 12px;
 }
@@ -587,7 +584,7 @@ pre {
     font-size: 18px;
   }
   .gallery-grid {
-    grid-template-columns: minmax(0, 1fr);
+    columns: 1;
   }
 }
 
