@@ -1,5 +1,28 @@
 # @bolerish/ui
 
+## 0.14.0
+
+### Minor Changes
+
+- 8101da7: Select a shared surface treatment with `data-bolerish-surface="solid"` or
+  `"liquid"` on `html` or a containing element. Panels, resting controls and
+  floating surfaces use role-specific transparency, blur and highlights while
+  component variants and semantic state colors remain independent. Apply the
+  attribute to `html` for portaled content; a nested `solid` scope can opt out.
+
+  Omitting the attribute preserves the existing appearance, including
+  `Card variant="translucent"`. Reduced transparency, forced colors and browsers
+  without the required CSS features retain solid fallbacks.
+- 25bf1ce: Rename ContentRow to Item throughout the public API. Import from
+  `@bolerish/ui/item` and use `Item`, `ItemGroup`, `ItemMedia`, `ItemContent`,
+  `ItemTitle`, `ItemDescription`, `ItemActions` and the corresponding Item types.
+  The former `content-row` entry point and all ContentRow exports are removed;
+  no compatibility aliases remain. Layout and interaction behavior are unchanged.
+
+### Patch Changes
+
+- @bolerish/tokens@0.14.0
+
 ## 0.13.0
 
 ### Minor Changes
