@@ -83,6 +83,8 @@ The home loader and initial router hydration prepare the same component referenc
 Render the resolved gallery directly; wrapping it in another lazy/Suspense boundary
 can replace prerendered content during startup. Other document entries do not
 preload home examples. A failed preparation uses the existing route retry UI.
+The gallery retains the original preparation error so initial hydration does not
+replace a failed module download with a generic missing-preload error.
 
 ## Generated files and checks
 

@@ -29,13 +29,21 @@ export async function loadHomeGallery() {
   );
 }
 let gallery: Awaited<ReturnType<typeof loadHomeGallery>> | undefined;
+let failure: { reason: unknown } | undefined;
 
 export function getHomeGallery() {
+  if (failure) throw failure.reason;
   if (!gallery) throw new Error("Home gallery must be preloaded before rendering.");
   return gallery;
 }
 
 export async function preloadHome() {
-  gallery = await loadHomeGallery();
+  try {
+    gallery = await loadHomeGallery();
+    failure = undefined;
+  } catch (reason) {
+    failure = { reason };
+    throw reason;
+  }
   return null;
 }

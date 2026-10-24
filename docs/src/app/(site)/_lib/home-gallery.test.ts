@@ -4,11 +4,12 @@ import { stripTypeScriptTypes } from "node:module";
 import test from "node:test";
 import { createContext, SourceTextModule, SyntheticModule } from "node:vm";
 
-test("the gallery retains resolved components when the example cache is replaced", async () => {
+test("the gallery preserves load errors and retains resolved component references", async () => {
   const context = createContext({});
   const names = ["other--Default", "calendar--Default", "card--AccountCreationForm"];
   const cache: Record<string, () => string> = {};
   const calls: string[] = [];
+  let failure: Error | undefined;
   const catalog = new SyntheticModule(
     ["catalog"],
     function () {
@@ -27,6 +28,7 @@ test("the gallery retains resolved components when the example cache is replaced
       this.setExport("examples", Object.fromEntries(names.map((name) => [name, () => name])));
       this.setExport("loadExample", async (name: string) => {
         calls.push(name);
+        if (failure) throw failure;
         const component = () => name;
         cache[name] = component;
         return { default: component };
@@ -45,6 +47,13 @@ test("the gallery retains resolved components when the example cache is replaced
   };
 
   assert.throws(getHomeGallery, /must be preloaded/);
+
+  const downloadError = new TypeError("Importing a module script failed.");
+  failure = downloadError;
+  await assert.rejects(preloadHome, (error) => error === downloadError);
+  assert.throws(getHomeGallery, (error) => error === downloadError);
+  failure = undefined;
+  calls.length = 0;
 
   const gallery = await loadHomeGallery();
   assert.deepEqual(
