@@ -28,7 +28,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm test
-      - run: pnpm --filter @bolerish/ui exec playwright install --with-deps chromium
+      - run: pnpm --filter @bolerish/ui exec playwright install --with-deps chromium webkit
       - run: pnpm --filter @bolerish/ui test:browser
       - name: Upload browser and axe reports
         if: always()
@@ -39,6 +39,15 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
       - run: pnpm build:docs
+      - run: pnpm --filter @bolerish/docs test:browser
+      - name: Upload responsive layout reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: docs-responsive-layout
+          path: docs/playwright-report
+          if-no-files-found: ignore
+          retention-days: 7
       - run: pnpm --filter @bolerish/docs test:static
       - name: Verify static HTTP contracts
         run: |

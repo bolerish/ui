@@ -92,9 +92,19 @@ pnpm check
 pnpm --filter @bolerish/docs test:agent
 pnpm --filter @bolerish/docs test:static
 pnpm --filter @bolerish/docs test:dev
+pnpm --filter @bolerish/docs exec playwright install chromium webkit
+pnpm build:docs
+pnpm --filter @bolerish/docs test:browser
 ```
 
 After starting the built preview, run `pnpm --filter @bolerish/docs test:runtime`.
 Set `DOCS_URL` for another local port or deployment. The workspace Foundations
 lint runs on docs TS/TSX with `pnpm --filter @bolerish/docs lint`; see the
 [lint guide](https://ui.bolerish.com/docs/lint) for rules and exceptions.
+
+Browser layout checks derive routes from the search index and visit every page
+at 320, 390, 768, 1024 and 1440 CSS pixels in both languages and color modes.
+They check page/preview overflow, header controls, readable table headers and
+code-copy separation. Focused mobile interactions also run in WebKit. CI saves
+layout reports and failure screenshots; these checks do not replace physical
+device or assistive-technology testing.
