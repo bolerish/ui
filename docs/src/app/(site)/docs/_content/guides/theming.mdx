@@ -126,34 +126,6 @@ Liquid는 CSS 투명도·배경 블러에 밝은 가장자리와 안쪽 반사�
 
 <LocaleContent locale="en">
 
-## Ocean brand theme
-
-`themeClassNames.ocean` is a precompiled light brand treatment. Primary actions, action text and focus use blue; feedback and other semantic roles retain their defaults. Replace the previous theme on `html`. It does not automatically switch to a dark brand theme.
-
-The preview scopes Ocean to inline content. In an app, apply it to the document root so portaled dialogs, menus and notifications inherit the same tokens.
-
-</LocaleContent>
-
-<LocaleContent locale="ko">
-
-## Ocean 브랜드 테마
-
-`themeClassNames.ocean`은 미리 컴파일된 라이트 계열 브랜드 테마입니다. 주요 행동·행동 문구·포커스는 파란색을 사용하고 피드백과 나머지 의미 역할은 기본값을 유지합니다. `html`의 이전 테마를 교체하며 어두운 브랜드 테마로 자동 전환하지는 않습니다.
-
-미리보기는 내부 콘텐츠에만 Ocean을 적용합니다. 앱에서는 포털로 렌더링하는 대화상자·메뉴·알림도 같은 토큰을 받도록 문서 루트에 적용하세요.
-
-</LocaleContent>
-
-```tsx
-import { themeClassNames } from "@bolerish/ui/theme";
-
-<html className={themeClassNames.ocean}>
-  <body>{children}</body>
-</html>;
-```
-
-<LocaleContent locale="en">
-
 ## Create a brand theme
 
 Custom themes require a StyleX compiler; shipped `themeClassNames` do not. Install the runtime and tokens as app dependencies, and the Vite integration as a development dependency. Keep versions compatible with the installed UI package.

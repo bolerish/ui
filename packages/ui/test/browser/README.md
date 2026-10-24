@@ -18,9 +18,6 @@ example-owned styles. It supplies document language/title and a main landmark.
 - Opened state as well: AlertDialog, Dialog, Drawer (default down direction),
   Popover, Select, Combobox (matching results), DropdownMenu, ContextMenu,
   Menubar, NavigationMenu, DatePicker, Tooltip, HoverCard and Toast.
-- Ocean: Button, Card, Input, Checkbox, Tabs, Select, Dialog and Toast, including
-  the relevant opened states. The brand guide's actual precompiled/custom
-  examples also receive axe checks and computed-color assertions.
 - Tags: `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`, `wcag22aa`.
   All violations in this scope fail; no rule is globally disabled.
 - Exception: only `[data-base-ui-focus-guard]` is excluded from axe. These hidden

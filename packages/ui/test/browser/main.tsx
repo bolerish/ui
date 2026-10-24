@@ -1,7 +1,5 @@
 import { createRoot } from "react-dom/client";
 
-import BrandThemeExample from "../../../../docs/src/app/(site)/docs/_content/foundations/color/BrandThemeExample";
-import CustomThemeExample from "../../../../docs/src/app/(site)/docs/_content/foundations/color/CustomThemeExample";
 import { Button } from "../../dist/button.js";
 import { Card, CardContent, CardDescription } from "../../dist/card.js";
 import {
@@ -51,9 +49,7 @@ import "../../dist/global.css";
 const params = new URLSearchParams(location.search);
 const fixture = params.get("fixture");
 document.documentElement.className =
-  themeClassNames[
-    params.get("theme") === "ocean" ? "ocean" : params.get("theme") === "dark" ? "dark" : "light"
-  ];
+  themeClassNames[params.get("theme") === "dark" ? "dark" : "light"];
 document.documentElement.dataset.bolerishMotion = "off";
 if (params.has("surface"))
   document.documentElement.dataset.bolerishSurface = params.get("surface")!;
@@ -112,14 +108,6 @@ function DialogExample() {
   );
 }
 function App() {
-  if (fixture === "brand")
-    return (
-      <main>
-        <h1>Brand theme</h1>
-        <BrandThemeExample />
-        <CustomThemeExample />
-      </main>
-    );
   if (fixture === "documentation") return <DocumentationExample name={params.get("example")!} />;
   if (fixture === "select") return <SelectExample />;
   if (fixture === "combobox") return <ComboboxExample />;

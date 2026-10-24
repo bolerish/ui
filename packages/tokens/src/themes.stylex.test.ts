@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { themes, defaults, rgba, composite, contrast } from "./themes.test-utils.ts";
 
-for (const mode of ["light", "dark", "ocean"]) {
+for (const mode of ["light", "dark"]) {
   test(`${mode}: readable text and action labels survive state layers`, () => {
     const theme = { ...defaults, ...themes[`${mode}ColorTheme`] };
     const canvas = rgba(theme.bgCanvas);
@@ -64,7 +64,7 @@ for (const mode of ["light", "dark", "ocean"]) {
   });
 }
 
-for (const mode of ["light", "dark", "ocean"]) {
+for (const mode of ["light", "dark"]) {
   test(`${mode}: translucent navigation surfaces retain readable text`, () => {
     const theme = { ...defaults, ...themes[`${mode}ColorTheme`] };
     for (const surface of ["bgSurface", "bgRaised"]) {
@@ -87,19 +87,4 @@ for (const mode of ["light", "dark", "ocean"]) {
 test("default color map exactly matches the explicit light theme", () => {
   assert.deepEqual(Object.keys(defaults).sort(), Object.keys(themes.lightColorTheme).sort());
   assert.deepEqual(defaults, themes.lightColorTheme);
-});
-
-test("Ocean changes only its documented brand roles", () => {
-  const changed = new Set([
-    "bgActionPrimary",
-    "bgActionPrimaryHover",
-    "fgAction",
-    "strokeAction",
-    "strokeFocus",
-    "interactionFocus",
-  ]);
-  assert.deepEqual(Object.keys(themes.oceanColorTheme).sort(), Object.keys(defaults).sort());
-  for (const key of Object.keys(defaults)) {
-    if (!changed.has(key)) assert.equal(themes.oceanColorTheme[key], defaults[key], key);
-  }
 });

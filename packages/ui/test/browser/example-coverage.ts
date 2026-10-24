@@ -85,17 +85,6 @@ export const openedExamples = {
   toast: { action: "click", name: "Save", target: "[data-bolerish-toast-root]" },
 } as const;
 
-export const brandExamples = [
-  "button",
-  "card",
-  "input",
-  "checkbox",
-  "tabs",
-  "select",
-  "dialog",
-  "toast",
-] as const;
-
 // Focus sentinels are deliberately aria-hidden and immediately redirect focus.
 export const excludedAuditNodes = [
   {

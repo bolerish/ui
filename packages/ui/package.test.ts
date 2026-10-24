@@ -169,7 +169,7 @@ test("package consumers build components and both themes without a StyleX plugin
     assert.equal(styles[0].type, "asset");
     const css = String(styles[0].source);
     const { themeClassNames } = await import("./dist/theme.js");
-    for (const mode of ["light", "dark", "ocean"] as const) {
+    for (const mode of ["light", "dark"] as const) {
       assert.ok(themeClassNames[mode].length > 0);
       const rules = themeClassNames[mode].split(" ").filter((name) => css.includes(`.${name}`));
       assert.ok(rules.length >= 2, `${mode} must include both color and shadow theme rules`);

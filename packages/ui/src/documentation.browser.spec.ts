@@ -7,7 +7,6 @@ import {
   defaultExamples,
   excludedExamples,
   excludedAuditNodes,
-  brandExamples,
   openedExamples,
 } from "../test/browser/example-coverage";
 
@@ -27,7 +26,6 @@ test("all documented Default examples have an explicit audit decision", async ()
       {
         defaultExamples,
         themes: ["light", "dark"],
-        brandExamples,
         openedExamples,
         excludedExamples,
         excludedAuditNodes,
@@ -39,9 +37,8 @@ test("all documented Default examples have an explicit audit decision", async ()
   });
 });
 
-for (const theme of ["light", "dark", "ocean"]) {
+for (const theme of ["light", "dark"]) {
   for (const name of defaultExamples) {
-    if (theme === "ocean" && !brandExamples.some((example) => example === name)) continue;
     test(`Default ${name} / ${theme}: WCAG axe`, async ({ page }) => {
       await page.goto(`/?fixture=documentation&example=${name}&theme=${theme}`);
       await expect(page.getByTestId("documentation-example")).toBeVisible();
@@ -92,19 +89,3 @@ for (const theme of ["light", "dark", "ocean"]) {
     });
   }
 }
-
-test("brand guide compiles custom StyleX theme and exposes precompiled Ocean", async ({ page }) => {
-  await page.goto("/?fixture=brand");
-  await expect(page.getByRole("button", { name: "Save workspace" })).toHaveCSS(
-    "background-color",
-    "rgb(0, 69, 140)",
-  );
-  await expect(page.getByRole("button", { name: "Custom brand action" })).toHaveCSS(
-    "background-color",
-    "rgb(0, 69, 140)",
-  );
-  const results = await new AxeBuilder({ page })
-    .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
-    .analyze();
-  expect(results.violations).toEqual([]);
-});
