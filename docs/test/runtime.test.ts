@@ -94,6 +94,10 @@ test("localized home gallery and canonical redirects", async () => {
     assert.match(html, /Create account/);
     assert.equal((html.match(/<header><h3>/g) ?? []).length, 57);
     assert.doesNotMatch(html, /<iframe/);
+    assert.doesNotMatch(html, /gallery-placeholder|Could not load this page/);
+    const previews = html.match(/<div class="gallery-preview" lang="en">/g) ?? [];
+    assert.equal(previews.length, 57, "every example must render on the initial SSR response");
+    assert.doesNotMatch(html, /<div class="gallery-preview" lang="en"><\/div>/);
   }
   for (const path of [
     "/docs/getting-started",
@@ -112,6 +116,32 @@ test("localized home gallery and canonical redirects", async () => {
   assert.equal(redirect.headers.get("location"), "/docs/components/button/ko?colorMode=dark");
   for (const path of ["/docs/components/button/kr", "/docs/getting-started/fr"])
     assert.equal((await fetch(`${base}${path}`)).status, 404);
+});
+
+test("guides render in both languages and keep internal links localized", async () => {
+  for (const [slug, english, korean] of [
+    ["getting-started", "Introduction", "소개"],
+    ["installation", "Installation", "설치"],
+    ["theming", "Theming", "테마"],
+    ["styling", "Styling", "스타일링"],
+    ["changelog", "Changelog", "변경 기록"],
+  ]) {
+    for (const [suffix, title] of [
+      ["", english],
+      ["/ko", korean],
+    ]) {
+      const response = await fetch(`${base}/docs/${slug}${suffix}`);
+      assert.equal(response.status, 200, `${slug}${suffix}`);
+      const html = await response.text();
+      assert.match(html, new RegExp(`<h1[^>]*>${title}</h1>`));
+      assert.match(html, new RegExp(`href="/docs/installation${suffix}"`));
+      assert.match(html, new RegExp(`href="/docs/theming${suffix}"`));
+      assert.match(html, new RegExp(`href="/docs/styling${suffix}"`));
+      assert.doesNotMatch(html, /Could not load this page/);
+    }
+  }
+  for (const path of ["/docs/not-a-guide", "/docs/theming/fr"])
+    assert.equal((await fetch(`${base}${path}`)).status, 404, path);
 });
 
 test("previous short URLs redirect to the docs hierarchy", async () => {

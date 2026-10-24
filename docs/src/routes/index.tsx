@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { Home, preloadHome } from "../documentation/Home";
+import { Home } from "../documentation/Home";
+import { preloadHome } from "../documentation/home-gallery";
 export const Route = createFileRoute("/")({
   ssr: true,
   loader: preloadHome,

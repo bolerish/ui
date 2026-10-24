@@ -20,11 +20,15 @@ project at the workspace root.
 
 - `/` and `/ko`: English and Korean home pages with live component and block
   examples in a responsive, variable-height gallery. Each example has a title and documentation link; card height follows its content. There is no configuration sidebar.
-  The first three examples render on the server; lower examples load near the viewport.
+  The loader prepares all 57 examples together before rendering on the server or
+  navigating on the client, so scrolling does not introduce new card heights.
   Cards keep their content height in CSS columns: three above 1200px, two through
   1200px, and one through 760px. Reading order runs down each column; resizing
   repositions the same elements and preserves example state.
-- `/docs/getting-started`, `/docs/components/$slug`, `/docs/foundations/$slug`, `/docs/patterns/$slug`:
+- `/docs/getting-started` (Introduction), `/docs/installation`, `/docs/theming`,
+  `/docs/styling`, `/docs/changelog`: package guides with English and `/ko` pages.
+  Explicit Korean guide routes avoid collisions with the section/slug routes.
+- `/docs/components/$slug`, `/docs/foundations/$slug`, `/docs/patterns/$slug`:
   full-document SSR. English is the default; append `/ko` for Korean.
   The loader preloads MDX and its examples together before switching documents.
   Intent preloads and a five-minute cache avoid repeated cold loads.
@@ -35,6 +39,12 @@ project at the workspace root.
 
 The generated `src/routeTree.gen.ts` is committed and excluded from lint/format.
 Run the dev server or build after changing route files.
+
+Keep route loaders and import caches in `documents.ts` and `home-gallery.ts`.
+React screen modules export components only; the Markdown component map lives
+in `components.ts` and references named renderers in `MarkdownElements.tsx`.
+Gallery entries retain their resolved components instead of reading a mutable
+example cache during rendering, including after development hot updates.
 
 Theme, motion and density are validated and saved in a cookie for SSR and client
 navigation. Changing controls does not add preferences to the URL. Explicit URL

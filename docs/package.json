@@ -9,7 +9,7 @@
     "dev": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && vite --port 3000",
     "lint": "pnpm --filter @bolerish/eslint-plugin-ui build && pnpm --workspace-root exec oxlint docs/src",
     "preview": "vite preview --port 3000",
-    "test:agent": "node --experimental-strip-types scripts/build-guidelines.ts --check && node --experimental-strip-types --test scripts/build-guidelines.test.ts src/documentation/settings.test.ts src/documentation/paths.test.ts src/documentation/catalog.test.ts src/foundations/guidelines.test.ts src/documentation/table-headers.test.ts",
+    "test:agent": "node --experimental-strip-types scripts/build-guidelines.ts --check && node --experimental-strip-types --experimental-vm-modules --test scripts/build-guidelines.test.ts src/documentation/settings.test.ts src/documentation/paths.test.ts src/documentation/catalog.test.ts src/foundations/guidelines.test.ts src/documentation/table-headers.test.ts src/documentation/home-gallery.test.ts",
     "test:dev": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && node --experimental-strip-types --test test/dev.test.ts",
     "test:runtime": "node --experimental-strip-types --test test/runtime.test.ts",
     "typecheck": "pnpm --filter @bolerish/ui build && tsc --noEmit"
