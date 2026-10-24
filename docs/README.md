@@ -114,3 +114,8 @@ They check page/preview overflow, header controls, readable table headers and
 code-copy separation. Focused mobile interactions also run in WebKit. CI saves
 layout reports and failure screenshots; these checks do not replace physical
 device or assistive-technology testing.
+
+Browser tests use Playwright 1.63.0 because 1.64.1 has a
+[Linux WebKit backdrop-filter regression](https://github.com/microsoft/playwright/issues/43426)
+that stalls Liquid surfaces. Keep the docs and UI test versions aligned until a
+stable release fixes the regression, including overlapping filtered elements.

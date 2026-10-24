@@ -102,7 +102,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
-    "@playwright/test": "1.64.1",
+    "@playwright/test": "1.63.0",
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",
     "@types/node": "catalog:2026-08-27-stable",
     "@types/react": "catalog:2026-08-27-stable",
