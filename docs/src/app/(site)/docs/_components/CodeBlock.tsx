@@ -17,6 +17,9 @@ import { useDocumentationGlobals } from "@/shared/model/useDocumentationGlobals"
 
 const styles = stylex.create({
   root: {
+    display: "grid",
+    gridTemplateColumns: "minmax(0, 1fr) auto",
+    minWidth: 0,
     backgroundColor: colorVars.bgSubtle,
     borderColor: colorVars.strokeDefault,
     borderStyle: "solid",
@@ -30,14 +33,18 @@ const styles = stylex.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
-    position: "absolute",
-    top: spacingVars.space2,
-    right: spacingVars.space2,
+    alignSelf: "start",
+    gridColumn: 2,
+    gridRow: 1,
+    paddingBlock: spacingVars.space2,
+    paddingInlineEnd: spacingVars.space2,
     gap: spacingVars.space2,
   },
   content: {
     padding: spacingVars.space4,
-    paddingRight: spacingVars.space12,
+    minWidth: 0,
+    gridColumn: 1,
+    gridRow: 1,
     fontSize: typo.fontSizeSm,
     lineHeight: typo.lineHeightNormal,
     overflowX: "auto",

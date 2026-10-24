@@ -25,7 +25,7 @@ const styles = stylex.create({
     gap: spacingVars.space3,
     justifyContent: "center",
     lineHeight: typo.lineHeightNormal,
-    padding: spacingVars.space6,
+    padding: { default: spacingVars.space6, "@media (max-width: 760px)": spacingVars.space3 },
     minHeight: "100%",
   },
   frame: { borderWidth: 0, display: "block", height: "100%", width: "100%" },

@@ -79,20 +79,29 @@ const styles = stylex.create({
   unordered: { listStyleType: "disc" },
   item: { marginBlock: spacingVars.space2 },
   link: { color: colorVars.fgAction, textDecoration: "underline", textUnderlineOffset: "0.2em" },
-  scroll: { overflowX: "auto", marginBlock: spacingVars.space4 },
+  scroll: {
+    overflowX: "auto",
+    maxWidth: "100%",
+    marginBlock: spacingVars.space4,
+    ":focus-visible": {
+      outlineColor: colorVars.strokeFocus,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
+    },
+  },
   table: {
     borderCollapse: "collapse",
     width: "100%",
+    minWidth: sizeVars.contentMd,
     fontSize: typo.fontSizeSm,
     lineHeight: typo.lineHeightNormal,
   },
-  selectionTable: { tableLayout: "fixed" },
-  propsTable: { minWidth: "44rem", "--docs-table-header-wrap": "nowrap" },
+  propsTable: { minWidth: "44rem" },
   situationColumn: { width: "30%" },
   choiceColumn: { width: "30%" },
   codeColumn: { width: "40%" },
   cell: {
-    overflowWrap: "anywhere",
+    overflowWrap: "normal",
     color: colorVars.fgPrimary,
     paddingBlock: spacingVars.space3,
     paddingInline: spacingVars.space3,
@@ -102,7 +111,7 @@ const styles = stylex.create({
   th: {
     backgroundColor: colorVars.bgSubtle,
     fontWeight: typo.fontWeightSemibold,
-    whiteSpace: "var(--docs-table-header-wrap, normal)",
+    whiteSpace: "nowrap",
   },
   code: {
     whiteSpace: "nowrap",
@@ -166,6 +175,7 @@ export const MarkdownA: Components["a"] = ({ node: _node, children, ...props }) 
 );
 
 export const MarkdownTable: Components["table"] = ({ node: _node, children, ...props }) => {
+  const locale = useLocale();
   const headers = tableHeaders(children);
   const isSelectionTable =
     headers.join("|") === "사용 상황|권장 선택|적용 코드" ||
@@ -175,15 +185,13 @@ export const MarkdownTable: Components["table"] = ({ node: _node, children, ...p
     headers.join("|") === "Prop|Default|Values|Meaning";
 
   return (
-    <div {...stylex.props(styles.scroll)}>
-      <table
-        {...props}
-        {...stylex.props(
-          styles.table,
-          isSelectionTable && styles.selectionTable,
-          isPropsTable && styles.propsTable,
-        )}
-      >
+    <section
+      aria-label={locale === "ko" ? "문서 표" : "Documentation table"}
+      // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Keyboard users need to scroll wide tables.
+      tabIndex={0}
+      {...stylex.props(styles.scroll)}
+    >
+      <table {...props} {...stylex.props(styles.table, isPropsTable && styles.propsTable)}>
         {isSelectionTable ? (
           <colgroup>
             <col {...stylex.props(styles.situationColumn)} />
@@ -193,7 +201,7 @@ export const MarkdownTable: Components["table"] = ({ node: _node, children, ...p
         ) : null}
         {children}
       </table>
-    </div>
+    </section>
   );
 };
 
