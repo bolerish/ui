@@ -69,6 +69,10 @@ export const Route = createRootRoute({
       { title: "bolerish/ui" },
     ],
     links: [
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon/favicon-32x32.png" },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon/favicon-16x16.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/favicon/apple-touch-icon.png" },
+      { rel: "manifest", href: "/favicon/site.webmanifest" },
       { rel: "stylesheet", href: stylesheet },
       ...(import.meta.env.DEV ? [{ rel: "stylesheet", href: "/virtual:stylex.css" }] : []),
     ],
