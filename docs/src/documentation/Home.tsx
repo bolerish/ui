@@ -1,5 +1,4 @@
 import { Button } from "@bolerish/ui/button";
-import { Skeleton } from "@bolerish/ui/skeleton";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { Suspense, useEffect, useRef, useState } from "react";
@@ -106,11 +105,11 @@ function GalleryExample({ name, initial }: { name: string; initial: boolean }) {
   return (
     <div ref={root} className="gallery-preview" lang="en">
       {visible ? (
-        <Suspense fallback={<Skeleton className="gallery-placeholder" />}>
+        <Suspense fallback={<div className="gallery-placeholder" aria-hidden="true" />}>
           <Example />
         </Suspense>
       ) : (
-        <Skeleton className="gallery-placeholder" />
+        <div className="gallery-placeholder" aria-hidden="true" />
       )}
     </div>
   );
