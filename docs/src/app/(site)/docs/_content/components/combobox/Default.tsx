@@ -17,8 +17,8 @@ export default function Default() {
       <Combobox items={frameworks}>
         <ComboboxInput placeholder="Search frameworks" />
         <ComboboxPopup>
+          <ComboboxEmpty>No matching frameworks.</ComboboxEmpty>
           <ComboboxList>
-            <ComboboxEmpty>No matching frameworks.</ComboboxEmpty>
             <ComboboxCollection>
               {(framework: string) => (
                 <ComboboxItem key={framework} value={framework}>

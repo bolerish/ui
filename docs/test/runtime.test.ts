@@ -153,7 +153,8 @@ test("guides render in both languages and keep internal links localized", async 
       if (slug === "lint") {
         assert.match(html, new RegExp(`href="/docs/lint${suffix}"`));
         assert.match(html, /bolerish-ui\/spacing-tokens/);
-        assert.match(html, suffix ? /비공개/ : /private/);
+        assert.match(html, suffix ? /개발 의존성/ : /development dependency/);
+        assert.doesNotMatch(html, /private and not published|비공개이며 npm에/);
         assert.match(html, /ESLint/);
         assert.match(html, /Oxlint/);
       }

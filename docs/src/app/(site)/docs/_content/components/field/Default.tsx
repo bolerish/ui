@@ -34,9 +34,11 @@ export default function Default() {
           <FieldError>The card number is incomplete.</FieldError>
         </Field>
         <Field orientation="horizontal">
-          <Checkbox id="billing-address" defaultChecked />
+          <Checkbox id="billing-address" aria-labelledby="billing-address-label" defaultChecked />
           <FieldContent>
-            <FieldTitle>Billing address is the same as shipping address.</FieldTitle>
+            <FieldTitle id="billing-address-label">
+              Billing address is the same as shipping address.
+            </FieldTitle>
             <FieldDescription>
               Clear this option to use a different billing address.
             </FieldDescription>

@@ -38,6 +38,7 @@ for (const section of ["guides", "components", "foundations", "patterns"]) {
 
 export default defineConfig({
   server: { port: 3000 },
+  preview: { host: "127.0.0.1" },
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
     dedupe: ["react", "react-dom", "@stylexjs/stylex"],
@@ -66,7 +67,7 @@ export default defineConfig({
       }),
       enforce: "pre",
     },
-    stylex({ useCSSLayers: true, babelConfig: { plugins: [reactCompiler] } } as Parameters<
+    stylex({ useCSSLayers: false, babelConfig: { plugins: [reactCompiler] } } as Parameters<
       typeof stylex
     >[0]),
     tanstackStart({

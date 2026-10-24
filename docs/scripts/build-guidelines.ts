@@ -52,7 +52,7 @@ for (const file of guides) {
   const slug = file.slice(0, -4);
   const content = await readFile(new URL(file, guideSource), "utf8");
   for (const locale of ["en", "ko"] as const) {
-    const markdown = guideMarkdown(content, locale);
+    const markdown = guideMarkdown(content, locale, file);
     const name = `${slug}${locale === "en" ? ".en" : ""}.md`;
     await emitFile(new URL(name, guideOutput), markdown);
     if (locale === "en") {
@@ -125,6 +125,7 @@ for (const locale of ["ko", "en"]) {
     const content = guideMarkdown(
       await readFile(new URL(file, guideSource), "utf8"),
       locale as "en" | "ko",
+      file,
     );
     search.push({
       section: "guide",

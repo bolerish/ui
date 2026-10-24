@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@bolerish/ui/tabs";
 export default function Default() {
   return (
     <Tabs defaultValue="overview">
-      <TabsList>
+      <TabsList aria-label="Project sections">
         <TabsTrigger value="overview">Overview</TabsTrigger>
         <TabsTrigger value="analytics">Analytics</TabsTrigger>
         <TabsTrigger value="reports">Reports</TabsTrigger>
@@ -18,6 +18,9 @@ export default function Default() {
           <CardContent>You have 12 active projects and 3 pending tasks.</CardContent>
         </Card>
       </TabsContent>
+      <TabsContent value="analytics">Review project analytics.</TabsContent>
+      <TabsContent value="reports">Download project reports.</TabsContent>
+      <TabsContent value="settings">Manage project settings.</TabsContent>
     </Tabs>
   );
 }

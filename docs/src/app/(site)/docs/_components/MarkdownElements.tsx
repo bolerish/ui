@@ -17,6 +17,7 @@ import { tableHeaders } from "@/shared/lib/table-headers";
 import { useLocale } from "@/shared/model/locale";
 
 import { CodeBlock } from "./CodeBlock";
+import { InstallCommands } from "./InstallCommands";
 
 function DocumentationLink({ href, children, ...props }: ComponentProps<"a">) {
   const locale = useLocale();
@@ -216,6 +217,8 @@ export const MarkdownPre: Components["pre"] = ({ children }) => {
   if (!isValidElement<{ children?: ReactNode; className?: string }>(children))
     return <pre>{children}</pre>;
   const code = String(children.props.children ?? "").trimEnd();
+  if (children.props.className === "language-package-install")
+    return <InstallCommands code={code} />;
   const languages: Record<string, "tsx" | "json" | "bash"> = {
     "language-tsx": "tsx",
     "language-json": "json",
