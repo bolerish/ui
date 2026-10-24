@@ -37,7 +37,7 @@ export const colorVars = stylex.defineVars({
   fgFeedbackSuccess: colorPalette.greenFeedback,
   fgFeedbackWarning: colorPalette.yellowFeedback,
   fgFeedbackError: colorPalette.redFeedback,
-  strokeDefault: colorPalette.alphaBlack6,
+  strokeDefault: colorPalette.alphaBlack10,
   /** Emphasized grouping boundary, including menu separators. */
   strokeControl: colorPalette.neutral450,
   strokeStrong: colorPalette.steel,

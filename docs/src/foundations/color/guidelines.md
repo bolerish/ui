@@ -98,8 +98,8 @@ See [Card](/docs/components/card) for the example and its scope.
 
 ## Soft surface boundaries
 
-Decorative boundaries across components use `strokeDefault` directly: black at 6%
-in light mode and white at 5% in dark mode. Do not reduce its opacity again.
+Decorative boundaries across components use `strokeDefault` directly: black at 10%
+in light mode and white at 12% in dark mode. Do not reduce its opacity again.
 Essential input, selection, error and focus boundaries keep their existing tokens.
 Menus, popovers and selection lists use 94% `bgRaised`; Menubar and translucent
 Card use 92% `bgSurface`, with a 16px backdrop blur. Dialog, Drawer, Toast,
