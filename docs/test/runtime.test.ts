@@ -211,3 +211,15 @@ test("surface preferences, Item docs and crawler discovery cross real HTTP bound
   const preview = await (await fetch(`${base}/preview/card--Default`)).text();
   assert.match(preview, /name="robots" content="noindex"/);
 });
+
+test("removed brand previews and custom-theme guide are absent", async () => {
+  for (const path of ["/preview/color--BrandThemeExample", "/preview/color--CustomThemeExample"]) {
+    assert.equal((await fetch(`${base}${path}`)).status, 404, path);
+  }
+  for (const locale of ["en", "ko"]) {
+    const content = await (
+      await fetch(`${base}/guides/theming${locale === "en" ? ".en" : ""}.md`)
+    ).text();
+    assert.doesNotMatch(content, /Ocean|createTheme|brand\.stylex/);
+  }
+});

@@ -32,8 +32,7 @@ current workspace API and can be deployed independently.
 ## UI/tokens publication resumption
 
 Resume publication only after the full default/light token-map equality check
-and documentation Default-example axe audits pass in CI, and an additional brand
-theme plus its token override, application and StyleX compiler guide are ready.
+and documentation Default-example axe audits pass in CI.
 Keep the existing keyboard contracts in that CI run. Meeting these gates does
 not publish a release: decide and authorize the actual deployment separately.
 
