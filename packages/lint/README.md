@@ -1,8 +1,8 @@
 # @bolerish/lint
 
 Foundations diagnostics for custom React UI in ESLint and Oxlint.
-The new package name is prepared in the workspace and has not been published yet.
-Replace old package imports and Oxlint specifiers when migrating; `bolerish-ui/*`
+The package name is `@bolerish/lint`. Replace old `@bolerish/eslint-plugin-ui`
+package imports and Oxlint specifiers when migrating; `bolerish-ui/*`
 rule names and comment exceptions stay the same.
 
 Install as a development dependency. Node 22+ is required.

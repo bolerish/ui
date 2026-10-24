@@ -6,7 +6,7 @@ import { LocaleContent } from "@/shared/model/locale";
 
 Use Foundations tokens when building custom UI alongside bolerish components. `@bolerish/lint` reports literal colors, typography and spacing that bypass the shared theme and scales.
 
-The package rename is prepared in this workspace. `@bolerish/lint` is not yet published; the existing published package is `@bolerish/eslint-plugin-ui@0.1.2`. Update package imports and Oxlint specifiers when migrating; rule names remain `bolerish-ui/*`.
+Use `@bolerish/lint` for the current package. When upgrading from `@bolerish/eslint-plugin-ui`, update package imports and Oxlint specifiers; rule names remain `bolerish-ui/*`. The previous package is not a compatibility alias.
 
 ## Installation
 
@@ -20,7 +20,7 @@ Install the plugin as a development dependency. Node 22+ is required. The compil
 
 bolerish 컴포넌트와 함께 직접 UI를 만들 때도 Foundations 토큰을 사용하세요. `@bolerish/lint`는 공통 테마와 크기 체계를 벗어나는 색상·타이포그래피·간격의 직접 값을 진단합니다.
 
-패키지 이름 변경은 워크스페이스에 준비되어 있습니다. `@bolerish/lint`는 아직 게시하지 않았으며 현재 게시된 패키지는 `@bolerish/eslint-plugin-ui@0.1.2`입니다. 이관할 때 패키지 가져오기와 Oxlint specifier를 바꾸고 `bolerish-ui/*` 규칙 이름은 유지하세요.
+현재 패키지는 `@bolerish/lint`입니다. `@bolerish/eslint-plugin-ui`에서 올릴 때는 패키지 가져오기와 Oxlint specifier를 바꾸고 `bolerish-ui/*` 규칙 이름은 유지하세요. 이전 패키지는 호환 별칭이 아닙니다.
 
 ## 설치
 

@@ -33,9 +33,10 @@ when writing your own StyleX styles or token themes.
 ## Documentation
 
 [Browse the docs](https://ui.bolerish.com) for installation, themes, styling,
-components and Foundations. Docs preview the current workspace API;
-UI and tokens npm publishing is paused; the lint plugin is released independently.
-See the [resumption conditions](.changeset/README.md#uitokens-publication-resumption) before deciding on a release.
+components and Foundations. Docs follow the current workspace API; check the
+installed package changelog when upgrading. Automatic npm publishing remains
+disabled; manual releases require verification and explicit approval.
+See the [release conditions](.changeset/README.md#uitokens-publication-resumption).
 
 The [lint guide](https://ui.bolerish.com/docs/lint) explains the
 plugin's ESLint/Oxlint rules and exceptions.

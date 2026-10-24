@@ -2,10 +2,9 @@
 
 `@bolerish/ui` and `@bolerish/tokens` form one fixed release group. A change to
 one releases both at the same version. `@bolerish/lint` is versioned
-independently. The rename is prepared in this workspace; the existing published
-package is `@bolerish/eslint-plugin-ui@0.1.2` until the new name is published
-separately. Docs and the root
-workspace are private applications, not npm releases.
+independently. `@bolerish/lint` replaces `@bolerish/eslint-plugin-ui`; the former
+package is not a compatibility alias. Docs and the root workspace are private
+applications, not npm releases.
 
 ## Record and review a release
 
