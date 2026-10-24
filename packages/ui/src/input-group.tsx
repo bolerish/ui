@@ -200,13 +200,15 @@ export function InputGroupTextarea({ className, style, xstyle, ...props }: Texta
   );
 }
 
-export function InputGroupButton({
-  size = "sm",
-  variant = "ghost",
-  xstyle,
-  ...props
-}: ButtonProps) {
-  return <Button {...props} size={size} variant={variant} xstyle={[styles.button, xstyle]} />;
+export function InputGroupButton(props: ButtonProps) {
+  const sizedProps = props.size === undefined ? { ...props, size: "sm" as const } : props;
+  return (
+    <Button
+      {...sizedProps}
+      variant={props.variant ?? "ghost"}
+      xstyle={[styles.button, props.xstyle]}
+    />
+  );
 }
 
 export function InputGroupText({

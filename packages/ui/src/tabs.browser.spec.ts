@@ -1,0 +1,35 @@
+import { test, expect } from "@playwright/test";
+
+test("Default Tabs: roving focus, manual selection and Tab entry/exit", async ({ page }) => {
+  await page.goto("/?fixture=documentation&example=tabs");
+  const before = page.getByTestId("before-example");
+  const after = page.getByTestId("after-example");
+  const overview = page.getByRole("tab", { name: "Overview" });
+  const analytics = page.getByRole("tab", { name: "Analytics" });
+  await before.focus();
+  await page.keyboard.press("Tab");
+  await expect(overview).toBeFocused();
+  await page.keyboard.press("ArrowRight");
+  await expect(analytics).toBeFocused();
+  await expect(overview).toHaveAttribute("aria-selected", "true");
+  await expect(analytics).toHaveAttribute("aria-selected", "false");
+  await page.keyboard.press("Enter");
+  await expect(analytics).toHaveAttribute("aria-selected", "true");
+  const panel = page.getByRole("tabpanel", { name: "Analytics" });
+  await expect(panel).toBeVisible();
+  await page.keyboard.press("Tab");
+  await expect(panel).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(after).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(panel).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(analytics).toBeFocused();
+  await page.keyboard.press("ArrowLeft");
+  await expect(overview).toBeFocused();
+  await expect(analytics).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("Space");
+  await expect(overview).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("Shift+Tab");
+  await expect(before).toBeFocused();
+});

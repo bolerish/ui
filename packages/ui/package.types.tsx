@@ -13,6 +13,7 @@ import type { Checkbox } from "./dist/checkbox.js";
 import { gradient } from "./dist/gradient.js";
 // @ts-expect-error ContentRow types were removed with the public rename.
 import type { ContentRowProps } from "./dist/index.js";
+import type { InputGroupButton } from "./dist/input-group.js";
 import type { InputOTP } from "./dist/input-otp.js";
 import type { Input } from "./dist/input.js";
 import type { Item } from "./dist/item.js";
@@ -214,3 +215,39 @@ for (const size of removedButtonSizes) {
   const props: ComponentProps<typeof Button> = { children: "+", size };
   void props;
 }
+
+export const namedIconButton: ComponentProps<typeof Button> = {
+  size: "icon",
+  children: "×",
+  "aria-labelledby": "close-label",
+};
+// @ts-expect-error Icon-only buttons require an accessible name.
+export const unnamedIconButton: ComponentProps<typeof Button> = { size: "icon", children: "×" };
+// @ts-expect-error Undefined is not an accessible name.
+export const undefinedIconName: ComponentProps<typeof Button> = {
+  size: "icon",
+  children: "×",
+  "aria-label": undefined,
+};
+declare const responsiveButtonSize: "sm" | "icon";
+export const dynamicNamedButton: ComponentProps<typeof Button> = {
+  size: responsiveButtonSize,
+  children: "×",
+  "aria-label": "Close",
+};
+// @ts-expect-error A size that may be icon also requires an accessible name.
+export const dynamicUnnamedButton: ComponentProps<typeof Button> = {
+  size: responsiveButtonSize,
+  children: "×",
+};
+
+// @ts-expect-error InputGroupButton preserves the icon-name requirement.
+export const unnamedGroupIcon: ComponentProps<typeof InputGroupButton> = {
+  size: "icon",
+  children: "×",
+};
+export const namedGroupIcon: ComponentProps<typeof InputGroupButton> = {
+  size: "icon",
+  children: "×",
+  "aria-labelledby": "close-label",
+};

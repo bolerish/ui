@@ -28,7 +28,27 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm test
+      - run: pnpm --filter @bolerish/ui exec playwright install --with-deps chromium
+      - run: pnpm --filter @bolerish/ui test:browser
+      - name: Upload browser and axe reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: browser-accessibility
+          path: packages/ui/playwright-report
+          if-no-files-found: ignore
+          retention-days: 7
       - run: pnpm build:docs
       - run: pnpm --filter @bolerish/docs test:static
+      - name: Verify static HTTP contracts
+        run: |
+          pnpm --filter @bolerish/docs exec wrangler dev --config wrangler.jsonc --port 3004 > /tmp/docs-preview.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..60}; do
+            if curl --silent --fail http://localhost:3004/ > /dev/null; then break; fi
+            sleep 1
+          done
+          DOCS_URL=http://localhost:3004 pnpm --filter @bolerish/docs test:runtime
       - run: pnpm --filter @bolerish/docs test:agent
       - run: pnpm --filter @bolerish/docs test:dev

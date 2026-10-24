@@ -19,7 +19,7 @@ test("the packed plugin loads outside the workspace without a TS loader or runti
       { cwd: packageDirectory },
     );
     const packages: { filename: string }[] = JSON.parse(stdout);
-    const target = join(directory, "node_modules", "@bolerish", "eslint-plugin-ui");
+    const target = join(directory, "node_modules", "@bolerish", "lint");
     await mkdir(target, { recursive: true });
     await execFile("tar", [
       "-xzf",
@@ -35,19 +35,22 @@ test("the packed plugin loads outside the workspace without a TS loader or runti
         "--input-type=module",
         "--eval",
         `
-      import plugin from "@bolerish/eslint-plugin-ui";
-      import foundations from "@bolerish/eslint-plugin-ui/foundations" with { type: "json" };
+      import plugin from "@bolerish/lint";
+      import foundations from "@bolerish/lint/foundations" with { type: "json" };
       console.log(JSON.stringify({ name: plugin.meta.name, rules: Object.keys(plugin.rules), groups: Object.keys(foundations) }));
     `,
       ],
       { cwd: directory },
     );
     const result = JSON.parse(consumer.stdout);
-    assert.equal(result.name, "@bolerish/eslint-plugin-ui");
+    assert.equal(result.name, "@bolerish/lint");
     assert.deepEqual(result.rules, ["color-tokens", "typography-tokens", "spacing-tokens"]);
     assert.deepEqual(result.groups, ["color", "typography", "spacing"]);
     const manifest = JSON.parse(await readFile(join(target, "package.json"), "utf8"));
     assert.equal(manifest.dependencies, undefined);
+    assert.notEqual(manifest.private, true);
+    assert.equal(manifest.publishConfig.access, "public");
+    await access(join(target, "LICENSE"));
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

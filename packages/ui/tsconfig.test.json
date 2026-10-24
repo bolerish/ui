@@ -1,7 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node"]
+    "types": ["node", "vite/client"]
   },
-  "include": ["src/**/*.test.ts", "package.test.ts", "package.types.tsx"]
+  "include": [
+    "src/**/*.test.ts",
+    "package.test.ts",
+    "package.types.tsx",
+    "src/**/*.browser.spec.ts",
+    "playwright*.ts",
+    "test/browser/**/*.tsx",
+    "test/browser/**/*.ts"
+  ]
 }

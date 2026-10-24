@@ -4,7 +4,7 @@ packages:
 
 catalogs:
   2026-08-27-stable:
-    "@base-ui/react": 1.7.0
+    "@base-ui/react": 1.9.0
     "@phosphor-icons/react": 2.1.10
     "@stylexjs/stylex": 0.19.0
     "@stylexjs/unplugin": 0.19.0

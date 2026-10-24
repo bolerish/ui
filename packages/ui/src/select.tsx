@@ -124,7 +124,13 @@ const styles = stylex.create({
     position: "relative",
     userSelect: "none",
   },
-  itemHighlighted: { backgroundColor: colorVars.interactionHover },
+  itemHighlighted: {
+    backgroundColor: colorVars.interactionHover,
+    "@media (forced-colors: active)": {
+      outline: "2px solid Highlight",
+      outlineOffset: "-2px",
+    },
+  },
   itemDisabled: {
     backgroundColor: "transparent",
     color: colorVars.fgDisabled,

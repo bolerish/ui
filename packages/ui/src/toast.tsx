@@ -336,17 +336,25 @@ export type ToasterProps = StyledProps<
   position?: ToastPosition;
   /** Content and accessible label for the action that dismisses all toasts. */
   clearAllProps?: Pick<ComponentProps<"button">, "children" | "aria-label">;
+  /** Accessible name for each dismiss button. @default "Close toast" */
+  closeLabel?: string;
   xstyle?: stylex.StyleXStyles;
 };
 
 export const toast = ToastPrimitive.createToastManager();
+
+type ToastIconType = "success" | "info" | "warning" | "error";
 
 const toastIcons = {
   success: CheckCircleIcon,
   info: InfoIcon,
   warning: WarningIcon,
   error: XCircleIcon,
-};
+} satisfies Record<ToastIconType, typeof InfoIcon>;
+
+function hasToastIcon(type: string): type is ToastIconType {
+  return Object.hasOwn(toastIcons, type);
+}
 
 function ToastStatusIcon({ type }: { type?: string }) {
   if (!type || type === "default") {
@@ -361,10 +369,8 @@ function ToastStatusIcon({ type }: { type?: string }) {
     );
   }
 
-  const IconComponent = toastIcons[type as keyof typeof toastIcons];
-  if (!IconComponent) {
-    return null;
-  }
+  if (!hasToastIcon(type)) return null;
+  const IconComponent = toastIcons[type];
 
   return (
     <span aria-hidden="true" {...stylex.props(styles.statusIcon)}>
@@ -376,9 +382,11 @@ function ToastStatusIcon({ type }: { type?: string }) {
 function ToastStack({
   position,
   clearAllProps,
+  closeLabel,
 }: {
   position: ToastPosition;
   clearAllProps: ToasterProps["clearAllProps"];
+  closeLabel: string;
 }) {
   const { toasts } = ToastPrimitive.useToastManager();
   const stackRef = useRef<HTMLDivElement>(null);
@@ -402,6 +410,16 @@ function ToastStack({
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key !== "Escape" || event.defaultPrevented || event.isComposing) return;
+      // Editors own Escape; toast actions retain their keyboard dismissal.
+      const target = event.target;
+      if (
+        target instanceof Element &&
+        !stack.contains(target) &&
+        target.closest(
+          'input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"]',
+        )
+      )
+        return;
       const latest = toasts.find(
         (item) => item.transitionStatus !== "ending" && !dismissedIds.current.has(item.id),
       );
@@ -485,7 +503,7 @@ function ToastStack({
               />
             </div>
             {item.actionProps ? <ToastPrimitive.Action {...stylex.props(styles.action)} /> : null}
-            <ToastPrimitive.Close aria-label="Close toast" {...stylex.props(styles.close)}>
+            <ToastPrimitive.Close aria-label={closeLabel} {...stylex.props(styles.close)}>
               <XIcon aria-hidden="true" />
             </ToastPrimitive.Close>
           </ToastPrimitive.Content>
@@ -512,6 +530,7 @@ export function Toaster({
   limit = 3,
   position = "bottom-right",
   clearAllProps,
+  closeLabel = "Close toast",
   ...props
 }: ToasterProps) {
   const [verticalPosition, horizontalPosition] = position.split("-") as [
@@ -534,7 +553,7 @@ export function Toaster({
             style,
           )}
         >
-          <ToastStack position={position} clearAllProps={clearAllProps} />
+          <ToastStack position={position} clearAllProps={clearAllProps} closeLabel={closeLabel} />
         </ToastPrimitive.Viewport>
       </ToastPrimitive.Portal>
     </ToastPrimitive.Provider>

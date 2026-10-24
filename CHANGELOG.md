@@ -5,8 +5,8 @@ New package release notes are written once in [Changesets](.changeset/).
 
 - [UI](packages/ui/): `packages/ui/CHANGELOG.md`
 - [Tokens](packages/tokens/): `packages/tokens/CHANGELOG.md`
-- [Foundations lint](packages/eslint-plugin-ui/):
-  `packages/eslint-plugin-ui/CHANGELOG.md` (currently private)
+- [Foundations lint](packages/lint/):
+  `packages/lint/CHANGELOG.md`
 
 These files are created on the first Changesets version preparation. Until then,
 read the pending changesets. Do not add new release entries to this root file.

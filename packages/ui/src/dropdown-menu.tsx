@@ -71,7 +71,13 @@ const styles = stylex.create({
     userSelect: "none",
     ":disabled": { cursor: "not-allowed" },
   },
-  itemHighlighted: { backgroundColor: colorVars.interactionHover },
+  itemHighlighted: {
+    backgroundColor: colorVars.interactionHover,
+    "@media (forced-colors: active)": {
+      outline: "2px solid Highlight",
+      outlineOffset: "-2px",
+    },
+  },
   itemDisabled: {
     backgroundColor: "transparent",
     color: colorVars.fgDisabled,

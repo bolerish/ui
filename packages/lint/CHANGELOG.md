@@ -1,5 +1,16 @@
 # @bolerish/eslint-plugin-ui
 
+## 0.1.2
+
+### Patch Changes
+
+- Point Foundations rule documentation links to their documentation-owned source location.
+  Simplify the package README and link the bilingual lint setup guide.
+  The lint rules and diagnostics are unchanged.
+- Publish the standalone Foundations ESLint/Oxlint plugin on npm. Install it as a development dependency; compiled rules require no TypeScript loader or runtime dependencies.
+
+  Provide recommended warning rules and individual color, typography and spacing presets, with rule-specific comment exceptions. Document the tested ESLint/Oxlint versions, analysis boundaries and the development-only TypeScript 6 compatibility pin.
+
 ## 0.1.1
 
 ### Patch Changes

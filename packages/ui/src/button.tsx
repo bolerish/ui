@@ -177,15 +177,16 @@ const squareStyles = stylex.create({
 type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "destructive";
 type ButtonSize = "sm" | "md" | "lg" | "icon";
 
+type AccessibleButtonName = { "aria-label": string } | { "aria-labelledby": string };
+
 export type ButtonProps = StyledProps<ComponentProps<typeof ButtonPrimitive>> & {
   align?: "start" | "center" | "end" | "space-between";
   children: ReactNode;
-  size?: ButtonSize;
   /** Use size="icon" for icon-only buttons, and add an accessible name. */
   shape?: "default" | "square" | "circle";
   variant?: ButtonVariant;
   xstyle?: ControlLayoutStyles;
-};
+} & ({ size?: Exclude<ButtonSize, "icon"> } | ({ size: ButtonSize } & AccessibleButtonName));
 
 export function Button({
   className,

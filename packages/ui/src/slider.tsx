@@ -71,6 +71,8 @@ export function Slider({
   className,
   style,
   defaultValue,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
   getAriaLabel,
   value,
   xstyle,
@@ -91,6 +93,8 @@ export function Slider({
         </SliderPrimitive.Track>
         {Array.from({ length: thumbCount }, (_, index) => (
           <SliderPrimitive.Thumb
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
             getAriaLabel={getAriaLabel}
             index={index}
             key={index}

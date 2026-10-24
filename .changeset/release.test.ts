@@ -8,7 +8,7 @@ import { promisify } from "node:util";
 
 const execFile = promisify(execFileCallback);
 const cli = resolve("node_modules/@changesets/cli/bin.js");
-const packages = ["tokens", "ui", "eslint-plugin-ui"];
+const packages = ["tokens", "ui", "lint"];
 
 test("release groups propagate token changes without coupling the lint plugin", async () => {
   const directory = await mkdtemp(join(tmpdir(), "bolerish-release-"));
@@ -29,7 +29,7 @@ test("release groups propagate token changes without coupling the lint plugin", 
     const readManifest = async (name: string) =>
       JSON.parse(await readFile(join(directory, name, "package.json"), "utf8"));
     const originalUi = await readManifest("packages/ui");
-    const originalLint = await readManifest("packages/eslint-plugin-ui");
+    const originalLint = await readManifest("packages/lint");
     const originalDocs = await readManifest("docs");
     await writeFile(
       join(directory, ".changeset/token-change.md"),
@@ -41,7 +41,7 @@ test("release groups propagate token changes without coupling the lint plugin", 
     assert.notEqual(ui.version, originalUi.version);
     assert.equal(ui.version, tokens.version);
     assert.equal(ui.dependencies["@bolerish/tokens"], "workspace:*");
-    assert.equal((await readManifest("packages/eslint-plugin-ui")).version, originalLint.version);
+    assert.equal((await readManifest("packages/lint")).version, originalLint.version);
     assert.equal((await readManifest("docs")).version, originalDocs.version);
     assert.match(
       await readFile(join(directory, "packages/ui/CHANGELOG.md"), "utf8"),
@@ -59,13 +59,10 @@ test("release groups propagate token changes without coupling the lint plugin", 
 
     await writeFile(
       join(directory, ".changeset/lint-change.md"),
-      '---\n"@bolerish/eslint-plugin-ui": patch\n---\n\nImprove a lint diagnostic.\n',
+      '---\n"@bolerish/lint": patch\n---\n\nImprove a lint diagnostic.\n',
     );
     await execFile(process.execPath, [cli, "version"], { cwd: directory });
-    assert.notEqual(
-      (await readManifest("packages/eslint-plugin-ui")).version,
-      originalLint.version,
-    );
+    assert.notEqual((await readManifest("packages/lint")).version, originalLint.version);
     assert.equal((await readManifest("packages/ui")).version, nextUi.version);
     assert.equal((await readManifest("packages/tokens")).version, nextUi.version);
     assert.equal((await readManifest("docs")).version, originalDocs.version);

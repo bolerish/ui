@@ -19,6 +19,7 @@ import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
+  elevation: { "--bolerish-material-shadow": shadowVars.floating },
   positioner: { zIndex: layerVars.notification },
   popup: {
     backgroundColor: colorVars.bgRaised,
@@ -92,6 +93,7 @@ export function TooltipContent({
       stylex.props(
         styles.popup,
         surfaceStyles.raised,
+        styles.elevation,
         (state.transitionStatus === "starting" || state.transitionStatus === "ending") &&
           styles.popupTransitioning,
         state.transitionStatus === "ending" && styles.popupEnding,

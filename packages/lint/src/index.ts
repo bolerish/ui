@@ -216,7 +216,7 @@ function createTokenRule(group: Group, policy: Policy): Rule.RuleModule {
 
 const groups: Group[] = ["color", "typography", "spacing"];
 const plugin = {
-  meta: { name: "@bolerish/eslint-plugin-ui" },
+  meta: { name: "@bolerish/lint" },
   rules: Object.fromEntries(
     groups.map((group) => [`${group}-tokens`, createTokenRule(group, policies[group])]),
   ),

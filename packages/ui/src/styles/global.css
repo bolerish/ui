@@ -8,16 +8,24 @@
   --bolerish-control-filter: none;
   --bolerish-floating-filter: none;
   --bolerish-surface-sheen: none;
+  --bolerish-surface-reflection: 0 0 transparent;
 }
 
 [data-bolerish-surface="liquid"] {
-  --bolerish-panel-opacity: 84%;
-  --bolerish-control-opacity: 92%;
-  --bolerish-floating-opacity: 88%;
+  --bolerish-panel-opacity: 78%;
+  --bolerish-control-opacity: 88%;
+  --bolerish-floating-opacity: 86%;
   --bolerish-panel-filter: blur(20px) saturate(1.15);
   --bolerish-control-filter: blur(10px) saturate(1.1);
   --bolerish-floating-filter: blur(24px) saturate(1.2);
-  --bolerish-surface-sheen: linear-gradient(135deg, rgb(255 255 255 / 0.08), transparent 48%);
+  --bolerish-surface-sheen: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 0.04),
+    transparent 46%,
+    rgb(255 255 255 / 0.02)
+  );
+  --bolerish-surface-reflection:
+    inset 0 1px 0 rgb(255 255 255 / 0.38), inset 0 0 0 1px rgb(255 255 255 / 0.13);
 }
 
 :root[data-bolerish-motion="off"],

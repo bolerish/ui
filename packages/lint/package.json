@@ -1,9 +1,14 @@
 {
-  "name": "@bolerish/eslint-plugin-ui",
-  "version": "0.1.1",
-  "private": true,
+  "name": "@bolerish/lint",
+  "version": "0.1.2",
   "description": "Foundations diagnostics for custom bolerish UI.",
+  "homepage": "https://ui.bolerish.com/docs/lint",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myjeong19/bolerish-ui.git",
+    "directory": "packages/lint"
+  },
   "files": [
     "dist",
     "README.md"
@@ -15,6 +20,9 @@
       "default": "./dist/index.js"
     },
     "./foundations": "./dist/foundations.json"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

@@ -22,16 +22,16 @@
   "jsPlugins": [
     {
       "name": "bolerish-ui",
-      "specifier": "./packages/eslint-plugin-ui/dist/index.js"
+      "specifier": "./packages/lint/dist/index.js"
     }
   ],
   "overrides": [
     {
       "files": ["packages/ui/src/**/*.{ts,tsx}", "docs/src/**/*.{ts,tsx}"],
       "rules": {
-        "bolerish-ui/color-tokens": "warn",
-        "bolerish-ui/typography-tokens": "warn",
-        "bolerish-ui/spacing-tokens": "warn"
+        "bolerish-ui/color-tokens": "error",
+        "bolerish-ui/typography-tokens": "error",
+        "bolerish-ui/spacing-tokens": "error"
       }
     }
   ]

@@ -7,7 +7,7 @@
     "build": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && vite build",
     "deploy": "pnpm build && wrangler deploy --config wrangler.jsonc",
     "dev": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && vite --port 3000",
-    "lint": "pnpm --filter @bolerish/eslint-plugin-ui build && pnpm --workspace-root exec oxlint docs/src",
+    "lint": "pnpm --filter @bolerish/lint build && pnpm --workspace-root exec oxlint docs/src",
     "preview": "wrangler dev --config wrangler.jsonc --port 3000",
     "test:agent": "node --experimental-strip-types scripts/build-guidelines.ts --check && node --experimental-strip-types --experimental-vm-modules --test scripts/build-guidelines.test.ts scripts/guide-markdown.test.ts src/shared/lib/search.test.ts src/shared/lib/head.test.ts src/shared/model/settings.test.ts src/shared/lib/paths.test.ts 'src/app/(site)/docs/_lib/catalog.test.ts' 'src/app/(site)/docs/_content/foundations/guidelines.test.ts' src/shared/lib/table-headers.test.ts 'src/app/(site)/_lib/home-gallery.test.ts'",
     "test:dev": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && node --experimental-strip-types --test test/dev.test.ts",
@@ -27,7 +27,7 @@
     "react-dom": "catalog:2026-08-27-stable"
   },
   "devDependencies": {
-    "@bolerish/eslint-plugin-ui": "workspace:*",
+    "@bolerish/lint": "workspace:*",
     "@mdx-js/react": "3.1.1",
     "@mdx-js/rollup": "^3.1.1",
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",

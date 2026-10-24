@@ -89,10 +89,11 @@
     "build": "node --experimental-strip-types scripts/build.ts",
     "prepack": "pnpm build",
     "test": "pnpm build && node --experimental-strip-types --test src/*.test.ts src/styles/*.test.ts package.test.ts",
+    "test:browser": "pnpm build && playwright test",
     "typecheck": "tsc --noEmit && pnpm build && tsc -p tsconfig.test.json"
   },
   "dependencies": {
-    "@base-ui/react": "^1.7.0",
+    "@base-ui/react": "^1.9.0",
     "@bolerish/tokens": "workspace:*",
     "@daypicker/react": "^10.0.1",
     "@phosphor-icons/react": "^2.1.10",
@@ -100,6 +101,8 @@
     "embla-carousel-react": "^8.6.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "1.64.1",
     "@stylexjs/unplugin": "catalog:2026-08-27-stable",
     "@types/node": "catalog:2026-08-27-stable",
     "@types/react": "catalog:2026-08-27-stable",

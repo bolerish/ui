@@ -92,7 +92,7 @@ test("Oxlint reports the same rules on TSX and honors per-rule overrides", async
   }
 });
 
-test("workspace configuration checks shared TS styles as well as TSX components", async () => {
+test("workspace configuration rejects token violations in shared TS and TSX", async () => {
   const directory = await mkdtemp(join(tmpdir(), "bolerish-workspace-lint-"));
   try {
     const settings = JSON.parse(
@@ -112,8 +112,14 @@ test("workspace configuration checks shared TS styles as well as TSX components"
         'import * as sx from "@stylexjs/stylex"; sx.create({ x: { color: "red", gap: 13 } });',
       );
       const binary = fileURLToPath(new URL("../node_modules/.bin/oxlint", import.meta.url));
-      const { stdout } = await execFile(binary, ["--format", "json", path], { cwd: directory });
-      const output = JSON.parse(stdout);
+      let result: { stdout: string; code?: number };
+      try {
+        result = await execFile(binary, ["--format", "json", path], { cwd: directory });
+      } catch (error) {
+        result = error as { stdout: string; code: number };
+      }
+      assert.equal(result.code, 1, "token violations must fail CI");
+      const output = JSON.parse(result.stdout);
       assert.equal(
         output.diagnostics.filter((entry: { message: string }) =>
           entry.message.startsWith("When setting"),

@@ -14,7 +14,7 @@
     "dev:docs": "pnpm --filter @bolerish/docs dev",
     "format:check": "pnpm oxfmt --check .",
     "format:write": "pnpm oxfmt .",
-    "lint": "pnpm --filter @bolerish/eslint-plugin-ui build && pnpm oxlint .",
+    "lint": "pnpm --filter @bolerish/lint build && pnpm oxlint .",
     "pack:check": "node --experimental-strip-types scripts/verify-packages.ts",
     "palette:check": "pnpm --filter @bolerish/tokens palette:check",
     "palette:generate": "pnpm --filter @bolerish/tokens palette:generate",
@@ -23,11 +23,11 @@
     "release:status": "changeset status",
     "test": "pnpm test:tokens && pnpm test:ui && pnpm test:lint && pnpm test:release && pnpm test:docs-theme",
     "test:docs-theme": "node --experimental-strip-types --experimental-vm-modules --test docs/src/shared/styles/theme.test.ts",
-    "test:lint": "pnpm --filter @bolerish/eslint-plugin-ui test",
+    "test:lint": "pnpm --filter @bolerish/lint test",
     "test:release": "node --experimental-strip-types --test .changeset/release.test.ts",
     "test:tokens": "pnpm --filter @bolerish/tokens test",
     "test:ui": "pnpm --filter @bolerish/ui test",
-    "typecheck": "pnpm --filter @bolerish/eslint-plugin-ui typecheck && pnpm --filter @bolerish/tokens typecheck && pnpm --filter @bolerish/ui typecheck && pnpm --filter @bolerish/docs typecheck && pnpm typecheck:scripts",
+    "typecheck": "pnpm --filter @bolerish/lint typecheck && pnpm --filter @bolerish/tokens typecheck && pnpm --filter @bolerish/ui typecheck && pnpm --filter @bolerish/docs typecheck && pnpm typecheck:scripts",
     "typecheck:scripts": "tsc -p scripts/tsconfig.json",
     "version:packages": "changeset version && pnpm install --lockfile-only"
   },
@@ -38,6 +38,9 @@
     "oxfmt": "0.65.0",
     "oxlint": "1.80.0",
     "typescript": "catalog:2026-08-27-stable"
+  },
+  "engines": {
+    "node": ">=22.13.0"
   },
   "packageManager": "pnpm@11.23.0"
 }

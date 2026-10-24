@@ -143,7 +143,13 @@ const styles = stylex.create({
     position: "relative",
     userSelect: "none",
   },
-  itemHighlighted: { backgroundColor: colorVars.interactionHover },
+  itemHighlighted: {
+    backgroundColor: colorVars.interactionHover,
+    "@media (forced-colors: active)": {
+      outline: "2px solid Highlight",
+      outlineOffset: "-2px",
+    },
+  },
   itemDisabled: {
     backgroundColor: "transparent",
     color: colorVars.fgDisabled,
@@ -200,12 +206,14 @@ export function ComboboxInput({
   variant = "outline",
   startAddon,
   endAddon,
+  triggerLabel = "Open options",
   ...props
 }: StyledProps<ComponentProps<typeof ComboboxPrimitive.Input>> & {
   xstyle?: ControlLayoutStyles;
   variant?: "outline" | "inline";
   startAddon?: ReactNode;
   endAddon?: ReactNode;
+  triggerLabel?: string;
 }) {
   function getInputStyles(state: ComboboxPrimitive.Input.State) {
     return stylex.props(styles.input, state.disabled && styles.inputDisabled);
@@ -227,22 +235,26 @@ export function ComboboxInput({
         style,
       )}
     >
-      {startAddon ?? (
+      {startAddon === undefined ? (
         <MagnifyingGlassIcon aria-hidden="true" {...stylex.props(styles.searchIcon)} />
+      ) : (
+        startAddon
       )}
       <ComboboxPrimitive.Input
         {...props}
         className={(state) => getInputStyles(state).className}
         style={(state) => getInputStyles(state).style}
       />
-      {endAddon ?? (
+      {endAddon === undefined ? (
         <ComboboxPrimitive.Trigger
-          aria-label="Open options"
+          aria-label={triggerLabel}
           className={(state) => getTriggerStyles(state).className ?? ""}
           style={(state) => getTriggerStyles(state).style}
         >
           <CaretDownIcon aria-hidden="true" />
         </ComboboxPrimitive.Trigger>
+      ) : (
+        endAddon
       )}
     </ComboboxPrimitive.InputGroup>
   );

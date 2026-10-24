@@ -7,7 +7,7 @@ const stylex = new SyntheticModule(["defineVars", "createTheme"], function () {
   this.setExport("defineVars", (values: Record<string, unknown>) => values);
   this.setExport(
     "createTheme",
-    (base: Record<string, unknown>, values: Record<string, unknown>) => ({ ...base, ...values }),
+    (_base: Record<string, unknown>, values: Record<string, unknown>) => values,
   );
 });
 const modules = new Map<string, SourceTextModule>();

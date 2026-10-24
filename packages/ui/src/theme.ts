@@ -4,6 +4,7 @@ import {
   darkShadowTheme,
   lightColorTheme,
   lightShadowTheme,
+  oceanColorTheme,
 } from "@bolerish/tokens/themes.stylex";
 import * as stylex from "@stylexjs/stylex";
 
@@ -21,4 +22,5 @@ const styles = stylex.create({
 export const themeClassNames = {
   light: stylex.props(lightColorTheme, lightShadowTheme, styles.root, styles.light).className ?? "",
   dark: stylex.props(darkColorTheme, darkShadowTheme, styles.root, styles.dark).className ?? "",
+  ocean: stylex.props(oceanColorTheme, lightShadowTheme, styles.root, styles.light).className ?? "",
 };

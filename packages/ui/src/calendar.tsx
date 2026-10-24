@@ -155,9 +155,18 @@ function CalendarDayButton({ children, modifiers, ...props }: DayButtonProps) {
   const isSelected =
     modifiers.range_start || modifiers.range_end || (modifiers.selected && !modifiers.range_middle);
 
+  const visibleLabel =
+    typeof children === "string" || typeof children === "number" ? children : null;
+  // Include the displayed numeral as a complete token alongside the full date.
+  const accessibleLabel =
+    props["aria-label"] && visibleLabel !== null
+      ? `${visibleLabel}, ${props["aria-label"]}`
+      : props["aria-label"];
+
   return (
     <DayButton
       {...props}
+      aria-label={accessibleLabel}
       modifiers={modifiers}
       {...stylex.props(
         styles.dayButton,
