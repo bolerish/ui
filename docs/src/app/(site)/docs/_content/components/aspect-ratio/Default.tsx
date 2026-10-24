@@ -7,9 +7,13 @@ export default function Default() {
       <AspectRatio ratio={16 / 9}>
         <img
           src="/images/hangang.webp"
+          srcSet="/images/hangang.webp 576w, /images/hangang-1152.webp 1152w"
+          sizes="auto, 576px"
           alt="Night view of the Han River with grasses in the foreground and city lights across the water"
-          width={5712}
-          height={4284}
+          width={576}
+          height={432}
+          loading="lazy"
+          decoding="async"
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         />
       </AspectRatio>
