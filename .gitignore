@@ -54,3 +54,4 @@ docs/public/sitemap.xml
 # TanStack Start / Cloudflare
 .tanstack/
 .wrangler/
+docs/public/search.*.json

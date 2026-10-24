@@ -27,10 +27,11 @@ import {
   DesktopIcon,
 } from "@phosphor-icons/react";
 import { Link, useNavigate, useLocation } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import { catalog } from "./catalog";
 import { documentLink, localizedPath } from "./paths";
+import { searchDocuments, type SearchDocument } from "./search";
 import type { DocumentationGlobals } from "./settings";
 import { useDocumentationGlobals, useDocumentationPreferences } from "./useDocumentationGlobals";
 
@@ -103,12 +104,33 @@ export function Shell({ children }: { children: ReactNode }) {
         void navigate({ to: ".", search: {}, replace: true, resetScroll: false });
     }
   }
-  const matches = catalog.filter((item) =>
-    `${item.title} ${item.section}`.toLowerCase().includes(query.trim().toLowerCase()),
-  );
+  const [searchIndex, setSearchIndex] = useState<{
+    locale: string;
+    documents: SearchDocument[];
+  } | null>(null);
+  const [searchError, setSearchError] = useState(false);
+  useEffect(() => {
+    if (!searchOpen || searchIndex?.locale === settings.locale) return;
+    const controller = new AbortController();
+    void fetch(`/search.${settings.locale}.json`, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Could not load search index");
+        return response.json();
+      })
+      .then((documents: SearchDocument[]) => {
+        if (!controller.signal.aborted) setSearchIndex({ locale: settings.locale, documents });
+      })
+      .catch(() => {
+        if (!controller.signal.aborted) setSearchError(true);
+      });
+    return () => controller.abort();
+  }, [searchOpen, settings.locale, searchIndex?.locale]);
+  const ready = searchIndex?.locale === settings.locale;
+  const matches = ready ? searchDocuments(searchIndex.documents, query) : [];
   const visible = matches.filter(
     (item) => searchSection === "all" || item.section === searchSection,
   );
+  const searching = query.trim() !== "" || searchSection !== "all";
   return (
     <>
       <a className="skip-link" href="#content">
@@ -128,7 +150,13 @@ export function Shell({ children }: { children: ReactNode }) {
             </Link>
           </nav>
           <div className="header-actions">
-            <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
+            <Dialog
+              open={searchOpen}
+              onOpenChange={(open) => {
+                setSearchError(false);
+                setSearchOpen(open);
+              }}
+            >
               <DialogTrigger
                 render={
                   <Button
@@ -149,9 +177,13 @@ export function Shell({ children }: { children: ReactNode }) {
                   {settings.locale === "ko" ? "문서 검색" : "Search documentation"}
                 </DialogTitle>
                 <Input
-                  aria-label="Find documentation"
+                  aria-label={
+                    settings.locale === "ko" ? "문서 제목과 내용 검색" : "Search titles and content"
+                  }
                   placeholder={
-                    settings.locale === "ko" ? "제목으로 문서 찾기…" : "Find a document by title…"
+                    settings.locale === "ko"
+                      ? "제목과 내용으로 문서 찾기…"
+                      : "Search titles and content…"
                   }
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
@@ -164,6 +196,7 @@ export function Shell({ children }: { children: ReactNode }) {
                     {["all", "guide", "foundations", "patterns", "components"].map((section) => (
                       <Button
                         key={section}
+                        size="sm"
                         variant={searchSection === section ? "secondary" : "ghost"}
                         aria-pressed={searchSection === section}
                         onClick={() => setSearchSection(section)}
@@ -171,26 +204,31 @@ export function Shell({ children }: { children: ReactNode }) {
                         <span>
                           {section === "all"
                             ? settings.locale === "ko"
-                              ? "전체"
-                              : "All documents"
-                            : sectionNames[section]}
+                              ? "#전체"
+                              : "#All"
+                            : `#${sectionNames[section]}`}
                         </span>
-                        <small>
-                          {
-                            matches.filter((item) => section === "all" || item.section === section)
-                              .length
-                          }
-                        </small>
                       </Button>
                     ))}
                   </nav>
                   <div className="search-matches">
-                    <output className="search-count">
-                      {visible.length}
-                      {settings.locale === "ko" ? "개 문서" : " documents"}
+                    <output className="search-count" aria-live="polite">
+                      {searchError
+                        ? settings.locale === "ko"
+                          ? "검색을 불러오지 못했습니다. 창을 닫고 다시 열어주세요."
+                          : "Could not load search. Close and reopen to retry."
+                        : !ready
+                          ? settings.locale === "ko"
+                            ? "검색 준비 중…"
+                            : "Preparing search…"
+                          : !searching
+                            ? settings.locale === "ko"
+                              ? "검색어를 입력하거나 분류를 선택하세요."
+                              : "Search documentation or choose a category."
+                            : `${visible.length}${settings.locale === "ko" ? "개 문서" : " documents"}`}
                     </output>
                     <nav className="search-results" aria-label="Search results">
-                      {visible.map((item) => (
+                      {(searching ? visible : []).map((item) => (
                         <Link
                           key={`${item.section}/${item.slug}`}
                           {...documentLink(item, settings.locale)}
@@ -200,11 +238,11 @@ export function Shell({ children }: { children: ReactNode }) {
                             setMenuOpen(false);
                           }}
                         >
-                          <span>{item.title}</span>
-                          <small>{sectionNames[item.section]}</small>
+                          <span className="search-result-title">{item.title}</span>
+                          <span className="search-result-description">{item.description}</span>
                         </Link>
                       ))}
-                      {visible.length === 0 ? (
+                      {ready && searching && visible.length === 0 ? (
                         <p>
                           {settings.locale === "ko"
                             ? "일치하는 문서가 없습니다."
@@ -233,6 +271,45 @@ export function Shell({ children }: { children: ReactNode }) {
                 </SelectList>
               </SelectPopup>
             </Select>
+            <Popover>
+              <PopoverTrigger
+                render={
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label={settings.locale === "ko" ? "설정" : "Settings"}
+                  >
+                    <SlidersHorizontalIcon aria-hidden="true" />
+                  </Button>
+                }
+              />
+              <PopoverContent className="preferences-popover" align="end" side="bottom">
+                <div className="preferences">
+                  <p className="preferences-title">
+                    {settings.locale === "ko" ? "설정" : "Settings"}
+                  </p>
+                  {controls.map(([name, label, options]) => (
+                    <label
+                      key={name}
+                      className={name === "locale" ? "preference-language" : undefined}
+                    >
+                      <span>{label}</span>
+                      <NativeSelect
+                        aria-label={label}
+                        value={settings[name]}
+                        onChange={(event) => update({ [name]: event.target.value })}
+                      >
+                        {options.map(([value, title]) => (
+                          <option key={value} value={value}>
+                            {title}
+                          </option>
+                        ))}
+                      </NativeSelect>
+                    </label>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
             <Button
               variant="ghost"
               size="icon"
@@ -271,42 +348,6 @@ export function Shell({ children }: { children: ReactNode }) {
           </div>
         </div>
       </header>
-      <div className="floating-preferences">
-        <Popover>
-          <PopoverTrigger
-            render={
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label={settings.locale === "ko" ? "설정" : "Settings"}
-              >
-                <SlidersHorizontalIcon aria-hidden="true" />
-              </Button>
-            }
-          />
-          <PopoverContent className="preferences-popover" align="end" side="top">
-            <div className="preferences">
-              <p className="preferences-title">{settings.locale === "ko" ? "설정" : "Settings"}</p>
-              {controls.map(([name, label, options]) => (
-                <label key={name} className={name === "locale" ? "preference-language" : undefined}>
-                  <span>{label}</span>
-                  <NativeSelect
-                    aria-label={label}
-                    value={settings[name]}
-                    onChange={(event) => update({ [name]: event.target.value })}
-                  >
-                    {options.map(([value, title]) => (
-                      <option key={value} value={value}>
-                        {title}
-                      </option>
-                    ))}
-                  </NativeSelect>
-                </label>
-              ))}
-            </div>
-          </PopoverContent>
-        </Popover>
-      </div>
       <div className={home ? "site-layout home-layout" : "site-layout"}>
         {!home ? (
           <aside className={menuOpen ? "sidebar open" : "sidebar"} id="docs-navigation">

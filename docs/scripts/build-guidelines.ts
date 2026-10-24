@@ -1,5 +1,6 @@
 import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 
+import { searchText, type SearchDocument } from "../src/documentation/search.ts";
 import { siteOrigin } from "../src/documentation/site.ts";
 import { guideMarkdown } from "./guide-markdown.ts";
 
@@ -119,6 +120,19 @@ if (!checking) await mkdir(new URL("guidelines/", output), { recursive: true });
 for (const locale of ["ko", "en"]) {
   const suffix = locale === "ko" ? "" : ".en";
   const entries = locale === "en" ? [...englishGuides] : [];
+  const search: SearchDocument[] = [];
+  for (const file of guides) {
+    const content = guideMarkdown(
+      await readFile(new URL(file, guideSource), "utf8"),
+      locale as "en" | "ko",
+    );
+    search.push({
+      section: "guide",
+      slug: file.slice(0, -4),
+      title: content.split("\n")[0].slice(2),
+      text: searchText(content.replace(/^# .*\n/, "")),
+    });
+  }
   for (const { slug } of order) {
     let content = await readFile(
       new URL(`${slug}/guidelines${locale === "ko" ? ".kr" : ""}.md`, source),
@@ -127,6 +141,12 @@ for (const locale of ["ko", "en"]) {
     if (slug === "gradient")
       content += `\n${await readFile(new URL(`${slug}/api${suffix}.md`, source), "utf8")}`;
     const title = content.split("\n")[0].slice(2);
+    search.push({
+      section: "foundations",
+      slug,
+      title,
+      text: searchText(content.replace(/^# .*\n/, "")),
+    });
     entries.push(content);
     if (locale === "en") links.push(`- [${title}](./guidelines/${slug}${suffix}.md)`);
     await emitFile(new URL(`guidelines/${slug}${suffix}.md`, output), content);
@@ -134,6 +154,12 @@ for (const locale of ["ko", "en"]) {
   for (const { slug } of patternOrder) {
     const { content } = await readPage(new URL(`${slug}/`, patterns), suffix);
     const title = content.split("\n")[0].slice(2);
+    search.push({
+      section: "patterns",
+      slug,
+      title,
+      text: searchText(content.replace(/^# .*\n/, "")),
+    });
     entries.push(content);
     if (locale === "en") links.push(`- [${title}](./guidelines/pattern-${slug}${suffix}.md)`);
     await emitFile(new URL(`guidelines/pattern-${slug}${suffix}.md`, output), content);
@@ -141,6 +167,12 @@ for (const locale of ["ko", "en"]) {
   for (const slug of componentNames) {
     const { overview, content } = await readPage(new URL(`${slug}/`, components), suffix);
     const title = overview.split("\n")[0].slice(2);
+    search.push({
+      section: "components",
+      slug,
+      title,
+      text: searchText(content.replace(/^# .*\n/, "")),
+    });
     const componentSource = await readFile(
       new URL(`../../packages/ui/src/${slug}.tsx`, import.meta.url),
       "utf8",
@@ -166,6 +198,7 @@ for (const locale of ["ko", "en"]) {
     const full = entries.join("\n\n---\n\n");
     await emitFile(new URL("llms-full.txt", output), full);
   }
+  await emitFile(new URL(`search.${locale}.json`, output), JSON.stringify(search));
 }
 await emitFile(
   new URL("llms.txt", output),

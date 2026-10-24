@@ -3,6 +3,18 @@ import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 const base = process.env.DOCS_URL ?? "http://localhost:3000";
 
+test("localized search indexes are served independently from document HTML", async () => {
+  for (const locale of ["en", "ko"]) {
+    const response = await fetch(`${base}/search.${locale}.json`);
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get("content-type") ?? "", /application\/json/);
+    const index = await response.json();
+    assert.equal(index.length, 78);
+    const theming = index.find((item: { slug: string }) => item.slug === "theming");
+    assert.match(theming.text, locale === "en" ? /portals/i : /포털/);
+  }
+});
+
 test("all documents render through the Workers SSR entry", async () => {
   let count = 0;
   for (const group of ["components", "foundations", "patterns"]) {

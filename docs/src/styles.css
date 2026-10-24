@@ -330,17 +330,6 @@ pre {
   }
 }
 
-.floating-preferences {
-  position: fixed;
-  right: max(24px, env(safe-area-inset-right));
-  bottom: max(24px, env(safe-area-inset-bottom));
-  z-index: 25;
-}
-.floating-preferences > button {
-  background: var(--docs-surface);
-  border: 1px solid var(--docs-border);
-  box-shadow: 0 4px 16px #00000012;
-}
 .search-dialog {
   width: min(760px, calc(100vw - 32px));
   max-width: min(760px, calc(100vw - 32px));
@@ -357,11 +346,9 @@ pre {
   min-height: 80px;
 }
 .search-results a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 10px 12px;
+  display: grid;
+  gap: 4px;
+  padding: 12px;
   border-radius: 6px;
   text-decoration: none;
 }
@@ -375,10 +362,6 @@ pre {
 @media (max-width: 760px) {
   .documentation-search span {
     display: none;
-  }
-  .floating-preferences {
-    right: max(16px, env(safe-area-inset-right));
-    bottom: max(16px, env(safe-area-inset-bottom));
   }
 }
 .preferences select {
@@ -426,46 +409,35 @@ pre {
 }
 .search-layout {
   display: grid;
-  grid-template-columns: 170px minmax(0, 1fr);
-  gap: 20px;
+  gap: 16px;
 }
 .search-sections {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  border-right: 1px solid var(--docs-border);
-  padding-right: 16px;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 .search-sections button {
-  width: 100%;
-  justify-content: space-between;
-  gap: 8px;
-}
-.search-sections small {
-  color: var(--docs-muted);
+  border-radius: 999px;
 }
 .search-matches {
   min-width: 0;
 }
 .search-matches .search-count {
   display: block;
-  margin: 4px 12px 8px;
+  margin: 0 12px 8px;
 }
-@media (max-width: 600px) {
-  .search-layout {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-  }
-  .search-sections {
-    flex-direction: row;
-    flex-wrap: wrap;
-    border-right: 0;
-    border-bottom: 1px solid var(--docs-border);
-    padding: 0 0 12px;
-  }
-  .search-sections button {
-    width: auto;
-  }
+.search-result-title {
+  font-weight: 500;
+}
+.search-result-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  color: var(--docs-muted);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .document-error {

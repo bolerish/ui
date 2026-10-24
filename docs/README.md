@@ -103,6 +103,11 @@ defines the public origin used by canonical, language and sitemap URLs.
 Pages link their Markdown alternate and `/llms.txt`; standalone previews are noindex.
 These discovery links help agents read the docs but do not guarantee search inclusion.
 
+The same generation step writes `public/search.en.json` and `search.ko.json`
+from the localized guides, Foundations, patterns and component usage docs.
+The search dialog loads the active language's index on demand, searches titles
+and body text locally, and shows matching excerpts with category filters.
+
 See [translation conventions](src/documentation/locales/README.md).
 
 ## Page structure and tables
