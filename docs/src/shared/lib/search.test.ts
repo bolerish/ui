@@ -32,11 +32,12 @@ test("generated localized indexes cover all docs and search actual body content"
     const index: SearchDocument[] = JSON.parse(
       await readFile(new URL(`../../../public/search.${locale}.json`, import.meta.url), "utf8"),
     );
-    assert.equal(index.length, 78);
-    assert.equal(new Set(index.map((item) => `${item.section}/${item.slug}`)).size, 78);
+    assert.equal(index.length, 79);
+    assert.equal(new Set(index.map((item) => `${item.section}/${item.slug}`)).size, 79);
     assert.ok(index.every((item) => item.title && item.text));
     const results = searchDocuments(index, locale === "en" ? "portals" : "포털");
     assert.ok(results.some((item) => item.slug === "theming"));
+    assert.ok(searchDocuments(index, "Biome").some((item) => item.slug === "lint"));
     assert.ok(index.some((item) => item.slug === "item"));
     assert.ok(!index.some((item) => item.slug === "content-row"));
   }

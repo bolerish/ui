@@ -1,0 +1,157 @@
+import { LocaleContent } from "@/shared/model/locale";
+
+<LocaleContent locale="en">
+
+# Lint
+
+Use Foundations tokens when building custom UI alongside bolerish components. `@bolerish/eslint-plugin-ui` reports literal colors, typography and spacing that bypass the shared theme and scales.
+
+## Availability
+
+The plugin is private and not published to npm. Inside this monorepo, add it to your app's `devDependencies` as `"@bolerish/eslint-plugin-ui": "workspace:*"`, run `pnpm install`, then build it. For another repository, install a locally packed copy instead.
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+# 린트
+
+bolerish 컴포넌트와 함께 직접 UI를 만들 때도 Foundations 토큰을 사용하세요. `@bolerish/eslint-plugin-ui`는 공통 테마와 크기 체계를 벗어나는 색상·타이포그래피·간격의 직접 값을 진단합니다.
+
+## 사용 가능 범위
+
+플러그인은 비공개이며 npm에 게시되지 않았습니다. 이 모노레포에서는 앱의 `devDependencies`에 `"@bolerish/eslint-plugin-ui": "workspace:*"`를 추가하고 `pnpm install` 후 플러그인을 빌드하세요. 다른 저장소에서는 로컬에서 패키징한 파일을 설치해 사용할 수 있습니다.
+
+</LocaleContent>
+
+```sh
+pnpm --filter @bolerish/eslint-plugin-ui build
+```
+
+<LocaleContent locale="en">
+
+## Rules
+
+| When setting                             | Use                                 | Rule                            |
+| ---------------------------------------- | ----------------------------------- | ------------------------------- |
+| Text, background or border colors        | `colorVars.fg*`, `bg*` or `stroke*` | `bolerish-ui/color-tokens`      |
+| Font size, weight, family or line height | The corresponding `typo` family     | `bolerish-ui/typography-tokens` |
+| Gap, padding or margin                   | `spacingRoleVars` or `spacingVars`  | `bolerish-ui/spacing-tokens`    |
+
+Rules inspect literal values in imported `stylex.create()` calls and JSX `style` objects, including nested states and conditional values. Diagnostics explain which token family to use for the property. Choose the semantic role for your content; the plugin does not choose one exact token or autofix it.
+
+For example, use `colorVars.fgPrimary` for primary text and `spacingRoleVars.fieldGap` between fields, rather than `color: "#333"` and `gap: 13`.
+
+## ESLint
+
+In an app with the workspace or locally packed plugin installed, enable the recommended warning rules. Configure your existing TypeScript/JSX parser separately.
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+## 규칙
+
+| 지정하려는 값               | 사용할 토큰                       | 규칙                            |
+| --------------------------- | --------------------------------- | ------------------------------- |
+| 텍스트·배경·테두리 색상     | `colorVars.fg*`, `bg*`, `stroke*` | `bolerish-ui/color-tokens`      |
+| 글꼴 크기·굵기·종류·줄 높이 | 해당 역할의 `typo` 토큰           | `bolerish-ui/typography-tokens` |
+| 간격·패딩·마진              | `spacingRoleVars`, `spacingVars`  | `bolerish-ui/spacing-tokens`    |
+
+가져온 `stylex.create()` 호출과 JSX `style` 객체의 직접 값을 검사하며, 중첩된 상태와 조건부 값도 포함합니다. 진단은 속성에 맞는 토큰 계열을 안내합니다. 실제 콘텐츠에 맞는 의미 역할은 직접 선택해야 합니다. 플러그인이 정확한 토큰 하나를 고르거나 자동으로 수정하지는 않습니다.
+
+예를 들어 기본 본문 색상은 `colorVars.fgPrimary`, 필드 사이 간격은 `spacingRoleVars.fieldGap`을 사용하세요. `color: "#333"`, `gap: 13`처럼 직접 지정하면 진단합니다.
+
+## ESLint
+
+워크스페이스 또는 로컬 패키지로 플러그인을 설치한 앱에서 권장 경고 규칙을 켭니다. TypeScript·JSX 파서는 앱의 기존 설정으로 별도 구성하세요.
+
+</LocaleContent>
+
+```js
+// eslint.config.js
+import bolerishUi from "@bolerish/eslint-plugin-ui";
+
+export default [
+  {
+    ...bolerishUi.configs.recommended,
+    files: ["src/**/*.{js,jsx,ts,tsx}"],
+  },
+];
+```
+
+<LocaleContent locale="en">
+
+## Oxlint
+
+Register the same plugin in `.oxlintrc.json`:
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+## Oxlint
+
+`.oxlintrc.json`에 같은 플러그인을 등록합니다.
+
+</LocaleContent>
+
+```json
+{
+  "jsPlugins": [{ "name": "bolerish-ui", "specifier": "@bolerish/eslint-plugin-ui" }],
+  "rules": {
+    "bolerish-ui/color-tokens": "warn",
+    "bolerish-ui/typography-tokens": "warn",
+    "bolerish-ui/spacing-tokens": "warn"
+  }
+}
+```
+
+<LocaleContent locale="en">
+
+## Narrow or disable checks
+
+For ESLint, `configs.color`, `configs.typography` and `configs.spacing` enable one group. With either engine, configure individual rule IDs as `off`, `warn` or `error` in file overrides.
+
+For a deliberate exception, put the rule-specific comment directly above the value and explain why. ESLint and Oxlint support this form when inline comments are enabled; Oxlint also accepts its `oxlint-*` comments.
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+## 범위 조정과 예외
+
+ESLint의 `configs.color`, `configs.typography`, `configs.spacing`으로 한 그룹만 켤 수 있습니다. 두 엔진 모두 파일별 설정에서 규칙 ID의 값을 `off`, `warn`, `error`로 지정할 수 있습니다.
+
+의도적인 예외는 해당 값 바로 위에 규칙별 주석과 이유를 적으세요. 인라인 주석을 허용한 ESLint와 Oxlint에서 아래 형식을 지원하며, Oxlint의 `oxlint-*` 주석도 사용할 수 있습니다.
+
+</LocaleContent>
+
+```tsx
+const styles = stylex.create({
+  icon: {
+    // eslint-disable-next-line bolerish-ui/spacing-tokens -- optical adjustment for this asset
+    marginInlineStart: -1,
+  },
+});
+```
+
+<LocaleContent locale="en">
+
+## Limits
+
+CSS files, class strings, referenced style objects and shorthand properties such as `background` are outside these checks. Variables and expressions are not proof of valid token use. Width, height, contrast, accessibility and the right semantic role still need review. This plugin does not support Biome.
+
+Positive `em` typography, positive unitless line heights and proportional `em` margins/gaps are allowed. Fixed layout spacing and raw colors are reported. Use [Foundations](/docs/foundations/overview) to choose the role, and [Styling](/docs/styling) for component extension boundaries.
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+## 검사 한계
+
+CSS 파일, 클래스 문자열, 다른 변수로 전달한 스타일 객체와 `background` 같은 축약 속성은 검사하지 않습니다. 변수나 표현식을 사용했다고 올바른 토큰이라는 뜻은 아닙니다. 너비·높이·대비·접근성과 적절한 의미 역할은 별도로 검토해야 합니다. 이 플러그인은 Biome을 지원하지 않습니다.
+
+양수 `em` 글꼴 크기, 양수 단위 없는 줄 높이와 비례하는 `em` 마진·간격은 허용합니다. 고정 간격과 직접 색상 값은 진단합니다. 역할 선택은 [Foundations](/docs/foundations/overview), 컴포넌트 확장 범위는 [스타일링](/docs/styling)을 확인하세요.
+
+</LocaleContent>

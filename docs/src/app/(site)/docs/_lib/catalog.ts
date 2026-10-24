@@ -6,6 +6,7 @@ export const catalog = [
   { section: "guide", slug: "installation", title: "Installation" },
   { section: "guide", slug: "theming", title: "Theming" },
   { section: "guide", slug: "styling", title: "Styling" },
+  { section: "guide", slug: "lint", title: "Lint" },
   { section: "guide", slug: "changelog", title: "Changelog" },
   ...foundations.map((item) => ({ ...item, section: "foundations" })),
   ...patterns.map((item) => ({ ...item, section: "patterns" })),

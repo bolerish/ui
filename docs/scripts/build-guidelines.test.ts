@@ -37,7 +37,14 @@ test("canonical agent entry points use English and link English references", asy
 });
 
 test("public guides are readable Markdown and search discovery lists canonical pages", async () => {
-  for (const slug of ["getting-started", "installation", "theming", "styling", "changelog"]) {
+  for (const slug of [
+    "getting-started",
+    "installation",
+    "theming",
+    "styling",
+    "lint",
+    "changelog",
+  ]) {
     const english = await readFile(new URL(`guides/${slug}.en.md`, root), "utf8");
     const korean = await readFile(new URL(`guides/${slug}.md`, root), "utf8");
     assert.match(english, /^# /);

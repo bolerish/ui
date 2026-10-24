@@ -9,7 +9,7 @@ test("localized search indexes are served independently from document HTML", asy
     assert.equal(response.status, 200);
     assert.match(response.headers.get("content-type") ?? "", /application\/json/);
     const index = await response.json();
-    assert.equal(index.length, 78);
+    assert.equal(index.length, 79);
     const theming = index.find((item: { slug: string }) => item.slug === "theming");
     assert.match(theming.text, locale === "en" ? /portals/i : /포털/);
   }
@@ -136,6 +136,7 @@ test("guides render in both languages and keep internal links localized", async 
     ["installation", "Installation", "설치"],
     ["theming", "Theming", "테마"],
     ["styling", "Styling", "스타일링"],
+    ["lint", "Lint", "린트"],
     ["changelog", "Changelog", "변경 기록"],
   ]) {
     for (const [suffix, title] of [
@@ -149,6 +150,13 @@ test("guides render in both languages and keep internal links localized", async 
       assert.match(html, new RegExp(`href="/docs/installation${suffix}"`));
       assert.match(html, new RegExp(`href="/docs/theming${suffix}"`));
       assert.match(html, new RegExp(`href="/docs/styling${suffix}"`));
+      if (slug === "lint") {
+        assert.match(html, new RegExp(`href="/docs/lint${suffix}"`));
+        assert.match(html, /bolerish-ui\/spacing-tokens/);
+        assert.match(html, suffix ? /비공개/ : /private/);
+        assert.match(html, /ESLint/);
+        assert.match(html, /Oxlint/);
+      }
       assert.doesNotMatch(html, /Could not load this page/);
     }
   }
