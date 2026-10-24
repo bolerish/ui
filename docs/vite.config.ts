@@ -8,12 +8,22 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { defineConfig } from "vite";
 
+const markdownDependencies = ["react-markdown", "rehype-slug", "remark-gfm"];
+
 export default defineConfig({
   server: { port: 3000 },
   resolve: { dedupe: ["react", "react-dom", "@stylexjs/stylex"] },
+  // Discover MDX-only imports before requests; SSR optimizer reloads can split React instances.
+  optimizeDeps: { include: markdownDependencies },
   ssr: {
     optimizeDeps: {
-      include: ["react", "react/jsx-runtime", "react/jsx-dev-runtime", "react-dom/server"],
+      include: [
+        "react",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+        "react-dom/server",
+        ...markdownDependencies,
+      ],
     },
   },
   plugins: [
