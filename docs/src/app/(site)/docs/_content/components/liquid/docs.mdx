@@ -1,6 +1,7 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { ComponentPreview } from "@/app/(site)/docs/_components/ComponentPreview";
 import DefaultSource from "./Default.tsx?raw";
+import ComparisonSource from "./Comparison.tsx?raw";
 
 <LocaleContent locale="en">
 
@@ -44,6 +45,15 @@ Reduced transparency and forced colors use an opaque surface with the decorative
 
 Native `div` props, including `ref` and accessible region names, reach the root.
 
+## Compare materials
+
+Switch between the same photograph, gradient and flat background. Solid hides the
+background, Blur diffuses it, and Liquid bends its edges while retaining detail.
+The two transparent examples use a matched 52% fill for this comparison; global
+material defaults remain unchanged. Their foregrounds and image crop are identical.
+On a flat background, there is little detail for either effect to reveal.
+Reduced-transparency and forced-color preferences still take precedence.
+
 </LocaleContent>
 
 <LocaleContent locale="ko">
@@ -70,4 +80,14 @@ Native `div` props, including `ref` and accessible region names, reach the root.
 
 `ref`와 접근성 영역 이름을 포함한 표준 `div` 속성은 루트에 전달합니다.
 
+## 재질 비교
+
+같은 사진·그라디언트·단색 배경을 바꾸며 비교합니다. Solid는 배경을 가리고,
+Blur는 배경을 흐리게 하며, Liquid는 디테일을 남긴 채 가장자리를 굴절시킵니다.
+반투명 두 예제의 채움은 비교용으로만 52%로 맞췄으며 전역 기본값은 유지합니다.
+전경 콘텐츠와 사진의 잘리는 위치도 같습니다. 단색 배경에는 효과로 드러낼
+디테일이 거의 없습니다. 투명도 줄이기와 강제 색상 설정은 계속 우선합니다.
+
 </LocaleContent>
+
+<ComponentPreview name="liquid--Comparison" source={ComparisonSource} />
