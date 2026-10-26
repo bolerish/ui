@@ -47,6 +47,11 @@ colors and reduced-transparency emulation run in Chromium through CDP; those che
 are explicitly skipped in the other engines. The rest of the component suite runs
 in Chromium. These checks do not establish rendering parity on physical iOS devices.
 
+Shared CSS refraction checks render ordinary Card and portaled Dialog surfaces
+without a Liquid component. Chromium must change backdrop pixels while WebKit
+retains the blur baseline; Solid and forced colors disable the filter. The fixed
+shared map does not promise the geometry accuracy of the explicit Liquid lens.
+
 ## Limits
 
 This does not audit every prop combination, every non-Default documentation

@@ -85,11 +85,13 @@ try {
 
   const globalCss = await readFile(join(sourceDirectory, "styles/global.css"), "utf8");
   const resetCss = await readFile(join(sourceDirectory, "styles/reset.css"), "utf8");
+  const refraction = await readFile(join(sourceDirectory, "styles/liquid-refraction.svg"), "utf8");
   await writeFile(
     join(outputDirectory, "global.css"),
     `@import "./reset.css";\n@import "./stylex.css";\n\n${globalCss}`,
   );
   await writeFile(join(outputDirectory, "reset.css"), resetCss);
+  await writeFile(join(outputDirectory, "liquid-refraction.svg"), refraction);
 
   await execFile(process.execPath, [
     "node_modules/typescript/bin/tsc",

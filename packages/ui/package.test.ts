@@ -201,6 +201,11 @@ test("package consumers build components and both themes without a StyleX plugin
     assert.equal(styles.length, 1);
     assert.equal(styles[0].type, "asset");
     const css = String(styles[0].source);
+    const refractionAsset = result.output.find(
+      (entry) => entry.type === "asset" && entry.fileName.endsWith(".svg"),
+    );
+    assert.ok(refractionAsset, "the CSS consumer emits the packaged refraction asset");
+    assert.ok(css.includes(refractionAsset.fileName));
     const { themeClassNames } = await import("./dist/theme.js");
     for (const mode of ["light", "dark"] as const) {
       assert.ok(themeClassNames[mode].length > 0);

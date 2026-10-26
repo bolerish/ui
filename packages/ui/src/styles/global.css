@@ -17,15 +17,16 @@
 }
 
 [data-bolerish-surface="liquid"] {
+  --bolerish-refraction: url("./liquid-refraction.svg#bolerish-refraction");
   --bolerish-liquid-display: block;
   --bolerish-liquid-opacity: 52%;
   --bolerish-liquid-reflection: 0 0 transparent;
   --bolerish-panel-opacity: 68%;
   --bolerish-control-opacity: 56%;
   --bolerish-floating-opacity: 46%;
-  --bolerish-panel-filter: blur(12px) saturate(1.15);
-  --bolerish-control-filter: blur(6px) saturate(1.1);
-  --bolerish-floating-filter: blur(8px) saturate(1.1);
+  --bolerish-panel-filter: var(--bolerish-refraction) blur(12px) saturate(1.15);
+  --bolerish-control-filter: var(--bolerish-refraction) blur(6px) saturate(1.1);
+  --bolerish-floating-filter: var(--bolerish-refraction) blur(8px) saturate(1.1);
   --bolerish-surface-sheen: none;
   --bolerish-surface-reflection: 0 0 transparent;
   --bolerish-raised-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
