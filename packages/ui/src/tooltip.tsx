@@ -19,7 +19,9 @@ import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
-  elevation: { "--bolerish-material-shadow": shadowVars.floating },
+  elevation: {
+    "--bolerish-material-shadow": `var(--bolerish-floating-shadow, ${shadowVars.floating})`,
+  },
   positioner: { zIndex: layerVars.notification },
   popup: {
     backgroundColor: colorVars.bgRaised,

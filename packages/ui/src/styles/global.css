@@ -1,9 +1,6 @@
 /* Global styles are composed by the package build. */
 
 [data-bolerish-surface="solid"] {
-  --bolerish-liquid-display: none;
-  --bolerish-liquid-opacity: 100%;
-  --bolerish-liquid-reflection: 0 0 transparent;
   --bolerish-panel-opacity: 100%;
   --bolerish-control-opacity: 100%;
   --bolerish-floating-opacity: 100%;
@@ -12,26 +9,27 @@
   --bolerish-floating-filter: none;
   --bolerish-surface-sheen: none;
   --bolerish-surface-reflection: 0 0 transparent;
+  --bolerish-raised-shadow: initial;
+  --bolerish-floating-shadow: initial;
+  --bolerish-liquid-display: none;
+  --bolerish-liquid-opacity: 100%;
+  --bolerish-liquid-reflection: 0 0 transparent;
 }
 
 [data-bolerish-surface="liquid"] {
   --bolerish-liquid-display: block;
   --bolerish-liquid-opacity: 52%;
   --bolerish-liquid-reflection: 0 0 transparent;
-  --bolerish-panel-opacity: 78%;
-  --bolerish-control-opacity: 88%;
-  --bolerish-floating-opacity: 86%;
-  --bolerish-panel-filter: blur(20px) saturate(1.15);
-  --bolerish-control-filter: blur(10px) saturate(1.1);
-  --bolerish-floating-filter: blur(24px) saturate(1.2);
-  --bolerish-surface-sheen: linear-gradient(
-    135deg,
-    rgb(255 255 255 / 0.04),
-    transparent 46%,
-    rgb(255 255 255 / 0.02)
-  );
-  --bolerish-surface-reflection:
-    inset 0 1px 0 rgb(255 255 255 / 0.38), inset 0 0 0 1px rgb(255 255 255 / 0.13);
+  --bolerish-panel-opacity: 68%;
+  --bolerish-control-opacity: 56%;
+  --bolerish-floating-opacity: 46%;
+  --bolerish-panel-filter: blur(12px) saturate(1.15);
+  --bolerish-control-filter: blur(6px) saturate(1.1);
+  --bolerish-floating-filter: blur(8px) saturate(1.1);
+  --bolerish-surface-sheen: none;
+  --bolerish-surface-reflection: 0 0 transparent;
+  --bolerish-raised-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+  --bolerish-floating-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
 }
 
 :root[data-bolerish-motion="off"],

@@ -25,35 +25,70 @@ for (const theme of ["light", "dark"]) {
     });
     expect(liquid.color).not.toBe(solid.color);
     expect(liquid.filter).toContain("blur");
-    expect(liquid.shadow).toContain("inset");
-    const contrast = await card.evaluate((n) => {
-      const ctx = document.createElement("canvas").getContext("2d")!;
-      function rgba(color: string) {
-        ctx.clearRect(0, 0, 1, 1);
-        ctx.fillStyle = color;
-        ctx.fillRect(0, 0, 1, 1);
-        return Array.from(ctx.getImageData(0, 0, 1, 1).data).map((v) => v / 255);
-      }
-      function luminance(rgb: number[]) {
-        return rgb
-          .slice(0, 3)
-          .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
-          .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
-      }
-      const color = rgba(getComputedStyle(n).backgroundColor);
-      const parent = rgba(getComputedStyle(n.parentElement!).backgroundColor);
-      const background = color.slice(0, 3).map((v, i) => v * color[3] + parent[i] * (1 - color[3]));
-      const foreground = rgba(
-        getComputedStyle(n.querySelector('[data-testid="description"]')!).color,
-      );
-      // Check both ends of the white sheen over this colored backing.
-      return [0, 0.04].map((alpha) => {
-        const b = luminance(background.map((v) => v * (1 - alpha) + alpha));
-        const f = luminance(foreground);
-        return (Math.max(b, f) + 0.05) / (Math.min(b, f) + 0.05);
-      });
+    expect(liquid.shadow).not.toContain("inset");
+    await expect(card).toHaveCSS("background-image", "none");
+    expect((await card.evaluate(backgroundPixel))[3] / 255).toBeLessThanOrEqual(0.7);
+    expect(
+      (await page.getByRole("textbox", { name: "Surface field" }).evaluate(backgroundPixel))[3] /
+        255,
+    ).toBeLessThanOrEqual(0.6);
+    const description = page.getByTestId("description");
+    const textColor = await description.evaluate((n) => getComputedStyle(n).color);
+    const cardBox = (await card.boundingBox())!;
+    const textBox = (await description.boundingBox())!;
+    let background: Buffer;
+    await card.locator(":scope > *").evaluateAll((nodes) => {
+      for (const node of nodes) (node as HTMLElement).style.visibility = "hidden";
     });
-    expect(Math.min(...contrast)).toBeGreaterThanOrEqual(4.5);
+    try {
+      background = await card.screenshot();
+    } finally {
+      await card.locator(":scope > *").evaluateAll((nodes) => {
+        for (const node of nodes) (node as HTMLElement).style.visibility = "";
+      });
+    }
+    const contrast = await page.evaluate(
+      async ({ image, textColor, cardBox, textBox }) => {
+        const bitmap = new Image();
+        bitmap.src = image;
+        await bitmap.decode();
+        const canvas = document.createElement("canvas");
+        canvas.width = bitmap.width;
+        canvas.height = bitmap.height;
+        const ctx = canvas.getContext("2d")!;
+        ctx.fillStyle = textColor;
+        ctx.fillRect(0, 0, 1, 1);
+        const foreground = Array.from(ctx.getImageData(0, 0, 1, 1).data);
+        function luminance(rgb: number[]) {
+          return rgb
+            .slice(0, 3)
+            .map((v) => v / 255)
+            .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+            .reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+        }
+        ctx.drawImage(bitmap, 0, 0);
+        const pixels = ctx.getImageData(
+          Math.round(textBox.x - cardBox.x),
+          Math.round(textBox.y - cardBox.y),
+          Math.floor(textBox.width),
+          Math.floor(textBox.height),
+        ).data;
+        const f = luminance(foreground);
+        let minimum = Infinity;
+        for (let i = 0; i < pixels.length; i += 4) {
+          const b = luminance(Array.from(pixels.slice(i, i + 3)));
+          minimum = Math.min(minimum, (Math.max(b, f) + 0.05) / (Math.min(b, f) + 0.05));
+        }
+        return minimum;
+      },
+      {
+        image: `data:image/png;base64,${background.toString("base64")}`,
+        textColor,
+        cardBox,
+        textBox,
+      },
+    );
+    expect(contrast).toBeGreaterThanOrEqual(4.5);
     await page.screenshot({ path: test.info().outputPath(`liquid-${theme}.png`) });
     await page.emulateMedia({ forcedColors: "active" });
     await expect(card).toHaveCSS("backdrop-filter", "none");
@@ -67,5 +102,37 @@ for (const theme of ["light", "dark"]) {
     await expect(card).toHaveCSS("backdrop-filter", "none");
     await expect(card).toHaveCSS("background-image", "none");
     expect(await card.evaluate(backgroundPixel)).toEqual(solidPixel);
+  });
+
+  test(`Liquid ${theme} modal shares the quieter material and retains keyboard recovery`, async ({
+    page,
+  }) => {
+    await page.goto(`/?fixture=surface&theme=${theme}&surface=solid`);
+    const trigger = page.getByRole("button", { name: "Open dialog", exact: true });
+    await trigger.click();
+    const dialog = page.getByRole("dialog", { name: "Edit project" });
+    const solidShadow = await dialog.evaluate((n) => getComputedStyle(n).boxShadow);
+    await page.keyboard.press("Escape");
+    await page.goto(`/?fixture=surface&theme=${theme}&surface=liquid`);
+    await trigger.click();
+    await expect(dialog).toBeVisible();
+    expect((await dialog.evaluate(backgroundPixel))[3] / 255).toBeLessThanOrEqual(0.6);
+    const shadow = await dialog.evaluate((n) => getComputedStyle(n).boxShadow);
+    expect(shadow).not.toContain("inset");
+    expect(shadow).not.toEqual(solidShadow);
+    const lengths = [...shadow.matchAll(/\)\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+([\d.]+)px/g)];
+    expect(lengths.length).toBeGreaterThan(0);
+    for (const [, , offset, blur] of lengths) {
+      expect(Math.abs(Number(offset))).toBeLessThanOrEqual(4);
+      expect(Number(blur)).toBeLessThanOrEqual(12);
+    }
+    await page.locator("html").evaluate((n) => {
+      n.dataset.bolerishSurface = "solid";
+    });
+    await expect(dialog).toHaveCSS("box-shadow", solidShadow);
+    await expect(page.getByRole("textbox", { name: "Project name" })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toBeFocused();
   });
 }

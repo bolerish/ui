@@ -61,7 +61,7 @@ const styles = stylex.create({
     "--bolerish-material-filter": "var(--bolerish-control-filter, none)",
   },
   raised: {
-    "--bolerish-material-shadow": shadowVars.overlay,
+    "--bolerish-material-shadow": `var(--bolerish-raised-shadow, ${shadowVars.overlay})`,
     "--bolerish-material-color": colorVars.bgRaised,
     "--bolerish-material-opacity": "var(--bolerish-floating-opacity, 100%)",
     "--bolerish-material-filter": "var(--bolerish-floating-filter, none)",
@@ -72,7 +72,7 @@ const styles = stylex.create({
     "--bolerish-material-filter": "var(--bolerish-panel-filter, blur(16px))",
   },
   floating: {
-    "--bolerish-material-shadow": shadowVars.floating,
+    "--bolerish-material-shadow": `var(--bolerish-floating-shadow, ${shadowVars.floating})`,
     "--bolerish-material-color": colorVars.bgRaised,
     "--bolerish-material-opacity": "var(--bolerish-floating-opacity, 94%)",
     "--bolerish-material-filter": "var(--bolerish-floating-filter, blur(16px))",
