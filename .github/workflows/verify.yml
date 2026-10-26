@@ -28,7 +28,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm test
-      - run: pnpm --filter @bolerish/ui exec playwright install --with-deps chromium webkit
+      - run: pnpm --filter @bolerish/ui exec playwright install --with-deps chromium firefox webkit
       - run: pnpm --filter @bolerish/ui test:browser
       - name: Upload browser and axe reports
         if: always()

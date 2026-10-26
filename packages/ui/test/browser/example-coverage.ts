@@ -23,6 +23,7 @@ export const defaultExamples = [
   "dropdown-menu",
   "empty",
   "field",
+  "liquid",
   "heading",
   "hover-card",
   "input",

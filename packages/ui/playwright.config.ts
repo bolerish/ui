@@ -5,6 +5,19 @@ export default defineConfig({
   testMatch: "**/*.browser.spec.ts",
   fullyParallel: false,
   workers: 1,
+  projects: [
+    { name: "chromium", use: { browserName: "chromium" } },
+    {
+      name: "firefox",
+      testMatch: "**/liquid.browser.spec.ts",
+      use: { browserName: "firefox", launchOptions: {} },
+    },
+    {
+      name: "webkit",
+      testMatch: "**/liquid.browser.spec.ts",
+      use: { browserName: "webkit", launchOptions: {} },
+    },
+  ],
   reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL: "http://127.0.0.1:4175",

@@ -32,6 +32,7 @@ import {
   DropdownMenuItem,
 } from "../../dist/dropdown-menu.js";
 import { Input } from "../../dist/input.js";
+import { Liquid } from "../../dist/liquid.js";
 import { Popover, PopoverTrigger, PopoverContent } from "../../dist/popover.js";
 import {
   Select,
@@ -109,6 +110,51 @@ function DialogExample() {
   );
 }
 function App() {
+  if (fixture === "liquid")
+    return (
+      <main>
+        <h1>Liquid measurement</h1>
+        <Liquid
+          data-testid="liquid"
+          style={{ width: 240, height: 160 }}
+          background={
+            <svg width="100%" height="100%" viewBox="0 0 240 160" preserveAspectRatio="none">
+              {Array.from({ length: 40 }, (_, index) => (
+                <rect
+                  key={index}
+                  x={index * 6}
+                  width="6"
+                  height="160"
+                  fill={index % 2 ? "#3b82f6" : "#ef4444"}
+                />
+              ))}
+            </svg>
+          }
+        >
+          <div style={{ paddingBlock: 48, paddingInline: 4 }}>
+            <span
+              data-testid="foreground-label"
+              style={{
+                position: "absolute",
+                left: 2,
+                top: 20,
+                background: "Canvas",
+                color: "CanvasText",
+              }}
+            >
+              Sharp
+            </span>
+            <Button
+              onClick={(event) => {
+                event.currentTarget.textContent = "Selected";
+              }}
+            >
+              Choose
+            </Button>
+          </div>
+        </Liquid>
+      </main>
+    );
   if (fixture === "input-variants")
     return (
       <main>
@@ -164,6 +210,7 @@ function App() {
             <p>Primary text</p>
             <CardDescription data-testid="description">Supporting text</CardDescription>
             <Input aria-label="Surface field" />
+            <DialogExample />
           </CardContent>
         </Card>
       </div>
