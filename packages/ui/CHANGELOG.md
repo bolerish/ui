@@ -1,5 +1,44 @@
 # @bolerish/ui
 
+## 0.16.0
+
+### Minor Changes
+
+- f18d2da: Add `Liquid` and `LiquidProps` through the root and `@bolerish/ui/liquid` entry points.
+  In Liquid mode, the component refracts an explicitly supplied decorative
+  `background` while foreground children remain sharp and interactive. It does not
+  capture the page or require a new runtime dependency. Solid mode, reduced
+  transparency and forced colors retain an opaque surface. Large surfaces and
+  unsupported canvas environments keep the material without refraction.
+
+  The unreleased Glass name and subpath are replaced by Liquid without aliases.
+  For existing components, the global surface setting is sufficient: a packaged
+  SVG adds gentle live-backdrop refraction in Chromium while Safari and Firefox
+  retain blur. No Provider, per-component wrapper or runtime registration is
+  needed. The shared map is fixed and stretched rather than fitted per element.
+  CSS bundlers must retain or emit the referenced SVG asset; Solid and accessibility
+  fallbacks disable the filter.
+- 5827df0: Add `surface.props({ mode: "solid" | "liquid" })` through the root and
+  `@bolerish/ui/surface` entry points. It returns only `data-bolerish-surface`,
+  preserving independently composed `className` and `style` props. Apply it to
+  `html` to include portaled surfaces; existing data attributes remain supported.
+  The helper requires no Provider, wrapper or consumer StyleX compiler and does
+  not capture page content. Unsupported modes throw `TypeError`.
+
+### Patch Changes
+
+- 9bb676b: Make Liquid panels, controls and floating surfaces more transparent, with less
+  blur, no inset reflections or gloss, and shallower floating shadows. Liquid also
+  uses a more transparent fill without an inset highlight. Existing components inherit the adjustment
+  through `data-bolerish-surface="liquid"`; no component API changes are required.
+  Solid surfaces and reduced-transparency and forced-colors fallbacks retain their
+  existing behavior. Review text contrast when using custom backgrounds.
+
+  Use the same more transparent, lower-blur material across portaled popovers,
+  menus, selection lists, tooltips, hover cards, date pickers and notifications,
+  as well as modal surfaces. Foreground content keeps its full opacity.
+- @bolerish/tokens@0.16.0
+
 ## 0.15.0
 
 ### Minor Changes
