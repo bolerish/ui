@@ -19,6 +19,31 @@ test("surface root and subpath exports share the same attribute-only API", async
   assert.deepEqual(entry.surface.props({ mode: "liquid" }), { "data-bolerish-surface": "liquid" });
 });
 
+test("Liquid has matching root and subpath exports and renders server HTML", async () => {
+  const { Liquid } = await import("@bolerish/ui/liquid");
+  const root = await import("./dist/index.js");
+  const { createElement } = await import("react");
+  const { renderToStaticMarkup } = await import("react-dom/server");
+  assert.equal(root.Liquid, Liquid);
+  assert.equal("Glass" in root, false);
+  const removedPath = "@bolerish/ui/glass";
+  await assert.rejects(import(removedPath), { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" });
+  const html = renderToStaticMarkup(
+    createElement(Liquid, {
+      background: createElement("img", { src: "/scene.webp", alt: "" }),
+      className: "consumer-liquid",
+      "aria-label": "Player",
+      // oxlint-disable-next-line react/no-children-prop -- Node SSR contract without JSX.
+      children: createElement("button", null, "Play"),
+    }),
+  );
+  assert.match(html, /consumer-liquid/);
+  assert.match(html, /aria-label="Player"/);
+  assert.match(html, /aria-hidden="true" inert=""/);
+  assert.match(html, /<button>Play<\/button>/);
+  assert.doesNotMatch(html, /<filter\b/);
+});
+
 test("Item is the public entry point and ContentRow has no compatibility export", async () => {
   const entry = await import("@bolerish/ui/item");
   const root = await import("./dist/index.js");
@@ -126,12 +151,12 @@ test("package consumers build components and both themes without a StyleX plugin
       [
         'import React from "react";',
         'import { createRoot } from "react-dom/client";',
-        'import { Button, surface } from "@bolerish/ui";',
+        'import { Button, Liquid, surface } from "@bolerish/ui";',
         'import { themeClassNames } from "@bolerish/ui/theme";',
         'import "./custom.css";',
         'document.documentElement.classList.add(...themeClassNames.dark.split(" "));',
         'for (const [name, value] of Object.entries(surface.props({ mode: "liquid" }))) document.documentElement.setAttribute(name, value);',
-        'createRoot(document.getElementById("root")!).render(<Button className="consumer-button" style={{ maxWidth: 320 }}>Save</Button>);',
+        'createRoot(document.getElementById("root")!).render(<Liquid background={<span>Decorative scene</span>}><Button className="consumer-button" style={{ maxWidth: 320 }}>Save</Button></Liquid>);',
       ].join("\n"),
     );
     await writeFile(

@@ -20,6 +20,7 @@ import type { Item } from "./dist/item.js";
 import type { Kbd } from "./dist/kbd.js";
 import type { Label } from "./dist/label.js";
 import type { Link } from "./dist/link.js";
+import { Liquid } from "./dist/liquid.js";
 import type { NativeSelect } from "./dist/native-select.js";
 import type { Progress } from "./dist/progress.js";
 import type { SelectTrigger } from "./dist/select.js";
@@ -39,6 +40,18 @@ export type RemovedContentRowContract = ContentRowProps;
 type HasStylingProps<Props> = "className" | "style" extends keyof Props ? true : false;
 type HasXstyle<Props> = "xstyle" extends keyof Props ? true : false;
 export type ButtonContract = Assert<HasStylingProps<ComponentProps<typeof Button>>>;
+export type LiquidContract = Assert<HasStylingProps<ComponentProps<typeof Liquid>>>;
+export const liquidBackgroundContract = (
+  <Liquid
+    background={<img src="/scene.webp" alt="" />}
+    aria-label="Player"
+    style={{ maxWidth: 320 }}
+  >
+    Foreground
+  </Liquid>
+);
+// @ts-expect-error The app must explicitly own the decorative background.
+export const missingLiquidBackground = <Liquid>Foreground</Liquid>;
 export type CardContract = Assert<HasStylingProps<ComponentProps<typeof Card>>>;
 export type AccordionContract = Assert<HasStylingProps<ComponentProps<typeof AccordionTrigger>>>;
 export type SelectContract = Assert<HasStylingProps<ComponentProps<typeof SelectTrigger>>>;
@@ -125,7 +138,7 @@ export const buttonMotion: ComponentProps<typeof Button> = {
 export const translucentCard: ComponentProps<typeof Card> = { variant: "translucent" };
 export const invalidCardVariant: ComponentProps<typeof Card> = {
   // @ts-expect-error Card supports only its documented surface treatments.
-  variant: "glass",
+  variant: "liquid",
 };
 export const cardPaint: ComponentProps<typeof Card> = { xstyle: styles.paint };
 

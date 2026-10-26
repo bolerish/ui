@@ -1,6 +1,9 @@
 /* Global styles are composed by the package build. */
 
 [data-bolerish-surface="solid"] {
+  --bolerish-liquid-display: none;
+  --bolerish-liquid-opacity: 100%;
+  --bolerish-liquid-reflection: 0 0 transparent;
   --bolerish-panel-opacity: 100%;
   --bolerish-control-opacity: 100%;
   --bolerish-floating-opacity: 100%;
@@ -12,6 +15,9 @@
 }
 
 [data-bolerish-surface="liquid"] {
+  --bolerish-liquid-display: block;
+  --bolerish-liquid-opacity: 52%;
+  --bolerish-liquid-reflection: 0 0 transparent;
   --bolerish-panel-opacity: 78%;
   --bolerish-control-opacity: 88%;
   --bolerish-floating-opacity: 86%;

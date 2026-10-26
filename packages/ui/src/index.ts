@@ -35,6 +35,8 @@ export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText } from "./button-gro
 export type { ButtonGroupProps } from "./button-group";
 export { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
 export { Calendar } from "./calendar";
+export { Liquid } from "./liquid";
+export type { LiquidProps } from "./liquid";
 export type { CalendarProps } from "./calendar";
 export {
   Carousel,
