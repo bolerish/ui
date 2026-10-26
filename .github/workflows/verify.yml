@@ -12,6 +12,13 @@ jobs:
   verify:
     name: verify
     runs-on: ubuntu-latest
+    # Keep browser dependencies off the slow Ubuntu package mirror.
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - uses: actions/checkout@v7
@@ -28,7 +35,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm test
-      - run: pnpm --filter @bolerish/ui exec playwright install --with-deps chromium firefox webkit
+      - run: pnpm --filter @bolerish/ui exec playwright install chromium firefox webkit
       - run: pnpm --filter @bolerish/ui test:browser
       - name: Upload browser and axe reports
         if: always()
