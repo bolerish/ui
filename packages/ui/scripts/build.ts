@@ -35,6 +35,7 @@ async function getEntryPoints() {
     primitives: join(sourceDirectory, "primitives.ts"),
     theme: join(sourceDirectory, "theme.ts"),
     gradient: join(sourceDirectory, "gradient.ts"),
+    surface: join(sourceDirectory, "surface.ts"),
     // Include definitions even when StyleX inlines their references in components.
     _tokens: resolve("../tokens/src/index.ts"),
   };
@@ -59,6 +60,8 @@ const componentModules: Plugin = {
       if (!importer.startsWith(join(process.cwd(), sourceDirectory))) return;
       const name = basename(path).replace(/\.[jt]sx?$/, "");
       if (!(name in entryPoints)) return;
+      const importedPath = resolve(dirname(importer), path).replace(/\.[jt]sx?$/, "");
+      if (importedPath !== resolve(entryPoints[name]).replace(/\.[jt]sx?$/, "")) return;
       return { path: `./${name}.js`, external: true };
     });
   },

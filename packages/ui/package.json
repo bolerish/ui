@@ -44,6 +44,7 @@
     "./field": "./dist/field.js",
     "./hover-card": "./dist/hover-card.js",
     "./gradient": "./dist/gradient.js",
+    "./surface": "./dist/surface.js",
     "./global.css": "./dist/global.css",
     "./primitives": "./dist/primitives.js",
     "./reset.css": "./dist/reset.css",

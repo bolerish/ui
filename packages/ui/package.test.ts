@@ -12,6 +12,13 @@ import { build } from "vite";
 const execFile = promisify(execFileCallback);
 const testDirectory = dirname(fileURLToPath(import.meta.url));
 
+test("surface root and subpath exports share the same attribute-only API", async () => {
+  const entry = await import("@bolerish/ui/surface");
+  const root = await import("./dist/index.js");
+  assert.equal(entry.surface, root.surface);
+  assert.deepEqual(entry.surface.props({ mode: "liquid" }), { "data-bolerish-surface": "liquid" });
+});
+
 test("Item is the public entry point and ContentRow has no compatibility export", async () => {
   const entry = await import("@bolerish/ui/item");
   const root = await import("./dist/index.js");
@@ -119,10 +126,11 @@ test("package consumers build components and both themes without a StyleX plugin
       [
         'import React from "react";',
         'import { createRoot } from "react-dom/client";',
-        'import { Button } from "@bolerish/ui";',
+        'import { Button, surface } from "@bolerish/ui";',
         'import { themeClassNames } from "@bolerish/ui/theme";',
         'import "./custom.css";',
         'document.documentElement.classList.add(...themeClassNames.dark.split(" "));',
+        'for (const [name, value] of Object.entries(surface.props({ mode: "liquid" }))) document.documentElement.setAttribute(name, value);',
         'createRoot(document.getElementById("root")!).render(<Button className="consumer-button" style={{ maxWidth: 320 }}>Save</Button>);',
       ].join("\n"),
     );
