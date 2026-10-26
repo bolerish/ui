@@ -40,6 +40,8 @@ jobs:
       - run: pnpm check
       - run: pnpm test
       - run: pnpm --filter @bolerish/ui exec playwright install chromium firefox webkit
+      # Firefox rejects a root process with another user's mounted home.
+      - run: chown "$(id -u):$(id -g)" "$HOME"
       - run: pnpm --filter @bolerish/ui test:browser
       - name: Upload browser and axe reports
         if: always()
