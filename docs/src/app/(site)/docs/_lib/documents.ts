@@ -7,6 +7,7 @@ import { preloadExamples } from "./examples";
 const modules = import.meta.glob<{ default: ComponentType }>([
   "../_content/components/*/docs.mdx",
   "../_content/foundations/*/docs.mdx",
+  "../_content/api/*/docs.mdx",
   "../_content/guides/*.mdx",
 ]);
 export const loadedPages: Record<string, ComponentType> = {};
@@ -33,6 +34,9 @@ export async function loadDocumentPage(section: string, slug: string, locale?: s
   if (locale !== undefined && locale !== "ko") throw notFound();
   const page = findDocument(section, slug);
   if (!page) throw notFound();
-  await Promise.all([loadDocument(documentKey(page)), preloadExamples(page.slug)]);
+  await Promise.all([
+    loadDocument(documentKey(page)),
+    page.section === "api" ? undefined : preloadExamples(page.slug),
+  ]);
   return { page };
 }

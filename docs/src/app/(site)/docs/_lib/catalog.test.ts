@@ -4,7 +4,7 @@ import test from "node:test";
 
 test("all canonical MDX pages are independent of Storybook and retain raw examples", async () => {
   let count = 0;
-  for (const group of ["components", "foundations"]) {
+  for (const group of ["components", "foundations", "api"]) {
     const root = new URL(`../_content/${group}/`, import.meta.url);
     for (const directory of await readdir(root, { withFileTypes: true })) {
       if (!directory.isDirectory()) continue;

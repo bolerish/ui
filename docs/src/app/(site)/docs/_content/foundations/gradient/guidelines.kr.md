@@ -29,19 +29,6 @@
 
 아래 예제는 배경색 선택, 대비 덮개, 아래쪽 페이드와 반투명 Card를 조합합니다. 읽기 표면은 불투명하게 유지합니다. 문서의 라이트·다크 설정과 색상 선택을 함께 바꿔 확인하세요.
 
-## 기존 요소에 적용하기
+## API 참조
 
-`@bolerish/ui/gradient`의 `gradient.props({ colors }, ...styles)`는 `className`과 `style`을 반환합니다. `colors`에는 유효한 CSS 색상 두 개를 전달합니다. 별도 요소·클라이언트 훅·소비자용 StyleX 컴파일러 없이 기존 `body`, `section`, `div`에 적용할 수 있습니다. 기본 스타일시트 `@bolerish/ui`를 먼저 불러오세요.
-
-```tsx
-import { gradient } from "@bolerish/ui/gradient";
-
-<section {...gradient.props({ colors: ["#80414b", "#b49058"] })} />;
-```
-
-`colors`는 `[강조색, 보조색]` 순서입니다.
-
-- `colors[0]` (`#80414b`): 왼쪽 위 `(0%, 0%)`에서 퍼지는 강조색입니다.
-- `colors[1]` (`#b49058`): 오른쪽 위 `(100%, 15%)`에서 퍼지는 보조색입니다.
-
-두 색상은 겹쳐 섞이고, 아래쪽으로 갈수록 기본 캔버스 색상으로 이어집니다. 선형 그라디언트의 시작색·끝색을 지정하는 배열은 아닙니다.
+`gradient.props()`의 인자·색상 순서·StyleX 합성과 대체 표현은 [Gradient API](/docs/api/gradient/ko)를 참고하세요.

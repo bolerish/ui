@@ -1,3 +1,15 @@
+# Gradient
+
+기존 요소에 래퍼 없이 테마에 맞는 그라디언트를 적용합니다. 소비 앱에 StyleX 컴파일러는 필요하지 않으며 CSS 진입점에서 `@bolerish/ui`를 먼저 불러옵니다.
+
+```tsx
+import { gradient } from "@bolerish/ui/gradient";
+
+<section {...gradient.props({ colors: ["#80414b", "#b49058"] })} />;
+```
+
+`colors[0]`은 왼쪽 위에서 퍼지는 강조색, `colors[1]`은 오른쪽 위에서 퍼지는 보조색입니다. 선형 그라디언트의 시작·끝 색상이 아니라 서로 겹쳐 캔버스로 사라지는 색상입니다. 구성 원칙과 인터랙티브 예제는 [Gradient Foundations](/docs/foundations/gradient/ko)를 참고하세요.
+
 ## StyleX 합성
 
 StyleX를 사용한다면 `stylex.props()`로 변환하기 전의 스타일을 전달합니다.

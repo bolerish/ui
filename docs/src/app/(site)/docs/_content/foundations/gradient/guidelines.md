@@ -29,19 +29,6 @@ Spread two colors with `radial-gradient()` layers and add a veil using the base 
 
 The example combines background color selection, a contrast veil, a bottom fade and a translucent Card. Its reading surface stays opaque. Change the documentation theme and the selected background color together.
 
-## Apply to an existing element
+## API reference
 
-`gradient.props({ colors }, ...styles)` from `@bolerish/ui/gradient` returns `className` and `style`. Supply exactly two valid CSS colors. Apply the result to an existing `body`, `section` or `div` without an extra element, client hook or consumer StyleX compiler. Load the base `@bolerish/ui` stylesheet first.
-
-```tsx
-import { gradient } from "@bolerish/ui/gradient";
-
-<section {...gradient.props({ colors: ["#80414b", "#b49058"] })} />;
-```
-
-`colors` is ordered as `[accent, glow]`.
-
-- `colors[0]` (`#80414b`): the accent radiating from the top left `(0%, 0%)`.
-- `colors[1]` (`#b49058`): the glow radiating from the upper right `(100%, 15%)`.
-
-The colors overlap and blend, fading into the base canvas toward the bottom. They are not the start and end stops of a linear gradient.
+Read the [Gradient API](/docs/api/gradient) for `gradient.props()`, color order, StyleX composition and fallbacks.

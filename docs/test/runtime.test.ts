@@ -9,6 +9,9 @@ const componentCount = (
 const foundationCount = JSON.parse(
   await readFile(new URL("foundations/order.json", contentRoot), "utf8"),
 ).length;
+const apiCount = (await readdir(new URL("api/", contentRoot), { withFileTypes: true })).filter(
+  (entry) => entry.isDirectory(),
+).length;
 const guideCount = (await readdir(new URL("guides/", contentRoot))).filter((name) =>
   name.endsWith(".mdx"),
 ).length;
@@ -19,10 +22,10 @@ test("localized search indexes are served independently from document HTML", asy
     assert.equal(response.status, 200);
     assert.match(response.headers.get("content-type") ?? "", /application\/json/);
     const index = await response.json();
-    assert.equal(index.length, componentCount + foundationCount + guideCount);
+    assert.equal(index.length, componentCount + foundationCount + guideCount + apiCount);
     assert.ok(
       index.every((item: { section: string }) =>
-        ["guide", "components", "foundations"].includes(item.section),
+        ["guide", "components", "foundations", "api"].includes(item.section),
       ),
     );
     const theming = index.find((item: { slug: string }) => item.slug === "theming");
@@ -32,7 +35,7 @@ test("localized search indexes are served independently from document HTML", asy
 
 test("all documents are served as prerendered HTML", async () => {
   let count = 0;
-  for (const group of ["components", "foundations"]) {
+  for (const group of ["components", "foundations", "api"]) {
     const root = new URL(`../src/app/(site)/docs/_content/${group}/`, import.meta.url);
     for (const entry of await readdir(root, { withFileTypes: true })) {
       if (
@@ -54,7 +57,7 @@ test("all documents are served as prerendered HTML", async () => {
       count++;
     }
   }
-  assert.equal(count, componentCount + foundationCount);
+  assert.equal(count, componentCount + foundationCount + apiCount);
 });
 
 test("static HTML ignores personal settings while retaining previews and real 404s", async () => {

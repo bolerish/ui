@@ -1,3 +1,15 @@
+# Gradient
+
+Apply a themed gradient to an existing element without a wrapper or consumer StyleX compiler. Load `@bolerish/ui` in your CSS entry first.
+
+```tsx
+import { gradient } from "@bolerish/ui/gradient";
+
+<section {...gradient.props({ colors: ["#80414b", "#b49058"] })} />;
+```
+
+`colors[0]` is the accent radiating from the top left; `colors[1]` is the glow radiating from the upper right. They overlap and fade into the canvas rather than defining linear-gradient start and end stops. Read [Gradient foundations](/docs/foundations/gradient) for composition principles and the interactive example.
+
 ## StyleX composition
 
 For StyleX consumers, pass the original styles before converting them with `stylex.props()`.

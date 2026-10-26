@@ -80,17 +80,19 @@ Motion follows the OS by default. `data-bolerish-motion="off"` on `html` reduces
 
 ## Select a surface treatment
 
-Set `data-bolerish-surface="solid"` or `"liquid"` on `html`. This is independent of light/dark themes and component variants. Panels, resting controls and floating surfaces have different transparency and blur strengths. Primary/destructive fills, selection, error and disabled treatments keep their semantic roles.
+Use `surface.props({ mode: "solid" | "liquid" })` on `html`. This is independent of light/dark themes and component variants. Panels, resting controls and floating surfaces have different transparency and blur strengths. Primary/destructive fills, selection, error and disabled treatments keep their semantic roles. See the [Surface API](/docs/api/surface) for composition and scope.
 
 ```tsx
-<html className={themeClassNames.dark} data-bolerish-surface="liquid">
+import { surface } from "@bolerish/ui/surface";
+
+<html className={themeClassNames.dark} {...surface.props({ mode: "liquid" })}>
   <body>{children}</body>
-</html>
+</html>;
 ```
 
 A nested `data-bolerish-surface="solid"` region can opt out. Portals mounted outside that region follow `html`, so set the app-wide choice on the document. Omitting the attribute keeps the existing behavior, including `Card variant="translucent"`.
 
-Liquid uses CSS transparency, backdrop blur, a bright rim and inner reflection without refracting the background image; browsers without the required features, reduced-transparency preferences and forced-color modes use solid fallbacks. Keep text contrast readable over your own backgrounds. See the [Card comparison](/docs/components/card#global-surface-modes).
+Liquid uses CSS transparency and backdrop blur, with shallow shadows on floating surfaces and no inset reflections or gloss. Existing material surfaces also apply a gentle SVG backdrop refraction in Chromium, without a wrapper, Provider or runtime registration. Safari and Firefox retain the blur treatment. The packaged SVG asset must remain available through your CSS pipeline. Browsers without the required features, reduced-transparency preferences and forced-color modes use solid fallbacks. Keep text contrast readable over your own backgrounds. See the [Card comparison](/docs/components/card#global-surface-modes).
 
 ## Extend the palette
 
@@ -106,17 +108,19 @@ For a custom app surface, choose existing [Color](/docs/foundations/color) roles
 
 ## 표면 표현 선택하기
 
-`html`에 `data-bolerish-surface="solid"` 또는 `"liquid"`를 설정합니다. 라이트·다크 테마와 컴포넌트 배리언트는 별도로 유지됩니다. 패널, 기본 상태의 컨트롤과 떠 있는 표면은 서로 다른 투명도·블러 강도를 사용합니다. 주요/위험 행동의 채움색과 선택·오류·비활성 표현은 의미를 유지합니다.
+`html`에 `surface.props({ mode: "solid" | "liquid" })`를 적용합니다. 라이트·다크 테마와 컴포넌트 배리언트는 별도로 유지됩니다. 패널, 기본 상태의 컨트롤과 떠 있는 표면은 서로 다른 투명도·블러 강도를 사용합니다. 주요/위험 행동의 채움색과 선택·오류·비활성 표현은 의미를 유지합니다. 합성과 범위는 [Surface API](/docs/api/surface/ko)를 참고하세요.
 
 ```tsx
-<html className={themeClassNames.dark} data-bolerish-surface="liquid">
+import { surface } from "@bolerish/ui/surface";
+
+<html className={themeClassNames.dark} {...surface.props({ mode: "liquid" })}>
   <body>{children}</body>
-</html>
+</html>;
 ```
 
 하위 영역의 `data-bolerish-surface="solid"`로 부분 적용을 해제할 수 있습니다. 영역 밖에 마운트되는 포털은 `html` 설정을 따르므로 앱 전체 선택은 문서에 두세요. 속성을 생략하면 `Card variant="translucent"`를 포함한 기존 동작을 유지합니다.
 
-Liquid는 CSS 투명도·배경 블러에 밝은 가장자리와 안쪽 반사광을 더하며, 배경 이미지를 굴절시키지는 않습니다. 필요한 기능이 없는 브라우저, 투명도 줄이기 설정과 강제 색상 모드에서는 불투명한 표면으로 대체합니다. 앱 배경 위의 글자 대비는 별도로 확인하세요. [Card 비교 예제](/docs/components/card#global-surface-modes)를 참고하세요.
+Liquid는 CSS 투명도와 배경 블러를 사용하고, 떠 있는 표면에만 얕은 그림자를 더합니다. 안쪽 반사광이나 광택은 넣지 않습니다. Chromium에서는 기존 재질 표면에 약한 SVG 배경 굴절도 적용하며 래퍼·Provider·런타임 등록은 필요하지 않습니다. Safari·Firefox는 블러 표현을 유지합니다. CSS 빌드 과정에서 패키지의 SVG 파일도 함께 처리해야 합니다. 필요한 기능이 없는 브라우저, 투명도 줄이기 설정과 강제 색상 모드에서는 불투명한 표면으로 대체합니다. 앱 배경 위의 글자 대비는 별도로 확인하세요. [Card 비교 예제](/docs/components/card#global-surface-modes)를 참고하세요.
 
 ## 팔레트 확장하기
 

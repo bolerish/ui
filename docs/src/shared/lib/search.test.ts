@@ -32,7 +32,7 @@ test("generated localized indexes cover all docs and search actual body content"
   const expected = (await readdir(new URL("guides/", content)))
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => `guide/${file.slice(0, -4)}`);
-  for (const section of ["components", "foundations"]) {
+  for (const section of ["components", "foundations", "api"]) {
     for (const entry of await readdir(new URL(`${section}/`, content), { withFileTypes: true })) {
       if (
         entry.isDirectory() &&
@@ -54,6 +54,16 @@ test("generated localized indexes cover all docs and search actual body content"
     assert.ok(results.some((item) => item.slug === "theming"));
     assert.ok(searchDocuments(index, "Biome").some((item) => item.slug === "lint"));
     assert.ok(index.some((item) => item.slug === "item"));
+    assert.ok(
+      searchDocuments(index, "surface").some(
+        (item) => item.section === "api" && item.slug === "surface",
+      ),
+    );
+    assert.ok(
+      searchDocuments(index, "gradient").some(
+        (item) => item.section === "api" && item.slug === "gradient",
+      ),
+    );
     assert.ok(!index.some((item) => item.slug === "content-row"));
   }
 });

@@ -8,7 +8,7 @@ export const Route = createFileRoute("/(site)/docs/$section/$slug/{-$locale}/")(
   pendingMs: Infinity,
   staleTime: 300_000,
   loader: ({ params }) => {
-    if (!["components", "foundations"].includes(params.section)) throw notFound();
+    if (!["components", "foundations", "api"].includes(params.section)) throw notFound();
     return loadDocumentPage(params.section, params.slug, params.locale);
   },
   head: ({ loaderData, params }) =>

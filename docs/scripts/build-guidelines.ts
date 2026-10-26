@@ -37,6 +37,11 @@ async function readPage(directory: URL, suffix: string) {
 const order = JSON.parse(await readFile(new URL("order.json", source), "utf8"));
 const components = new URL("../src/app/(site)/docs/_content/components/", import.meta.url);
 const componentNames = (await readdir(components)).sort();
+const apiSource = new URL("../src/app/(site)/docs/_content/api/", import.meta.url);
+const apiNames = (await readdir(apiSource, { withFileTypes: true }))
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .sort();
 const guideSource = new URL("../src/app/(site)/docs/_content/guides/", import.meta.url);
 const guides = (await readdir(guideSource)).filter((name) => name.endsWith(".mdx")).sort();
 const guideOutput = new URL("guides/", output);
@@ -63,6 +68,7 @@ const documentPaths = [
   ...guides.map((file) => `/docs/${file.slice(0, -4)}`),
   ...order.map(({ slug }: { slug: string }) => `/docs/foundations/${slug}`),
   ...componentNames.map((slug) => `/docs/components/${slug}`),
+  ...apiNames.map((slug) => `/docs/api/${slug}`),
 ];
 await emitFile(
   new URL("robots.txt", output),
@@ -92,7 +98,7 @@ for (const [label, directory, names] of [
   [
     "shared-types",
     new URL("../../packages/ui/src/", import.meta.url),
-    ["styles/control-layout.ts", "typography.ts", "theme.ts", "gradient.ts"],
+    ["styles/control-layout.ts", "typography.ts", "theme.ts", "gradient.ts", "surface.ts"],
   ],
 ] as const) {
   for (const name of names) {
@@ -132,12 +138,10 @@ for (const locale of ["ko", "en"]) {
     });
   }
   for (const { slug } of order) {
-    let content = await readFile(
+    const content = await readFile(
       new URL(`${slug}/guidelines${locale === "ko" ? ".kr" : ""}.md`, source),
       "utf8",
     );
-    if (slug === "gradient")
-      content += `\n${await readFile(new URL(`${slug}/api${suffix}.md`, source), "utf8")}`;
     const title = content.split("\n")[0].slice(2);
     search.push({
       section: "foundations",
@@ -148,6 +152,17 @@ for (const locale of ["ko", "en"]) {
     entries.push(content);
     if (locale === "en") links.push(`- [${title}](./guidelines/${slug}${suffix}.md)`);
     await emitFile(new URL(`guidelines/${slug}${suffix}.md`, output), content);
+  }
+  for (const slug of apiNames) {
+    const content = await readFile(
+      new URL(`${slug}/reference${locale === "ko" ? ".kr" : ""}.md`, apiSource),
+      "utf8",
+    );
+    const title = content.split("\n")[0].slice(2);
+    search.push({ section: "api", slug, title, text: searchText(content.replace(/^# .*\n/, "")) });
+    entries.push(content);
+    await emitFile(new URL(`${slug}${suffix}.md`, apiOutput), content);
+    if (locale === "en") sourceLinks.push(`- [${title} API](./api/${slug}${suffix}.md)`);
   }
   for (const slug of componentNames) {
     const { overview, content } = await readPage(new URL(`${slug}/`, components), suffix);
@@ -228,6 +243,10 @@ await emitFile(
     "3. Use the [installation guide](../installation.md) for package themes and optional StyleX extensions. Runtime end-user fonts and motion take precedence; respect OS reduced motion unless the end user explicitly selects on.",
     "4. Read [spacing](../guidelines/spacing.en.md) and [state](../guidelines/state.en.md) before composing the UI. Keep product data and domain layout in the app.",
     "5. Verify local TypeScript, CSS compilation and the actual consumer interaction. Finding a reference does not prove installed-version compatibility.",
+    "",
+    "## APIs",
+    "",
+    ...apiNames.map((slug) => `- [${slug}](../api/${slug}.en.md)`),
     "",
     "## Components",
     "",

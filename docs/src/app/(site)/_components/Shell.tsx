@@ -42,6 +42,7 @@ const sectionNames: Record<string, string> = {
   guide: "Guides",
   foundations: "Foundations",
   components: "Components",
+  api: "API",
 };
 
 const controls = [
@@ -195,7 +196,7 @@ export function Shell({ children }: { children: ReactNode }) {
                     className="search-sections"
                     aria-label={settings.locale === "ko" ? "검색 분류" : "Search sections"}
                   >
-                    {["all", "guide", "foundations", "components"].map((section) => (
+                    {["all", "guide", "foundations", "components", "api"].map((section) => (
                       <Button
                         key={section}
                         size="sm"
@@ -368,11 +369,11 @@ export function Shell({ children }: { children: ReactNode }) {
                   </Link>
                 ))}
               <Accordion
-                defaultValue={["foundations", "components"]}
+                defaultValue={["foundations", "components", "api"]}
                 multiple
                 className="sidebar-sections"
               >
-                {["foundations", "components"].map((section) => (
+                {["foundations", "components", "api"].map((section) => (
                   <AccordionItem key={section} value={section} className="sidebar-section">
                     <AccordionTrigger className="sidebar-section-trigger">
                       {sectionNames[section]}

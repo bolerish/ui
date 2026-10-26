@@ -24,7 +24,9 @@ Refract an explicit decorative background while keeping foreground text and cont
 
 ## Usage guidelines
 
-Apply `data-bolerish-surface="liquid"` to the document root or the containing region to enable refraction. Solid mode remains an opaque surface. The preview follows the site's surface setting. Liquid remains a component because it owns background layers and runtime refraction; [Gradient](/docs/foundations/gradient) is a style-only API.
+For ordinary installed components, the global Surface setting is enough: Chromium adds gentle backdrop refraction and other engines retain blur. Use Liquid only when you own the decorative background and need geometry-fitted refraction across browsers.
+
+Apply [`surface.props({ mode: "liquid" })`](/docs/api/surface) to the document root or the containing region to enable refraction. Solid mode remains an opaque surface. The preview follows the site's surface setting. Liquid remains a component because it owns background layers and runtime refraction; [Gradient](/docs/api/gradient) is a style-only API.
 
 Pass the decorative image or scene through `background`. Liquid renders this background once in an inaccessible, inert layer; it does not capture, clone, or automatically refract the page behind it. Keep interactive content in `children`. For an overlay, the app must supply and align its own visual background.
 
@@ -48,7 +50,9 @@ Native `div` props, including `ref` and accessible region names, reach the root.
 
 ## 사용 가이드
 
-문서 루트나 포함 영역에 `data-bolerish-surface="liquid"`를 적용하면 굴절이 켜집니다. Solid 모드는 불투명 표면을 유지합니다. 미리보기는 사이트의 표면 설정을 따릅니다. Liquid는 배경 레이어와 런타임 굴절을 관리하므로 컴포넌트로 유지하고, 스타일만 적용하는 [Gradient](/docs/foundations/gradient/ko)는 API로 구분합니다.
+일반 설치형 컴포넌트에는 전역 Surface 설정만 사용하면 됩니다. Chromium에서는 약한 배경 굴절을 더하고 다른 엔진에서는 블러를 유지합니다. 장식 배경을 직접 관리하며 여러 브라우저에서 크기·모서리에 맞는 굴절이 필요할 때만 Liquid를 사용하세요.
+
+문서 루트나 포함 영역에 [`surface.props({ mode: "liquid" })`](/docs/api/surface/ko)를 적용하면 굴절이 켜집니다. Solid 모드는 불투명 표면을 유지합니다. 미리보기는 사이트의 표면 설정을 따릅니다. Liquid는 배경 레이어와 런타임 굴절을 관리하므로 컴포넌트로 유지하고, 스타일만 적용하는 [Gradient](/docs/api/gradient/ko)는 API로 구분합니다.
 
 장식용 이미지나 장면은 `background`로 전달합니다. 이 배경은 접근성 트리와 키보드 탐색에서 제외한 레이어에 한 번 렌더합니다. 페이지 뒤쪽을 촬영·복제하거나 자동으로 굴절시키지 않습니다. 상호작용하는 콘텐츠는 `children`에 둡니다. 오버레이에서는 앱이 시각적 배경의 내용과 정렬을 직접 관리해야 합니다.
 

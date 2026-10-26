@@ -20,7 +20,9 @@ export function documentHead(page: Page | undefined, locale: "en" | "ko") {
   const markdown =
     page.section === "guide"
       ? `/guides/${page.slug}${suffix}.md`
-      : `/guidelines/${page.slug}${suffix}.md`;
+      : page.section === "api"
+        ? `/api/${page.slug}${suffix}.md`
+        : `/guidelines/${page.slug}${suffix}.md`;
   return {
     meta: [
       { title: `${page.title} · bolerish/ui` },

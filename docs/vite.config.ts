@@ -13,7 +13,7 @@ import { defineConfig } from "vite";
 const markdownDependencies = ["react-markdown", "rehype-slug", "remark-gfm"];
 
 const pages = ["/", "/ko"];
-for (const section of ["guides", "components", "foundations"]) {
+for (const section of ["guides", "components", "foundations", "api"]) {
   const directory = new URL(`./src/app/(site)/docs/_content/${section}/`, import.meta.url);
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
     if (
