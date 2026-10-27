@@ -10,6 +10,8 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { defineConfig } from "vite";
 
+import { layerStylexVariables } from "./scripts/stylex-variables.ts";
+
 const markdownDependencies = ["react-markdown", "rehype-slug", "remark-gfm"];
 
 const pages = ["/", "/ko"];
@@ -71,6 +73,7 @@ export default defineConfig({
     stylex({ useCSSLayers: true, babelConfig: { plugins: [reactCompiler] } } as Parameters<
       typeof stylex
     >[0]),
+    layerStylexVariables(),
     tanstackStart({
       router: {
         entry: "./app/router.tsx",
