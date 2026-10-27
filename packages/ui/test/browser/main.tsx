@@ -1,3 +1,4 @@
+import * as stylex from "@stylexjs/stylex";
 import { createRoot } from "react-dom/client";
 
 import InputVariants from "../../../../docs/src/app/(site)/docs/_content/components/input/Variants";
@@ -45,13 +46,20 @@ import {
 import { themeClassNames } from "../../dist/theme.js";
 import { Toaster, toast } from "../../dist/toast.js";
 import { DocumentationExample } from "./documentation-examples";
+import { brandColors, brandShadows } from "./theme.stylex";
 
 import "../../dist/global.css";
 
 const params = new URLSearchParams(location.search);
 const fixture = params.get("fixture");
-document.documentElement.className =
-  themeClassNames[params.get("theme") === "dark" ? "dark" : "light"];
+document.documentElement.dataset.bolerishTheme = params.get("theme") === "dark" ? "dark" : "light";
+if (params.has("legacyTheme")) {
+  document.documentElement.className =
+    themeClassNames[params.get("theme") === "dark" ? "dark" : "light"];
+  delete document.documentElement.dataset.bolerishTheme;
+}
+if (params.has("customTheme"))
+  document.documentElement.className = stylex.props(brandColors, brandShadows).className ?? "";
 document.documentElement.dataset.bolerishMotion = "off";
 if (params.has("surface"))
   document.documentElement.dataset.bolerishSurface = params.get("surface")!;
