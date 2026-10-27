@@ -1,0 +1,2217 @@
+{
+  "version": "2.17",
+  "children": [
+    {
+      "type": "frame",
+      "id": "gSI20",
+      "x": 0,
+      "y": 0,
+      "name": "bolerish/ui · Foundations",
+      "theme": {
+        "mode": "light",
+        "density": "default"
+      },
+      "width": 800,
+      "fill": "$colorVars.bgSurface",
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 32,
+      "children": [
+        {
+          "type": "text",
+          "id": "z5kk6u",
+          "name": "Library title",
+          "fill": "$colorVars.fgPrimary",
+          "content": "bolerish/ui",
+          "fontFamily": "$typo.fontFamilyHeading",
+          "fontSize": "$typo.fontSizeXl",
+          "fontWeight": "$typo.fontWeightSemibold"
+        },
+        {
+          "type": "text",
+          "id": "mUTYr",
+          "name": "Library scope",
+          "fill": "$colorVars.fgSecondary",
+          "content": "0.16.0 · 102 tokens · Light / Dark · Default / Compact",
+          "fontFamily": "$typo.fontFamilyBody",
+          "fontSize": "$typo.fontSizeSm",
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "Y0Q9l",
+          "name": "Semantic color roles",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "type": "frame",
+              "id": "L9gsz",
+              "name": "bgCanvas",
+              "width": "fill_container",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radiusVars.sm",
+                  "id": "OJupp",
+                  "name": "bgCanvas swatch",
+                  "fill": "$colorVars.bgCanvas",
+                  "width": 48,
+                  "height": 24,
+                  "stroke": "$colorVars.strokeDefault",
+                  "strokeWidth": "$sizeVars.stroke"
+                },
+                {
+                  "type": "text",
+                  "id": "torRA",
+                  "name": "bgCanvas token name",
+                  "fill": "$colorVars.fgPrimary",
+                  "content": "colorVars.bgCanvas",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "k2vqby",
+              "name": "bgSurface",
+              "width": "fill_container",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radiusVars.sm",
+                  "id": "cklGF",
+                  "name": "bgSurface swatch",
+                  "fill": "$colorVars.bgSurface",
+                  "width": 48,
+                  "height": 24,
+                  "stroke": "$colorVars.strokeDefault",
+                  "strokeWidth": "$sizeVars.stroke"
+                },
+                {
+                  "type": "text",
+                  "id": "W64EP",
+                  "name": "bgSurface token name",
+                  "fill": "$colorVars.fgPrimary",
+                  "content": "colorVars.bgSurface",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mSWc3",
+              "name": "bgSubtle",
+              "width": "fill_container",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radiusVars.sm",
+                  "id": "LZ1VQ",
+                  "name": "bgSubtle swatch",
+                  "fill": "$colorVars.bgSubtle",
+                  "width": 48,
+                  "height": 24,
+                  "stroke": "$colorVars.strokeDefault",
+                  "strokeWidth": "$sizeVars.stroke"
+                },
+                {
+                  "type": "text",
+                  "id": "X6Mel1",
+                  "name": "bgSubtle token name",
+                  "fill": "$colorVars.fgPrimary",
+                  "content": "colorVars.bgSubtle",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "xVfrs",
+              "name": "bgActionPrimary",
+              "width": "fill_container",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radiusVars.sm",
+                  "id": "LV5UX",
+                  "name": "bgActionPrimary swatch",
+                  "fill": "$colorVars.bgActionPrimary",
+                  "width": 48,
+                  "height": 24,
+                  "stroke": "$colorVars.strokeDefault",
+                  "strokeWidth": "$sizeVars.stroke"
+                },
+                {
+                  "type": "text",
+                  "id": "Ujk6T",
+                  "name": "bgActionPrimary token name",
+                  "fill": "$colorVars.fgPrimary",
+                  "content": "colorVars.bgActionPrimary",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "iJ5C1",
+              "name": "fgPrimary",
+              "width": "fill_container",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radiusVars.sm",
+                  "id": "HQUu3",
+                  "name": "fgPrimary swatch",
+                  "fill": "$colorVars.fgPrimary",
+                  "width": 48,
+                  "height": 24,
+                  "stroke": "$colorVars.strokeDefault",
+                  "strokeWidth": "$sizeVars.stroke"
+                },
+                {
+                  "type": "text",
+                  "id": "trEKE",
+                  "name": "fgPrimary token name",
+                  "fill": "$colorVars.fgPrimary",
+                  "content": "colorVars.fgPrimary",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "x2owh",
+              "name": "fgSecondary",
+              "width": "fill_container",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radiusVars.sm",
+                  "id": "ddkQ8",
+                  "name": "fgSecondary swatch",
+                  "fill": "$colorVars.fgSecondary",
+                  "width": 48,
+                  "height": 24,
+                  "stroke": "$colorVars.strokeDefault",
+                  "strokeWidth": "$sizeVars.stroke"
+                },
+                {
+                  "type": "text",
+                  "id": "PJM0n",
+                  "name": "fgSecondary token name",
+                  "fill": "$colorVars.fgPrimary",
+                  "content": "colorVars.fgSecondary",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "HoYqR",
+              "name": "strokeDefault",
+              "width": "fill_container",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radiusVars.sm",
+                  "id": "DNFgZ",
+                  "name": "strokeDefault swatch",
+                  "fill": "$colorVars.strokeDefault",
+                  "width": 48,
+                  "height": 24,
+                  "stroke": "$colorVars.strokeDefault",
+                  "strokeWidth": "$sizeVars.stroke"
+                },
+                {
+                  "type": "text",
+                  "id": "xIS59",
+                  "name": "strokeDefault token name",
+                  "fill": "$colorVars.fgPrimary",
+                  "content": "colorVars.strokeDefault",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "JCUnQ",
+              "name": "fgFeedbackError",
+              "width": "fill_container",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": "$radiusVars.sm",
+                  "id": "KvLRE",
+                  "name": "fgFeedbackError swatch",
+                  "fill": "$colorVars.fgFeedbackError",
+                  "width": 48,
+                  "height": 24,
+                  "stroke": "$colorVars.strokeDefault",
+                  "strokeWidth": "$sizeVars.stroke"
+                },
+                {
+                  "type": "text",
+                  "id": "wdlbP",
+                  "name": "fgFeedbackError token name",
+                  "fill": "$colorVars.fgPrimary",
+                  "content": "colorVars.fgFeedbackError",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "O8BG4Z",
+          "name": "Source and update boundary",
+          "fill": "$colorVars.fgSecondary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "원본: @bolerish/tokens · @bolerish/ui\n코드 변경의 자동 동기화는 포함하지 않습니다.\n시스템 폰트는 Roboto로 대체했습니다. Compact 샘플의 폭·높이는 토큰을 계산한 고정값입니다.",
+          "lineHeight": "$typo.lineHeightNormal",
+          "fontFamily": "$typo.fontFamilyBody",
+          "fontSize": "$typo.fontSizeSm",
+          "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "gpf1G",
+      "x": 840,
+      "y": 0,
+      "name": "Card / AccountCreationForm",
+      "context": "@bolerish/ui/card · AccountCreationForm",
+      "reusable": true,
+      "clip": true,
+      "width": 384,
+      "fill": "$colorVars.bgSurface",
+      "cornerRadius": "$radiusVars.md",
+      "stroke": "$colorVars.strokeDefault",
+      "strokeWidth": "$sizeVars.stroke",
+      "strokeAlignment": "inner",
+      "layout": "vertical",
+      "padding": 1,
+      "children": [
+        {
+          "type": "frame",
+          "id": "E92Xuu",
+          "name": "CardHeader",
+          "context": "div",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": "$spacingVars.space1",
+          "padding": "$spacingVars.space6",
+          "children": [
+            {
+              "type": "text",
+              "id": "gzkPY",
+              "name": "Create account",
+              "context": "h3",
+              "fill": "$colorVars.fgPrimary",
+              "content": "Create account",
+              "lineHeight": "$typo.lineHeightTight",
+              "fontFamily": "$typo.fontFamilyBody",
+              "fontSize": "$typo.fontSizeLg",
+              "fontWeight": "$typo.fontWeightSemibold"
+            },
+            {
+              "type": "text",
+              "id": "e3WVwC",
+              "name": "Enter the name and email you’ll use for ",
+              "context": "p",
+              "fill": "$colorVars.fgSecondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Enter the name and email you’ll use for the service.",
+              "lineHeight": "$typo.lineHeightNormal",
+              "fontFamily": "$typo.fontFamilyBody",
+              "fontSize": "$typo.fontSizeSm",
+              "fontWeight": "$typo.fontWeightRegular"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "h35AC",
+          "name": "CardContent",
+          "context": "div",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            0,
+            "$spacingVars.space6",
+            "$spacingVars.space6",
+            "$spacingVars.space6"
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Z9oRWQ",
+              "name": "Form fields",
+              "context": "form",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": "$spacingVars.space3",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "pu6yK",
+                  "name": "label",
+                  "context": "label",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": "$spacingVars.space2",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "vZx20",
+                      "name": "Name",
+                      "fill": "$colorVars.fgPrimary",
+                      "content": "Name",
+                      "lineHeight": "$typo.lineHeightNormal",
+                      "fontFamily": "$typo.fontFamilyBody",
+                      "fontSize": "$typo.fontSizeMd",
+                      "fontWeight": "$typo.fontWeightRegular"
+                    },
+                    {
+                      "id": "EyyxM",
+                      "type": "ref",
+                      "ref": "Z7RG7m",
+                      "name": "Name input",
+                      "width": "fill_container"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "uG7cy",
+                  "name": "label",
+                  "context": "label",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": "$spacingVars.space2",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BZifu",
+                      "name": "Email",
+                      "fill": "$colorVars.fgPrimary",
+                      "content": "Email",
+                      "lineHeight": "$typo.lineHeightNormal",
+                      "fontFamily": "$typo.fontFamilyBody",
+                      "fontSize": "$typo.fontSizeMd",
+                      "fontWeight": "$typo.fontWeightRegular"
+                    },
+                    {
+                      "id": "Rx55u",
+                      "type": "ref",
+                      "ref": "Z7RG7m",
+                      "name": "Email input",
+                      "width": "fill_container",
+                      "descendants": {
+                        "QMYh6": {
+                          "content": "hello@example.com"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "VZdKe",
+          "name": "CardFooter",
+          "context": "div",
+          "width": "fill_container",
+          "gap": "$spacingVars.space3",
+          "padding": [
+            0,
+            "$spacingVars.space6",
+            "$spacingVars.space6",
+            "$spacingVars.space6"
+          ],
+          "justifyContent": "end",
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "Y9MjZ",
+              "type": "ref",
+              "ref": "mCaHJ",
+              "name": "Cancel action"
+            },
+            {
+              "id": "KqjUi",
+              "type": "ref",
+              "ref": "S0NkM",
+              "name": "Create account action"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "S0NkM",
+      "x": 0,
+      "y": -120,
+      "name": "Button / primary / md",
+      "context": "@bolerish/ui/button · Button variant=primary size=md",
+      "reusable": true,
+      "height": 36,
+      "fill": "$colorVars.bgActionPrimary",
+      "cornerRadius": "$radiusVars.sm",
+      "stroke": "$colorVars.strokeAction",
+      "strokeWidth": "$sizeVars.stroke",
+      "strokeAlignment": "inner",
+      "gap": "$spacingVars.space2",
+      "padding": [
+        0,
+        "$spacingVars.space4"
+      ],
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "RggnG",
+          "name": "Label",
+          "fill": "$colorVars.fgOnActionPrimary",
+          "content": "Create account",
+          "lineHeight": "$typo.lineHeightTight",
+          "textAlign": "center",
+          "fontFamily": "$typo.fontFamilyBody",
+          "fontSize": "$typo.fontSizeSm",
+          "fontWeight": "$typo.fontWeightMedium"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "mCaHJ",
+      "x": 175,
+      "y": -120,
+      "name": "Button / ghost / md",
+      "context": "@bolerish/ui/button · Button variant=ghost size=md",
+      "reusable": true,
+      "height": 36,
+      "fill": "$colorVars.interactionDefault",
+      "cornerRadius": "$radiusVars.sm",
+      "stroke": "$colorVars.interactionDefault",
+      "strokeWidth": "$sizeVars.stroke",
+      "gap": "$spacingVars.space2",
+      "padding": [
+        0,
+        "$spacingVars.space4"
+      ],
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "uVBgf",
+          "name": "Label",
+          "fill": "$colorVars.fgPrimary",
+          "content": "Cancel",
+          "lineHeight": "$typo.lineHeightTight",
+          "textAlign": "center",
+          "fontFamily": "$typo.fontFamilyBody",
+          "fontSize": "$typo.fontSizeSm",
+          "fontWeight": "$typo.fontWeightMedium"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Z7RG7m",
+      "x": 298,
+      "y": -120,
+      "name": "Input / outline / md",
+      "context": "@bolerish/ui/input · Input variant=outline",
+      "reusable": true,
+      "clip": true,
+      "width": 334,
+      "height": 36,
+      "fill": "$colorVars.bgSurface",
+      "cornerRadius": "$radiusVars.sm",
+      "stroke": "$colorVars.strokeDefault",
+      "strokeWidth": "$sizeVars.stroke",
+      "strokeAlignment": "inner",
+      "layout": "vertical",
+      "padding": [
+        "$sizeVars.stroke",
+        "$spacingVars.space3"
+      ],
+      "justifyContent": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "QMYh6",
+          "name": "Placeholder",
+          "fill": "$colorVars.fgTertiary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "Jordan Lee",
+          "lineHeight": "$typo.lineHeightNormal",
+          "fontFamily": "$typo.fontFamilyBody",
+          "fontSize": "$typo.fontSizeSm",
+          "fontWeight": "$typo.fontWeightRegular"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "v1OunJ",
+      "x": 0,
+      "y": 580,
+      "name": "bolerish/ui · Component verification",
+      "theme": {
+        "mode": "light",
+        "density": "default"
+      },
+      "clip": true,
+      "width": 1312,
+      "fill": "$colorVars.bgCanvas",
+      "layout": "vertical",
+      "gap": 24,
+      "padding": 32,
+      "children": [
+        {
+          "type": "text",
+          "id": "hen67",
+          "name": "Verification title",
+          "fill": "$colorVars.fgPrimary",
+          "content": "컴포넌트 연결 확인",
+          "fontFamily": "$typo.fontFamilyHeading",
+          "fontSize": "$typo.fontSizeXl",
+          "fontWeight": "$typo.fontWeightSemibold"
+        },
+        {
+          "type": "text",
+          "id": "J0Tc5a",
+          "name": "Verification description",
+          "fill": "$colorVars.fgSecondary",
+          "content": "같은 Card · Input · Button 인스턴스에 색상 모드와 밀도만 적용했습니다.",
+          "fontFamily": "$typo.fontFamilyBody",
+          "fontSize": "$typo.fontSizeSm",
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "Z4b01",
+          "name": "Theme and density samples",
+          "width": "fill_container",
+          "gap": 24,
+          "children": [
+            {
+              "type": "frame",
+              "id": "wUe76",
+              "name": "Light / Default",
+              "theme": {
+                "mode": "light",
+                "density": "default"
+              },
+              "width": 400,
+              "fill": "$colorVars.bgCanvas",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "P6ttG",
+                  "name": "Light / Default label",
+                  "fill": "$colorVars.fgSecondary",
+                  "content": "Light / Default",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                },
+                {
+                  "id": "K4pSgo",
+                  "type": "ref",
+                  "ref": "gpf1G",
+                  "name": "Light / Default account form",
+                  "theme": {
+                    "mode": "light",
+                    "density": "default"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "qCiDH",
+              "name": "Dark / Default",
+              "theme": {
+                "mode": "dark",
+                "density": "default"
+              },
+              "width": 400,
+              "fill": "$colorVars.bgCanvas",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "niuDb",
+                  "name": "Dark / Default label",
+                  "fill": "$colorVars.fgSecondary",
+                  "content": "Dark / Default",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                },
+                {
+                  "id": "rZ5eH",
+                  "type": "ref",
+                  "ref": "gpf1G",
+                  "name": "Dark / Default account form",
+                  "theme": {
+                    "mode": "dark",
+                    "density": "default"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Y8Dz1Z",
+              "name": "Light / Compact",
+              "theme": {
+                "mode": "light",
+                "density": "compact"
+              },
+              "width": 400,
+              "fill": "$colorVars.bgCanvas",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "rvlXl",
+                  "name": "Light / Compact label",
+                  "fill": "$colorVars.fgSecondary",
+                  "content": "Light / Compact",
+                  "fontFamily": "$typo.fontFamilyBody",
+                  "fontSize": "$typo.fontSizeSm",
+                  "fontWeight": "normal"
+                },
+                {
+                  "id": "G12PZ",
+                  "type": "ref",
+                  "ref": "gpf1G",
+                  "name": "Light / Compact account form",
+                  "theme": {
+                    "mode": "light",
+                    "density": "compact"
+                  },
+                  "width": 336,
+                  "descendants": {
+                    "EyyxM": {
+                      "height": 31.5
+                    },
+                    "Rx55u": {
+                      "height": 31.5
+                    },
+                    "Y9MjZ": {
+                      "height": 31.5
+                    },
+                    "KqjUi": {
+                      "height": 31.5
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "context",
+      "id": "t0Q4e2",
+      "x": 1304,
+      "y": 0,
+      "name": "React bindings and source of truth",
+      "width": 800,
+      "height": 240,
+      "content": "Use the connected workspace and existing React + TypeScript + StyleX components.\nButton: @bolerish/ui/button, primary or ghost, size md.\nInput: @bolerish/ui/input, variant outline.\nAccount form: compose Card, CardHeader, CardTitle, CardDescription, CardContent and CardFooter from @bolerish/ui/card; source example is docs/src/app/(site)/docs/_content/components/card/AccountCreationForm.tsx.\nColor and dimension tokens come from packages/tokens/src/semantic.stylex.ts and themes.stylex.ts. Read those sources before generating code; reuse the package exports instead of reimplementing controls.\nThis library is a 0.16.0 design snapshot. Code-to-library synchronization is manual. System fonts are represented by Roboto. Compact instance geometry is a resolved numeric snapshot."
+    }
+  ],
+  "themes": {
+    "mode": [
+      "light",
+      "dark"
+    ],
+    "density": [
+      "default",
+      "compact"
+    ]
+  },
+  "variables": {
+    "colorVars.bgCanvas": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#EEEEEE",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#08090A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgSurface": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#0F1011",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgSurfacePressed": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F5F6F8",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#161718",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgInverse": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#08090A",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgSubtle": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F5F5F5",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#161718",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgRaised": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#161718",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgRaisedPressed": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F5F6F8",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#23252A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgSelected": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E5E5E6",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#23252A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgDropTarget": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E5E5E6",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#23252A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgCurrent": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#0000000F",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#FFFFFF14",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgOverlay": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#00000066",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#00000066",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgSkeleton": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E5E5E6",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#383B3F",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgActionPrimaryHover": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#3F3F46",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#D4D4D8",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgActionPrimary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#18181B",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#E4E4E7",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgActionDestructive": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#A50C25",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#A50C25",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgFeedbackInfo": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#C4DDFB",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#9EB7FF52",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgFeedbackSuccess": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#C5E5C0",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#84C98052",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgFeedbackWarning": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F8DA9D",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#DEB43352",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.bgFeedbackError": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FACECB",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#FF9E9752",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgPrimary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#08090A",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#F5F6F8",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgSecondary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#383B3F",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#8A8F98",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgTertiary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#62666D",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#8A8F98",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgDisabled": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#8A8F98",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#62666D",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgInverse": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F5F6F8",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#08090A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgOnActionPrimary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#18181B",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgOnActionDestructive": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#E5E5E6",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgAction": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#08090A",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#E4E4E7",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgFeedbackInfo": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#00458C",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#C7D3FF",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgFeedbackSuccess": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#007004",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#9FE59B",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgFeedbackWarning": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#745B00",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#FDCF4F",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.fgFeedbackError": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#A50C25",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#FFC6C1",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.strokeDefault": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#0000001A",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#FFFFFF1F",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.strokeControl": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#81868F",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#62666D",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.strokeStrong": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#62666D",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#81868F",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.strokeDropIndicator": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#08090A",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#F5F6F8",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.strokeFocus": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#383B3F",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#8A8F98",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.strokeAction": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#18181B",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#E4E4E7",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.strokeFeedbackInfo": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#B1C9E7",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#6D9CFE",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.strokeFeedbackSuccess": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#B2D1AC",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#69AD67",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.strokeFeedbackWarning": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E4C279",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#C0990E",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.strokeFeedbackError": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#A50C25",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#FF9E97",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.interactionDefault": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#00000000",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#00000000",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.interactionHover": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#0000000F",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#FFFFFF0D",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.interactionPressed": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#0000001A",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#FFFFFF1A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.interactionSolidHover": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF1A",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#0000001A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.interactionSolidPressed": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF33",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#00000033",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.interactionSelected": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#23252A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.interactionDisabled": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#00000014",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#23252A",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "colorVars.interactionFocus": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#383B3F",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#8A8F98",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "spacingVars.space0": {
+      "type": "number",
+      "value": 0
+    },
+    "spacingVars.space0_5": {
+      "type": "number",
+      "value": [
+        {
+          "value": 2,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 1.75,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "spacingVars.space1": {
+      "type": "number",
+      "value": [
+        {
+          "value": 4,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 3.5,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "spacingVars.space2": {
+      "type": "number",
+      "value": [
+        {
+          "value": 8,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 7,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "spacingVars.space3": {
+      "type": "number",
+      "value": [
+        {
+          "value": 12,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 10.5,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "spacingVars.space4": {
+      "type": "number",
+      "value": [
+        {
+          "value": 16,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 14,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "spacingVars.space5": {
+      "type": "number",
+      "value": [
+        {
+          "value": 20,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 17.5,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "spacingVars.space6": {
+      "type": "number",
+      "value": [
+        {
+          "value": 24,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 21,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "spacingVars.space8": {
+      "type": "number",
+      "value": [
+        {
+          "value": 32,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 28,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "spacingVars.space10": {
+      "type": "number",
+      "value": [
+        {
+          "value": 40,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 35,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "spacingVars.space12": {
+      "type": "number",
+      "value": [
+        {
+          "value": 48,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 42,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.controlXs": {
+      "type": "number",
+      "value": 24
+    },
+    "sizeVars.controlSm": {
+      "type": "number",
+      "value": [
+        {
+          "value": 32,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 28,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.controlMd": {
+      "type": "number",
+      "value": [
+        {
+          "value": 36,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 31.5,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.controlLg": {
+      "type": "number",
+      "value": [
+        {
+          "value": 40,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 35,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.controlXl": {
+      "type": "number",
+      "value": [
+        {
+          "value": 48,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 42,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.iconXs": {
+      "type": "number",
+      "value": [
+        {
+          "value": 12,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 10.5,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.iconSm": {
+      "type": "number",
+      "value": [
+        {
+          "value": 14,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 12.25,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.iconMd": {
+      "type": "number",
+      "value": [
+        {
+          "value": 16,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 14,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.iconLg": {
+      "type": "number",
+      "value": [
+        {
+          "value": 20,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 17.5,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.contentXs": {
+      "type": "number",
+      "value": [
+        {
+          "value": 288,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 252,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.contentSm": {
+      "type": "number",
+      "value": [
+        {
+          "value": 384,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 336,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.contentMd": {
+      "type": "number",
+      "value": [
+        {
+          "value": 512,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 448,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.trackSm": {
+      "type": "number",
+      "value": [
+        {
+          "value": 6,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 5.25,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.trackMd": {
+      "type": "number",
+      "value": [
+        {
+          "value": 8,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 7,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "sizeVars.touchTarget": {
+      "type": "number",
+      "value": 44
+    },
+    "sizeVars.stroke": {
+      "type": "number",
+      "value": 1
+    },
+    "sizeVars.focusRing": {
+      "type": "number",
+      "value": 2
+    },
+    "radiusVars.sm": {
+      "type": "number",
+      "value": 4
+    },
+    "radiusVars.md": {
+      "type": "number",
+      "value": 8
+    },
+    "radiusVars.lg": {
+      "type": "number",
+      "value": 12
+    },
+    "radiusVars.xl": {
+      "type": "number",
+      "value": 16
+    },
+    "radiusVars.full": {
+      "type": "number",
+      "value": 9999
+    },
+    "layoutVars.contentMaxWidth": {
+      "type": "number",
+      "value": [
+        {
+          "value": 1040,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 910,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "typo.fontSizeXs": {
+      "type": "number",
+      "value": [
+        {
+          "value": 12,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 10.5,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "typo.fontSizeSm": {
+      "type": "number",
+      "value": [
+        {
+          "value": 14,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 12.25,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "typo.fontSizeMd": {
+      "type": "number",
+      "value": [
+        {
+          "value": 16,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 14,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "typo.fontSizeLg": {
+      "type": "number",
+      "value": [
+        {
+          "value": 18,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 15.75,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "typo.fontSizeXl": {
+      "type": "number",
+      "value": [
+        {
+          "value": 24,
+          "theme": {
+            "density": "default"
+          }
+        },
+        {
+          "value": 21,
+          "theme": {
+            "density": "compact"
+          }
+        }
+      ]
+    },
+    "typo.lineHeightTight": {
+      "type": "number",
+      "value": 1.25
+    },
+    "typo.lineHeightNormal": {
+      "type": "number",
+      "value": 1.5
+    },
+    "typo.fontWeightRegular": {
+      "type": "string",
+      "value": "400"
+    },
+    "typo.fontWeightMedium": {
+      "type": "string",
+      "value": "500"
+    },
+    "typo.fontWeightSemibold": {
+      "type": "string",
+      "value": "600"
+    },
+    "typo.fontFamilyBody": {
+      "type": "string",
+      "value": "Roboto"
+    },
+    "typo.fontFamilyHeading": {
+      "type": "string",
+      "value": "Roboto"
+    },
+    "spacingRoleVars.pageGutter": {
+      "type": "number",
+      "value": "$spacingVars.space4"
+    },
+    "spacingRoleVars.panelPadding": {
+      "type": "number",
+      "value": "$spacingVars.space4"
+    },
+    "spacingRoleVars.sectionGap": {
+      "type": "number",
+      "value": "$spacingVars.space8"
+    },
+    "spacingRoleVars.fieldGap": {
+      "type": "number",
+      "value": "$spacingVars.space4"
+    },
+    "spacingRoleVars.labelGap": {
+      "type": "number",
+      "value": "$spacingVars.space2"
+    },
+    "spacingRoleVars.inlineGap": {
+      "type": "number",
+      "value": "$spacingVars.space2"
+    },
+    "spacingRoleVars.textGap": {
+      "type": "number",
+      "value": "$spacingVars.space1"
+    }
+  },
+  "fileToken": "2c79d21f-7882-4f28-9a3c-f34b35fdc719"
+}
