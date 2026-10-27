@@ -90,7 +90,7 @@
   "scripts": {
     "build": "node --experimental-strip-types scripts/build.ts",
     "prepack": "pnpm build",
-    "test": "pnpm build && node --experimental-strip-types --test src/*.test.ts src/styles/*.test.ts package.test.ts",
+    "test": "pnpm build && node --experimental-strip-types --test scripts/*.test.ts src/*.test.ts src/styles/*.test.ts package.test.ts",
     "test:browser": "pnpm build && playwright test",
     "typecheck": "tsc --noEmit && pnpm build && tsc -p tsconfig.test.json"
   },
@@ -111,6 +111,7 @@
     "@types/react-dom": "catalog:2026-08-27-stable",
     "babel-plugin-react-compiler": "catalog:2026-08-27-stable",
     "esbuild": "0.28.2",
+    "postcss": "8.5.26",
     "react": "catalog:2026-08-27-stable",
     "react-dom": "catalog:2026-08-27-stable",
     "typescript": "catalog:2026-08-27-stable",

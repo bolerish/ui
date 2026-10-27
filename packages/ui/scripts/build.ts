@@ -1,11 +1,14 @@
 import { execFile as execFileCallback } from "node:child_process";
 import { mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from "node:fs/promises";
 import { basename, dirname, join, relative, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 
 import stylex from "@stylexjs/unplugin/esbuild";
 import reactCompiler from "babel-plugin-react-compiler";
 import { build, type Plugin } from "esbuild";
+
+import { addThemeSelectors } from "./theme-selectors.ts";
 
 const sourceDirectory = "src";
 const distributionDirectory = "dist";
@@ -82,6 +85,15 @@ try {
     sourcemap: true,
     target: "es2022",
   });
+
+  const { themeClassNames } = await import(
+    pathToFileURL(resolve(outputDirectory, "theme.js")).href
+  );
+  const stylexPath = join(outputDirectory, "stylex.css");
+  await writeFile(
+    stylexPath,
+    addThemeSelectors(await readFile(stylexPath, "utf8"), themeClassNames),
+  );
 
   const globalCss = await readFile(join(sourceDirectory, "styles/global.css"), "utf8");
   const resetCss = await readFile(join(sourceDirectory, "styles/reset.css"), "utf8");

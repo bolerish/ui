@@ -217,6 +217,9 @@ importers:
       esbuild:
         specifier: 0.28.2
         version: 0.28.2
+      postcss:
+        specifier: 8.5.26
+        version: 8.5.26
       react:
         specifier: catalog:2026-08-27-stable
         version: 19.2.8
