@@ -1,4 +1,4 @@
-import postcss from "postcss";
+import postcss, { type Root } from "postcss";
 
 /** Reuse compiled values while keeping explicit StyleX themes in control. */
 export function addThemeSelectors(css: string, themes: Record<"light" | "dark", string>) {
@@ -24,6 +24,14 @@ export function addThemeSelectors(css: string, themes: Record<"light" | "dark", 
       throw new Error(`Missing compiled ${mode} theme rules`);
     }
   }
+  return moveVariables(root).toString();
+}
+
+export function layerVariables(css: string) {
+  return moveVariables(postcss.parse(css)).toString();
+}
+
+function moveVariables(root: Root) {
   // Precompiled variables must not outrank the consumer's layered StyleX themes.
   const variables = postcss.atRule({ name: "layer", params: "priority1" });
   root.each((node) => {
@@ -41,5 +49,5 @@ export function addThemeSelectors(css: string, themes: Record<"light" | "dark", 
     if (count && onlyVariables) variables.append(node);
   });
   if (variables.nodes?.length) root.append(variables);
-  return root.toString();
+  return root;
 }
