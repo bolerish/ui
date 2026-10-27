@@ -43,6 +43,8 @@ See the [release conditions](.changeset/README.md#uitokens-publication-resumptio
 The [lint guide](https://ui.bolerish.com/docs/lint) explains the
 plugin's ESLint/Oxlint rules and exceptions.
 For coding agents, start with [`llms.txt`](https://ui.bolerish.com/llms.txt).
+The [documentation MCP](https://github.com/bolerish/bolerish-ui/tree/main/packages/docs-mcp) provides read-only search
+and retrieval of bundled APIs, examples, tokens and guidelines from a local CLI.
 
 ## Development
 
