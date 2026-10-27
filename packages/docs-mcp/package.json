@@ -1,6 +1,6 @@
 {
   "name": "@bolerish/docs-mcp",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Read-only MCP tools for bolerish components, examples, tokens and guidelines.",
   "homepage": "https://ui.bolerish.com",
   "license": "MIT",
