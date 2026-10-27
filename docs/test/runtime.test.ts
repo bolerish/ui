@@ -159,6 +159,7 @@ test("guides render in both languages and keep internal links localized", async 
     ["theming", "Theming", "테마"],
     ["styling", "Styling", "스타일링"],
     ["lint", "Lint", "린트"],
+    ["mcp", "MCP", "MCP"],
     ["changelog", "Changelog", "변경 기록"],
   ]) {
     for (const [suffix, title] of [
@@ -179,6 +180,13 @@ test("guides render in both languages and keep internal links localized", async 
         assert.doesNotMatch(html, /private and not published|비공개이며 npm에/);
         assert.match(html, /ESLint/);
         assert.match(html, /Oxlint/);
+      }
+      if (slug === "mcp") {
+        assert.match(html, new RegExp(`href="/docs/mcp${suffix}"`));
+        assert.match(html, /@bolerish\/docs-mcp/);
+        assert.match(html, /search_docs/);
+        assert.match(html, /get_doc/);
+        assert.match(html, suffix ? /읽기 전용/ : /read-only/);
       }
       assert.doesNotMatch(html, /Could not load this page/);
     }

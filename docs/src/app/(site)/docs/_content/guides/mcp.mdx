@@ -1,0 +1,153 @@
+import { LocaleContent } from "@/shared/model/locale";
+
+<LocaleContent locale="en">
+
+# MCP
+
+Connect `@bolerish/docs-mcp` to your coding agent so it can search component APIs, original React examples, tokens and Foundations before building UI. The server is read-only and works independently of Pen or Figma.
+
+## Requirements
+
+Use Node 22.13 or later and npm, pnpm, Yarn or Bun. The Yarn command requires Yarn 2 or later. Bun's runner uses the CLI's Node shebang, so Node is still required.
+
+You do not need to add this package to your application's dependencies. Your agent must have the MCP server registered and enabled before it can call its tools.
+
+## Register with Codex
+
+Choose **one** command for your package manager. Each command downloads and runs the published server.
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+# MCP
+
+코딩 에이전트에 `@bolerish/docs-mcp`를 연결하면 UI를 만들기 전에 컴포넌트 API·실제 React 예제·토큰·Foundations를 검색할 수 있습니다. 문서를 조회하는 읽기 전용 서버이며 Pen이나 Figma 없이 사용할 수 있습니다.
+
+## 준비 사항
+
+Node 22.13 이상과 npm·pnpm·Yarn·Bun 중 하나가 필요합니다. Yarn 명령은 Yarn 2 이상에서 사용할 수 있습니다. Bun으로 실행해도 CLI의 Node 실행 지시문을 따르므로 Node가 필요합니다.
+
+앱의 의존성에 이 패키지를 추가할 필요는 없습니다. 에이전트에서 MCP 서버를 등록하고 활성화해야 도구를 사용할 수 있습니다.
+
+## Codex에 등록
+
+사용하는 패키지 매니저의 명령 **하나**를 선택하세요. 게시된 서버를 내려받아 실행하도록 등록합니다.
+
+</LocaleContent>
+
+```sh
+# npm
+codex mcp add bolerish-docs -- npx --yes --package=@bolerish/docs-mcp bolerish-docs-mcp
+
+# pnpm
+codex mcp add bolerish-docs -- pnpm --package=@bolerish/docs-mcp dlx bolerish-docs-mcp
+
+# yarn
+codex mcp add bolerish-docs -- yarn dlx --package @bolerish/docs-mcp bolerish-docs-mcp
+
+# bun
+codex mcp add bolerish-docs -- bunx --package @bolerish/docs-mcp bolerish-docs-mcp
+```
+
+<LocaleContent locale="en">
+
+## Configure another MCP client
+
+For a client that accepts `mcpServers` JSON, add this server entry. You can replace `command` and `args` with the runner arguments after `--` in any command above. Use your client's MCP settings if it uses a different configuration format.
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+## 다른 MCP 클라이언트에 등록
+
+`mcpServers` JSON 설정을 지원하는 클라이언트에는 다음 서버 항목을 추가하세요. 다른 패키지 매니저를 쓰려면 위 명령에서 `--` 뒤의 실행 명령과 인자를 `command`·`args`에 옮기면 됩니다. 설정 형식이 다른 클라이언트에서는 해당 제품의 MCP 설정을 사용하세요.
+
+</LocaleContent>
+
+```json
+{
+  "mcpServers": {
+    "bolerish-docs": {
+      "command": "npx",
+      "args": ["--yes", "--package=@bolerish/docs-mcp", "bolerish-docs-mcp"]
+    }
+  }
+}
+```
+
+<LocaleContent locale="en">
+
+## Verify the connection
+
+Restart or reconnect the client. Confirm that `search_docs` and `get_doc` appear in its tool list, then ask your agent:
+
+> Use bolerish to build an account form. Read the installation and spacing guidelines, check Input and Button APIs, and find a matching React example before writing code.
+
+The agent can search for a reference and retrieve it by the returned document ID:
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+## 연결 확인
+
+클라이언트를 다시 시작하거나 MCP 연결을 갱신하세요. 도구 목록에 `search_docs`와 `get_doc`이 나타나는지 확인한 뒤 에이전트에 다음처럼 요청하세요.
+
+> bolerish로 계정 생성 폼을 만들어줘. 코드를 작성하기 전에 설치·간격 지침과 Input·Button API를 확인하고, 참고할 React 예제도 찾아줘.
+
+에이전트는 문서를 검색한 뒤 결과에 포함된 ID로 전체 내용을 조회할 수 있습니다.
+
+</LocaleContent>
+
+```js
+search_docs({ query: "button", section: "components", limit: 5 });
+get_doc({ id: "components/button" });
+```
+
+<LocaleContent locale="en">
+
+## Available tools
+
+| Tool          | What it returns                                          | Inputs                                                                                                                                                                                                                                                                                         |
+| ------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `search_docs` | Matching document IDs, titles, links and excerpts        | `query` defaults to an empty string to list documents. Optional `section` filters `components`, `foundations`, `guides`, `api`, `tokens` or `examples`. `limit` is 1–50, default 20. `offset` defaults to 0. Pass the returned `nextOffset` as `offset` for the next page; null means the end. |
+| `get_doc`     | A complete reference, example source or token definition | An exact `id` returned by `search_docs`, such as `foundations/spacing` or `examples/button/Default`.                                                                                                                                                                                           |
+
+Search matches all whitespace-separated terms without case sensitivity. It does not translate queries. English queries match the bundled English references.
+
+## Versions and troubleshooting
+
+Responses identify the bundled UI, tokens and lint versions. References are a snapshot from the MCP package's build, and do not automatically follow new website or npm releases. Update the MCP package to receive a newer snapshot, and check your application's installed declarations before selecting props.
+
+- If no tools appear, check that the client can find Node and the chosen runner, that the server is enabled, and that you reconnected after registration.
+- If a document ID is unknown, search again and copy the exact ID from the result.
+- This server provides references. It does not edit Pen files, run React components or synchronize design and code.
+
+Follow [Installation](/docs/installation) to add the UI package to your app. For a local MCP build and contributor commands, see the [package README](https://github.com/bolerish/bolerish-ui/tree/main/packages/docs-mcp).
+
+</LocaleContent>
+
+<LocaleContent locale="ko">
+
+## 제공하는 도구
+
+| 도구          | 반환하는 내용                      | 입력                                                                                                                                                                                                                                                                                                            |
+| ------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `search_docs` | 검색된 문서의 ID·제목·링크·요약    | `query`의 기본값은 빈 문자열이며 문서 목록을 반환합니다. `section`으로 `components`·`foundations`·`guides`·`api`·`tokens`·`examples`를 고를 수 있습니다. `limit`은 1–50이며 기본값은 20입니다. `offset`의 기본값은 0입니다. 다음 페이지는 응답의 `nextOffset`을 `offset`으로 전달하세요. null이면 마지막입니다. |
+| `get_doc`     | 문서 전문·실제 예제 소스·토큰 정의 | `search_docs`가 반환한 정확한 `id`를 전달합니다. 예: `foundations/spacing`, `examples/button/Default`.                                                                                                                                                                                                          |
+
+검색은 대소문자를 구분하지 않고 공백으로 나눈 모든 검색어를 포함하는 문서를 찾습니다. 검색어를 번역하지 않으므로 영문으로 입력하면 묶여 있는 영어 문서를 찾기 쉽습니다.
+
+## 버전과 문제 해결
+
+응답에는 참고한 UI·tokens·lint 버전이 표시됩니다. 문서는 MCP 패키지를 빌드할 때의 스냅샷이며 사이트나 npm의 새 릴리스를 자동으로 따라가지 않습니다. 새 스냅샷이 필요하면 MCP 패키지를 업데이트하고, 속성을 선택하기 전에 앱에 설치한 패키지의 타입 선언을 확인하세요.
+
+- 도구가 보이지 않으면 클라이언트가 Node와 실행기를 찾을 수 있는지, 서버가 활성화됐는지, 등록 후 연결을 갱신했는지 확인하세요.
+- 문서 ID를 찾을 수 없으면 다시 검색한 뒤 결과의 ID를 그대로 사용하세요.
+- 이 서버는 참고 자료를 제공합니다. Pen 파일 편집·React 실행·디자인과 코드의 자동 동기화는 제공하지 않습니다.
+
+앱에 UI 패키지를 추가하는 방법은 [설치](/docs/installation)에서 확인하세요. 로컬 MCP 빌드와 기여자 명령은 [패키지 README](https://github.com/bolerish/bolerish-ui/tree/main/packages/docs-mcp)에 있습니다.
+
+</LocaleContent>

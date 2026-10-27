@@ -7,6 +7,7 @@ export const catalog = [
   { section: "guide", slug: "theming", title: "Theming" },
   { section: "guide", slug: "styling", title: "Styling" },
   { section: "guide", slug: "lint", title: "Lint" },
+  { section: "guide", slug: "mcp", title: "MCP" },
   { section: "guide", slug: "changelog", title: "Changelog" },
   ...foundations.map((item) => ({ ...item, section: "foundations" })),
   ...Object.entries({ components, api: apis }).flatMap(([section, modules]) =>

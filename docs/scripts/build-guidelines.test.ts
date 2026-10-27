@@ -43,6 +43,7 @@ test("public guides are readable Markdown and search discovery lists canonical p
     "theming",
     "styling",
     "lint",
+    "mcp",
     "changelog",
   ]) {
     const english = await readFile(new URL(`guides/${slug}.en.md`, root), "utf8");
@@ -58,6 +59,8 @@ test("public guides are readable Markdown and search discovery lists canonical p
   for (const path of [
     "/docs/installation",
     "/docs/installation/ko",
+    "/docs/mcp",
+    "/docs/mcp/ko",
     "/docs/components/item",
     "/docs/components/item/ko",
     "/docs/api/surface",
