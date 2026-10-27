@@ -8,9 +8,9 @@ import { promisify } from "node:util";
 
 const execFile = promisify(execFileCallback);
 const cli = resolve("node_modules/@changesets/cli/bin.js");
-const packages = ["tokens", "ui", "lint"];
+const packages = ["tokens", "ui", "lint", "docs-mcp"];
 
-test("release groups propagate token changes without coupling the lint plugin", async () => {
+test("release groups keep lint and docs MCP independent from UI and tokens", async () => {
   const directory = await mkdtemp(join(tmpdir(), "bolerish-release-"));
   try {
     await symlink(resolve("node_modules"), join(directory, "node_modules"), "dir");
@@ -30,6 +30,7 @@ test("release groups propagate token changes without coupling the lint plugin", 
       JSON.parse(await readFile(join(directory, name, "package.json"), "utf8"));
     const originalUi = await readManifest("packages/ui");
     const originalLint = await readManifest("packages/lint");
+    const originalMcp = await readManifest("packages/docs-mcp");
     const originalDocs = await readManifest("docs");
     await writeFile(
       join(directory, ".changeset/token-change.md"),
@@ -42,6 +43,7 @@ test("release groups propagate token changes without coupling the lint plugin", 
     assert.equal(ui.version, tokens.version);
     assert.equal(ui.dependencies["@bolerish/tokens"], "workspace:*");
     assert.equal((await readManifest("packages/lint")).version, originalLint.version);
+    assert.equal((await readManifest("packages/docs-mcp")).version, originalMcp.version);
     assert.equal((await readManifest("docs")).version, originalDocs.version);
     assert.match(
       await readFile(join(directory, "packages/ui/CHANGELOG.md"), "utf8"),
@@ -66,6 +68,14 @@ test("release groups propagate token changes without coupling the lint plugin", 
     assert.equal((await readManifest("packages/ui")).version, nextUi.version);
     assert.equal((await readManifest("packages/tokens")).version, nextUi.version);
     assert.equal((await readManifest("docs")).version, originalDocs.version);
+    await writeFile(
+      join(directory, ".changeset/mcp-change.md"),
+      '---\n"@bolerish/docs-mcp": minor\n---\n\nAdd read-only documentation tools.\n',
+    );
+    await execFile(process.execPath, [cli, "version"], { cwd: directory });
+    assert.notEqual((await readManifest("packages/docs-mcp")).version, originalMcp.version);
+    assert.equal((await readManifest("packages/ui")).version, nextUi.version);
+    assert.equal((await readManifest("packages/tokens")).version, nextUi.version);
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

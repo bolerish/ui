@@ -2,7 +2,9 @@
 
 `@bolerish/ui` and `@bolerish/tokens` form one fixed release group. A change to
 one releases both at the same version. `@bolerish/lint` is versioned
-independently. `@bolerish/lint` replaces `@bolerish/eslint-plugin-ui`; the former
+independently, as is `@bolerish/docs-mcp`. The documentation MCP bundles a
+build-time reference snapshot; rebuild it before preparing a release.
+`@bolerish/lint` replaces `@bolerish/eslint-plugin-ui`; the former
 package is not a compatibility alias. Docs and the root workspace are private
 applications, not npm releases.
 

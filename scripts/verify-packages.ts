@@ -4,7 +4,7 @@ import { join, resolve } from "node:path";
 import { promisify } from "node:util";
 
 const execFile = promisify(execFileCallback);
-const packageDirectories = ["packages/tokens", "packages/ui", "packages/lint"];
+const packageDirectories = ["packages/tokens", "packages/ui", "packages/lint", "packages/docs-mcp"];
 const outputDirectory = resolve(".artifacts/packages");
 
 type PackageManifest = {
