@@ -6,7 +6,7 @@ import { themes, rgba, contrast } from "../../../../packages/tokens/src/themes.t
 
 test("Documentation shell colors stay aligned with semantic themes", async () => {
   const css = await readFile(new URL("./theme.css", import.meta.url), "utf8");
-  const selectors = { light: ":root", dark: ':root[data-color-mode="dark"]' };
+  const selectors = { light: ":root", dark: ':root[data-bolerish-theme="dark"]' };
   const roles = {
     background: "bgCanvas",
     surface: "bgSurface",

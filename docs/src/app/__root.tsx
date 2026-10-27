@@ -1,5 +1,4 @@
 import { surface } from "@bolerish/ui/surface";
-import { themeClassNames } from "@bolerish/ui/theme";
 import {
   HeadContent,
   Outlet,
@@ -152,8 +151,7 @@ function Document({ children }: { children: ReactNode }) {
     <html
       suppressHydrationWarning
       lang={settings.locale}
-      className={themeClassNames[mode]}
-      data-color-mode={mode}
+      data-bolerish-theme={mode}
       {...surface.props({ mode: settings.surface })}
       data-bolerish-motion={
         { system: "system", reduce: "off", "no-preference": "on" }[settings.motionPreference]
@@ -163,7 +161,7 @@ function Document({ children }: { children: ReactNode }) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{const value=document.cookie.split('; ').find(c=>c.startsWith('bolerish-docs-settings='))?.slice('bolerish-docs-settings='.length);let saved={};try{saved=JSON.parse(decodeURIComponent(value||''))||{}}catch{}const preference=new URLSearchParams(location.search).get('colorMode')||saved.colorMode;const mode=preference==='dark'||preference==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.colorMode=mode;document.documentElement.className=${JSON.stringify(themeClassNames)}[mode]}catch{}`,
+            __html: `try{const value=document.cookie.split('; ').find(c=>c.startsWith('bolerish-docs-settings='))?.slice('bolerish-docs-settings='.length);let saved={};try{saved=JSON.parse(decodeURIComponent(value||''))||{}}catch{}const preference=new URLSearchParams(location.search).get('colorMode')||saved.colorMode;const mode=preference==='dark'||preference==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.bolerishTheme=mode}catch{}`,
           }}
         />
         <HeadContent />

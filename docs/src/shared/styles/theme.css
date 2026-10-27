@@ -16,7 +16,7 @@
   --docs-control: #81868f;
   --docs-focus: #383b3f;
 }
-:root[data-color-mode="dark"] {
+:root[data-bolerish-theme="dark"] {
   --docs-border: #ffffff1f;
   --docs-subtle: #161718;
   --docs-primary: #e4e4e7;

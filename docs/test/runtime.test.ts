@@ -65,7 +65,7 @@ test("static HTML ignores personal settings while retaining previews and real 40
     `${base}/docs/components/button?locale=en&colorMode=dark&density=compact`,
   );
   const html = await dark.text();
-  assert.match(html, /data-color-mode="light"/);
+  assert.match(html, /data-bolerish-theme="light"/);
   assert.match(html, /--bolerish-density:1/);
   assert.match(html, /Make the next useful action/);
   assert.doesNotMatch(html, /Source reference/);
@@ -76,7 +76,7 @@ test("static HTML ignores personal settings while retaining previews and real 40
   });
   assert.equal(preferences.status, 200);
   assert.equal(preferences.headers.get("location"), null);
-  assert.match(await preferences.text(), /data-color-mode="light"/);
+  assert.match(await preferences.text(), /data-bolerish-theme="light"/);
   const defaults = await fetch(`${base}/docs/components/button`, {
     headers: {
       cookie: `bolerish-docs-settings=${encodeURIComponent(JSON.stringify({ colorMode: "light", locale: "ko" }))}`,
@@ -86,7 +86,7 @@ test("static HTML ignores personal settings while retaining previews and real 40
   const explicit = await fetch(`${base}/docs/components/button?colorMode=light`, {
     headers: { cookie: `bolerish-docs-settings=${saved}` },
   });
-  assert.match(await explicit.text(), /data-color-mode="light"/);
+  assert.match(await explicit.text(), /data-bolerish-theme="light"/);
   const missing = await fetch(`${base}/docs/components/not-a-component?locale=en`);
   assert.equal(missing.status, 404);
   assert.match(await missing.text(), /Page not found/);
@@ -234,7 +234,7 @@ test("surface preferences, Item docs and crawler discovery cross real HTTP bound
   assert.match(preview, /name="robots" content="noindex"/);
 });
 
-test("removed brand previews and custom-theme guide are absent", async () => {
+test("removed brand previews and brand-specific guide are absent", async () => {
   for (const path of ["/preview/color--BrandThemeExample", "/preview/color--CustomThemeExample"]) {
     assert.equal((await fetch(`${base}${path}`)).status, 404, path);
   }
@@ -242,7 +242,7 @@ test("removed brand previews and custom-theme guide are absent", async () => {
     const content = await (
       await fetch(`${base}/guides/theming${locale === "en" ? ".en" : ""}.md`)
     ).text();
-    assert.doesNotMatch(content, /Ocean|createTheme|brand\.stylex/);
+    assert.doesNotMatch(content, /Ocean|brand\.stylex/);
   }
 });
 

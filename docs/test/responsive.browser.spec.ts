@@ -116,7 +116,7 @@ for (const width of [320, 390, 768, 1024, 1440]) {
           await expect(
             page.locator(route === "/" ? ".gallery-preview" : ".document").first(),
           ).toBeVisible();
-          await expect(page.locator("html")).toHaveAttribute("data-color-mode", theme);
+          await expect(page.locator("html")).toHaveAttribute("data-bolerish-theme", theme);
           const failures = await page.evaluate(inspectLayout);
           if (failures.length) issues.push({ path, failures });
         }

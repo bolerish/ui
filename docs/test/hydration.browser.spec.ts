@@ -53,7 +53,7 @@ for (const path of ["/", "/ko"]) {
       await page.waitForLoadState("networkidle");
       await expect(page.locator(".gallery-item").first()).toBeVisible();
       await expect(page.locator("html")).toHaveAttribute(
-        "data-color-mode",
+        "data-bolerish-theme",
         saved ? "dark" : "light",
       );
       await expect(page.locator("html")).toHaveAttribute(

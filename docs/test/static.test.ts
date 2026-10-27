@@ -28,14 +28,14 @@ test("built head applies saved, explicit and system color modes before React loa
     ["%", "?colorMode=dark", false, "dark"],
     ["null", "", false, "light"],
   ] as const) {
-    const element = { dataset: {} as Record<string, string>, className: "" };
+    const element = { dataset: {} as Record<string, string>, className: "consumer-root" };
     runInNewContext(script, {
       document: { cookie: `bolerish-docs-settings=${cookie}`, documentElement: element },
       location: { search },
       URLSearchParams,
       matchMedia: () => ({ matches: systemDark }),
     });
-    assert.equal(element.dataset.colorMode, expected);
-    assert.ok(element.className);
+    assert.equal(element.dataset.bolerishTheme, expected);
+    assert.equal(element.className, "consumer-root");
   }
 });
