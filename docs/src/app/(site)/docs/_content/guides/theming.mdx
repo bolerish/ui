@@ -8,7 +8,7 @@ Components share semantic color and shadow tokens. The installed stylesheet incl
 
 ## Apply a color mode
 
-Light is the default. Apply `themeClassNames.light` or `themeClassNames.dark` to `html` after loading the package CSS. The exported classes also set the matching `color-scheme`. A `.dark` class by itself does not activate the package theme.
+Light is the default. After loading the package CSS, set `data-bolerish-theme="light"` or `data-bolerish-theme="dark"` on `html`. The attribute applies color and shadow tokens, document colors and font, and the matching `color-scheme`. No JavaScript import or StyleX compiler is required. A `.dark` class alone does not activate the package theme.
 
 </LocaleContent>
 
@@ -20,21 +20,21 @@ Light is the default. Apply `themeClassNames.light` or `themeClassNames.dark` to
 
 ## 색상 모드 적용하기
 
-기본은 라이트입니다. 패키지 CSS를 로드한 뒤 `html`에 `themeClassNames.light` 또는 `themeClassNames.dark`를 적용합니다. 내보낸 클래스에는 해당 모드의 `color-scheme`도 포함됩니다. `.dark` 클래스만 붙여서는 패키지 테마가 활성화되지 않습니다.
+기본은 라이트입니다. 패키지 CSS를 로드한 뒤 `html`에 `data-bolerish-theme="light"` 또는 `data-bolerish-theme="dark"`를 지정합니다. 속성 하나로 색상·그림자 토큰, 문서의 색상·글꼴과 해당 모드의 `color-scheme`이 적용됩니다. JavaScript 가져오기나 StyleX 컴파일러는 필요하지 않습니다. `.dark` 클래스만 붙여서는 패키지 테마가 활성화되지 않습니다.
 
 </LocaleContent>
 
 ```tsx
-import { themeClassNames } from "@bolerish/ui/theme";
-
-<html className={themeClassNames.dark}>
+<html data-bolerish-theme="dark">
   <body>{children}</body>
-</html>;
+</html>
 ```
 
 <LocaleContent locale="en">
 
-Use your framework's document or root layout for this markup. Applying the theme to `html` lets dialogs and menus rendered through a portal inherit the same tokens. Keep unrelated classes when changing modes: replace the previous theme's classes rather than the entire `className`.
+Use your framework's document or root layout for this markup. Applying the theme to `html` lets dialogs and menus rendered through a portal inherit the same tokens. Changing the attribute preserves unrelated classes. Existing `themeClassNames` exports continue to work.
+
+Apps that compile StyleX can apply their own `stylex.createTheme()` results with `stylex.props()`. On the same element, a compiled StyleX theme overrides the built-in attribute's color or shadow tokens; the attribute still sets `color-scheme`. Use one active theme per variable group.
 
 ## System preference and SSR
 
@@ -50,7 +50,9 @@ These public CSS variables inherit from the document. Choose fonts and a density
 
 <LocaleContent locale="ko">
 
-이 마크업은 프레임워크의 문서 또는 루트 레이아웃에 적용합니다. 테마를 `html`에 두면 포털로 렌더링되는 대화상자와 메뉴도 같은 토큰을 상속합니다. 모드를 바꿀 때는 이전 테마 클래스만 교체하고 다른 클래스는 보존하세요.
+이 마크업은 프레임워크의 문서 또는 루트 레이아웃에 적용합니다. 테마를 `html`에 두면 포털로 렌더링되는 대화상자와 메뉴도 같은 토큰을 상속합니다. 속성만 바꾸므로 다른 클래스는 유지됩니다. 기존 `themeClassNames` 내보내기도 계속 사용할 수 있습니다.
+
+StyleX를 컴파일하는 앱은 직접 만든 `stylex.createTheme()` 결과를 `stylex.props()`로 적용할 수 있습니다. 같은 요소에서는 StyleX 테마가 속성의 기본 색상·그림자 토큰보다 우선하며, 속성은 계속 `color-scheme`을 지정합니다. 변수 그룹마다 활성 테마는 하나만 적용하세요.
 
 ## 시스템 설정과 SSR
 
@@ -85,7 +87,7 @@ Use `surface.props({ mode: "solid" | "liquid" })` on `html`. This is independent
 ```tsx
 import { surface } from "@bolerish/ui/surface";
 
-<html className={themeClassNames.dark} {...surface.props({ mode: "liquid" })}>
+<html data-bolerish-theme="dark" {...surface.props({ mode: "liquid" })}>
   <body>{children}</body>
 </html>;
 ```
@@ -113,7 +115,7 @@ For a custom app surface, choose existing [Color](/docs/foundations/color) roles
 ```tsx
 import { surface } from "@bolerish/ui/surface";
 
-<html className={themeClassNames.dark} {...surface.props({ mode: "liquid" })}>
+<html data-bolerish-theme="dark" {...surface.props({ mode: "liquid" })}>
   <body>{children}</body>
 </html>;
 ```

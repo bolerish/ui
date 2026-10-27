@@ -29,6 +29,8 @@ export function SaveButton() {
 
 Prebuilt components and themes work without a StyleX compiler. Configure one
 when writing your own StyleX styles or token themes.
+Set `data-bolerish-theme="light"` or `data-bolerish-theme="dark"` on `html`
+to select a built-in theme, including its `color-scheme`.
 
 ## Documentation
 

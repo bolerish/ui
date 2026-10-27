@@ -4,9 +4,8 @@ Select the shared Solid or Liquid material once for installed components. No Pro
 
 ```tsx
 import { surface } from "@bolerish/ui/surface";
-import { themeClassNames } from "@bolerish/ui/theme";
 
-<html className={themeClassNames.dark} {...surface.props({ mode: "liquid" })} />;
+<html data-bolerish-theme="dark" {...surface.props({ mode: "liquid" })} />;
 ```
 
 ## `surface.props(options)`
