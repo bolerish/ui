@@ -3,7 +3,11 @@ import * as stylex from "@stylexjs/stylex";
 
 const styles = stylex.create({
   edge: {
-    borderColor: colorVars.strokeDefault,
+    borderColor: {
+      default: colorVars.strokeDefault,
+      "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, ${colorVars.strokeDefault} var(--bolerish-surface-edge-strength, 100%), transparent)`,
+    },
+    "@media (prefers-reduced-transparency: reduce)": { borderColor: colorVars.strokeDefault },
     "@media (forced-colors: active)": { borderColor: "CanvasText" },
   },
   material: {

@@ -47,3 +47,5 @@ The helper returns attributes only: it does not mutate the DOM, store preference
 Use [Gradient](/docs/api/gradient) to add a content-colored background. The shared SVG uses a fixed, gentle displacement map stretched to each surface; it does not track individual corner geometry or capture the page. Keep the referenced `liquid-refraction.svg` asset available when processing package CSS. For an explicit decorative background with a map fitted to its size and corners across browsers, use the optional [Liquid component](/docs/components/liquid); it owns the background layer, SVG filter and resize handling.
 
 Direct `data-bolerish-surface="solid"` and `"liquid"` attributes remain supported. `surface.props()` provides the same behavior through a typed API.
+
+Liquid weakens only shared decorative surface edges; border width and geometry remain stable. Focus, error and selection boundaries are independent. Reduced transparency and forced colors retain explicit boundaries.

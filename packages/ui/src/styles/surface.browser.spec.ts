@@ -7,6 +7,13 @@ function backgroundPixel(node: Element) {
   return Array.from(ctx.getImageData(0, 0, 1, 1).data);
 }
 
+function borderPixel(node: Element) {
+  const ctx = document.createElement("canvas").getContext("2d")!;
+  ctx.fillStyle = getComputedStyle(node).borderTopColor;
+  ctx.fillRect(0, 0, 1, 1);
+  return Array.from(ctx.getImageData(0, 0, 1, 1).data);
+}
+
 for (const theme of ["light", "dark"]) {
   test(`Liquid ${theme} changes material, retains readable text and solid fallback`, async ({
     page,
@@ -14,6 +21,8 @@ for (const theme of ["light", "dark"]) {
     await page.goto(`/?fixture=surface&theme=${theme}&surface=solid`);
     const card = page.getByTestId("surface");
     const solidPixel = await card.evaluate(backgroundPixel);
+    const solidBorder = await card.evaluate(borderPixel);
+    const borderWidth = await card.evaluate((n) => getComputedStyle(n).borderTopWidth);
     const solid = await card.evaluate((n) => {
       const s = getComputedStyle(n);
       return { color: s.backgroundColor, filter: s.backdropFilter, shadow: s.boxShadow };
@@ -23,9 +32,11 @@ for (const theme of ["light", "dark"]) {
       const s = getComputedStyle(n);
       return { color: s.backgroundColor, filter: s.backdropFilter, shadow: s.boxShadow };
     });
+    expect((await card.evaluate(borderPixel))[3]).toBeLessThan(solidBorder[3]);
+    await expect(card).toHaveCSS("border-top-width", borderWidth);
     expect(liquid.color).not.toBe(solid.color);
     expect(liquid.filter).toContain("blur");
-    expect(liquid.shadow).not.toContain("inset");
+    expect(liquid.shadow).toContain("inset");
     await expect(card).toHaveCSS("background-image", "none");
     expect((await card.evaluate(backgroundPixel))[3] / 255).toBeLessThanOrEqual(0.7);
     expect(
@@ -102,6 +113,7 @@ for (const theme of ["light", "dark"]) {
     await expect(card).toHaveCSS("backdrop-filter", "none");
     await expect(card).toHaveCSS("background-image", "none");
     expect(await card.evaluate(backgroundPixel)).toEqual(solidPixel);
+    expect(await card.evaluate(borderPixel)).toEqual(solidBorder);
   });
 
   test(`Liquid ${theme} modal shares the quieter material and retains keyboard recovery`, async ({
@@ -118,7 +130,7 @@ for (const theme of ["light", "dark"]) {
     await expect(dialog).toBeVisible();
     expect((await dialog.evaluate(backgroundPixel))[3] / 255).toBeLessThanOrEqual(0.6);
     const shadow = await dialog.evaluate((n) => getComputedStyle(n).boxShadow);
-    expect(shadow).not.toContain("inset");
+    expect(shadow).toContain("inset");
     expect(shadow).not.toEqual(solidShadow);
     const lengths = [...shadow.matchAll(/\)\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+([\d.]+)px/g)];
     expect(lengths.length).toBeGreaterThan(0);
