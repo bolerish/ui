@@ -11,6 +11,7 @@ const styles = stylex.create({
     "@media (forced-colors: active)": { borderColor: "CanvasText" },
   },
   material: {
+    "--bolerish-material-sheen": "var(--bolerish-surface-sheen, none)",
     "--bolerish-material-shadow": "0 0 transparent",
     boxShadow: {
       default: "var(--bolerish-material-shadow)",
@@ -34,7 +35,7 @@ const styles = stylex.create({
     backgroundImage: {
       default: "none",
       "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))":
-        "var(--bolerish-surface-sheen, none)",
+        "var(--bolerish-material-sheen, var(--bolerish-surface-sheen, none))",
     },
     "@media (prefers-reduced-transparency: reduce)": {
       backgroundColor: `var(--bolerish-material-color, ${colorVars.bgSurface})`,
@@ -57,16 +58,19 @@ const styles = stylex.create({
     "--bolerish-material-filter": "var(--bolerish-panel-filter, none)",
   },
   control: {
+    "--bolerish-material-sheen": "var(--bolerish-control-sheen, none)",
     "--bolerish-material-color": colorVars.bgSurface,
     "--bolerish-material-opacity": "var(--bolerish-control-opacity, 100%)",
     "--bolerish-material-filter": "var(--bolerish-control-filter, none)",
   },
   subtle: {
+    "--bolerish-material-sheen": "var(--bolerish-control-sheen, none)",
     "--bolerish-material-color": colorVars.bgSubtle,
     "--bolerish-material-opacity": "var(--bolerish-control-opacity, 100%)",
     "--bolerish-material-filter": "var(--bolerish-control-filter, none)",
   },
   outline: {
+    "--bolerish-material-sheen": "var(--bolerish-control-sheen, none)",
     "--bolerish-material-color": colorVars.interactionDefault,
     "--bolerish-material-opacity": "var(--bolerish-control-opacity, 100%)",
     "--bolerish-material-filter": "var(--bolerish-control-filter, none)",

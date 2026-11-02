@@ -37,7 +37,7 @@ for (const theme of ["light", "dark"]) {
     expect(liquid.color).not.toBe(solid.color);
     expect(liquid.filter).toContain("blur");
     expect(liquid.shadow).toContain("inset");
-    await expect(card).toHaveCSS("background-image", "none");
+    await expect(card).toHaveCSS("background-image", /linear-gradient/);
     expect((await card.evaluate(backgroundPixel))[3] / 255).toBeLessThanOrEqual(0.7);
     expect(
       (await page.getByRole("textbox", { name: "Surface field" }).evaluate(backgroundPixel))[3] /
