@@ -1,7 +1,9 @@
 import { notFound } from "@tanstack/react-router";
 import { type ComponentType } from "react";
 
-import { findDocument } from "./catalog";
+import { documentPath } from "@/shared/lib/paths";
+
+import { catalog, findDocument } from "./catalog";
 import { preloadExamples } from "./examples";
 
 const modules = import.meta.glob<{
@@ -13,6 +15,11 @@ const modules = import.meta.glob<{
   "../_content/api/*/docs.mdx",
   "../_content/guides/*.mdx",
 ]);
+type DocumentModule = {
+  default: ComponentType;
+  documentHeadings?: Record<string, { id: string; title: string }[]>;
+};
+const loadedDocuments: Record<string, DocumentModule> = {};
 const loadingPages: Record<
   string,
   Promise<{
@@ -30,6 +37,7 @@ export function loadDocument(key: string) {
     .then(async (module) => {
       if (!key.includes("/_content/api/") && !key.includes("/_content/guides/"))
         await preloadExamples(key.split("/").at(-2)!);
+      loadedDocuments[key] = module;
       return module;
     })
     .catch((error) => {
@@ -43,4 +51,15 @@ export async function loadDocumentPage(section: string, slug: string, locale?: s
   if (!page) throw notFound();
   await loadDocument(documentKey(page));
   return { page };
+}
+
+export function readDocument(key: string) {
+  if (loadedDocuments[key]) return loadedDocuments[key];
+  throw loadDocument(key);
+}
+
+export async function preloadDocumentPath(pathname: string) {
+  const locale = pathname.endsWith("/ko") ? "ko" : "en";
+  const page = catalog.find((page) => documentPath(page, locale) === pathname);
+  if (page) await loadDocument(documentKey(page));
 }

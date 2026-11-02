@@ -17,6 +17,20 @@ test(
     try {
       await server.listen();
       const page = await browser.newPage();
+      await page.addInitScript(() => {
+        const state = window as Window & {
+          firstDocument?: Element;
+          missingDocumentFrames?: number;
+        };
+        state.missingDocumentFrames = 0;
+        function sample() {
+          const article = document.querySelector("article.document");
+          if (article && !state.firstDocument) state.firstDocument = article;
+          if (state.firstDocument && !article) state.missingDocumentFrames!++;
+          requestAnimationFrame(sample);
+        }
+        requestAnimationFrame(sample);
+      });
       for (const [mode, expected] of [
         ["dark", "rgb(245, 246, 248)"],
         ["light", "rgb(8, 9, 10)"],
@@ -30,6 +44,23 @@ test(
           Boolean(document.getElementById("__stylex_virtual__")?.textContent),
         );
         await expect(button).toHaveCSS("color", expected);
+        const continuity = await page.evaluate(() => {
+          const state = window as Window & {
+            firstDocument?: Element;
+            missingDocumentFrames?: number;
+          };
+          return {
+            same:
+              Boolean(state.firstDocument) &&
+              state.firstDocument === document.querySelector("article.document"),
+            missingFrames: state.missingDocumentFrames,
+          };
+        });
+        assert.deepEqual(
+          continuity,
+          { same: true, missingFrames: 0 },
+          `${mode}: retain SSG document through hydration`,
+        );
       }
       for (const preference of ["dark", "system", "light"] as const) {
         const codePage = await browser.newPage();

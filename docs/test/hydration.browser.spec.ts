@@ -112,3 +112,63 @@ test("critical document entry loads home examples only after navigation", async 
   await expect(page.locator(".gallery-item").first()).toBeVisible();
   expect(examples.length).toBeGreaterThan(0);
 });
+
+for (const path of [
+  "/docs/components/toggle",
+  "/docs/foundations/overview",
+  "/docs/installation/ko",
+]) {
+  for (const colorMode of ["dark", "system", "light"]) {
+    test(`SSG document DOM survives hydration ${path}/${colorMode}`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme: "dark" });
+      await page.context().addCookies([
+        {
+          name: "bolerish-docs-settings",
+          value: encodeURIComponent(JSON.stringify({ colorMode })),
+          url: test.info().project.use.baseURL!,
+        },
+      ]);
+      const errors: string[] = [];
+      page.on("pageerror", (error) => errors.push(error.message));
+      await page.addInitScript(() => {
+        const state = window as Window & {
+          firstDocument?: Element;
+          missingDocumentFrames?: number;
+          documentFrames?: number;
+        };
+        state.missingDocumentFrames = 0;
+        state.documentFrames = 0;
+        function sample() {
+          const article = document.querySelector("article.document");
+          if (article && !state.firstDocument) state.firstDocument = article;
+          if (state.firstDocument) {
+            state.documentFrames!++;
+            if (!article) state.missingDocumentFrames!++;
+          }
+          requestAnimationFrame(sample);
+        }
+        requestAnimationFrame(sample);
+      });
+      await page.goto(path, { waitUntil: "networkidle" });
+      await expect(page.locator("article.document h1")).toBeVisible();
+      const result = await page.evaluate(() => {
+        const state = window as Window & {
+          firstDocument?: Element;
+          missingDocumentFrames?: number;
+          documentFrames?: number;
+        };
+        return {
+          same:
+            Boolean(state.firstDocument) &&
+            state.firstDocument === document.querySelector("article.document"),
+          missing: state.missingDocumentFrames,
+          frames: state.documentFrames ?? 0,
+        };
+      });
+      expect(result.same).toBe(true);
+      expect(result.missing).toBe(0);
+      expect(result.frames).toBeGreaterThan(0);
+      expect(errors).toEqual([]);
+    });
+  }
+}
