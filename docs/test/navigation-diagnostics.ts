@@ -51,6 +51,13 @@ export async function navigationDiagnostics(page: Page, info: TestInfo, run: () 
         return Reflect.apply(original, history, args);
       };
     }
+    const setItem = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (...args: Parameters<Storage["setItem"]>) {
+      if (this === sessionStorage && String(args[0]).startsWith("tanstack_router_reload:"))
+        observe("chunk.reload-marker", { key: args[0] });
+      return Reflect.apply(setItem, this, args);
+    };
+    addEventListener("beforeunload", () => observe("beforeunload", {}));
     type DiagnosticRouter = {
       state?: { location?: unknown };
       navigate: (...args: unknown[]) => unknown;
@@ -68,21 +75,6 @@ export async function navigationDiagnostics(page: Page, info: TestInfo, run: () 
         };
       },
     });
-  });
-
-  // Location is unforgeable in WebKit. Instrument only the served JS call site.
-  await page.route(/\/assets\/.*\.js(?:\?.*)?$/, async (route) => {
-    const response = await route.fetch();
-    const body = (await response.text())
-      .replaceAll(
-        "window.location.replace(",
-        '((...args)=>{console.trace("DOCS_NAV_DIAGNOSTICS location.replace",location.href,JSON.stringify(args),new Error().stack);return window.location.replace(...args)})( ',
-      )
-      .replaceAll(
-        "window.location.reload(",
-        '((...args)=>{console.trace("DOCS_NAV_DIAGNOSTICS location.reload",location.href,new Error().stack);return window.location.reload(...args)})( ',
-      );
-    await route.fulfill({ response, body });
   });
 
   const snapshot = async (phase: string) => {
