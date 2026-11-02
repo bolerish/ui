@@ -10,6 +10,7 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { defineConfig } from "vite";
 
+import { documentHeadings } from "./scripts/document-headings.ts";
 import {
   layerStylexVariables,
   layerDevelopmentStylexVariables,
@@ -68,7 +69,7 @@ export default defineConfig({
         exclude: /\?raw/,
         providerImportSource: "@mdx-js/react",
         remarkPlugins: [remarkGfm],
-        rehypePlugins: [rehypeSlug],
+        rehypePlugins: [rehypeSlug, documentHeadings],
       }),
       enforce: "pre",
     },

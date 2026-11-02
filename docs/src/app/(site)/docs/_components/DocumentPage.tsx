@@ -1,7 +1,7 @@
 import { MDXProvider } from "@mdx-js/react";
-import { Suspense } from "react";
+import { Suspense, use } from "react";
 
-import { documentKey, loadedPages, pages } from "@/app/(site)/docs/_lib/documents";
+import { documentKey, loadDocument } from "@/app/(site)/docs/_lib/documents";
 import type { loadDocumentPage } from "@/app/(site)/docs/_lib/documents";
 
 import { documentationComponents } from "./components";
@@ -9,7 +9,8 @@ import { TableOfContents } from "./TableOfContents";
 
 export function DocumentPage({ page }: Awaited<ReturnType<typeof loadDocumentPage>>) {
   const key = documentKey(page);
-  const Page = loadedPages[key] ?? pages[key];
+  const module = use(loadDocument(key));
+  const Page = module.default;
   return (
     <div className="document-layout" key={key}>
       <article className="document">
@@ -19,7 +20,7 @@ export function DocumentPage({ page }: Awaited<ReturnType<typeof loadDocumentPag
           </Suspense>
         </MDXProvider>
       </article>
-      <TableOfContents />
+      <TableOfContents headings={module.documentHeadings ?? {}} />
     </div>
   );
 }

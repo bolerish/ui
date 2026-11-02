@@ -161,7 +161,7 @@ function Document({ children }: { children: ReactNode }) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{const value=document.cookie.split('; ').find(c=>c.startsWith('bolerish-docs-settings='))?.slice('bolerish-docs-settings='.length);let saved={};try{saved=JSON.parse(decodeURIComponent(value||''))||{}}catch{}const preference=new URLSearchParams(location.search).get('colorMode')||saved.colorMode;const mode=preference==='dark'||preference==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.bolerishTheme=mode}catch{}`,
+            __html: `try{const value=document.cookie.split('; ').find(c=>c.startsWith('bolerish-docs-settings='))?.slice('bolerish-docs-settings='.length);let saved={};try{saved=JSON.parse(decodeURIComponent(value||''))||{}}catch{}const preference=new URLSearchParams(location.search).get('colorMode')||saved.colorMode;const mode=preference==='dark'||preference==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.bolerishTheme=mode;document.documentElement.dataset.bolerishSurface=new URLSearchParams(location.search).get('surface')||saved.surface||'solid'}catch{}`,
           }}
         />
         <HeadContent />

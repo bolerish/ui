@@ -130,8 +130,16 @@ const triggerVariantStyles = stylex.create({
   },
 });
 
+const selectedStyles = stylex.create({
+  segmented: {
+    backgroundColor: colorVars.interactionSelected,
+    boxShadow: `inset 0 0 0 ${sizeVars.stroke} ${colorVars.strokeDefault}, ${shadowVars.subtle}`,
+  },
+});
+
 const indicatorVariantStyles = stylex.create({
   segmented: {
+    display: "none",
     backgroundColor: colorVars.interactionSelected,
     borderRadius: radiusVars.sm,
     boxShadow: `inset 0 0 0 ${sizeVars.stroke} ${colorVars.strokeDefault}, ${shadowVars.subtle}`,
@@ -208,6 +216,7 @@ export function TabsTrigger({
         styles.trigger,
         triggerVariantStyles[variant],
         state.active && styles.triggerActive,
+        state.active && variant === "segmented" && selectedStyles.segmented,
         state.disabled && styles.triggerDisabled,
         xstyle,
       ),

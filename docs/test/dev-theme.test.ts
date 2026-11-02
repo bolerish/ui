@@ -75,11 +75,46 @@ test(
           { waitUntil: "networkidle" },
         );
         const canvas = previewPage.locator(".preview-canvas").first();
+        const toc = previewPage.locator(".table-of-contents a");
+        const headingIds = await previewPage
+          .locator("article h2[id]")
+          .evaluateAll((nodes) => nodes.map((node) => `#${node.id}`));
+        assert.ok(headingIds.length > 0);
+        assert.deepEqual(
+          await toc.evaluateAll((nodes) => nodes.map((node) => node.getAttribute("href"))),
+          headingIds,
+        );
+        const beforeColors = await previewPage
+          .locator(".site-header a, .site-header button, .table-of-contents a")
+          .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color));
+        const selectedTab = previewPage.getByRole("tab", { name: "Preview", exact: true }).first();
+        const selectedBackground = await selectedTab.evaluate(
+          (node) => getComputedStyle(node).backgroundColor,
+        );
+        assert.notEqual(selectedBackground, "rgba(0, 0, 0, 0)");
+        const beforeHeight = (await canvas.boundingBox())!.height;
+        await expect(
+          previewPage.getByRole("tab", { name: "Preview", exact: true }).first(),
+        ).toHaveAttribute("aria-selected", "true");
         const expected = preference === "light" ? "rgb(255, 255, 255)" : "rgb(8, 9, 10)";
         await expect(canvas).toHaveCSS("background-color", expected);
         await previewPage.unroute("**/*");
         await previewPage.reload({ waitUntil: "networkidle" });
         await expect(canvas).toHaveCSS("background-color", expected);
+        assert.equal(
+          (await canvas.boundingBox())!.height,
+          beforeHeight,
+          `${preference}: preview height survives hydration`,
+        );
+        await expect(toc).toHaveCount(headingIds.length);
+        assert.deepEqual(
+          await previewPage
+            .locator(".site-header a, .site-header button, .table-of-contents a")
+            .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color)),
+          beforeColors,
+          `${preference}: header and TOC colors survive hydration`,
+        );
+        await expect(selectedTab).toHaveCSS("background-color", selectedBackground);
         await previewPage.close();
       }
       const css = await (
