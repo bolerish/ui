@@ -1,3 +1,5 @@
+import PositionedSource from "./Positioned.tsx?raw";
+import { LocalizedMarkdown } from "@/app/(site)/docs/_components/LocalizedMarkdown";
 import { LocaleContent } from "@/shared/model/locale";
 import { ComponentPreview } from "@/app/(site)/docs/_components/ComponentPreview";
 import DefaultSource from "./Default.tsx?raw";
@@ -21,6 +23,8 @@ Show the current status with a decorative dot and a short, explicit label.
 
 <LocaleContent locale="ko">
 
+`position`을 지정하면 화면에 떠 있는 알림으로 표시합니다. 데스크톱은 24px, 600px 이하에서는 16px 여백과 안전 영역을 더합니다. 모바일은 상단·하단만 유지하고 가로 중앙에 배치합니다. `offset`으로 여백을 덮어쓸 수 있으며 숫자는 px입니다. 위치를 생략하면 기존 인라인 표식을 유지합니다.
+
 `tone`은 `neutral`(기본값), `success`, `warning`, `error`, `info`를 지원합니다.
 `visible`은 기본값이 `true`이며 전환할 때 페이드와 상태색 잔향 효과가 나타납니다.
 퇴장 효과를 위해 컴포넌트를 유지하고 `visible={false}`를 전달하세요. 숨겨진 상태에서도 배치 공간은 유지되며 보조 기술에서는 제외됩니다.
@@ -29,9 +33,15 @@ Show the current status with a decorative dot and a short, explicit label.
 </LocaleContent>
 <LocaleContent locale="en">
 
+Set `position` for a viewport notification: top-left, top-center, top-right, bottom-left, bottom-center, or bottom-right. Defaults are 24px on desktop and 16px up to 600px, plus safe-area insets. Small screens retain top/bottom and center horizontally. Override the gap with `offset` (numbers are px). Omit position for the existing inline label.
+
 `tone` accepts `neutral` (default), `success`, `warning`, `error`, and `info`.
 `visible` defaults to `true`. Toggle it for a fade and a decorative color echo.
 Keep the component mounted with `visible={false}` for exit motion. Hidden pills reserve layout space and are excluded from assistive technology.
 Reduced motion disables animation. Static pills do not create live announcements; provide an appropriate live region in the app for dynamic updates.
 
 </LocaleContent>
+
+<LocalizedMarkdown text={"## Positioned status"} />
+
+<ComponentPreview name="status-pill--Positioned" source={PositionedSource} />

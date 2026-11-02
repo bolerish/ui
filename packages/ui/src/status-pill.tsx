@@ -1,6 +1,15 @@
-import { colorVars, radiusVars, spacingVars, typo } from "@bolerish/tokens/semantic.stylex";
+"use client";
+
+import {
+  colorVars,
+  layerVars,
+  radiusVars,
+  spacingVars,
+  typo,
+} from "@bolerish/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
+import { useSyncExternalStore, type ComponentProps, type CSSProperties } from "react";
+import { createPortal } from "react-dom";
 
 import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles, type StyledProps } from "./styles/merge-styles";
@@ -59,8 +68,27 @@ const tones = stylex.create({
   },
 });
 
+const floatingStyles = stylex.create({
+  layer: { zIndex: layerVars.notification },
+});
+const subscribe = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
+
+export type StatusPillPosition =
+  | "top-left"
+  | "top-center"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-center"
+  | "bottom-right";
+
 export type StatusPillProps = StyledProps<ComponentProps<"span">> & {
   tone?: keyof typeof tones;
+  /** Omit for inline layout. Small screens center the pill horizontally. */
+  position?: StatusPillPosition;
+  /** Edge gap, in px for numbers. Defaults to 16px mobile / 24px desktop, plus safe area. */
+  offset?: string | number;
   /** Keep mounted and toggle visible to animate both entry and exit. Reserves layout space. */
   visible?: boolean;
   xstyle?: ControlPlacementStyles;
@@ -69,6 +97,8 @@ export type StatusPillProps = StyledProps<ComponentProps<"span">> & {
 /** A non-interactive status label with a decorative color echo on visibility changes. */
 export function StatusPill({
   tone = "neutral",
+  position,
+  offset,
   visible = true,
   children,
   className,
@@ -76,7 +106,8 @@ export function StatusPill({
   xstyle,
   ...props
 }: StatusPillProps) {
-  return (
+  const mounted = useSyncExternalStore(subscribe, clientSnapshot, serverSnapshot);
+  const pill = (
     <span
       {...props}
       {...mergeStyles(stylex.props(styles.root, tones[tone], xstyle), className, style)}
@@ -87,5 +118,23 @@ export function StatusPill({
       <span aria-hidden="true" {...stylex.props(styles.dot)} />
       {children}
     </span>
+  );
+  if (!position) return pill;
+  if (!mounted) return null;
+  return createPortal(
+    <div
+      {...stylex.props(floatingStyles.layer)}
+      data-bolerish-status-position={position}
+      style={
+        offset === undefined
+          ? undefined
+          : ({
+              "--bolerish-status-offset": typeof offset === "number" ? `${offset}px` : offset,
+            } as CSSProperties)
+      }
+    >
+      {pill}
+    </div>,
+    document.body,
   );
 }

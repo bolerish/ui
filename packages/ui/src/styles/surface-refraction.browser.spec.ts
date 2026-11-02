@@ -14,6 +14,7 @@ for (const theme of ["light", "dark"]) {
     });
     await page.evaluate(() => document.fonts.ready);
     await expect(card).toHaveCSS("backdrop-filter", /url\(.+\).*blur\(4px\)/);
+    await expect(card).toHaveCSS("box-shadow", /inset/);
     const refracted = await card.screenshot();
     await page.locator("html").evaluate((node) => {
       node.style.setProperty("--bolerish-refraction", "opacity(1)");

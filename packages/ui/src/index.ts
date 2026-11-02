@@ -321,4 +321,4 @@ export type { GradientOptions, GradientProps } from "./gradient";
 export { surface } from "./surface";
 export type { SurfaceOptions, SurfaceProps } from "./surface";
 
-export { StatusPill, type StatusPillProps } from "./status-pill";
+export { StatusPill, type StatusPillProps, type StatusPillPosition } from "./status-pill";

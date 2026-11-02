@@ -29,7 +29,8 @@
   --bolerish-control-filter: var(--bolerish-refraction) blur(2px) saturate(1.1);
   --bolerish-floating-filter: var(--bolerish-refraction) blur(3px) saturate(1.1);
   --bolerish-surface-sheen: none;
-  --bolerish-surface-reflection: 0 0 transparent;
+  --bolerish-surface-reflection:
+    inset 0 1px 0 rgb(255 255 255 / 0.3), inset 0 -1px 0 rgb(255 255 255 / 0.08);
   --bolerish-raised-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
   --bolerish-floating-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
 }
@@ -143,4 +144,38 @@
 :root[data-bolerish-motion="off"] [data-bolerish-status-pill] {
   animation: none;
   transition: none;
+}
+
+[data-bolerish-status-position] {
+  --bolerish-status-gap: var(--bolerish-status-offset, 24px);
+  position: fixed;
+  inset: calc(var(--bolerish-status-gap) + env(safe-area-inset-top, 0px))
+    calc(var(--bolerish-status-gap) + env(safe-area-inset-right, 0px))
+    calc(var(--bolerish-status-gap) + env(safe-area-inset-bottom, 0px))
+    calc(var(--bolerish-status-gap) + env(safe-area-inset-left, 0px));
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}
+[data-bolerish-status-position^="top-"] {
+  align-items: flex-start;
+}
+[data-bolerish-status-position$="-left"] {
+  justify-content: flex-start;
+}
+[data-bolerish-status-position$="-right"] {
+  justify-content: flex-end;
+}
+[data-bolerish-status-position] [data-bolerish-status-pill] {
+  max-width: 100%;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  [data-bolerish-status-position] {
+    --bolerish-status-gap: var(--bolerish-status-offset, 16px);
+    justify-content: center;
+  }
 }

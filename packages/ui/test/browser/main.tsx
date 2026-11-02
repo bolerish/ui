@@ -2,6 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import { createRoot } from "react-dom/client";
 
 import InputVariants from "../../../../docs/src/app/(site)/docs/_content/components/input/Variants";
+import StatusPillPositionExample from "../../../../docs/src/app/(site)/docs/_content/components/status-pill/Positioned";
 import { Button } from "../../dist/button.js";
 import { Card, CardContent, CardDescription } from "../../dist/card.js";
 import {
@@ -186,6 +187,7 @@ function App() {
         />
       </main>
     );
+  if (fixture === "status-position") return <StatusPillPositionExample />;
   if (fixture === "documentation") return <DocumentationExample name={params.get("example")!} />;
   if (fixture === "select") return <SelectExample />;
   if (fixture === "combobox") return <ComboboxExample />;
