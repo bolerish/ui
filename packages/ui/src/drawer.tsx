@@ -150,7 +150,7 @@ const popupDirectionStyles = stylex.create({
     transform:
       "translate3d(var(--drawer-swipe-movement-x, 0px), calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)), 0)",
     ":is([data-starting-style], [data-ending-style])": {
-      opacity: 0,
+      opacity: "var(--bolerish-modal-transition-opacity, 0)",
       transform: "translate3d(0, 100%, 0)",
     },
     "@media (prefers-reduced-motion: reduce)": {
@@ -168,7 +168,7 @@ const popupDirectionStyles = stylex.create({
     transform:
       "translate3d(var(--drawer-swipe-movement-x, 0px), calc(var(--drawer-snap-point-offset, 0px) + var(--drawer-swipe-movement-y, 0px)), 0)",
     ":is([data-starting-style], [data-ending-style])": {
-      opacity: 0,
+      opacity: "var(--bolerish-modal-transition-opacity, 0)",
       transform: "translate3d(0, -100%, 0)",
     },
     "@media (prefers-reduced-motion: reduce)": {
@@ -185,7 +185,7 @@ const popupDirectionStyles = stylex.create({
     transform:
       "translate3d(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px), 0)",
     ":is([data-starting-style], [data-ending-style])": {
-      opacity: 0,
+      opacity: "var(--bolerish-modal-transition-opacity, 0)",
       transform: "translate3d(-100%, 0, 0)",
     },
     "@media (prefers-reduced-motion: reduce)": {
@@ -202,7 +202,7 @@ const popupDirectionStyles = stylex.create({
     transform:
       "translate3d(var(--drawer-swipe-movement-x, 0px), var(--drawer-swipe-movement-y, 0px), 0)",
     ":is([data-starting-style], [data-ending-style])": {
-      opacity: 0,
+      opacity: "var(--bolerish-modal-transition-opacity, 0)",
       transform: "translate3d(100%, 0, 0)",
     },
     "@media (prefers-reduced-motion: reduce)": {

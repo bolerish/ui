@@ -18,6 +18,8 @@ for (const phase of ["entering", "exiting"]) {
     const child = page.getByRole("dialog", { name: "Child modal", exact: true });
     await expect(child).toBeVisible();
     if (phase === "exiting") {
+      await expect(child).not.toHaveAttribute("data-starting-style", "");
+      await expect(child).toHaveCSS("opacity", "1");
       await child.evaluate((node) =>
         Promise.all(node.getAnimations().map((animation) => animation.finished)),
       );

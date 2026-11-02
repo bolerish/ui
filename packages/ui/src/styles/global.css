@@ -1,6 +1,7 @@
 /* Global styles are composed by the package build. */
 
 [data-bolerish-surface="solid"] {
+  --bolerish-modal-nested-opacity: 0;
   --bolerish-modal-backdrop-opacity: 100%;
   --bolerish-modal-scrim-spread: 0px;
   --bolerish-surface-edge-strength: 100%;
@@ -50,6 +51,7 @@
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and
   (background-color: color-mix(in srgb, white, transparent)) and selector(:has(*)) {
   [data-bolerish-surface="liquid"] {
+    --bolerish-modal-nested-opacity: 1;
     --bolerish-modal-backdrop-opacity: 0%;
     --bolerish-modal-scrim-spread: 100vmax;
   }
@@ -65,6 +67,7 @@
 }
 @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
   [data-bolerish-surface="liquid"] {
+    --bolerish-modal-nested-opacity: 0;
     --bolerish-modal-backdrop-opacity: 100%;
     --bolerish-modal-scrim-spread: 0px;
   }

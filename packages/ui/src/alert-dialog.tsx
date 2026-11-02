@@ -72,7 +72,7 @@ const styles = stylex.create({
     transitionTimingFunction: motionVars.easingEnter,
     width: "100%",
     ":is([data-starting-style], [data-ending-style])": {
-      opacity: 0,
+      opacity: "var(--bolerish-modal-transition-opacity, 0)",
       transform: "scale(0.95)",
     },
     ":is([data-ending-style])": {
