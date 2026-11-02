@@ -43,7 +43,7 @@ for (const section of ["guides", "components", "foundations", "api"]) {
 }
 
 export default defineConfig({
-  server: { port: 3000 },
+  server: { host: "0.0.0.0", port: 3000 },
   preview: { host: "127.0.0.1" },
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
