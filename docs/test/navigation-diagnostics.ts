@@ -73,10 +73,15 @@ export async function navigationDiagnostics(page: Page, info: TestInfo, run: () 
   // Location is unforgeable in WebKit. Instrument only the served JS call site.
   await page.route(/\/assets\/.*\.js(?:\?.*)?$/, async (route) => {
     const response = await route.fetch();
-    const body = (await response.text()).replaceAll(
-      "window.location.replace(",
-      '((...args)=>{console.trace("DOCS_NAV_DIAGNOSTICS location.replace",location.href,JSON.stringify(args),new Error().stack);return window.location.replace(...args)})( ',
-    );
+    const body = (await response.text())
+      .replaceAll(
+        "window.location.replace(",
+        '((...args)=>{console.trace("DOCS_NAV_DIAGNOSTICS location.replace",location.href,JSON.stringify(args),new Error().stack);return window.location.replace(...args)})( ',
+      )
+      .replaceAll(
+        "window.location.reload(",
+        '((...args)=>{console.trace("DOCS_NAV_DIAGNOSTICS location.reload",location.href,new Error().stack);return window.location.reload(...args)})( ',
+      );
     await route.fulfill({ response, body });
   });
 
@@ -87,6 +92,9 @@ export async function navigationDiagnostics(page: Page, info: TestInfo, run: () 
         await page.evaluate(() => ({
           url: location.href,
           history: history.state,
+          chunkReloads: Object.keys(sessionStorage).filter((key) =>
+            key.startsWith("tanstack_router_reload:"),
+          ),
           routerLocation: (
             window as unknown as { __TSR_ROUTER__?: { state?: { location?: unknown } } }
           ).__TSR_ROUTER__?.state?.location,
