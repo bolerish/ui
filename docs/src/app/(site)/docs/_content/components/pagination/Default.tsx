@@ -12,24 +12,28 @@ export default function Default() {
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" />
+          <PaginationPrevious href="#" onClick={(event) => event.preventDefault()} />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#">1</PaginationLink>
+          <PaginationLink href="#" onClick={(event) => event.preventDefault()}>
+            1
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#" isActive>
+          <PaginationLink href="#" onClick={(event) => event.preventDefault()} isActive>
             2
           </PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
+          <PaginationLink href="#" onClick={(event) => event.preventDefault()}>
+            3
+          </PaginationLink>
         </PaginationItem>
         <PaginationItem>
           <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem>
-          <PaginationNext href="#" />
+          <PaginationNext href="#" onClick={(event) => event.preventDefault()} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

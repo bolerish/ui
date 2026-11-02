@@ -5,7 +5,7 @@ import ArrowOnlyCarousel from "../../../../docs/src/app/(site)/docs/_content/com
 import InsideCarousel from "../../../../docs/src/app/(site)/docs/_content/components/carousel/InsideControls";
 import VerticalCarousel from "../../../../docs/src/app/(site)/docs/_content/components/carousel/Vertical";
 import InputVariants from "../../../../docs/src/app/(site)/docs/_content/components/input/Variants";
-import SnackbarPositionExample from "../../../../docs/src/app/(site)/docs/_content/components/snackbar/Default";
+import ToastPositions from "../../../../docs/src/app/(site)/docs/_content/components/toast/Positions";
 import { Button } from "../../dist/button.js";
 import { Card, CardContent, CardDescription } from "../../dist/card.js";
 import {
@@ -54,6 +54,7 @@ import { themeClassNames } from "../../dist/theme.js";
 import { Toaster, toast } from "../../dist/toast.js";
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "../../dist/tooltip.js";
 import { DocumentationExample } from "./documentation-examples";
+import SnackbarPositionExample from "./SnackbarOptions";
 import { brandColors, brandShadows } from "./theme.stylex";
 
 import "../../dist/global.css";
@@ -264,6 +265,7 @@ function App() {
         </Card>
       </div>
     );
+  if (fixture === "toast-positions") return <ToastPositions />;
   if (fixture === "toast")
     return (
       <>

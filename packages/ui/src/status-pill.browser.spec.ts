@@ -83,7 +83,7 @@ for (const width of [1280, 390]) {
 }
 
 test("one trigger displays only the selected status", async ({ page }) => {
-  await page.goto("/?fixture=documentation&example=snackbar");
+  await page.goto("/?fixture=status-position");
   const pill = page.locator("[data-bolerish-status-pill]");
   await expect(pill).toHaveCount(1);
   await expect(pill).toBeHidden();
@@ -99,7 +99,7 @@ test("one trigger displays only the selected status", async ({ page }) => {
 test("Snackbar auto-dismisses after its configured duration and can stay open", async ({
   page,
 }) => {
-  await page.goto("/?fixture=documentation&example=snackbar");
+  await page.goto("/?fixture=status-position");
   const time = new Date("2026-11-02T12:00:00Z");
   await page.clock.install({ time });
   await page.clock.pauseAt(new Date(time.getTime() + 1000));
@@ -142,4 +142,12 @@ test("Snackbar default duration closes an uncontrolled notification after 3000ms
   await expect(pill).not.toHaveAttribute("aria-hidden", "true");
   await page.clock.runFor(20);
   await expect(pill).toHaveAttribute("aria-hidden", "true");
+});
+
+test("Snackbar documentation preview contains only its trigger", async ({ page }) => {
+  await page.goto("/?fixture=documentation&example=snackbar");
+  await expect(page.getByRole("combobox")).toHaveCount(0);
+  await expect(page.getByRole("button")).toHaveCount(1);
+  await page.getByRole("button", { name: "Show status", exact: true }).click();
+  await expect(page.locator("[data-bolerish-status-pill]")).toHaveText("Operational");
 });

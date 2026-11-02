@@ -50,7 +50,7 @@ const styles = stylex.create({
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,
-    borderRadius: radiusVars.sm,
+    borderRadius: 0,
     color: colorVars.fgPrimary,
     cursor: "pointer",
     fontFamily: typo.fontFamilyBody,

@@ -23,3 +23,18 @@ test("Pagination wraps in a narrow container with every link reachable", async (
     ).toBeGreaterThanOrEqual(24);
   }
 });
+
+test("Pagination preview links keep the current scroll position", async ({ page }) => {
+  await page.goto("/?fixture=documentation&example=pagination");
+  await page.getByTestId("documentation-example").evaluate((node) => {
+    node.style.marginTop = "800px";
+    document.body.style.minHeight = "2400px";
+    window.scrollTo(0, 600);
+  });
+  const before = await page.evaluate(() => window.scrollY);
+  for (const link of await page.getByRole("link").all()) {
+    await link.click();
+    expect(await page.evaluate(() => window.scrollY)).toBe(before);
+    expect(new URL(page.url()).hash).toBe("");
+  }
+});
