@@ -10,7 +10,6 @@ import * as stylex from "@stylexjs/stylex";
 import { Suspense, useEffect, useRef, useState } from "react";
 
 import { loadedExamples, examples } from "@/app/(site)/docs/_lib/examples";
-import { useColorMode } from "@/shared/lib/useColorMode";
 import { ui } from "@/shared/model/locale";
 import { useDocumentationGlobals } from "@/shared/model/useDocumentationGlobals";
 
@@ -30,9 +29,8 @@ const styles = stylex.create({
   },
   frame: { borderWidth: 0, display: "block", height: "100%", width: "100%" },
   root: { marginBlock: spacingVars.space6, minWidth: 0 },
-  lightCanvas: { backgroundColor: "var(--docs-preview-light-canvas)" },
   preview: {
-    backgroundColor: colorVars.bgCanvas,
+    backgroundColor: "var(--docs-background)",
     borderColor: colorVars.strokeDefault,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
@@ -57,7 +55,6 @@ export function ComponentPreview({
   isolated?: boolean;
 }) {
   const globals = useDocumentationGlobals();
-  const colorMode = useColorMode(globals.colorMode);
   const Example = loadedExamples[name] ?? examples[name];
   const [initialGlobals] = useState(globals);
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -84,7 +81,6 @@ export function ComponentPreview({
 
   const canvas = stylex.props(
     styles.preview,
-    colorMode === "light" && styles.lightCanvas,
     height !== undefined ? styles.height(height) : undefined,
   );
   return (

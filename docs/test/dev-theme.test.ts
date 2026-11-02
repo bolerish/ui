@@ -32,25 +32,28 @@ test(
         await expect(button).toHaveCSS("color", expected);
       }
       for (const preference of ["dark", "system", "light"] as const) {
-        await page.emulateMedia({ colorScheme: "dark" });
+        const codePage = await browser.newPage();
+        await codePage.emulateMedia({ colorScheme: "dark" });
         const url = `${server.resolvedUrls!.local[0]}docs/installation?colorMode=${preference}`;
-        await page.route("**/*", (route) =>
+        await codePage.route("**/*", (route) =>
           route.request().resourceType() === "script" ? route.abort() : route.continue(),
         );
-        await page.goto(url, { waitUntil: "networkidle" });
+        await codePage.goto(url, { waitUntil: "networkidle" });
         const dark = preference !== "light";
-        const block = page.locator(".docs-codeblock").first();
+        const block = codePage.locator(".docs-codeblock").first();
         await expect(block).toBeVisible();
         await expect(block).toHaveCSS(
           "background-color",
           dark ? "rgb(22, 23, 24)" : "rgb(245, 245, 245)",
         );
-        await expect(page.locator(dark ? ".theme-icon-dark" : ".theme-icon-light")).toBeVisible();
+        await expect(
+          codePage.locator(dark ? ".theme-icon-dark" : ".theme-icon-light"),
+        ).toBeVisible();
         const before = await block
           .locator(".token")
           .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color));
-        await page.unroute("**/*");
-        await page.reload({ waitUntil: "networkidle" });
+        await codePage.unroute("**/*");
+        await codePage.reload({ waitUntil: "networkidle" });
         await expect(block).toHaveCSS(
           "background-color",
           dark ? "rgb(22, 23, 24)" : "rgb(245, 245, 245)",
@@ -59,6 +62,25 @@ test(
           .locator(".token")
           .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color));
         assert.deepEqual(after, before, `${preference}: token colors before and after hydration`);
+        await codePage.close();
+      }
+      for (const preference of ["dark", "system", "light"] as const) {
+        const previewPage = await browser.newPage();
+        await previewPage.emulateMedia({ colorScheme: "dark" });
+        await previewPage.route("**/*", (route) =>
+          route.request().resourceType() === "script" ? route.abort() : route.continue(),
+        );
+        await previewPage.goto(
+          `${server.resolvedUrls!.local[0]}docs/components/toggle-group?colorMode=${preference}`,
+          { waitUntil: "networkidle" },
+        );
+        const canvas = previewPage.locator(".preview-canvas").first();
+        const expected = preference === "light" ? "rgb(255, 255, 255)" : "rgb(8, 9, 10)";
+        await expect(canvas).toHaveCSS("background-color", expected);
+        await previewPage.unroute("**/*");
+        await previewPage.reload({ waitUntil: "networkidle" });
+        await expect(canvas).toHaveCSS("background-color", expected);
+        await previewPage.close();
       }
       const css = await (
         await page.request.get(`${server.resolvedUrls!.local[0]}virtual:stylex.css`)
