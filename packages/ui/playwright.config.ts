@@ -11,7 +11,7 @@ export default defineConfig({
       name: "firefox",
       testMatch: [
         "**/liquid.browser.spec.ts",
-        "**/surface-refraction.browser.spec.ts",
+        "**/surface-refraction*.browser.spec.ts",
         "**/theme.browser.spec.ts",
       ],
       use: { browserName: "firefox", launchOptions: {} },
@@ -20,7 +20,7 @@ export default defineConfig({
       name: "webkit",
       testMatch: [
         "**/liquid.browser.spec.ts",
-        "**/surface-refraction.browser.spec.ts",
+        "**/surface-refraction*.browser.spec.ts",
         "**/theme.browser.spec.ts",
       ],
       use: { browserName: "webkit", launchOptions: {} },
