@@ -21,7 +21,7 @@ export default defineConfig({
     {
       name: "mobile-webkit",
       grep: /critical/,
-      use: { ...devices["iPhone 13"], browserName: "webkit" },
+      use: { ...devices["iPhone 13"], browserName: "webkit", trace: "retain-on-failure" },
     },
   ],
   webServer: {

@@ -1,0 +1,45 @@
+name: Diagnose docs navigation
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    defaults:
+      run:
+        shell: bash
+    env:
+      GIT_CONFIG_COUNT: "1"
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.23.0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @bolerish/lint build
+      - run: pnpm build:docs
+      - run: pnpm --filter @bolerish/docs exec playwright install webkit
+      - run: chown "$(id -u):$(id -g)" "$HOME"
+      - run: pnpm --filter @bolerish/docs test:browser --project=mobile-webkit --grep="critical mobile controls" --repeat-each=10 --workers=2
+        env:
+          DOCS_NAV_DIAGNOSTICS: "1"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: navigation-diagnostics
+          path: |
+            docs/playwright-report
+            docs/test-results
+          retention-days: 7
