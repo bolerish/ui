@@ -20,10 +20,10 @@ import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
-  group: { display: "flex" },
+  group: { display: "inline-flex", width: "fit-content", borderRadius: radiusVars.sm },
   slot: {
     appearance: "none",
-    backgroundColor: colorVars.bgSurface,
+    backgroundColor: "transparent",
     borderColor: colorVars.strokeDefault,
     borderRadius: 0,
     borderStyle: "solid",
@@ -66,7 +66,7 @@ export function InputOTP({ className, style, xstyle, ...props }: InputOTPProps) 
   return (
     <OTPField.Root
       {...props}
-      {...mergeStyles(stylex.props(styles.root, surfaceStyles.control, xstyle), className, style)}
+      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
     />
   );
 }
@@ -77,7 +77,12 @@ export function InputOTPGroup({
   xstyle,
   ...props
 }: StyledProps<ComponentProps<"div">> & { xstyle?: stylex.StyleXStyles }) {
-  return <div {...props} {...mergeStyles(stylex.props(styles.group, xstyle), className, style)} />;
+  return (
+    <div
+      {...props}
+      {...mergeStyles(stylex.props(styles.group, surfaceStyles.control, xstyle), className, style)}
+    />
+  );
 }
 
 export function InputOTPSlot({
