@@ -25,6 +25,7 @@
     "./attachment": "./dist/attachment.js",
     "./avatar": "./dist/avatar.js",
     "./badge": "./dist/badge.js",
+    "./status-pill": "./dist/status-pill.js",
     "./banner": "./dist/banner.js",
     "./button": "./dist/button.js",
     "./button-group": "./dist/button-group.js",

@@ -13,7 +13,7 @@ for (const theme of ["light", "dark"]) {
       (node as HTMLElement).style.width = "320px";
     });
     await page.evaluate(() => document.fonts.ready);
-    await expect(card).toHaveCSS("backdrop-filter", /url\(.+\).*blur\(12px\)/);
+    await expect(card).toHaveCSS("backdrop-filter", /url\(.+\).*blur\(4px\)/);
     const refracted = await card.screenshot();
     await page.locator("html").evaluate((node) => {
       node.style.setProperty("--bolerish-refraction", "opacity(1)");
@@ -66,7 +66,7 @@ for (const theme of ["light", "dark"]) {
     const trigger = page.getByRole("button", { name: "Open dialog", exact: true });
     await trigger.click();
     const dialog = page.getByRole("dialog", { name: "Edit project" });
-    await expect(dialog).toHaveCSS("backdrop-filter", /url\(.+\).*blur\(8px\)/);
+    await expect(dialog).toHaveCSS("backdrop-filter", /url\(.+\).*blur\(3px\)/);
     await page.keyboard.press("Escape");
     await expect(trigger).toBeFocused();
     await page.locator("html").evaluate((node) => {
