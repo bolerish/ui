@@ -63,7 +63,7 @@ const styles = stylex.create({
   },
 
   softPressed: {
-    backgroundColor: colorVars.bgSelected,
+    backgroundColor: colorVars.interactionSelected,
   },
   pressed: {
     backgroundColor: colorVars.bgSelected,
