@@ -1,8 +1,11 @@
 import * as stylex from "@stylexjs/stylex";
 import { createRoot } from "react-dom/client";
 
+import ArrowOnlyCarousel from "../../../../docs/src/app/(site)/docs/_content/components/carousel/ArrowOnly";
+import InsideCarousel from "../../../../docs/src/app/(site)/docs/_content/components/carousel/InsideControls";
+import VerticalCarousel from "../../../../docs/src/app/(site)/docs/_content/components/carousel/Vertical";
 import InputVariants from "../../../../docs/src/app/(site)/docs/_content/components/input/Variants";
-import StatusPillPositionExample from "../../../../docs/src/app/(site)/docs/_content/components/status-pill/Default";
+import SnackbarPositionExample from "../../../../docs/src/app/(site)/docs/_content/components/snackbar/Default";
 import { Button } from "../../dist/button.js";
 import { Card, CardContent, CardDescription } from "../../dist/card.js";
 import {
@@ -44,8 +47,11 @@ import {
   SelectList,
   SelectItem,
 } from "../../dist/select.js";
+import { Snackbar } from "../../dist/snackbar.js";
+import { StatusPill } from "../../dist/status-pill.js";
 import { themeClassNames } from "../../dist/theme.js";
 import { Toaster, toast } from "../../dist/toast.js";
+import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "../../dist/tooltip.js";
 import { DocumentationExample } from "./documentation-examples";
 import { brandColors, brandShadows } from "./theme.stylex";
 
@@ -187,7 +193,29 @@ function App() {
         />
       </main>
     );
-  if (fixture === "status-position") return <StatusPillPositionExample />;
+  if (fixture === "snackbar-default") return <Snackbar>Saved</Snackbar>;
+  if (fixture === "snackbar-uncontrolled") return <Snackbar duration={50}>Saved</Snackbar>;
+  if (fixture === "status-legacy") return <StatusPill>Legacy status</StatusPill>;
+  if (fixture === "carousel-controls") {
+    if (params.get("variant") === "vertical") return <VerticalCarousel />;
+    if (params.get("variant") === "inside") return <InsideCarousel />;
+    return <ArrowOnlyCarousel />;
+  }
+  if (fixture === "tooltip-delay") {
+    const triggerDelay = params.has("trigger") ? Number(params.get("trigger")) : undefined;
+    const content = (
+      <Tooltip>
+        <TooltipTrigger delay={triggerDelay} render={<Button aria-label="Timing help">?</Button>} />
+        <TooltipContent>Timing information</TooltipContent>
+      </Tooltip>
+    );
+    return params.has("provider") ? (
+      <TooltipProvider delay={Number(params.get("provider"))}>{content}</TooltipProvider>
+    ) : (
+      content
+    );
+  }
+  if (fixture === "status-position") return <SnackbarPositionExample />;
   if (fixture === "documentation") return <DocumentationExample name={params.get("example")!} />;
   if (fixture === "select") return <SelectExample />;
   if (fixture === "combobox") return <ComboboxExample />;

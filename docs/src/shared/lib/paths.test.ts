@@ -12,6 +12,10 @@ test("short localized paths and legacy routes", () => {
     "/docs/getting-started/ko",
   );
   assert.equal(documentPath({ section: "components", slug: "button" }), "/docs/components/button");
+  for (const path of ["/components/status-pill", "/docs/components/status-pill"]) {
+    assert.equal(legacyDocumentPath(path), "/docs/components/snackbar");
+    assert.equal(legacyDocumentPath(`${path}/ko`), "/docs/components/snackbar/ko");
+  }
   assert.equal(legacyDocumentPath("/components/button"), "/docs/components/button");
   assert.equal(legacyDocumentPath("/docs/ko"), "/docs/getting-started/ko");
   assert.equal(legacyDocumentPath("/docs/guide/getting-started"), "/docs/getting-started");

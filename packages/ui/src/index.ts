@@ -322,3 +322,5 @@ export { surface } from "./surface";
 export type { SurfaceOptions, SurfaceProps } from "./surface";
 
 export { StatusPill, type StatusPillProps, type StatusPillPosition } from "./status-pill";
+
+export { Snackbar, type SnackbarProps, type SnackbarPosition } from "./snackbar";

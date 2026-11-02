@@ -65,7 +65,7 @@ test("outlined toggle groups do not clip external keyboard focus rings", () => {
   }
 });
 
-test("only outline toggles add a selected inset border", () => {
+test("only grouped outline toggles add a selected inset border", () => {
   for (const variant of ["default", "outline", "soft"] as const) {
     for (const grouped of [false, true]) {
       const element = createElement(Toggle, { pressed: true, variant }, "Choice");
@@ -84,7 +84,11 @@ test("only outline toggles add a selected inset border", () => {
         const rule = css.match(new RegExp(`\\.${name}\\s*\\{([^}]+)\\}`))?.[1] ?? "";
         return /box-shadow:\s*inset/.test(rule);
       });
-      assert.equal(inset, variant === "outline", `${grouped ? "grouped" : "single"}/${variant}`);
+      assert.equal(
+        inset,
+        grouped && variant === "outline",
+        `${grouped ? "grouped" : "single"}/${variant}`,
+      );
     }
   }
 });

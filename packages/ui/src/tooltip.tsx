@@ -12,7 +12,7 @@ import {
   typo,
 } from "@bolerish/tokens/semantic.stylex";
 import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
+import { createContext, useContext, type ComponentProps } from "react";
 
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
@@ -62,8 +62,19 @@ const styles = stylex.create({
 });
 
 export const Tooltip = TooltipPrimitive.Root;
-export const TooltipProvider = TooltipPrimitive.Provider;
+const TooltipDelayContext = createContext(150);
+export function TooltipProvider({
+  delay = 150,
+  ...props
+}: ComponentProps<typeof TooltipPrimitive.Provider>) {
+  return (
+    <TooltipDelayContext value={delay}>
+      <TooltipPrimitive.Provider {...props} delay={delay} />
+    </TooltipDelayContext>
+  );
+}
 export function TooltipTrigger({
+  delay,
   className,
   style,
   xstyle,
@@ -71,8 +82,13 @@ export function TooltipTrigger({
 }: StyledProps<ComponentProps<typeof TooltipPrimitive.Trigger>> & {
   xstyle?: stylex.StyleXStyles;
 }) {
+  const inheritedDelay = useContext(TooltipDelayContext);
   return (
-    <TooltipPrimitive.Trigger {...props} {...mergeStyles(stylex.props(xstyle), className, style)} />
+    <TooltipPrimitive.Trigger
+      {...props}
+      delay={delay ?? inheritedDelay}
+      {...mergeStyles(stylex.props(xstyle), className, style)}
+    />
   );
 }
 
@@ -114,6 +130,7 @@ export function TooltipContent({
         {...stylex.props(styles.positioner)}
       >
         <TooltipPrimitive.Popup
+          role="tooltip"
           {...props}
           className={(state) => getPopupStyles(state).className}
           style={(state) => getPopupStyles(state).style}

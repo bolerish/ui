@@ -1,7 +1,7 @@
 "use client";
 
 import { sizeVars, spacingRoleVars } from "@bolerish/tokens/semantic.stylex";
-import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
+import { CaretLeftIcon, CaretRightIcon, CaretUpIcon, CaretDownIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import useEmblaCarousel from "embla-carousel-react";
 import {
@@ -35,9 +35,19 @@ const styles = stylex.create({
   },
   control: {
     position: "absolute",
-    top: `calc(50% - ${sizeVars.controlXs} / 2)`,
     width: sizeVars.controlXs,
   },
+  horizontalControl: { top: `calc(50% - ${sizeVars.controlXs} / 2)` },
+  verticalControl: { left: `calc(50% - ${sizeVars.controlXs} / 2)` },
+  verticalViewport: { height: "100%" },
+  verticalContent: { flexDirection: "column", height: "100%" },
+  verticalItem: { minHeight: 0 },
+  previousVertical: { top: `calc(${sizeVars.controlSm} * -1.5)` },
+  nextVertical: { bottom: `calc(${sizeVars.controlSm} * -1.5)` },
+  previousInside: { insetInlineStart: spacingRoleVars.inlineGap },
+  nextInside: { insetInlineEnd: spacingRoleVars.inlineGap },
+  previousVerticalInside: { top: spacingRoleVars.inlineGap },
+  nextVerticalInside: { bottom: spacingRoleVars.inlineGap },
   previous: { insetInlineStart: `calc(${sizeVars.controlSm} * -1.5)` },
   next: { insetInlineEnd: `calc(${sizeVars.controlSm} * -1.5)` },
 });
@@ -46,6 +56,8 @@ type CarouselApi = ReturnType<typeof useEmblaCarousel>[1];
 type CarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 type CarouselPlugins = Parameters<typeof useEmblaCarousel>[1];
 type CarouselContextValue = {
+  vertical: boolean;
+  controlsPlacement: "outside" | "inside";
   slideShare?: number;
   canScrollNext: boolean;
   canScrollPrevious: boolean;
@@ -66,6 +78,8 @@ export type { CarouselApi };
 
 export type CarouselProps = StyledProps<ComponentProps<"section">> & {
   children: ReactNode;
+  orientation?: "horizontal" | "vertical";
+  controlsPlacement?: "outside" | "inside";
   onSelect?: (api: NonNullable<CarouselApi>) => void;
   options?: CarouselOptions;
   plugins?: CarouselPlugins;
@@ -80,6 +94,8 @@ export function Carousel({
   style,
   children,
   onSelect,
+  orientation,
+  controlsPlacement = "outside",
   options,
   plugins,
   setApi,
@@ -87,6 +103,8 @@ export function Carousel({
   xstyle,
   ...props
 }: CarouselProps) {
+  const axis = orientation ? (orientation === "vertical" ? "y" : "x") : (options?.axis ?? "x");
+  const vertical = axis === "y";
   let slideShare: number | undefined;
   if (slideRatio !== undefined) {
     if (
@@ -96,12 +114,11 @@ export function Carousel({
     ) {
       throw new Error("Carousel slideRatio requires two finite positive numbers.");
     }
-    if (options?.axis === "y")
-      throw new Error("Carousel slideRatio currently supports horizontal carousels.");
+    if (vertical) throw new Error("Carousel slideRatio currently supports horizontal carousels.");
     slideShare = slideRatio[0] / (slideRatio[0] + slideRatio[1]);
   }
   const [viewportRef, api] = useEmblaCarousel(
-    slideRatio ? { align: "start", ...options } : options,
+    { ...(slideRatio ? { align: "start" as const } : {}), ...options, axis },
     plugins,
   );
   const [canScrollPrevious, setCanScrollPrevious] = useState(false);
@@ -142,6 +159,8 @@ export function Carousel({
   return (
     <CarouselContext.Provider
       value={{
+        vertical,
+        controlsPlacement,
         slideShare,
         canScrollNext,
         canScrollPrevious,
@@ -175,19 +194,31 @@ export function CarouselViewport({
   xstyle,
   ...props
 }: StyledProps<Omit<ComponentProps<"div">, "ref">> & { xstyle?: stylex.StyleXStyles }) {
-  const { viewportRef } = useCarousel();
+  const { viewportRef, vertical } = useCarousel();
   return (
     <div
       ref={viewportRef}
       {...props}
-      {...mergeStyles(stylex.props(styles.viewport, xstyle), className, style)}
+      {...mergeStyles(
+        stylex.props(styles.viewport, vertical && styles.verticalViewport, xstyle),
+        className,
+        style,
+      )}
     />
   );
 }
 
 export function CarouselContent({ className, style, xstyle, ...props }: CarouselContentProps) {
+  const { vertical } = useCarousel();
   return (
-    <div {...props} {...mergeStyles(stylex.props(styles.content, xstyle), className, style)} />
+    <div
+      {...props}
+      {...mergeStyles(
+        stylex.props(styles.content, vertical && styles.verticalContent, xstyle),
+        className,
+        style,
+      )}
+    />
   );
 }
 
@@ -196,12 +227,17 @@ export type CarouselItemProps = StyledProps<ComponentProps<"div">> & {
 };
 
 export function CarouselItem({ className, style, xstyle, ...props }: CarouselItemProps) {
-  const { slideShare } = useCarousel();
+  const { slideShare, vertical } = useCarousel();
   return (
     <div
       {...props}
       {...mergeStyles(
-        stylex.props(styles.item, slideShare !== undefined && styles.ratioItem(slideShare), xstyle),
+        stylex.props(
+          styles.item,
+          vertical && styles.verticalItem,
+          slideShare !== undefined && styles.ratioItem(slideShare),
+          xstyle,
+        ),
         className,
         style,
       )}
@@ -214,7 +250,8 @@ type CarouselControlProps = StyledProps<
 >;
 
 export function CarouselPrevious({ disabled, style, xstyle, ...props }: CarouselControlProps) {
-  const { canScrollPrevious, scrollPrevious } = useCarousel();
+  const { canScrollPrevious, scrollPrevious, vertical, controlsPlacement } = useCarousel();
+  const Icon = vertical ? CaretUpIcon : CaretLeftIcon;
   return (
     <Button
       aria-label="Previous slide"
@@ -224,16 +261,24 @@ export function CarouselPrevious({ disabled, style, xstyle, ...props }: Carousel
       shape="circle"
       style={{ aspectRatio: "1", height: "auto", ...style }}
       variant="secondary"
-      xstyle={[styles.control, styles.previous, xstyle]}
+      xstyle={[
+        styles.control,
+        vertical ? styles.verticalControl : styles.horizontalControl,
+        vertical ? styles.previousVertical : styles.previous,
+        controlsPlacement === "inside" &&
+          (vertical ? styles.previousVerticalInside : styles.previousInside),
+        xstyle,
+      ]}
       {...props}
     >
-      <CaretLeftIcon aria-hidden="true" />
+      <Icon aria-hidden="true" />
     </Button>
   );
 }
 
 export function CarouselNext({ disabled, style, xstyle, ...props }: CarouselControlProps) {
-  const { canScrollNext, scrollNext } = useCarousel();
+  const { canScrollNext, scrollNext, vertical, controlsPlacement } = useCarousel();
+  const Icon = vertical ? CaretDownIcon : CaretRightIcon;
   return (
     <Button
       aria-label="Next slide"
@@ -243,10 +288,17 @@ export function CarouselNext({ disabled, style, xstyle, ...props }: CarouselCont
       shape="circle"
       style={{ aspectRatio: "1", height: "auto", ...style }}
       variant="secondary"
-      xstyle={[styles.control, styles.next, xstyle]}
+      xstyle={[
+        styles.control,
+        vertical ? styles.verticalControl : styles.horizontalControl,
+        vertical ? styles.nextVertical : styles.next,
+        controlsPlacement === "inside" &&
+          (vertical ? styles.nextVerticalInside : styles.nextInside),
+        xstyle,
+      ]}
       {...props}
     >
-      <CaretRightIcon aria-hidden="true" />
+      <Icon aria-hidden="true" />
     </Button>
   );
 }

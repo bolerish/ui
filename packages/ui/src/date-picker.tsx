@@ -8,6 +8,7 @@ import {
   spacingVars,
   typo,
 } from "@bolerish/tokens/semantic.stylex";
+import { CalendarBlankIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import { useState } from "react";
 
@@ -35,6 +36,8 @@ const styles = stylex.create({
     outline: "none",
     paddingInline: spacingVars.space3,
     textAlign: "left",
+    justifyContent: "space-between",
+    gap: spacingVars.space2,
     transitionDuration: motionVars.durationFast,
     transitionProperty: "background-color, border-color, color",
     transitionTimingFunction: motionVars.easingStandard,
@@ -55,7 +58,9 @@ const styles = stylex.create({
     },
   },
   placeholder: { color: colorVars.fgSecondary },
-  calendar: { padding: 0, width: "fit-content" },
+  calendar: { padding: 0, width: "var(--anchor-width)" },
+  calendarContent: { width: "100%" },
+  icon: { flexShrink: 0, width: sizeVars.iconSm, height: sizeVars.iconSm },
   value: { fontWeight: typo.fontWeightRegular },
 });
 
@@ -109,11 +114,17 @@ export function DatePicker(props: DatePickerProps) {
               ) : (
                 <span {...stylex.props(styles.placeholder)}>{placeholder}</span>
               )}
+              <CalendarBlankIcon aria-hidden="true" {...stylex.props(styles.icon)} />
             </button>
           }
         />
         <PopoverContent xstyle={styles.calendar}>
-          <Calendar mode="single" onSelect={handleSelect} selected={selectedValue} />
+          <Calendar
+            mode="single"
+            onSelect={handleSelect}
+            selected={selectedValue}
+            xstyle={styles.calendarContent}
+          />
         </PopoverContent>
       </Popover>
     </span>

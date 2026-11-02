@@ -25,9 +25,13 @@ function declarations(html: string, property: string) {
 }
 
 test("resting fields and outline actions share the quiet surface edge", () => {
-  const border = declarations(renderToStaticMarkup(createElement(Card)), "border-color").filter(
-    (value) => value.startsWith("var("),
-  );
+  const border = [
+    ...new Set(
+      declarations(renderToStaticMarkup(createElement(Card)), "border-color").filter((value) =>
+        value.startsWith("var("),
+      ),
+    ),
+  ];
   for (const element of [
     createElement(Input),
     createElement(Textarea),
@@ -36,9 +40,13 @@ test("resting fields and outline actions share the quiet surface edge", () => {
     createElement(Button, { variant: "outline", children: "Cancel" }),
   ]) {
     assert.deepEqual(
-      declarations(renderToStaticMarkup(element), "border-color").filter((value) =>
-        value.startsWith("var("),
-      ),
+      [
+        ...new Set(
+          declarations(renderToStaticMarkup(element), "border-color").filter((value) =>
+            value.startsWith("var("),
+          ),
+        ),
+      ],
       border,
     );
   }

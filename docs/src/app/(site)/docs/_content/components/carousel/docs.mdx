@@ -1,3 +1,6 @@
+import ArrowOnlySource from "./ArrowOnly.tsx?raw";
+import InsideControlsSource from "./InsideControls.tsx?raw";
+import VerticalSource from "./Vertical.tsx?raw";
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/app/(site)/docs/_components/LocalizedMarkdown";
 import PreviewSource from "./Preview.tsx?raw";
@@ -32,6 +35,8 @@ Let people browse a related set of media without leaving the current context.
 
 ## 사용 가이드
 
+`controlsPlacement="inside"`는 이동 버튼을 콘텐츠 안에 배치합니다. 버튼의 `variant="ghost"`는 화살표만 표시합니다. `orientation="vertical"`은 위·아래 화살표와 세로 이동을 사용하며 루트 높이를 지정해야 합니다. 방향을 생략하면 기존 `options.axis`를 따릅니다.
+
 전체 비교보다 개별 항목을 둘러보는 일이 중요할 때 사용합니다. 한눈에 비교해야 하면 그리드를 선택합니다.
 
 > 필수 안내를 뒤쪽 슬라이드에만 넣지 않습니다.
@@ -60,6 +65,8 @@ root 방향키를 전역으로 가로채지 않아 슬라이드 안의 입력·�
 
 ## Usage guidelines
 
+Use `controlsPlacement="inside"` for inset controls and `variant="ghost"` on Previous/Next for arrow-only controls. `orientation="vertical"` uses up/down arrows and vertical movement; provide a root height. Without orientation, the existing `options.axis` is honored.
+
 Use it when exploring individual items matters more than comparing everything at once. Use a grid for simultaneous comparison.
 
 > Do not put the only copy of essential instructions on a later slide.
@@ -84,3 +91,9 @@ media condition. Previous/Next remain keyboard-accessible with Tab and Enter/Spa
 The root does not capture arrow keys from inputs or links inside slides.
 
 </LocaleContent>
+
+<LocalizedMarkdown text={"## Control placement and vertical movement"} />
+
+<ComponentPreview name="carousel--ArrowOnly" source={ArrowOnlySource} />
+<ComponentPreview name="carousel--InsideControls" source={InsideControlsSource} />
+<ComponentPreview name="carousel--Vertical" source={VerticalSource} />

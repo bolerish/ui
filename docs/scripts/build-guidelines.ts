@@ -190,6 +190,10 @@ for (const locale of ["ko", "en"]) {
             .find((line, index) => index > 0 && line.trim()) ?? title
         }`,
       );
+    if (slug === "snackbar" && locale === "en")
+      catalog.push(
+        "- [status-pill](../api/snackbar.md): Deprecated compatibility name. Use Snackbar for new code; StatusPill preserves visible, inline placement and persistent display defaults.",
+      );
     entries.push(content);
     if (locale === "en") links.push(`- [${title}](./guidelines/${slug}${suffix}.md)`);
     await emitFile(new URL(`guidelines/${slug}${suffix}.md`, output), content);

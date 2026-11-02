@@ -1,0 +1,45 @@
+import { LocaleContent } from "@/shared/model/locale";
+import { ComponentPreview } from "@/app/(site)/docs/_components/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+
+<LocaleContent locale="ko">
+
+# Snackbar
+
+상태와 위치를 고른 뒤 Show status를 누르면 선택한 상태 하나만 화면에 표시됩니다. 색상만으로 의미를 전달하지 않도록 라벨을 함께 제공합니다.
+
+</LocaleContent>
+<LocaleContent locale="en">
+
+# Snackbar
+
+Choose a status and position, then press Show status to display that one status.
+
+</LocaleContent>
+
+<ComponentPreview name="snackbar--Default" source={DefaultSource} />
+
+<LocaleContent locale="ko">
+
+`position`을 지정하면 화면에 떠 있는 알림으로 표시합니다. 데스크톱은 24px, 600px 이하에서는 16px 여백과 안전 영역을 더합니다. 모바일은 상단·하단만 유지하고 가로 중앙에 배치합니다. `offset`으로 여백을 덮어쓸 수 있으며 숫자는 px입니다. 기본 위치는 `bottom-center`입니다. `position={null}`이면 인라인으로 표시합니다.
+
+`duration`은 자동 닫힘까지의 시간(ms)이며 기본값은 3000, `0`이면 직접 닫을 때까지 유지합니다. 제어 모드에서는 `open`과 `onOpenChange`를 함께 전달하세요. `StatusPill`은 호환용이며 새 코드는 `Snackbar`를 사용합니다.
+
+`tone`은 `neutral`(기본값), `success`, `warning`, `error`, `info`를 지원합니다.
+`open`으로 표시를 제어하며, 비제어 모드의 `defaultOpen`은 기본값이 `true`입니다. 전환할 때 페이드와 상태색 잔향 효과가 나타납니다.
+퇴장 효과를 위해 컴포넌트를 유지하고 `open={false}`를 전달하세요. 인라인 표식은 숨겨져도 배치 공간을 유지하며, 화면 위치 모드는 배치 공간을 차지하지 않습니다. 숨긴 표식은 보조 기술에서 제외됩니다.
+모션 감소 설정에서는 애니메이션을 끕니다. 정적인 상태 표시는 기본적으로 실시간 알림을 발생시키지 않습니다. 동적 상태를 알릴 때는 앱에서 적절한 라이브 영역을 제공하세요.
+
+</LocaleContent>
+<LocaleContent locale="en">
+
+Set `position` for a viewport notification: top-left, top-center, top-right, bottom-left, bottom-center, or bottom-right. Defaults are 24px on desktop and 16px up to 600px, plus safe-area insets. Small screens retain top/bottom and center horizontally. Override the gap with `offset` (numbers are px). The default position is bottom-center; use position={null} for an inline label.
+
+`duration` is the auto-dismiss time in ms: 3000 by default, or 0 to stay open. Pass both `open` and `onOpenChange` in controlled mode. `StatusPill` remains a compatibility export; use `Snackbar` for new code.
+
+`tone` accepts `neutral` (default), `success`, `warning`, `error`, and `info`.
+`open` controls visibility; uncontrolled `defaultOpen` defaults to true. Visibility changes use a fade and decorative color echo.
+Keep the component mounted with `open={false}` for exit motion. Hidden inline pills reserve layout space; viewport pills do not. Hidden pills are excluded from assistive technology.
+Reduced motion disables animation. Static pills do not create live announcements; provide an appropriate live region in the app for dynamic updates.
+
+</LocaleContent>
