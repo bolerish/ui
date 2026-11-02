@@ -19,6 +19,7 @@ async function scene(
   await trigger.click();
   const popup = page.getByRole("dialog", { name: "Move project", exact: true });
   await expect(popup).toBeVisible();
+  await expect(popup).toHaveCSS("opacity", "1");
   const box = (await popup.boundingBox())!;
   const inside = { x: Math.round(box.x + box.width / 2), y: Math.round(box.y + box.height * 0.75) };
   const outside = {

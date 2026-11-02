@@ -1,8 +1,8 @@
 /* Global styles are composed by the package build. */
 
 [data-bolerish-surface="solid"] {
-  --bolerish-drawer-backdrop-opacity: 100%;
-  --bolerish-drawer-scrim-spread: 0px;
+  --bolerish-modal-backdrop-opacity: 100%;
+  --bolerish-modal-scrim-spread: 0px;
   --bolerish-surface-edge-strength: 100%;
   --bolerish-panel-opacity: 100%;
   --bolerish-control-opacity: 100%;
@@ -46,18 +46,27 @@
   }
 }
 
-/* Keep the dimming outside translucent Drawers, so their glass samples the undimmed page. */
+/* Keep the dimming outside translucent modal panels, so their glass samples the undimmed page. */
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and
-  (background-color: color-mix(in srgb, white, transparent)) {
+  (background-color: color-mix(in srgb, white, transparent)) and selector(:has(*)) {
   [data-bolerish-surface="liquid"] {
-    --bolerish-drawer-backdrop-opacity: 0%;
-    --bolerish-drawer-scrim-spread: 100vmax;
+    --bolerish-modal-backdrop-opacity: 0%;
+    --bolerish-modal-scrim-spread: 100vmax;
   }
+}
+/* Keep only the last mounted modal's scrim, including while it exits. */
+[data-base-ui-portal]:has(
+    ~ [data-base-ui-portal] [data-bolerish-modal-popup="visible"],
+    [data-base-ui-portal] [data-bolerish-modal-popup="visible"]
+  )
+  > [role="presentation"]
+  > [data-bolerish-modal-popup] {
+  --bolerish-modal-current-spread: 0px;
 }
 @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
   [data-bolerish-surface="liquid"] {
-    --bolerish-drawer-backdrop-opacity: 100%;
-    --bolerish-drawer-scrim-spread: 0px;
+    --bolerish-modal-backdrop-opacity: 100%;
+    --bolerish-modal-scrim-spread: 0px;
   }
 }
 

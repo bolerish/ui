@@ -21,6 +21,7 @@ for (const component of ["dialog", "alert-dialog"] as const) {
       await trigger.click();
       const popup = page.getByRole(component === "dialog" ? "dialog" : "alertdialog");
       await expect(popup).toBeVisible();
+      await expect(popup).toHaveCSS("opacity", "1");
       await popup.evaluate((node) =>
         Object.assign((node as HTMLElement).style, { width: "400px", height: "300px" }),
       );
@@ -64,6 +65,17 @@ for (const component of ["dialog", "alert-dialog"] as const) {
         );
         expect(pixels[0].outside[channel]).toBeLessThan(pixels[1].outside[channel] - 30);
       }
+      await popup.evaluate((node) => {
+        (node.parentElement!.previousElementSibling as HTMLElement).style.visibility = "";
+        (node as HTMLElement).style.boxShadow = "";
+      });
+      await page.mouse.click(1000, 100);
+      if (component === "alert-dialog") {
+        await expect(popup).toBeVisible();
+        await popup.getByRole("button", { name: "Cancel", exact: true }).click();
+      }
+      await expect(popup).toBeHidden();
+      await expect(trigger).toBeFocused();
     });
   }
 }
@@ -81,6 +93,7 @@ for (const parent of ["dialog", "drawer"]) {
     await page.getByRole("button", { name: "Open child", exact: true }).click();
     const child = page.getByRole("dialog", { name: "Child modal", exact: true });
     await expect(child).toBeVisible();
+    await expect(child).toHaveCSS("opacity", "1");
     const box = (await child.boundingBox())!;
     const normal = (await page.screenshot()).toString("base64");
     await page.locator('[role="dialog"]').evaluateAll((nodes) => {
@@ -118,3 +131,37 @@ for (const parent of ["dialog", "drawer"]) {
     await expect(page.getByRole("button", { name: "Open child", exact: true })).toBeFocused();
   });
 }
+
+for (const preference of ["solid", "reduced-transparency", "forced-colors"]) {
+  test(`${preference} retains the ordinary Dialog backdrop and opaque panel`, async ({ page }) => {
+    if (preference === "reduced-transparency") {
+      const session = await page.context().newCDPSession(page);
+      await session.send("Emulation.setEmulatedMedia", {
+        features: [{ name: "prefers-reduced-transparency", value: "reduce" }],
+      });
+    }
+    if (preference === "forced-colors") await page.emulateMedia({ forcedColors: "active" });
+    await page.goto(`/?fixture=dialog&surface=${preference === "solid" ? "solid" : "liquid"}`);
+    await page.getByRole("button", { name: "Open dialog", exact: true }).click();
+    const popup = page.getByRole("dialog");
+    await expect(popup).toHaveCSS("backdrop-filter", "none");
+    const alpha = await popup.evaluate((node) => {
+      const color = getComputedStyle(node.parentElement!.previousElementSibling!).backgroundColor;
+      const context = document.createElement("canvas").getContext("2d")!;
+      context.fillStyle = color;
+      context.fillRect(0, 0, 1, 1);
+      return context.getImageData(0, 0, 1, 1).data[3];
+    });
+    expect(alpha).toBeGreaterThan(0);
+  });
+}
+
+test("opening a menu in a Liquid modal keeps the modal scrim", async ({ page }) => {
+  await page.goto("/?fixture=modal-nested&surface=liquid&parent=dialog");
+  await page.getByRole("button", { name: "Open parent", exact: true }).click();
+  const popup = page.getByRole("dialog", { name: "Parent modal", exact: true });
+  const before = await popup.evaluate((node) => getComputedStyle(node).boxShadow);
+  await page.getByRole("button", { name: "Open menu", exact: true }).click();
+  await expect(page.getByRole("menu")).toBeVisible();
+  await expect(popup).toHaveCSS("box-shadow", before);
+});

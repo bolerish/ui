@@ -18,11 +18,11 @@ import { Button } from "./button";
 import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { modalOverlayStyles } from "./styles/modal-overlay";
 import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   backdrop: {
-    backgroundColor: colorVars.bgOverlay,
     inset: 0,
     position: "fixed",
     transitionDuration: motionVars.durationSlow,
@@ -141,12 +141,21 @@ export function AlertDialogContent({
 }: AlertDialogContentProps) {
   return (
     <AlertDialogPrimitive.Portal>
-      <AlertDialogPrimitive.Backdrop {...stylex.props(styles.backdrop)} />
+      <AlertDialogPrimitive.Backdrop
+        {...stylex.props(styles.backdrop, modalOverlayStyles.backdrop)}
+      />
       <AlertDialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <AlertDialogPrimitive.Popup
           {...props}
+          data-bolerish-modal-popup="visible"
           {...mergeStyles(
-            stylex.props(styles.popup, surfaceStyles.raised, surfaceStyles.edge, xstyle),
+            stylex.props(
+              styles.popup,
+              surfaceStyles.raised,
+              surfaceStyles.edge,
+              modalOverlayStyles.outsideScrim,
+              xstyle,
+            ),
             className,
             style,
           )}

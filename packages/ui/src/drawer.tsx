@@ -18,14 +18,11 @@ import type { ComponentProps } from "react";
 import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { modalOverlayStyles } from "./styles/modal-overlay";
 import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   overlay: {
-    backgroundColor: {
-      default: colorVars.bgOverlay,
-      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, ${colorVars.bgOverlay} var(--bolerish-drawer-backdrop-opacity, 100%), transparent)`,
-    },
     inset: 0,
     position: "fixed",
     transitionDuration: motionVars.durationSlow,
@@ -46,9 +43,6 @@ const styles = stylex.create({
     },
   },
   overlayTransparent: { backgroundColor: "transparent" },
-  visibleScrim: {
-    "--bolerish-material-shadow": `var(--bolerish-raised-shadow, ${shadowVars.overlay}), 0 0 0 var(--bolerish-drawer-scrim-spread, 0px) ${colorVars.bgOverlay}`,
-  },
   viewport: { inset: 0, position: "fixed", zIndex: layerVars.modal },
   popup: {
     backgroundColor: colorVars.bgRaised,
@@ -306,7 +300,11 @@ function DrawerOverlay({ className, style, xstyle, ...props }: DrawerOverlayProp
     <DrawerPrimitive.Backdrop
       {...props}
       data-slot="drawer-overlay"
-      {...mergeStyles(stylex.props(styles.overlay, xstyle), className, style)}
+      {...mergeStyles(
+        stylex.props(styles.overlay, modalOverlayStyles.backdrop, xstyle),
+        className,
+        style,
+      )}
     />
   );
 }
@@ -360,11 +358,12 @@ export function DrawerContent({
         <DrawerPrimitive.Popup
           {...props}
           data-slot="drawer-popup"
+          data-bolerish-modal-popup={overlay}
           {...stylex.props(
             styles.popup,
             surfaceStyles.raised,
             surfaceStyles.edge,
-            overlay === "visible" && styles.visibleScrim,
+            overlay === "visible" && modalOverlayStyles.outsideScrim,
             isHorizontal ? styles.horizontalPopup : styles.verticalPopup,
             popupDirectionStyles[swipeDirection],
           )}

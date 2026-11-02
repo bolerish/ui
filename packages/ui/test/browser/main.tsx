@@ -139,6 +139,12 @@ function NestedModalExample() {
       <ParentContent>
         <ParentTitle>Parent modal</ParentTitle>
         <ParentDescription>Parent details</ParentDescription>
+        <DropdownMenu>
+          <DropdownMenuTrigger render={<Button>Open menu</Button>} />
+          <DropdownMenuContent>
+            <DropdownMenuItem>Menu action</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Dialog>
           <DialogTrigger render={<Button>Open child</Button>} />
           <DialogContent style={{ width: 600, height: 400 }}>

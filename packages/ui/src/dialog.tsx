@@ -18,11 +18,11 @@ import type { ComponentProps, ReactNode } from "react";
 import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
+import { modalOverlayStyles } from "./styles/modal-overlay";
 import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   backdrop: {
-    backgroundColor: colorVars.bgOverlay,
     inset: 0,
     position: "fixed",
     transitionDuration: motionVars.durationSlow,
@@ -188,12 +188,19 @@ export function DialogContent({
 }: DialogContentProps) {
   return (
     <DialogPrimitive.Portal>
-      <DialogPrimitive.Backdrop {...stylex.props(styles.backdrop)} />
+      <DialogPrimitive.Backdrop {...stylex.props(styles.backdrop, modalOverlayStyles.backdrop)} />
       <DialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <DialogPrimitive.Popup
           {...props}
+          data-bolerish-modal-popup="visible"
           {...mergeStyles(
-            stylex.props(styles.popup, surfaceStyles.raised, surfaceStyles.edge, xstyle),
+            stylex.props(
+              styles.popup,
+              surfaceStyles.raised,
+              surfaceStyles.edge,
+              modalOverlayStyles.outsideScrim,
+              xstyle,
+            ),
             className,
             style,
           )}
