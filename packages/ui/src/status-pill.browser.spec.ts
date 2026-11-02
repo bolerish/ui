@@ -5,36 +5,40 @@ test("visibility fades both ways, hides from accessibility, and respects reduced
 }) => {
   await page.goto("/?fixture=documentation&example=status-pill");
   const pill = page.locator("[data-bolerish-status-pill]").first();
+  await expect(pill).toHaveCount(1);
+  await expect(pill).toBeHidden();
+  await page.getByRole("button", { name: "Show status" }).click();
   await expect(pill).toBeVisible();
   await expect(pill).toHaveText("Operational");
-  await page.getByRole("button", { name: "Toggle status" }).click();
+  await page.getByRole("button", { name: /^(Show|Hide) status$/ }).click();
   await expect(pill).toHaveAttribute("aria-hidden", "true");
   await expect(pill).toBeHidden();
   await expect(pill).toHaveCSS("opacity", "0");
-  await page.getByRole("button", { name: "Toggle status" }).click();
+  await page.getByRole("button", { name: /^(Show|Hide) status$/ }).click();
   await expect(pill).toBeVisible();
   await expect(pill).toHaveCSS("opacity", "1");
   expect(await pill.evaluate((node) => getComputedStyle(node, "::before").animationName)).toBe(
     "bolerish-status-echo",
   );
-  await page.getByRole("button", { name: "Toggle status" }).click();
+  await page.getByRole("button", { name: /^(Show|Hide) status$/ }).click();
   expect(await pill.evaluate((node) => getComputedStyle(node, "::before").animationName)).toBe(
     "bolerish-status-exit-echo",
   );
-  await page.getByRole("button", { name: "Toggle status" }).click();
+  await page.getByRole("button", { name: /^(Show|Hide) status$/ }).click();
   const echo = await pill.evaluate((node) => getComputedStyle(node, "::before").boxShadow);
   expect(echo).not.toBe("none");
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(pill).toHaveCSS("animation-name", "none");
   expect(await pill.evaluate((node) => getComputedStyle(node, "::before").display)).toBe("none");
-  await page.getByRole("button", { name: "Toggle status" }).click();
+  await page.getByRole("button", { name: /^(Show|Hide) status$/ }).click();
   await expect(pill).toBeHidden();
 });
 
 test("runtime motion off hides immediately", async ({ page }) => {
   await page.goto("/?fixture=documentation&example=status-pill");
+  await page.getByRole("button", { name: "Show status" }).click();
   await page.locator("html").evaluate((node) => node.setAttribute("data-bolerish-motion", "off"));
-  await page.getByRole("button", { name: "Toggle status" }).click();
+  await page.getByRole("button", { name: /^(Show|Hide) status$/ }).click();
   const result = await page
     .locator("[data-bolerish-status-pill]")
     .first()
@@ -77,3 +81,17 @@ for (const width of [1280, 390]) {
     await expect(pill).toBeHidden();
   });
 }
+
+test("one trigger displays only the selected status", async ({ page }) => {
+  await page.goto("/?fixture=documentation&example=status-pill");
+  const pill = page.locator("[data-bolerish-status-pill]");
+  await expect(pill).toHaveCount(1);
+  await expect(pill).toBeHidden();
+  await page.getByRole("combobox", { name: "Status", exact: true }).selectOption("Offline");
+  await page.getByRole("button", { name: "Show status", exact: true }).click();
+  await expect(pill).toHaveText("Offline");
+  await expect(pill).toBeVisible();
+  await page.getByRole("combobox", { name: "Status", exact: true }).selectOption("Syncing");
+  await expect(pill).toHaveText("Syncing");
+  await expect(pill).toHaveCount(1);
+});

@@ -1,5 +1,3 @@
-import PositionedSource from "./Positioned.tsx?raw";
-import { LocalizedMarkdown } from "@/app/(site)/docs/_components/LocalizedMarkdown";
 import { LocaleContent } from "@/shared/model/locale";
 import { ComponentPreview } from "@/app/(site)/docs/_components/ComponentPreview";
 import DefaultSource from "./Default.tsx?raw";
@@ -8,14 +6,14 @@ import DefaultSource from "./Default.tsx?raw";
 
 # Status Pill
 
-상태 점과 짧은 라벨로 현재 상태를 표시합니다. 색상만으로 의미를 전달하지 않도록 라벨을 함께 제공합니다.
+상태와 위치를 고른 뒤 Show status를 누르면 선택한 상태 하나만 화면에 표시됩니다. 색상만으로 의미를 전달하지 않도록 라벨을 함께 제공합니다.
 
 </LocaleContent>
 <LocaleContent locale="en">
 
 # Status Pill
 
-Show the current status with a decorative dot and a short, explicit label.
+Choose a status and position, then press Show status to display that one status.
 
 </LocaleContent>
 
@@ -27,7 +25,7 @@ Show the current status with a decorative dot and a short, explicit label.
 
 `tone`은 `neutral`(기본값), `success`, `warning`, `error`, `info`를 지원합니다.
 `visible`은 기본값이 `true`이며 전환할 때 페이드와 상태색 잔향 효과가 나타납니다.
-퇴장 효과를 위해 컴포넌트를 유지하고 `visible={false}`를 전달하세요. 숨겨진 상태에서도 배치 공간은 유지되며 보조 기술에서는 제외됩니다.
+퇴장 효과를 위해 컴포넌트를 유지하고 `visible={false}`를 전달하세요. 인라인 표식은 숨겨져도 배치 공간을 유지하며, 화면 위치 모드는 배치 공간을 차지하지 않습니다. 숨긴 표식은 보조 기술에서 제외됩니다.
 모션 감소 설정에서는 애니메이션을 끕니다. 정적인 상태 표시는 기본적으로 실시간 알림을 발생시키지 않습니다. 동적 상태를 알릴 때는 앱에서 적절한 라이브 영역을 제공하세요.
 
 </LocaleContent>
@@ -37,11 +35,7 @@ Set `position` for a viewport notification: top-left, top-center, top-right, bot
 
 `tone` accepts `neutral` (default), `success`, `warning`, `error`, and `info`.
 `visible` defaults to `true`. Toggle it for a fade and a decorative color echo.
-Keep the component mounted with `visible={false}` for exit motion. Hidden pills reserve layout space and are excluded from assistive technology.
+Keep the component mounted with `visible={false}` for exit motion. Hidden inline pills reserve layout space; viewport pills do not. Hidden pills are excluded from assistive technology.
 Reduced motion disables animation. Static pills do not create live announcements; provide an appropriate live region in the app for dynamic updates.
 
 </LocaleContent>
-
-<LocalizedMarkdown text={"## Positioned status"} />
-
-<ComponentPreview name="status-pill--Positioned" source={PositionedSource} />
