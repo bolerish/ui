@@ -22,7 +22,10 @@ import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   overlay: {
-    backgroundColor: colorVars.bgOverlay,
+    backgroundColor: {
+      default: colorVars.bgOverlay,
+      "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, ${colorVars.bgOverlay} var(--bolerish-drawer-backdrop-opacity, 100%), transparent)`,
+    },
     inset: 0,
     position: "fixed",
     transitionDuration: motionVars.durationSlow,
@@ -43,6 +46,9 @@ const styles = stylex.create({
     },
   },
   overlayTransparent: { backgroundColor: "transparent" },
+  visibleScrim: {
+    "--bolerish-material-shadow": `var(--bolerish-raised-shadow, ${shadowVars.overlay}), 0 0 0 var(--bolerish-drawer-scrim-spread, 0px) ${colorVars.bgOverlay}`,
+  },
   viewport: { inset: 0, position: "fixed", zIndex: layerVars.modal },
   popup: {
     backgroundColor: colorVars.bgRaised,
@@ -358,6 +364,7 @@ export function DrawerContent({
             styles.popup,
             surfaceStyles.raised,
             surfaceStyles.edge,
+            overlay === "visible" && styles.visibleScrim,
             isHorizontal ? styles.horizontalPopup : styles.verticalPopup,
             popupDirectionStyles[swipeDirection],
           )}

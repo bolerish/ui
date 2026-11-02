@@ -1,6 +1,8 @@
 /* Global styles are composed by the package build. */
 
 [data-bolerish-surface="solid"] {
+  --bolerish-drawer-backdrop-opacity: 100%;
+  --bolerish-drawer-scrim-spread: 0px;
   --bolerish-surface-edge-strength: 100%;
   --bolerish-panel-opacity: 100%;
   --bolerish-control-opacity: 100%;
@@ -35,6 +37,21 @@
     inset 0 1px 0 rgb(255 255 255 / 0.18), inset 0 -1px 0 rgb(0 0 0 / 0.06);
   --bolerish-raised-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
   --bolerish-floating-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
+}
+
+/* Keep the dimming outside translucent Drawers, so their glass samples the undimmed page. */
+@supports (backdrop-filter: blur(1px)) and
+  (background-color: color-mix(in srgb, white, transparent)) {
+  [data-bolerish-surface="liquid"] {
+    --bolerish-drawer-backdrop-opacity: 0%;
+    --bolerish-drawer-scrim-spread: 100vmax;
+  }
+}
+@media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+  [data-bolerish-surface="liquid"] {
+    --bolerish-drawer-backdrop-opacity: 100%;
+    --bolerish-drawer-scrim-spread: 0px;
+  }
 }
 
 :root[data-bolerish-motion="off"],

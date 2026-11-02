@@ -243,7 +243,16 @@ function App() {
     );
   if (fixture === "drawer")
     return (
-      <Drawer>
+      <Drawer
+        overlay={
+          params.get("overlay") === "transparent"
+            ? "transparent"
+            : params.get("overlay") === "none"
+              ? "none"
+              : "visible"
+        }
+        swipeDirection={(params.get("direction") ?? "down") as "down" | "up" | "left" | "right"}
+      >
         <DrawerTrigger render={<Button>Open drawer</Button>} />
         <DrawerContent>
           <DrawerTitle>Move project</DrawerTitle>
