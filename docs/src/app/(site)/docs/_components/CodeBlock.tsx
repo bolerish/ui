@@ -8,12 +8,10 @@ import {
 import { Button } from "@bolerish/ui/button";
 import { CheckIcon, CopyIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
-import { Highlight, themes } from "prism-react-renderer";
+import { Highlight } from "prism-react-renderer";
 import { useEffect, useState } from "react";
 
-import { useColorMode } from "@/shared/lib/useColorMode";
 import { ui } from "@/shared/model/locale";
-import { useDocumentationGlobals } from "@/shared/model/useDocumentationGlobals";
 
 const styles = stylex.create({
   root: {
@@ -53,8 +51,6 @@ const styles = stylex.create({
 });
 
 export function CodeBlock({ code, language = "tsx" }: { code: string; language?: string }) {
-  const globals = useDocumentationGlobals();
-  const colorMode = useColorMode(globals.colorMode);
   const [status, setStatus] = useState<"copied" | "failed" | null>(null);
   useEffect(() => {
     if (!status) return;
@@ -65,7 +61,10 @@ export function CodeBlock({ code, language = "tsx" }: { code: string; language?:
   const statusMessages = { copied: ui.copied, failed: ui.copyFailed };
 
   return (
-    <div {...stylex.props(styles.root)}>
+    <div
+      {...stylex.props(styles.root)}
+      className={`${stylex.props(styles.root).className} docs-codeblock`}
+    >
       <div {...stylex.props(styles.toolbar)}>
         <output {...stylex.props(styles.status)}>{status ? statusMessages[status] : ""}</output>
         <Button
@@ -85,11 +84,7 @@ export function CodeBlock({ code, language = "tsx" }: { code: string; language?:
         </Button>
       </div>
       <div {...stylex.props(styles.content)}>
-        <Highlight
-          code={code}
-          language={language}
-          theme={colorMode === "dark" ? themes.vsDark : themes.vsLight}
-        >
+        <Highlight code={code} language={language} theme={{ plain: {}, styles: [] }}>
           {({ tokens, getLineProps, getTokenProps }) => (
             <pre>
               <code>

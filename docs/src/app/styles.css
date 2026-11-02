@@ -1,6 +1,7 @@
 @layer docs-base;
 @import "@bolerish/ui";
 @import "../shared/styles/theme.css";
+@import "../shared/styles/code-theme.css";
 html {
   background: var(--docs-background);
   color: var(--docs-foreground);
@@ -602,4 +603,18 @@ pre {
     opacity: 1;
     pointer-events: auto;
   }
+}
+
+.theme-icon-dark {
+  display: none;
+}
+:root[data-bolerish-theme="dark"] .theme-icon-dark {
+  display: block;
+}
+:root[data-bolerish-theme="dark"] .theme-icon-light {
+  display: none;
+}
+.docs-codeblock {
+  background-color: var(--docs-subtle);
+  color: var(--docs-foreground);
 }

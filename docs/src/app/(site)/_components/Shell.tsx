@@ -24,7 +24,6 @@ import {
   MagnifyingGlassIcon,
   SunIcon,
   MoonIcon,
-  DesktopIcon,
 } from "@phosphor-icons/react";
 import { Link, useNavigate, useLocation } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
@@ -320,13 +319,8 @@ export function Shell({ children }: { children: ReactNode }) {
               title={`Theme: ${settings.colorMode}`}
               onClick={() => update({ colorMode: nextTheme[settings.colorMode] })}
             >
-              {settings.colorMode === "dark" ? (
-                <MoonIcon aria-hidden="true" />
-              ) : settings.colorMode === "light" ? (
-                <SunIcon aria-hidden="true" />
-              ) : (
-                <DesktopIcon aria-hidden="true" />
-              )}
+              <MoonIcon className="theme-icon-dark" aria-hidden="true" />
+              <SunIcon className="theme-icon-light" aria-hidden="true" />
             </Button>
             <a
               className="repository-link"

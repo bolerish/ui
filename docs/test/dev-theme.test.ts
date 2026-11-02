@@ -31,6 +31,35 @@ test(
         );
         await expect(button).toHaveCSS("color", expected);
       }
+      for (const preference of ["dark", "system", "light"] as const) {
+        await page.emulateMedia({ colorScheme: "dark" });
+        const url = `${server.resolvedUrls!.local[0]}docs/installation?colorMode=${preference}`;
+        await page.route("**/*", (route) =>
+          route.request().resourceType() === "script" ? route.abort() : route.continue(),
+        );
+        await page.goto(url, { waitUntil: "networkidle" });
+        const dark = preference !== "light";
+        const block = page.locator(".docs-codeblock").first();
+        await expect(block).toBeVisible();
+        await expect(block).toHaveCSS(
+          "background-color",
+          dark ? "rgb(22, 23, 24)" : "rgb(245, 245, 245)",
+        );
+        await expect(page.locator(dark ? ".theme-icon-dark" : ".theme-icon-light")).toBeVisible();
+        const before = await block
+          .locator(".token")
+          .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color));
+        await page.unroute("**/*");
+        await page.reload({ waitUntil: "networkidle" });
+        await expect(block).toHaveCSS(
+          "background-color",
+          dark ? "rgb(22, 23, 24)" : "rgb(245, 245, 245)",
+        );
+        const after = await block
+          .locator(".token")
+          .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color));
+        assert.deepEqual(after, before, `${preference}: token colors before and after hydration`);
+      }
       const css = await (
         await page.request.get(`${server.resolvedUrls!.local[0]}virtual:stylex.css`)
       ).text();
