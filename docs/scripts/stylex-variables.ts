@@ -44,3 +44,23 @@ export function layerStylexVariables(): Plugin {
     },
   };
 }
+
+/** StyleX serves development CSS directly, bypassing Vite's CSS transforms. */
+export function layerDevelopmentStylexVariables(): Plugin {
+  return {
+    name: "layer-development-stylex-variables",
+    apply: "serve",
+    enforce: "pre",
+    configureServer(server) {
+      server.middlewares.use((request, response, next) => {
+        if (request.url?.split("?")[0] !== "/virtual:stylex.css") return next();
+        const end = response.end.bind(response);
+        response.end = ((chunk: unknown, ...args: unknown[]) => {
+          const css = typeof chunk === "string" ? layerVariables(chunk) : chunk;
+          return (end as (...values: unknown[]) => typeof response)(css, ...args);
+        }) as typeof response.end;
+        next();
+      });
+    },
+  };
+}

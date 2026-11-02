@@ -10,7 +10,10 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { defineConfig } from "vite";
 
-import { layerStylexVariables } from "./scripts/stylex-variables.ts";
+import {
+  layerStylexVariables,
+  layerDevelopmentStylexVariables,
+} from "./scripts/stylex-variables.ts";
 
 const markdownDependencies = ["react-markdown", "rehype-slug", "remark-gfm"];
 
@@ -69,6 +72,7 @@ export default defineConfig({
       }),
       enforce: "pre",
     },
+    layerDevelopmentStylexVariables(),
     // Keep shell media rules above shared component atoms in the cascade.
     stylex({ useCSSLayers: true, babelConfig: { plugins: [reactCompiler] } } as Parameters<
       typeof stylex
