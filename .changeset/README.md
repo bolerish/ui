@@ -22,7 +22,8 @@ applications, not npm releases.
    tests, package verification and the docs build before `changeset publish`.
    It publishes only public packages whose versions are absent from npm.
 
-The Publish job remains disabled for UI/tokens during development. The lint
+Automatic Publish runs remain disabled for UI/tokens during development. Manual
+Publish dispatches require a successful Verify run on the exact release commit. The lint
 plugin is released independently. Prepare a release checkout containing only
 its Changesets, run `pnpm version:packages`, then verify its tests and packed
 artifact before publishing
@@ -37,9 +38,9 @@ and documentation Default-example axe audits pass in CI.
 Keep the existing keyboard contracts in that CI run. Meeting these gates does
 not publish a release: decide and authorize the actual deployment separately.
 
-Once re-enabled, the Publish workflow can be dispatched manually or triggered by a
-legacy `vX.Y.Z` tag matching **UI and tokens only**. Changesets also creates
-package-specific tags when publishing; those do not trigger this workflow.
+The Publish workflow can be dispatched manually after the CI gates pass. Legacy
+`vX.Y.Z` tag events remain disabled for publication. Changesets also creates
+package-specific tags when publishing; those do not trigger publication.
 Publishing requires npm authentication; preparing versions does not publish.
 A published release is immutable: corrections require another changeset/version.
 

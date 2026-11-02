@@ -8,15 +8,26 @@ on:
 permissions:
   contents: read
   id-token: write
+  actions: read
 
 jobs:
   publish:
-    # Publishing is paused while the design system is under development.
-    if: ${{ false }}
+    # Automatic tag publishing remains paused; manual releases require a green Verify run.
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     name: publish npm package
     runs-on: ubuntu-latest
 
     steps:
+      - name: Require successful Verify on this exact commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          verified_sha="$(gh api "repos/${{ github.repository }}/actions/workflows/verify.yml/runs" --method GET -f head_sha="$GITHUB_SHA" -f status=completed --jq '[.workflow_runs[] | select(.conclusion == "success")][0].head_sha // ""')"
+          if [ "$verified_sha" != "$GITHUB_SHA" ]; then
+            echo "Verify must pass on $GITHUB_SHA before a manual release."
+            exit 1
+          fi
+
       - uses: actions/checkout@v7
 
       - uses: pnpm/action-setup@v6
