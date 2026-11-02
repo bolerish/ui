@@ -10,6 +10,7 @@ import * as stylex from "@stylexjs/stylex";
 import { Suspense, useEffect, useRef, useState } from "react";
 
 import { loadedExamples, examples } from "@/app/(site)/docs/_lib/examples";
+import { usePreviewTab } from "@/shared/lib/preview-tab";
 import { ui } from "@/shared/model/locale";
 import { useDocumentationGlobals } from "@/shared/model/useDocumentationGlobals";
 
@@ -28,7 +29,11 @@ const styles = stylex.create({
     minHeight: "100%",
   },
   frame: { borderWidth: 0, display: "block", height: "100%", width: "100%" },
-  root: { marginBlock: spacingVars.space6, minWidth: 0 },
+  root: {
+    "--docs-preview-tab-selected": colorVars.interactionSelected,
+    marginBlock: spacingVars.space6,
+    minWidth: 0,
+  },
   preview: {
     backgroundColor: "var(--docs-background)",
     borderColor: colorVars.strokeDefault,
@@ -54,6 +59,7 @@ export function ComponentPreview({
   height?: number;
   isolated?: boolean;
 }) {
+  const tab = usePreviewTab(name);
   const globals = useDocumentationGlobals();
   const Example = loadedExamples[name] ?? examples[name];
   const [initialGlobals] = useState(globals);
@@ -84,13 +90,17 @@ export function ComponentPreview({
     height !== undefined ? styles.height(height) : undefined,
   );
   return (
-    <div {...stylex.props(styles.root)}>
-      <Tabs defaultValue="preview">
+    <div {...stylex.props(styles.root)} data-preview-name={name}>
+      <Tabs value={tab.value} onValueChange={tab.select}>
         <TabsList aria-label={ui.viewExample}>
-          <TabsTrigger value="preview">{ui.preview}</TabsTrigger>
-          <TabsTrigger value="code">{ui.code}</TabsTrigger>
+          <TabsTrigger value="preview" data-preview-trigger="preview">
+            {ui.preview}
+          </TabsTrigger>
+          <TabsTrigger value="code" data-preview-trigger="code">
+            {ui.code}
+          </TabsTrigger>
         </TabsList>
-        <TabsContent value="preview" keepMounted>
+        <TabsContent value="preview" keepMounted data-preview-panel="preview">
           <div {...canvas} className={`preview-canvas ${canvas.className}`}>
             {isolated ? (
               <iframe
@@ -110,7 +120,7 @@ export function ComponentPreview({
             )}
           </div>
         </TabsContent>
-        <TabsContent value="code">
+        <TabsContent value="code" keepMounted data-preview-panel="code">
           <CodeBlock code={source} language="tsx" />
         </TabsContent>
       </Tabs>

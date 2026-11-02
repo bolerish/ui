@@ -14,6 +14,7 @@ import { Shell } from "@/app/(site)/_components/Shell";
 import { catalog } from "@/app/(site)/docs/_lib/catalog";
 import { DocumentError, DocumentNotFound } from "@/app/_components/DocumentError";
 import { documentPath, legacyDocumentPath, localizedPath } from "@/shared/lib/paths";
+import { previewTabBootstrap } from "@/shared/lib/preview-tab";
 import { useColorMode } from "@/shared/lib/useColorMode";
 import { LocaleContext } from "@/shared/model/locale";
 import { validateSettings, validateSearch, parseSavedPreferences } from "@/shared/model/settings";
@@ -164,6 +165,7 @@ function Document({ children }: { children: ReactNode }) {
             __html: `try{const value=document.cookie.split('; ').find(c=>c.startsWith('bolerish-docs-settings='))?.slice('bolerish-docs-settings='.length);let saved={};try{saved=JSON.parse(decodeURIComponent(value||''))||{}}catch{}const preference=new URLSearchParams(location.search).get('colorMode')||saved.colorMode;const mode=preference==='dark'||preference==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.bolerishTheme=mode;document.documentElement.dataset.bolerishSurface=new URLSearchParams(location.search).get('surface')||saved.surface||'solid'}catch{}`,
           }}
         />
+        <script dangerouslySetInnerHTML={{ __html: previewTabBootstrap }} />
         <HeadContent />
       </head>
       <body>

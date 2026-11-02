@@ -172,3 +172,59 @@ for (const path of [
     });
   }
 }
+
+test("preview tabs remember each example through reload without showing the other panel", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const state = window as Window & { wrongPreviewFrames?: number };
+    state.wrongPreviewFrames = 0;
+    function sample() {
+      const root = document.querySelector('[data-preview-name="toggle--Default"]');
+      const preview = root?.querySelector('[data-preview-panel="preview"]');
+      if (
+        preview &&
+        JSON.parse(localStorage.getItem("bolerish-preview-tabs") ?? "{}")["toggle--Default"] ===
+          "code" &&
+        getComputedStyle(preview).display !== "none"
+      )
+        state.wrongPreviewFrames!++;
+      requestAnimationFrame(sample);
+    }
+    requestAnimationFrame(sample);
+  });
+  await page.goto("/docs/components/toggle", { waitUntil: "networkidle" });
+  const first = page.locator('[data-preview-name="toggle--Default"]');
+  const second = page.locator('[data-preview-name="toggle--Variants"]');
+  await expect(first.getByRole("tab", { name: "Preview", exact: true })).toHaveAttribute(
+    "tabindex",
+    "0",
+  );
+  await first.getByRole("tab", { name: "Code", exact: true }).click();
+  await expect(first.getByRole("tab", { name: "Code", exact: true })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await page.reload({ waitUntil: "networkidle" });
+  await expect(first.getByRole("tab", { name: "Code", exact: true })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await expect(first.locator('[data-preview-panel="code"]')).toBeVisible();
+  await expect(first.locator('[data-preview-panel="preview"]')).toBeHidden();
+  await expect(second.getByRole("tab", { name: "Preview", exact: true })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  expect(
+    await page.evaluate(
+      () => (window as Window & { wrongPreviewFrames?: number }).wrongPreviewFrames,
+    ),
+  ).toBe(0);
+  await first.getByRole("tab", { name: "Preview", exact: true }).click();
+  await page.reload({ waitUntil: "networkidle" });
+  await expect(first.getByRole("tab", { name: "Preview", exact: true })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+});
