@@ -81,6 +81,9 @@ export default defineConfig({
     layerStylexVariables(),
     tanstackStart({
       router: {
+        // Keep SSG route views available when native navigation cancels chunk requests.
+        // MDX documents and examples retain their separate dynamic imports.
+        codeSplittingOptions: { defaultBehavior: [["errorComponent"], ["notFoundComponent"]] },
         entry: "./app/router.tsx",
         routesDirectory: "app",
         generatedRouteTree: "app/routeTree.gen.ts",
