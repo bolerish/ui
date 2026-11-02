@@ -69,9 +69,6 @@ const styles = stylex.create({
     backgroundColor: colorVars.bgSelected,
     color: colorVars.fgPrimary,
   },
-  outlinePressed: {
-    boxShadow: `inset 0 0 0 ${sizeVars.stroke} ${colorVars.strokeDefault}`,
-  },
   unavailable: { backgroundColor: colorVars.interactionDisabled },
   disabled: {
     color: colorVars.fgDisabled,
@@ -99,36 +96,8 @@ const sizeStyles = stylex.create({
 
 const variantStyles = stylex.create({
   default: { backgroundColor: "transparent" },
-  soft: { backgroundColor: "transparent" },
+  soft: { backgroundColor: colorVars.bgSubtle },
   outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
-});
-
-const frameStyles = stylex.create({
-  root: {
-    alignItems: "center",
-    display: "inline-flex",
-    width: "fit-content",
-    verticalAlign: "middle",
-  },
-  soft: {
-    padding: spacingVars.space0_5,
-    backgroundColor: colorVars.bgSubtle,
-    borderColor: colorVars.strokeDefault,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    borderRadius: radiusVars.sm,
-  },
-  outline: {
-    backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.sm,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-  },
-  outlineItem: {
-    borderColor: "transparent",
-    marginInlineStart: `calc(${sizeVars.stroke} * -1)`,
-  },
 });
 
 export type ToggleSize = "lg" | "md" | "sm";
@@ -156,34 +125,20 @@ export function Toggle({
         variantStyles[variant],
         variant === "outline" && !state.pressed && !state.disabled && surfaceStyles.control,
         state.pressed && styles.pressed,
-        state.pressed && variant === "outline" && styles.outlinePressed,
         state.pressed && variant === "soft" && styles.softPressed,
         state.disabled && !state.pressed && styles.unavailable,
         state.disabled && styles.disabled,
-        variant === "outline" && frameStyles.outlineItem,
         xstyle,
       ),
       className,
       style,
     );
   }
-  const button = (
+  return (
     <TogglePrimitive
       {...props}
       className={(state) => getToggleStyles(state).className}
       style={(state) => getToggleStyles(state).style}
     />
-  );
-  if (variant === "default") return button;
-  return (
-    <span
-      {...stylex.props(
-        frameStyles.root,
-        frameStyles[variant],
-        variant === "outline" && surfaceStyles.control,
-      )}
-    >
-      {button}
-    </span>
   );
 }
