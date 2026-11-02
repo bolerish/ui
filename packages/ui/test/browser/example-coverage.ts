@@ -46,6 +46,7 @@ export const defaultExamples = [
   "select",
   "separator",
   "skeleton",
+  "snackbar",
   "slider",
   "spinner",
   "switch",
@@ -83,6 +84,7 @@ export const openedExamples = {
     name: "@bolerish",
     target: '[data-testid="documentation-example"]',
   },
+  snackbar: { action: "click", name: "Show status", target: "[data-bolerish-status-pill]" },
   toast: { action: "click", name: "Save", target: "[data-bolerish-toast-root]" },
 } as const;
 

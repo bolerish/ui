@@ -1,5 +1,33 @@
 # @bolerish/ui
 
+## 0.18.0
+
+### Minor Changes
+
+- cd9f74e: Add Snackbar as the canonical compact notification, with open/defaultOpen/onOpenChange and duration (3000ms by default; 0 disables auto-dismiss). StatusPill remains a deprecated compatibility wrapper with persistent inline defaults; migrate visible to open and pass onOpenChange for controlled auto-dismiss.
+
+  Add a calendar icon to DatePicker and match the calendar popup to its trigger width within viewport constraints. Calendar keeps its normal default width but can shrink to fit.
+
+  Add Carousel orientation and controlsPlacement props. Vertical carousels use up/down arrows and require a defined height; orientation takes precedence over options.axis. Previous/Next continue to accept Button variants, including ghost for arrow-only controls. Existing horizontal defaults remain unchanged.
+
+  Reduce Tooltip hover delay from the upstream 600ms default to 150ms. Provider and trigger delay overrides remain supported, with the trigger taking precedence.
+
+  Snackbar supports semantic tones, visibility fades and a decorative color echo, with reduced-motion support. Position accepts all six top/bottom and left/center/right placements: default bottom-center, 24px desktop and 16px small-screen gaps plus safe-area insets. Small screens center horizontally; offset overrides the gap (numbers use px). Use position={null} for inline layout. Positioned notifications do not move focus.
+
+### Patch Changes
+
+- 5811611: Apply the OTP input surface to InputOTPGroup instead of the outer InputOTP layout container. Backgrounds now stop at the actual digit group and do not fill unused row space or separators. Slots share the group's background; input behavior, borders and focus indicators are unchanged. Custom compositions should wrap slots in InputOTPGroup to receive the default surface.
+- ac1970c: Separate decorative liquid-surface borders from optical reflections. Card and floating-surface edges retain their width and geometry but use a lighter structural outline, with a restrained upper highlight and lower shadow instead of two bright rims. Solid surfaces, semantic focus/error/selection borders, forced colors, reduced transparency and unsupported-filter fallbacks retain their boundaries. Dark liquid panels use a denser tint to preserve secondary-text contrast. No migration is required.
+
+  Reduce liquid blur and tint opacity to preserve background detail, including a subtle inner reflection on Liquid itself. Existing surface APIs remain compatible.
+- 2bede4d: Fill the complete rectangular Menubar trigger area on hover and while open, including its corners. The enclosing menubar retains its rounded frame; keyboard focus and disabled behavior are unchanged.
+- 4e3b9d0: Use the same fast 120ms transition for small trigger-driven popups: Tooltip, HoverCard, Popover, Select, Combobox and DropdownMenu. HoverCard now shares Tooltip's 150ms default hover delay; explicit delay overrides are preserved. Click-triggered controls continue to open immediately and reduced-motion preferences remain respected.
+- 381f1fe: Render the segmented Tabs selection directly on the active trigger so its initial appearance does not depend on client-side indicator measurements. Selection, keyboard behavior and props remain unchanged. The segmented indicator no longer animates between triggers.
+- 310707b: Keep standalone Toggle borders on the same outer edge when pressed. Remove group-only inset selection borders and decorative wrappers; soft toggles use their own subtle background. All variants render a single button again, preserving refs and styling targets. ToggleGroup framing remains unchanged.
+
+  Soft Toggle selection uses the same interactionSelected background as ToggleGroupItem. Standalone Toggle remains a single button in every variant, with no new wrapper or migration.
+- @bolerish/tokens@0.18.0
+
 ## 0.17.0
 
 ### Minor Changes
@@ -63,7 +91,7 @@
 ### Minor Changes
 
 - e8196f2: Require `aria-label` or `aria-labelledby` when Button size is `icon`, including through InputGroupButton. Add one of these names to existing icon-only callers; regular text button sizes are unchanged.
-  
+
   Check the built-in Toast icon mapping exhaustively while preserving custom type strings. Unknown types, including inherited object-property names, render their text without a status icon.
 - afca7c0: Add Input variants `none` and `underline`. Both retain the normal field sizing and
   text styles. `none` removes the resting border and fill while preserving visible
@@ -71,9 +99,9 @@
   emphasis to the bottom edge, including a thicker-line fallback in forced colors.
   The default `outline` and typography-inheriting `inline` remain available.
 - e8196f2: Refine Liquid surfaces with a bright edge, inner reflection and role-specific transparency while preserving the existing DOM and solid accessibility fallbacks.
-  
+
   Keep notifications open when Escape belongs to an editing field. Unhandled Escape elsewhere still dismisses the newest notification. Add `Toaster.closeLabel` and `ComboboxInput.triggerLabel` for localized accessible names.
-  
+
   Keep keyboard-highlighted options visible in forced-color modes across Select, Combobox and menus. Passing `null` to ComboboxInput addons now removes them; omit an addon to retain its default.
 
 ### Patch Changes
