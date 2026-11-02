@@ -196,24 +196,25 @@ test("preview tabs remember each example through reload without showing the othe
   await page.goto("/docs/components/toggle", { waitUntil: "networkidle" });
   const first = page.locator('[data-preview-name="toggle--Default"]');
   const second = page.locator('[data-preview-name="toggle--Variants"]');
-  await expect(first.getByRole("tab", { name: "Preview", exact: true })).toHaveAttribute(
+  await expect(first.getByRole("group", { name: "Example view" })).toHaveCSS("padding-top", "2px");
+  await expect(first.getByRole("button", { name: "Preview", exact: true })).toHaveAttribute(
     "tabindex",
     "0",
   );
-  await first.getByRole("tab", { name: "Code", exact: true }).click();
-  await expect(first.getByRole("tab", { name: "Code", exact: true })).toHaveAttribute(
-    "aria-selected",
+  await first.getByRole("button", { name: "Code", exact: true }).click();
+  await expect(first.getByRole("button", { name: "Code", exact: true })).toHaveAttribute(
+    "aria-pressed",
     "true",
   );
   await page.reload({ waitUntil: "networkidle" });
-  await expect(first.getByRole("tab", { name: "Code", exact: true })).toHaveAttribute(
-    "aria-selected",
+  await expect(first.getByRole("button", { name: "Code", exact: true })).toHaveAttribute(
+    "aria-pressed",
     "true",
   );
   await expect(first.locator('[data-preview-panel="code"]')).toBeVisible();
   await expect(first.locator('[data-preview-panel="preview"]')).toBeHidden();
-  await expect(second.getByRole("tab", { name: "Preview", exact: true })).toHaveAttribute(
-    "aria-selected",
+  await expect(second.getByRole("button", { name: "Preview", exact: true })).toHaveAttribute(
+    "aria-pressed",
     "true",
   );
   expect(
@@ -221,10 +222,22 @@ test("preview tabs remember each example through reload without showing the othe
       () => (window as Window & { wrongPreviewFrames?: number }).wrongPreviewFrames,
     ),
   ).toBe(0);
-  await first.getByRole("tab", { name: "Preview", exact: true }).click();
+  await expect(first.getByRole("button", { name: "Code", exact: true })).toHaveCSS(
+    "box-shadow",
+    "none",
+  );
+  await first.getByRole("button", { name: "Code", exact: true }).click();
+  await expect(first.getByRole("button", { name: "Code", exact: true })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await first.getByRole("button", { name: "Code", exact: true }).focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(first.getByRole("button", { name: "Preview", exact: true })).toBeFocused();
+  await page.keyboard.press("Space");
   await page.reload({ waitUntil: "networkidle" });
-  await expect(first.getByRole("tab", { name: "Preview", exact: true })).toHaveAttribute(
-    "aria-selected",
+  await expect(first.getByRole("button", { name: "Preview", exact: true })).toHaveAttribute(
+    "aria-pressed",
     "true",
   );
 });

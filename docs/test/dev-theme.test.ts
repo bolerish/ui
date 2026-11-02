@@ -118,15 +118,17 @@ test(
         const beforeColors = await previewPage
           .locator(".site-header a, .site-header button, .table-of-contents a")
           .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color));
-        const selectedTab = previewPage.getByRole("tab", { name: "Preview", exact: true }).first();
+        const selectedTab = previewPage
+          .getByRole("button", { name: "Preview", exact: true })
+          .first();
         const selectedBackground = await selectedTab.evaluate(
           (node) => getComputedStyle(node).backgroundColor,
         );
         assert.notEqual(selectedBackground, "rgba(0, 0, 0, 0)");
         const beforeHeight = (await canvas.boundingBox())!.height;
         await expect(
-          previewPage.getByRole("tab", { name: "Preview", exact: true }).first(),
-        ).toHaveAttribute("aria-selected", "true");
+          previewPage.getByRole("button", { name: "Preview", exact: true }).first(),
+        ).toHaveAttribute("aria-pressed", "true");
         const expected = preference === "light" ? "rgb(255, 255, 255)" : "rgb(8, 9, 10)";
         await expect(canvas).toHaveCSS("background-color", expected);
         await previewPage.unroute("**/*");

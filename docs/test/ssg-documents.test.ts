@@ -6,7 +6,7 @@ import test from "node:test";
 import { chromium } from "@playwright/test";
 
 test(
-  "SSG document HTML includes complete TOC and selected preview tabs",
+  "SSG document HTML includes complete TOC and selected preview controls",
   { timeout: 120_000 },
   async () => {
     const root = new URL("../dist/client/docs/", import.meta.url);
@@ -29,8 +29,11 @@ test(
             nodes.map((node) => ({ id: node.getAttribute("href"), title: node.textContent })),
           );
         assert.deepEqual(toc, headings, file);
-        for (const tab of await page.getByRole("tab", { name: "Preview", exact: true }).all())
-          assert.equal(await tab.getAttribute("aria-selected"), "true", file);
+        for (const tab of await page
+          .getByRole("group", { name: "Example view", exact: true })
+          .getByRole("button", { name: "Preview", exact: true })
+          .all())
+          assert.equal(await tab.getAttribute("aria-pressed"), "true", file);
         checked++;
       }
       assert.ok(checked > 100, `checked ${checked} generated documents`);
