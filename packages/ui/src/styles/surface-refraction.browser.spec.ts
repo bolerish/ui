@@ -13,11 +13,14 @@ for (const theme of ["light", "dark"]) {
       (node as HTMLElement).style.width = "320px";
     });
     await page.evaluate(() => document.fonts.ready);
-    await expect(card).toHaveCSS("backdrop-filter", /url\(.+\).*blur\(4px\)/);
+    await expect(card).toHaveCSS(
+      "backdrop-filter",
+      browserName === "chromium" ? /url\(.+\).*blur\(4px\)/ : /brightness\(1\).*blur\(4px\)/,
+    );
     await expect(card).toHaveCSS("box-shadow", /inset/);
     const refracted = await card.screenshot();
     await page.locator("html").evaluate((node) => {
-      node.style.setProperty("--bolerish-refraction", "opacity(1)");
+      node.style.setProperty("--bolerish-refraction", "brightness(1)");
     });
     const plain = await card.screenshot();
     await page.locator("html").evaluate((node) => {
@@ -67,7 +70,10 @@ for (const theme of ["light", "dark"]) {
     const trigger = page.getByRole("button", { name: "Open dialog", exact: true });
     await trigger.click();
     const dialog = page.getByRole("dialog", { name: "Edit project" });
-    await expect(dialog).toHaveCSS("backdrop-filter", /url\(.+\).*blur\(3px\)/);
+    await expect(dialog).toHaveCSS(
+      "backdrop-filter",
+      browserName === "chromium" ? /url\(.+\).*blur\(3px\)/ : /brightness\(1\).*blur\(3px\)/,
+    );
     await page.keyboard.press("Escape");
     await expect(trigger).toBeFocused();
     await page.locator("html").evaluate((node) => {

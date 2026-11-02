@@ -263,8 +263,15 @@ function App() {
     );
   if (fixture === "surface")
     return (
-      <div style={{ background: "#80414b", padding: 32 }}>
-        <Card data-testid="surface">
+      <div
+        style={{
+          background: params.has("pattern")
+            ? "repeating-linear-gradient(90deg,#111 0 4px,#eee 4px 8px)"
+            : "#80414b",
+          padding: 32,
+        }}
+      >
+        <Card data-testid="surface" style={params.has("pattern") ? { height: 260 } : undefined}>
           <CardContent>
             <p>Primary text</p>
             <CardDescription data-testid="description">Supporting text</CardDescription>

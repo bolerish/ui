@@ -92,6 +92,7 @@ export function Shell({ children, home = false }: { children: ReactNode; home?: 
   const nextTheme = { light: "dark", dark: "system", system: "light" } as const;
   function update(changes: Partial<DocumentationGlobals>) {
     if (changes.locale) {
+      if (changes.locale === settings.locale) return;
       void navigate({
         to: localizedPath(location.pathname, changes.locale),
         search: {},

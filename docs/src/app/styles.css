@@ -31,7 +31,7 @@ body {
   background: var(--docs-background);
   border-bottom: 1px solid var(--docs-border);
 }
-@supports (backdrop-filter: blur(1px)) and
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and
   (background-color: color-mix(in srgb, white, transparent)) {
   :root[data-bolerish-surface="liquid"] .site-header {
     --docs-muted: color-mix(in srgb, var(--docs-foreground) 85%, var(--docs-background));
@@ -40,18 +40,21 @@ body {
       var(--docs-background) var(--bolerish-panel-opacity, 100%),
       transparent
     );
+    -webkit-backdrop-filter: var(--bolerish-floating-filter, none);
     backdrop-filter: var(--bolerish-floating-filter, none);
   }
 }
 @media (prefers-reduced-transparency: reduce) {
   :root[data-bolerish-surface="liquid"] .site-header {
     background: var(--docs-background);
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 }
 @media (forced-colors: active) {
   :root[data-bolerish-surface="liquid"] .site-header {
     background: Canvas;
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 }

@@ -5,7 +5,7 @@ const styles = stylex.create({
   edge: {
     borderColor: {
       default: colorVars.strokeDefault,
-      "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, ${colorVars.strokeDefault} var(--bolerish-surface-edge-strength, 100%), transparent)`,
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, ${colorVars.strokeDefault} var(--bolerish-surface-edge-strength, 100%), transparent)`,
     },
     "@media (prefers-reduced-transparency: reduce)": { borderColor: colorVars.strokeDefault },
     "@media (forced-colors: active)": { borderColor: "CanvasText" },
@@ -14,31 +14,38 @@ const styles = stylex.create({
     "--bolerish-material-shadow": "0 0 transparent",
     boxShadow: {
       default: "var(--bolerish-material-shadow)",
-      "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))":
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))":
         "var(--bolerish-surface-reflection, 0 0 transparent), var(--bolerish-material-shadow)",
     },
     backgroundColor: {
       default: `var(--bolerish-material-color, ${colorVars.bgSurface})`,
-      "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, var(--bolerish-material-color, ${colorVars.bgSurface}) var(--bolerish-material-opacity), transparent)`,
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, var(--bolerish-material-color, ${colorVars.bgSurface}) var(--bolerish-material-opacity), transparent)`,
+    },
+    WebkitBackdropFilter: {
+      default: "none",
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))":
+        "var(--bolerish-material-filter)",
     },
     backdropFilter: {
       default: "none",
-      "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))":
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))":
         "var(--bolerish-material-filter)",
     },
     backgroundImage: {
       default: "none",
-      "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))":
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))":
         "var(--bolerish-surface-sheen, none)",
     },
     "@media (prefers-reduced-transparency: reduce)": {
       backgroundColor: `var(--bolerish-material-color, ${colorVars.bgSurface})`,
+      WebkitBackdropFilter: "none",
       backdropFilter: "none",
       backgroundImage: "none",
       boxShadow: "var(--bolerish-material-shadow)",
     },
     "@media (forced-colors: active)": {
       backgroundColor: "Canvas",
+      WebkitBackdropFilter: "none",
       backdropFilter: "none",
       backgroundImage: "none",
       boxShadow: "none",

@@ -24,7 +24,7 @@ const styles = stylex.create({
   overlay: {
     backgroundColor: {
       default: colorVars.bgOverlay,
-      "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, ${colorVars.bgOverlay} var(--bolerish-drawer-backdrop-opacity, 100%), transparent)`,
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, ${colorVars.bgOverlay} var(--bolerish-drawer-backdrop-opacity, 100%), transparent)`,
     },
     inset: 0,
     position: "fixed",

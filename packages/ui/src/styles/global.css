@@ -39,8 +39,15 @@
   --bolerish-floating-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
 }
 
+/* Engine fallback: parsing url() does not establish SVG backdrop rendering support. */
+@supports (-webkit-backdrop-filter: blur(1px)) or selector(::-moz-range-thumb) {
+  [data-bolerish-surface="liquid"] {
+    --bolerish-refraction: brightness(1);
+  }
+}
+
 /* Keep the dimming outside translucent Drawers, so their glass samples the undimmed page. */
-@supports (backdrop-filter: blur(1px)) and
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and
   (background-color: color-mix(in srgb, white, transparent)) {
   [data-bolerish-surface="liquid"] {
     --bolerish-drawer-backdrop-opacity: 0%;

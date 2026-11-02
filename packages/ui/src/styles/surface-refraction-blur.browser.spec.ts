@@ -12,6 +12,33 @@ for (const theme of ["light", "dark"]) {
       for (const child of node.children) (child as HTMLElement).style.visibility = "hidden";
     });
     const box = (await card.boundingBox())!;
+    // Some headless WebKit builds expose the API but cannot paint even native blur.
+    // Measure that independent control before attributing a raster failure to Liquid.
+    const materialFilter = await card.evaluate((node) => {
+      const element = node as HTMLElement;
+      const original = {
+        filter: element.style.backdropFilter,
+        prefix: element.style.getPropertyValue("-webkit-backdrop-filter"),
+      };
+      element.style.backdropFilter = "blur(4px)";
+      element.style.setProperty("-webkit-backdrop-filter", "blur(4px)");
+      return original;
+    });
+    const control = (await page.screenshot()).toString("base64");
+    await card.evaluate((node) => {
+      (node as HTMLElement).style.backdropFilter = "none";
+      (node as HTMLElement).style.setProperty("-webkit-backdrop-filter", "none");
+    });
+    const unfilteredControl = (await page.screenshot()).toString("base64");
+    const controlChanged = control !== unfilteredControl;
+    test.skip(
+      !controlChanged,
+      "Renderer cannot paint standalone CSS backdrop blur; validate on native Safari.",
+    );
+    await card.evaluate((node, original) => {
+      (node as HTMLElement).style.backdropFilter = original.filter;
+      (node as HTMLElement).style.setProperty("-webkit-backdrop-filter", original.prefix);
+    }, materialFilter);
     const blurred = (await page.screenshot()).toString("base64");
     await card.evaluate((node) => {
       (node as HTMLElement).style.backdropFilter = "none";
