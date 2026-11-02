@@ -80,11 +80,10 @@ const controls = [
     ],
   ],
 ] as const;
-export function Shell({ children }: { children: ReactNode }) {
+export function Shell({ children, home = false }: { children: ReactNode; home?: boolean }) {
   const settings = useDocumentationGlobals();
   const navigate = useNavigate();
   const location = useLocation();
-  const home = location.pathname === "/" || location.pathname === "/ko";
   const setPreferences = useDocumentationPreferences();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);

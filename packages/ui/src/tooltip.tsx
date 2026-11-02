@@ -38,7 +38,7 @@ const styles = stylex.create({
     paddingInline: spacingVars.space3,
     transform: "scale(1)",
     transformOrigin: "var(--transform-origin)",
-    transitionDuration: motionVars.durationNormal,
+    transitionDuration: motionVars.durationFast,
     transitionProperty: "opacity, transform",
     transitionTimingFunction: motionVars.easingEnter,
     "@media (prefers-reduced-motion: reduce)": {

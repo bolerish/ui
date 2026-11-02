@@ -10,7 +10,6 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 
-import { Shell } from "@/app/(site)/_components/Shell";
 import { catalog } from "@/app/(site)/docs/_lib/catalog";
 import { DocumentError, DocumentNotFound } from "@/app/_components/DocumentError";
 import { documentPath, legacyDocumentPath, localizedPath } from "@/shared/lib/paths";
@@ -177,9 +176,7 @@ function Document({ children }: { children: ReactNode }) {
               <DocumentationPreferencesContext.Provider
                 value={(changes) => setPreferences({ ...routeSettings, ...changes })}
               >
-                <LocaleContext.Provider value={settings.locale}>
-                  {isolated ? children : <Shell>{children}</Shell>}
-                </LocaleContext.Provider>
+                <LocaleContext.Provider value={settings.locale}>{children}</LocaleContext.Provider>
               </DocumentationPreferencesContext.Provider>
             </DocumentationContext.Provider>
             {import.meta.env.DEV ? (

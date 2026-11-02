@@ -3,6 +3,7 @@ import { Separator } from "@bolerish/ui/separator";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 
+import { Shell } from "@/app/(site)/_components/Shell";
 import { getHomeGallery } from "@/app/(site)/_lib/home-gallery";
 import { documentLink } from "@/shared/lib/paths";
 import { useDocumentationGlobals } from "@/shared/model/useDocumentationGlobals";
@@ -11,31 +12,33 @@ export function Home() {
   const { locale } = useDocumentationGlobals();
   const ko = locale === "ko";
   return (
-    <div className="home">
-      <section className="home-hero">
-        <h1>
-          bolerish<span>/ui</span>
-        </h1>
-        <p>
-          {ko
-            ? "일관된 인터페이스를 위한 React 디자인 시스템."
-            : "A React design system for consistent interfaces."}
-        </p>
-        <Button
-          nativeButton={false}
-          render={
-            <Link
-              {...documentLink({ section: "guide", slug: "getting-started" }, locale)}
-              search={{}}
-            />
-          }
-        >
-          {ko ? "시작하기" : "Get started"}
-          <ArrowUpRightIcon aria-hidden="true" />
-        </Button>
-      </section>
-      <HomeGallery items={getHomeGallery()} />
-    </div>
+    <Shell home>
+      <div className="home">
+        <section className="home-hero">
+          <h1>
+            bolerish<span>/ui</span>
+          </h1>
+          <p>
+            {ko
+              ? "일관된 인터페이스를 위한 React 디자인 시스템."
+              : "A React design system for consistent interfaces."}
+          </p>
+          <Button
+            nativeButton={false}
+            render={
+              <Link
+                {...documentLink({ section: "guide", slug: "getting-started" }, locale)}
+                search={{}}
+              />
+            }
+          >
+            {ko ? "시작하기" : "Get started"}
+            <ArrowUpRightIcon aria-hidden="true" />
+          </Button>
+        </section>
+        <HomeGallery items={getHomeGallery()} />
+      </div>
+    </Shell>
   );
 }
 function HomeGallery({ items }: { items: ReturnType<typeof getHomeGallery> }) {

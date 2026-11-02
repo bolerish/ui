@@ -13,6 +13,8 @@ Connecting the start and end of a change helps people keep their place. Choose t
 
 Consider `easingStandard` for state changes and `easingEnter` and `easingExit` for entry and exit. Preserve the component's existing motion settings and media queries first.
 
+Small trigger-driven popups (Tooltip, HoverCard, Popover, Select, Combobox and DropdownMenu) use `durationFast` (120ms). Click-triggered controls open immediately; Tooltip and HoverCard wait 150ms on hover by default, with explicit delay overrides supported. Hover intent delay and transition duration serve different purposes.
+
 ### Reduced motion
 
 Respect `prefers-reduced-motion`. Retain progress text and state when reducing rotation or movement. Only an explicit end-user runtime choice may override the OS preference.

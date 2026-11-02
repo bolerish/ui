@@ -13,6 +13,8 @@
 
 일반적인 상태 변화에는 `easingStandard`, 요소의 등장과 퇴장에는 각각 `easingEnter`와 `easingExit`를 사용합니다. 컴포넌트의 기존 모션 속성과 미디어 쿼리를 우선 유지합니다.
 
+Tooltip·HoverCard·Popover·Select·Combobox·DropdownMenu처럼 작은 팝업에는 `durationFast`(120ms)를 사용합니다. 클릭형 컨트롤은 즉시 열리고, Tooltip과 HoverCard의 기본 호버 대기는 150ms입니다. 명시적인 지연 시간 설정은 유지합니다. 호버 의도를 확인하는 대기와 표시 애니메이션 시간은 구분합니다.
+
 ### 모션 줄임
 
 사용자의 `prefers-reduced-motion` 설정에 맞춰 움직임을 줄입니다. 회전이나 이동을 줄여도 진행 중이라는 텍스트와 상태는 남깁니다. OS 설정을 덮어쓰는 동작은 최종 사용자의 명시적인 런타임 선택에만 적용합니다.

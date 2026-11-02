@@ -33,7 +33,7 @@ const styles = stylex.create({
     padding: spacingVars.space4,
     transform: "translateY(0) scale(1)",
     transformOrigin: "var(--transform-origin)",
-    transitionDuration: motionVars.durationNormal,
+    transitionDuration: motionVars.durationFast,
     transitionProperty: "opacity, transform",
     transitionTimingFunction: motionVars.easingEnter,
     zIndex: layerVars.popup,
@@ -64,10 +64,17 @@ export type HoverCardTriggerProps = StyledProps<ComponentProps<typeof PreviewCar
   xstyle?: stylex.StyleXStyles;
 };
 
-export function HoverCardTrigger({ className, style, xstyle, ...props }: HoverCardTriggerProps) {
+export function HoverCardTrigger({
+  className,
+  style,
+  xstyle,
+  delay = 150,
+  ...props
+}: HoverCardTriggerProps) {
   return (
     <PreviewCard.Trigger
       {...props}
+      delay={delay}
       {...mergeStyles(stylex.props(styles.trigger, xstyle), className, style)}
     />
   );

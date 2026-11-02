@@ -36,6 +36,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "../../dist/dropdown-menu.js";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "../../dist/hover-card.js";
 import { Input } from "../../dist/input.js";
 import { Liquid } from "../../dist/liquid.js";
 import { Popover, PopoverTrigger, PopoverContent } from "../../dist/popover.js";
@@ -200,6 +201,16 @@ function App() {
     if (params.get("variant") === "vertical") return <VerticalCarousel />;
     if (params.get("variant") === "inside") return <InsideCarousel />;
     return <ArrowOnlyCarousel />;
+  }
+  if (fixture === "hover-card-delay") {
+    return (
+      <HoverCard>
+        <HoverCardTrigger delay={params.has("trigger") ? Number(params.get("trigger")) : undefined}>
+          Preview destination
+        </HoverCardTrigger>
+        <HoverCardContent>Destination details</HoverCardContent>
+      </HoverCard>
+    );
   }
   if (fixture === "tooltip-delay") {
     const triggerDelay = params.has("trigger") ? Number(params.get("trigger")) : undefined;
