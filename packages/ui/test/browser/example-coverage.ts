@@ -84,7 +84,12 @@ export const openedExamples = {
     name: "@bolerish",
     target: '[data-testid="documentation-example"]',
   },
-  snackbar: { action: "click", name: "Show status", target: "[data-bolerish-status-pill]" },
+  snackbar: {
+    action: "click",
+    name: "Show status",
+    target: "[data-bolerish-status-pill]",
+    material: "opaque",
+  },
   toast: { action: "click", name: "Save", target: "[data-bolerish-toast-root]" },
 } as const;
 

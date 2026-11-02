@@ -12,6 +12,8 @@ function backgroundAlpha(node: Element) {
 
 for (const theme of ["light", "dark"]) {
   for (const [name, opening] of Object.entries(openedExamples)) {
+    // Semantic feedback keeps its opaque tone instead of inheriting the glass material.
+    if ("material" in opening && opening.material === "opaque") continue;
     test(`Liquid ${theme} ${name} transmits its backing and retains opaque fallbacks`, async ({
       page,
     }) => {

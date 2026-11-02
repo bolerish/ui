@@ -41,7 +41,9 @@ not publish a release: decide and authorize the actual deployment separately.
 The Publish workflow can be dispatched manually after the CI gates pass. Legacy
 `vX.Y.Z` tag events remain disabled for publication. Changesets also creates
 package-specific tags when publishing; those do not trigger publication.
-Publishing requires npm authentication; preparing versions does not publish.
+GitHub Actions publishes the verified pnpm-packed UI/tokens archives through npm
+Trusted Publishing (OIDC). Configure both packages for `bolerish/bolerish-ui` and
+`publish.yml`; no `NPM_TOKEN` is required. Preparing versions does not publish.
 A published release is immutable: corrections require another changeset/version.
 
 Run `pnpm test:release` to verify the release policy with the colocated

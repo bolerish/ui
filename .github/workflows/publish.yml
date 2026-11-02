@@ -37,28 +37,28 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: pnpm
-          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Verify the tag matches the UI and tokens release group
-        if: github.event_name == 'push'
+      - name: Check npm supports Trusted Publishing
         run: |
-          tag_version="${GITHUB_REF_NAME#v}"
+          node -e 'const [major, minor, patch] = require("node:child_process").execFileSync("npm", ["--version"], { encoding: "utf8" }).trim().split(".").map(Number); if (major < 11 || major === 11 && (minor < 5 || minor === 5 && patch < 1)) throw new Error("npm 11.5.1 or newer is required")'
+          npm --version
 
-          for package_file in packages/tokens/package.json packages/ui/package.json; do
-            package_name="$(node -p "require('./' + process.argv[1]).name" "$package_file")"
-            package_version="$(node -p "require('./' + process.argv[1]).version" "$package_file")"
+      - name: Verify and pack release artifacts
+        run: pnpm check && pnpm test && pnpm build:ui && pnpm pack:check && pnpm build:docs
 
-            if [ "$tag_version" != "$package_version" ]; then
-              echo "Tag v$tag_version does not match $package_name@$package_version."
-              exit 1
+      - name: Publish UI and tokens with OIDC
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/.artifacts/publish"
+          for package in tokens ui; do
+            package_name="$(node -p "require('./packages/' + process.argv[1] + '/package.json').name" "$package")"
+            package_version="$(node -p "require('./packages/' + process.argv[1] + '/package.json').version" "$package")"
+            if npm view "$package_name@$package_version" version --json > /dev/null 2>&1; then
+              echo "$package_name@$package_version is already published."
+              continue
             fi
+            pnpm --filter "$package_name" pack --pack-destination "$GITHUB_WORKSPACE/.artifacts/publish"
+            npm publish "$GITHUB_WORKSPACE/.artifacts/publish/bolerish-$package-$package_version.tgz" --access public --provenance
           done
-
-      - name: Verify and publish unpublished workspace packages
-        run: pnpm release
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: "false"
