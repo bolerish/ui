@@ -3,7 +3,6 @@ import { readFileSync } from "node:fs";
 import { test, expect, type Page } from "@playwright/test";
 
 import { openedExamples } from "../../packages/ui/test/browser/example-coverage";
-import { navigationDiagnostics } from "./navigation-diagnostics";
 
 const index: Array<{ section: string; slug: string }> = JSON.parse(
   readFileSync(new URL("../public/search.en.json", import.meta.url), "utf8"),
@@ -162,68 +161,66 @@ for (const width of [320, 390, 768]) {
 
 for (const locale of ["en", "ko"] as const) {
   for (const theme of ["light", "dark"] as const) {
-    test(`critical mobile controls ${locale}/${theme}`, async ({ page }, testInfo) => {
-      await navigationDiagnostics(page, testInfo, async () => {
-        await page.setViewportSize({ width: 390, height: 844 });
-        await appearance(page, theme);
-        await page.goto(`/docs/lint${locale === "ko" ? "/ko" : ""}`);
-        await page.waitForLoadState("networkidle");
-        const heading = page.locator("h1").first();
-        await expect(heading).toBeVisible();
-        const top = await heading.evaluate((node) => node.getBoundingClientRect().top);
-        const menu = page.getByRole("button", { name: "Toggle navigation" });
-        await menu.click();
-        await expect(menu).toHaveAttribute("aria-expanded", "true");
-        await expect(page.locator("#docs-navigation")).toBeVisible();
-        expect(await heading.evaluate((node) => node.getBoundingClientRect().top)).toBe(top);
-        await menu.click();
+    test(`critical mobile controls ${locale}/${theme}`, async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await appearance(page, theme);
+      await page.goto(`/docs/lint${locale === "ko" ? "/ko" : ""}`);
+      await page.waitForLoadState("networkidle");
+      const heading = page.locator("h1").first();
+      await expect(heading).toBeVisible();
+      const top = await heading.evaluate((node) => node.getBoundingClientRect().top);
+      const menu = page.getByRole("button", { name: "Toggle navigation" });
+      await menu.click();
+      await expect(menu).toHaveAttribute("aria-expanded", "true");
+      await expect(page.locator("#docs-navigation")).toBeVisible();
+      expect(await heading.evaluate((node) => node.getBoundingClientRect().top)).toBe(top);
+      await menu.click();
 
-        await page
-          .getByRole("button", {
-            name: locale === "ko" ? "문서 검색" : "Search documentation",
-            exact: true,
-          })
-          .click();
-        const search = page.getByRole("dialog");
-        await expect(search).toBeVisible();
-        await search.getByRole("textbox").fill("button");
-        await expect(search.locator(".search-results a").first()).toBeVisible();
-        expect(
-          await search.evaluate((node) => {
-            const rect = node.getBoundingClientRect();
-            return rect.left >= 0 && rect.right <= document.documentElement.clientWidth;
-          }),
-        ).toBe(true);
-        await search
-          .getByRole("button", { name: locale === "ko" ? "닫기" : "Close", exact: true })
-          .click();
+      await page
+        .getByRole("button", {
+          name: locale === "ko" ? "문서 검색" : "Search documentation",
+          exact: true,
+        })
+        .click();
+      const search = page.getByRole("dialog");
+      await expect(search).toBeVisible();
+      await search.getByRole("textbox").fill("button");
+      await expect(search.locator(".search-results a").first()).toBeVisible();
+      expect(
+        await search.evaluate((node) => {
+          const rect = node.getBoundingClientRect();
+          return rect.left >= 0 && rect.right <= document.documentElement.clientWidth;
+        }),
+      ).toBe(true);
+      await search
+        .getByRole("button", { name: locale === "ko" ? "닫기" : "Close", exact: true })
+        .click();
 
-        await page
-          .getByRole("button", { name: locale === "ko" ? "설정" : "Settings", exact: true })
-          .click();
-        await page.getByRole("combobox", { name: "Density" }).selectOption("spacious");
-        const preferences = page.locator(".preferences-popover");
-        expect(
-          await preferences.evaluate((node) => {
-            const rect = node.getBoundingClientRect();
-            return rect.left >= 0 && rect.right <= document.documentElement.clientWidth;
-          }),
-        ).toBe(true);
-        await page.keyboard.press("Escape");
-        expect(await page.evaluate(inspectLayout)).toEqual([]);
+      await page
+        .getByRole("button", { name: locale === "ko" ? "설정" : "Settings", exact: true })
+        .click();
+      await page.getByRole("combobox", { name: "Density" }).selectOption("spacious");
+      const preferences = page.locator(".preferences-popover");
+      expect(
+        await preferences.evaluate((node) => {
+          const rect = node.getBoundingClientRect();
+          return rect.left >= 0 && rect.right <= document.documentElement.clientWidth;
+        }),
+      ).toBe(true);
+      await page.keyboard.press("Escape");
+      expect(await page.evaluate(inspectLayout)).toEqual([]);
 
-        for (const name of ["calendar", "attachment", "carousel", "pagination"]) {
-          await page.goto(`/docs/components/${name}${locale === "ko" ? "/ko" : ""}`);
-          await expect(page.locator(".preview-canvas").first()).toBeVisible();
-          expect(await page.evaluate(inspectLayout), name).toEqual([]);
-        }
-        await page.goto(locale === "ko" ? "/ko" : "/");
-        await expect(page.locator(".gallery-preview").first()).toBeVisible();
-        expect(await page.evaluate(inspectLayout)).toEqual([]);
-        await test.info().attach("mobile-home", {
-          body: await page.screenshot(),
-          contentType: "image/png",
-        });
+      for (const name of ["calendar", "attachment", "carousel", "pagination"]) {
+        await page.goto(`/docs/components/${name}${locale === "ko" ? "/ko" : ""}`);
+        await expect(page.locator(".preview-canvas").first()).toBeVisible();
+        expect(await page.evaluate(inspectLayout), name).toEqual([]);
+      }
+      await page.goto(locale === "ko" ? "/ko" : "/");
+      await expect(page.locator(".gallery-preview").first()).toBeVisible();
+      expect(await page.evaluate(inspectLayout)).toEqual([]);
+      await test.info().attach("mobile-home", {
+        body: await page.screenshot(),
+        contentType: "image/png",
       });
     });
   }
