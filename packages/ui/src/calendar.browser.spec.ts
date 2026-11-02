@@ -6,6 +6,8 @@ test("Calendar fits a narrow container while preserving usable date buttons", as
   await example.evaluate((node) => {
     node.style.width = "240px";
   });
+  const today = example.locator('[data-today="true"], [data-today=""]');
+  await expect(today).toHaveAttribute("aria-selected", "true");
   const days = example.getByRole("button").filter({ hasText: /^\d+$/ });
   await expect(days.first()).toBeVisible();
   const bounds = await example.evaluate((node) => {
