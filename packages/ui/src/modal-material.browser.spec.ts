@@ -67,3 +67,54 @@ for (const component of ["dialog", "alert-dialog"] as const) {
     });
   }
 }
+
+for (const parent of ["dialog", "drawer"]) {
+  test(`nested Dialog over ${parent} keeps only the frontmost scrim`, async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(`/?fixture=modal-nested&surface=liquid&parent=${parent}`);
+    await page.evaluate(() => {
+      document.documentElement.style.backgroundColor = "#b0c8e0";
+      document.body.style.backgroundColor = "#b0c8e0";
+      document.body.style.minHeight = "900px";
+    });
+    await page.getByRole("button", { name: "Open parent", exact: true }).click();
+    await page.getByRole("button", { name: "Open child", exact: true }).click();
+    const child = page.getByRole("dialog", { name: "Child modal", exact: true });
+    await expect(child).toBeVisible();
+    const box = (await child.boundingBox())!;
+    const normal = (await page.screenshot()).toString("base64");
+    await page.locator('[role="dialog"]').evaluateAll((nodes) => {
+      for (const node of nodes) {
+        (node as HTMLElement).style.boxShadow = "none";
+        const backdrop = node.parentElement!.previousElementSibling as HTMLElement | null;
+        if (backdrop) backdrop.style.visibility = "hidden";
+      }
+    });
+    const reference = (await page.screenshot()).toString("base64");
+    const samples = await page.evaluate(
+      async ({ normal, reference, box }) =>
+        Promise.all(
+          [normal, reference].map(async (data) => {
+            const image = new Image();
+            image.src = `data:image/png;base64,${data}`;
+            await image.decode();
+            const canvas = document.createElement("canvas");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            const context = canvas.getContext("2d")!;
+            context.drawImage(image, 0, 0);
+            return Array.from(
+              context.getImageData(Math.round(box.x + box.width / 2), Math.round(box.y + 35), 1, 1)
+                .data,
+            ).slice(0, 3);
+          }),
+        ),
+      { normal, reference, box },
+    );
+    for (let channel = 0; channel < 3; channel++)
+      expect(Math.abs(samples[0][channel] - samples[1][channel])).toBeLessThanOrEqual(2);
+    await page.keyboard.press("Escape");
+    await expect(child).toBeHidden();
+    await expect(page.getByRole("button", { name: "Open child", exact: true })).toBeFocused();
+  });
+}

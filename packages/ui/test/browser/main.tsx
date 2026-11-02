@@ -126,7 +126,33 @@ function DialogExample() {
     </Dialog>
   );
 }
+function NestedModalExample() {
+  const Parent = params.get("parent") === "drawer" ? Drawer : Dialog;
+  const ParentTrigger = params.get("parent") === "drawer" ? DrawerTrigger : DialogTrigger;
+  const ParentContent = params.get("parent") === "drawer" ? DrawerContent : DialogContent;
+  const ParentTitle = params.get("parent") === "drawer" ? DrawerTitle : DialogTitle;
+  const ParentDescription =
+    params.get("parent") === "drawer" ? DrawerDescription : DialogDescription;
+  return (
+    <Parent>
+      <ParentTrigger render={<Button>Open parent</Button>} />
+      <ParentContent>
+        <ParentTitle>Parent modal</ParentTitle>
+        <ParentDescription>Parent details</ParentDescription>
+        <Dialog>
+          <DialogTrigger render={<Button>Open child</Button>} />
+          <DialogContent style={{ width: 600, height: 400 }}>
+            <DialogTitle>Child modal</DialogTitle>
+            <DialogDescription>Child details</DialogDescription>
+            <Button>Child action</Button>
+          </DialogContent>
+        </Dialog>
+      </ParentContent>
+    </Parent>
+  );
+}
 function App() {
+  if (fixture === "modal-nested") return <NestedModalExample />;
   if (fixture === "liquid")
     return (
       <main>
