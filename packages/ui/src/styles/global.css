@@ -229,12 +229,12 @@
   --bolerish-liquid-panel-opacity: 58%;
 }
 [data-bolerish-theme="dark"] {
-  --bolerish-liquid-panel-opacity: 70%;
+  --bolerish-liquid-panel-opacity: 69.5%;
 }
 [data-bolerish-theme="dark"][data-bolerish-surface="liquid"] {
   --bolerish-surface-sheen: linear-gradient(
     135deg,
-    rgb(255 255 255 / 0.005),
+    rgb(255 255 255 / 0.003),
     transparent 42%,
     rgb(0 0 0 / 0.035)
   );
