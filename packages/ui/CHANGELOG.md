@@ -1,5 +1,19 @@
 # @bolerish/ui
 
+## 0.18.1
+
+### Patch Changes
+
+- 4861414: Keep Liquid Drawer surfaces from sampling their own dark backdrop. Visible overlays now dim only the area outside the Drawer while preserving outside-click dismissal, keyboard recovery and all four directions. Transparent/absent overlays, Solid mode, reduced transparency and forced-color fallbacks retain their behavior. No API migration is required.
+- 5b19216: Refine Liquid surfaces with restrained stationary directional sheen, quieter structural edges and close contact shadows. Increase neutral tint to reduce background-text interference, and soften sheen on small controls. Text, geometry, focus/error states and browser-specific refraction fallbacks retain their existing behavior. No API migration is required.
+- 0b7d330: Keep Liquid blur, tint and reflections visible in Safari and Firefox when SVG backdrop reference filters cannot render. CSS engine-feature gates select a brightness identity filter for those engines instead of the SVG reference; these gates are a compatibility fallback, not a direct SVG-rendering capability test. Chromium retains its SVG refraction enhancement.
+  
+  Support prefixed WebKit backdrop filtering across shared surfaces and Drawer dimming. Solid mode, reduced-transparency preferences and forced colors retain their opaque fallbacks. No API migration is required; browsers without color mixing still use opaque surfaces.
+- 5d2a266: Keep Liquid Dialog and AlertDialog panels from sampling their own dimmed backdrop, matching Drawer. Share modal dimming so only the last mounted modal paints the outside scrim, including during closing transitions. Solid mode, reduced transparency, forced colors and browsers without the required CSS support retain the existing backdrop path. No API migration is required.
+  
+  Nested Liquid modals keep the outside dimming steady during entry and exit. Their transform motion remains; panel opacity stays stable while it owns the scrim.
+- @bolerish/tokens@0.18.1
+
 ## 0.18.0
 
 ### Minor Changes
