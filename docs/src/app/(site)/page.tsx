@@ -11,7 +11,7 @@ export const Route = createFileRoute("/(site)/")({
   head: () => ({
     links: localizedLinks("/", "en"),
     meta: [
-      { title: "bolerish/ui — React components" },
+      { title: "bolerish/ui — A React design system for consistent interfaces." },
       {
         name: "description",
         content:

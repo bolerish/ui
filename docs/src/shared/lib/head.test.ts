@@ -31,3 +31,43 @@ test("localized metadata points to the canonical language and matching Markdown"
     meta: [{ name: "robots", content: "noindex" }],
   });
 });
+
+test("search metadata uses localized summaries and distinguishes guidelines from APIs", () => {
+  for (const [locale, title, summary, guidelineTitle, apiTitle] of [
+    [
+      "en",
+      "Gradient",
+      "Choose gradients for content backgrounds.",
+      "Gradient design guidelines",
+      "Gradient API reference",
+    ],
+    [
+      "ko",
+      "그라디언트",
+      "콘텐츠 배경에 사용할 그라디언트를 선택합니다.",
+      "그라디언트 설계 지침",
+      "그라디언트 API 참조",
+    ],
+  ] as const) {
+    const metadata = { title, description: summary };
+    const guideline = documentHead(
+      { section: "foundations", slug: "gradient", title: "Gradient" },
+      locale,
+      metadata,
+    );
+    const api = documentHead(
+      { section: "api", slug: "gradient", title: "Gradient" },
+      locale,
+      metadata,
+    );
+    assert.deepEqual(guideline.meta[0], { title: `${guidelineTitle} · bolerish/ui` });
+    assert.deepEqual(api.meta[0], { title: `${apiTitle} · bolerish/ui` });
+    assert.equal(guideline.meta[1].content, summary);
+    assert.equal(api.meta[1].content, summary);
+  }
+  const component = documentHead({ section: "components", slug: "button", title: "Button" }, "en", {
+    title: "Button",
+    description: "Choose emphasis for the next action.",
+  });
+  assert.deepEqual(component.meta[0], { title: "React Button component · bolerish/ui" });
+});

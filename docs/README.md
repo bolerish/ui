@@ -2,7 +2,10 @@
 
 TanStack Start renders the known routes at build time. Production serves only
 `dist/client` through Cloudflare Static Assets; there is no request-time React
-server. Vite retains SSR for development.
+server. A small Worker redirects HTTP and the production Workers alias to
+`https://ui.bolerish.com`, preserving paths and query strings, then passes other
+requests to the static asset binding. Local development hosts stay accessible.
+Vite retains SSR for development.
 
 ## Commands
 
@@ -92,6 +95,8 @@ Build/dev generates localized Markdown, search JSON, `llms.txt`, `llms-full.txt`
 `api/*.md`, `agent/SKILL.md`, robots and sitemap from the canonical docs/source.
 `installation.md` comes from the root README. Generated files are not edited by
 hand. `shared/lib/site.ts` defines canonical and sitemap origin.
+The MDX build exports each language's document title and opening summary for
+search metadata. Component, foundation and API titles identify the document type.
 
 ```sh
 pnpm check

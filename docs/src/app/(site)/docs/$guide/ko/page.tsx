@@ -8,7 +8,7 @@ export const Route = createFileRoute("/(site)/docs/$guide/ko/")({
   pendingMs: Infinity,
   staleTime: 300_000,
   loader: ({ params }) => loadDocumentPage("guide", params.guide, "ko"),
-  head: ({ loaderData }) => documentHead(loaderData?.page, "ko"),
+  head: ({ loaderData }) => documentHead(loaderData?.page, "ko", loaderData?.metadata.ko),
   component: Page,
 });
 function Page() {

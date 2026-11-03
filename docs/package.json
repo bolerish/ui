@@ -13,7 +13,7 @@
     "test:browser": "playwright test",
     "test:dev": "node --experimental-strip-types scripts/build-guidelines.ts && pnpm --filter @bolerish/ui build && node --experimental-strip-types --test test/dev.test.ts test/dev-theme.test.ts",
     "test:runtime": "node --experimental-strip-types --test test/runtime.test.ts",
-    "test:static": "node --experimental-strip-types --test test/static.test.ts",
+    "test:static": "node --experimental-strip-types --test worker.test.ts test/static.test.ts",
     "typecheck": "pnpm --filter @bolerish/ui build && tsc --noEmit"
   },
   "dependencies": {

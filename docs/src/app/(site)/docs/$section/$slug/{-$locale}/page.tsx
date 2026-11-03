@@ -12,7 +12,11 @@ export const Route = createFileRoute("/(site)/docs/$section/$slug/{-$locale}/")(
     return loadDocumentPage(params.section, params.slug, params.locale);
   },
   head: ({ loaderData, params }) =>
-    documentHead(loaderData?.page, params.locale === "ko" ? "ko" : "en"),
+    documentHead(
+      loaderData?.page,
+      params.locale === "ko" ? "ko" : "en",
+      loaderData?.metadata[params.locale === "ko" ? "ko" : "en"],
+    ),
   component: Page,
 });
 function Page() {

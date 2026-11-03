@@ -2,6 +2,7 @@ import { documentPath, localizedPath } from "./paths.ts";
 import { siteOrigin } from "./site.ts";
 
 type Page = { section: string; slug: string; title: string };
+export type DocumentMetadata = { title: string; description: string };
 
 export function localizedLinks(path: string, locale: "en" | "ko") {
   const english = new URL(localizedPath(path, "en"), siteOrigin).href;
@@ -14,8 +15,20 @@ export function localizedLinks(path: string, locale: "en" | "ko") {
   ];
 }
 
-export function documentHead(page: Page | undefined, locale: "en" | "ko") {
+export function documentHead(
+  page: Page | undefined,
+  locale: "en" | "ko",
+  metadata?: DocumentMetadata,
+) {
   if (!page) return { meta: [{ name: "robots", content: "noindex" }] };
+  const title = metadata?.title ?? page.title;
+  const topic =
+    {
+      components: locale === "ko" ? `${title} React 컴포넌트` : `React ${title} component`,
+      foundations: locale === "ko" ? `${title} 설계 지침` : `${title} design guidelines`,
+      api: locale === "ko" ? `${title} API 참조` : `${title} API reference`,
+      guide: title,
+    }[page.section] ?? title;
   const suffix = locale === "en" ? ".en" : "";
   const markdown =
     page.section === "guide"
@@ -25,13 +38,14 @@ export function documentHead(page: Page | undefined, locale: "en" | "ko") {
         : `/guidelines/${page.slug}${suffix}.md`;
   return {
     meta: [
-      { title: `${page.title} · bolerish/ui` },
+      { title: `${topic} · bolerish/ui` },
       {
         name: "description",
         content:
-          locale === "ko"
+          metadata?.description ??
+          (locale === "ko"
             ? `${page.title}: bolerish/ui의 사용 방법, 예제와 디자인 지침.`
-            : `${page.title}: usage, examples and design guidance for bolerish/ui.`,
+            : `${page.title}: usage, examples and design guidance for bolerish/ui.`),
       },
     ],
     links: [

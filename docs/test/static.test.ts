@@ -6,12 +6,14 @@ import { runInNewContext } from "node:vm";
 
 import { unstable_readConfig } from "wrangler";
 
-test("deployment uploads static assets without a request-time rendering entry", async () => {
+test("deployment serves built assets behind canonical redirects", async () => {
   const config = unstable_readConfig({
     config: fileURLToPath(new URL("../wrangler.jsonc", import.meta.url)),
   });
-  assert.equal(config.main, undefined);
+  assert.equal(config.main, fileURLToPath(new URL("../worker.ts", import.meta.url)));
   assert.equal(config.assets?.directory, "./dist/client");
+  assert.equal(config.assets.binding, "ASSETS");
+  assert.equal(config.assets.run_worker_first, true);
   assert.equal(config.assets.not_found_handling, "404-page");
   assert.equal(config.assets.html_handling, "drop-trailing-slash");
 });
@@ -38,4 +40,54 @@ test("built head applies saved, explicit and system color modes before React loa
     assert.equal(element.dataset.bolerishTheme, expected);
     assert.equal(element.className, "consumer-root");
   }
+});
+
+test("every sitemap page exposes its own metadata, one primary heading and a language link", async () => {
+  const root = new URL("../dist/client/", import.meta.url);
+  const xml = await readFile(new URL("sitemap.xml", root), "utf8");
+  const titles = { en: new Set<string>(), ko: new Set<string>() };
+  const descriptions = { en: new Set<string>(), ko: new Set<string>() };
+  const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]));
+  assert.ok(urls.length > 0);
+  for (const url of urls) {
+    assert.equal(url.origin, "https://ui.bolerish.com");
+    const path = url.pathname;
+    const html = await readFile(
+      new URL(path === "/" ? "index.html" : `${path.slice(1)}/index.html`, root),
+      "utf8",
+    );
+    const locale = path.endsWith("/ko") ? "ko" : "en";
+    const alternate = locale === "en" ? `${path === "/" ? "" : path}/ko` : path.slice(0, -3) || "/";
+    const title = html.match(/<title>([^<]+)<\/title>/)?.[1];
+    const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1];
+    assert.ok(title, path);
+    assert.ok(description, path);
+    assert.ok(!titles[locale].has(title), `Duplicate ${locale} title: ${title}`);
+    assert.ok(
+      !descriptions[locale].has(description),
+      `Duplicate ${locale} summary: ${description}`,
+    );
+    titles[locale].add(title);
+    descriptions[locale].add(description);
+    assert.doesNotMatch(
+      description,
+      /usage, examples and design guidance|의 사용 방법, 예제와 디자인 지침/,
+    );
+    assert.equal([...html.matchAll(/<h1[\s>]/g)].length, 1, path);
+    assert.ok(html.includes(`rel="canonical" href="${url.href}"`), path);
+    const links = [...html.matchAll(/<a\b[^>]*>/g)].map((match) => match[0]);
+    assert.ok(
+      links.some(
+        (link) =>
+          link.includes(`href="${alternate}"`) &&
+          link.includes(`hrefLang="${locale === "en" ? "ko" : "en"}"`),
+      ),
+      `Missing language link: ${path}`,
+    );
+  }
+  const koreanInstallation = await readFile(
+    new URL("docs/installation/ko/index.html", root),
+    "utf8",
+  );
+  assert.match(koreanInstallation, /<title>설치 · bolerish\/ui<\/title>/);
 });
