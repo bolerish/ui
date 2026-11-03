@@ -42,7 +42,7 @@ test("built head applies saved, explicit and system color modes before React loa
   }
 });
 
-test("every sitemap page exposes its own metadata, one primary heading and a language link", async () => {
+test("every sitemap page exposes its own metadata, one primary heading and a language selector", async () => {
   const root = new URL("../dist/client/", import.meta.url);
   const xml = await readFile(new URL("sitemap.xml", root), "utf8");
   const titles = { en: new Set<string>(), ko: new Set<string>() };
@@ -75,15 +75,19 @@ test("every sitemap page exposes its own metadata, one primary heading and a lan
     );
     assert.equal([...html.matchAll(/<h1[\s>]/g)].length, 1, path);
     assert.ok(html.includes(`rel="canonical" href="${url.href}"`), path);
-    const links = [...html.matchAll(/<a\b[^>]*>/g)].map((match) => match[0]);
+    const links = [...html.matchAll(/<link\b[^>]*>/g)].map((match) => match[0]);
     assert.ok(
       links.some(
         (link) =>
-          link.includes(`href="${alternate}"`) &&
+          link.includes('rel="alternate"') &&
+          link.includes(`href="${url.origin}${alternate}"`) &&
           link.includes(`hrefLang="${locale === "en" ? "ko" : "en"}"`),
       ),
-      `Missing language link: ${path}`,
+      `Missing alternate language metadata: ${path}`,
     );
+    const selector = html.match(/<button\b[^>]*class="[^"]*language-select[^>]*>/)?.[0];
+    assert.ok(selector?.includes('role="combobox"'), `Missing language selector: ${path}`);
+    assert.ok(selector.includes(`aria-label="${locale === "ko" ? "언어" : "Language"}"`), path);
   }
   const koreanInstallation = await readFile(
     new URL("docs/installation/ko/index.html", root),

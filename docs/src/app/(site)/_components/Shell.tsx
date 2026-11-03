@@ -7,15 +7,16 @@ import {
 import { Button } from "@bolerish/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@bolerish/ui/dialog";
 import { Input } from "@bolerish/ui/input";
+import { InputGroup } from "@bolerish/ui/input-group";
 import { NativeSelect } from "@bolerish/ui/native-select";
 import { Popover, PopoverTrigger, PopoverContent } from "@bolerish/ui/popover";
 import {
   Select,
+  SelectTrigger,
+  SelectValue,
   SelectPopup,
   SelectList,
   SelectItem,
-  SelectTrigger,
-  SelectValue,
 } from "@bolerish/ui/select";
 import {
   SlidersHorizontalIcon,
@@ -159,18 +160,22 @@ export function Shell({ children, home = false }: { children: ReactNode; home?: 
                 setSearchOpen(open);
               }}
             >
-              <DialogTrigger
-                render={
-                  <Button
-                    className="documentation-search"
-                    variant="secondary"
-                    aria-label={settings.locale === "ko" ? "문서 검색" : "Search documentation"}
-                  >
-                    <MagnifyingGlassIcon aria-hidden="true" />
-                    <span>{settings.locale === "ko" ? "문서 검색…" : "Search documentation…"}</span>
-                  </Button>
-                }
-              />
+              <InputGroup className="documentation-search">
+                <DialogTrigger
+                  render={
+                    <Button
+                      className="documentation-search-trigger"
+                      variant="ghost"
+                      aria-label={settings.locale === "ko" ? "문서 검색" : "Search documentation"}
+                    >
+                      <MagnifyingGlassIcon aria-hidden="true" />
+                      <span>
+                        {settings.locale === "ko" ? "문서 검색…" : "Search documentation…"}
+                      </span>
+                    </Button>
+                  }
+                />
+              </InputGroup>
               <DialogContent
                 className="search-dialog"
                 closeLabel={settings.locale === "ko" ? "닫기" : "Close"}
@@ -259,17 +264,24 @@ export function Shell({ children, home = false }: { children: ReactNode; home?: 
             <Select
               value={settings.locale}
               items={{ en: "English", ko: "한국어" }}
-              onValueChange={(value) => {
-                if (value === "en" || value === "ko") update({ locale: value });
+              onValueChange={(locale) => {
+                if (locale === "en" || locale === "ko") update({ locale });
               }}
             >
-              <SelectTrigger className="language-select" aria-label="Language">
+              <SelectTrigger
+                className="language-select"
+                aria-label={settings.locale === "ko" ? "언어" : "Language"}
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectPopup>
                 <SelectList>
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="ko">한국어</SelectItem>
+                  <SelectItem value="en" lang="en">
+                    English
+                  </SelectItem>
+                  <SelectItem value="ko" lang="ko">
+                    한국어
+                  </SelectItem>
                 </SelectList>
               </SelectPopup>
             </Select>

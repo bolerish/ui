@@ -104,15 +104,19 @@ body {
 }
 .header-actions > .documentation-search {
   width: 230px;
+  flex-shrink: 0;
+}
+.documentation-search-trigger {
+  width: 100%;
   justify-content: flex-start;
+  padding-inline: 12px;
+  font-weight: 400;
   color: var(--docs-muted);
-  background: var(--docs-subtle);
+  border: 0;
 }
 .language-select {
   width: 110px;
-  min-width: max-content;
   flex-shrink: 0;
-  white-space: nowrap;
 }
 .repository-link {
   display: inline-flex;
@@ -302,6 +306,8 @@ pre {
   }
   .header-actions > .documentation-search {
     width: 32px;
+  }
+  .documentation-search-trigger {
     padding-inline: 0;
     justify-content: center;
   }
@@ -406,7 +412,8 @@ pre {
   width: 32px;
   height: 32px;
 }
-.header-actions > button:not(.language-select) svg {
+.header-actions > button:not(.language-select) svg,
+.documentation-search-trigger svg {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
