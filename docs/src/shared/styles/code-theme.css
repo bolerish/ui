@@ -71,12 +71,8 @@
   color: rgb(215, 186, 125);
 }
 :root[data-bolerish-theme="dark"] .docs-codeblock .token.tag {
-  color: rgb(78, 201, 176);
-}
-:root[data-bolerish-theme="dark"] .docs-codeblock .token.tag {
   color: rgb(86, 156, 214);
 }
-:root[data-bolerish-theme="dark"] .docs-codeblock .token.punctuation,
 :root[data-bolerish-theme="dark"] .docs-codeblock .token.operator {
   color: rgb(212, 212, 212);
 }

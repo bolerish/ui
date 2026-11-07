@@ -27,6 +27,11 @@ for (const mode of ["light", "dark"] as const) {
     const subtle = mode === "dark" ? "rgb(22, 23, 24)" : "rgb(245, 245, 245)";
     const assertTheme = async () => {
       await expect(page.locator("html")).toHaveAttribute("data-bolerish-theme", mode);
+      await expect(page.locator("html")).toHaveCSS(
+        "background-color",
+        mode === "light" ? "rgb(238, 238, 238)" : "rgb(8, 9, 10)",
+      );
+      await expect(page.locator("html")).toHaveCSS("color", foreground);
       await expect(page.locator(".document h1")).toHaveCSS("color", foreground);
       await expect(page.locator(".document p").first()).toHaveCSS("color", secondary);
       await expect(page.locator(".language-select")).toHaveCSS("color", foreground);
@@ -62,3 +67,22 @@ for (const mode of ["light", "dark"] as const) {
     expect(stylesheetFailures).toEqual([]);
   });
 }
+
+test("documentation shell follows custom semantic token values", async ({ page }) => {
+  await page.goto("/docs/theming");
+  await page.waitForLoadState("networkidle");
+  await page.evaluate(() => {
+    const root = document.documentElement;
+    for (const [alias, value] of [
+      ["--docs-foreground", "rgb(20, 40, 60)"],
+      ["--docs-background", "rgb(230, 235, 240)"],
+    ]) {
+      const reference = root.style.getPropertyValue(alias).match(/^var\((--[^)]+)\)$/)?.[1];
+      if (!reference) throw new Error(`${alias} must reference a semantic token`);
+      root.style.setProperty(reference, value);
+    }
+  });
+  await expect(page.locator(".document h1")).toHaveCSS("color", "rgb(20, 40, 60)");
+  await expect(page.locator("html")).toHaveCSS("background-color", "rgb(230, 235, 240)");
+  await expect(page.locator(".site-header")).toHaveCSS("background-color", "rgb(230, 235, 240)");
+});

@@ -1,3 +1,4 @@
+import { colorVars } from "@bolerish/tokens/semantic.stylex";
 import { surface } from "@bolerish/ui/surface";
 import {
   HeadContent,
@@ -142,6 +143,16 @@ function Document({ children }: { children: ReactNode }) {
     document.cookie = `bolerish-docs-settings=${encodeURIComponent(JSON.stringify(saved))}; Path=/; Max-Age=31536000; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}`;
   }, [routeSettings, isolated, hydrated]);
   const runtimeStyle = {
+    "--docs-background": colorVars.bgCanvas,
+    "--docs-surface": colorVars.bgSurface,
+    "--docs-subtle": colorVars.bgSubtle,
+    "--docs-selected": colorVars.bgSelected,
+    "--docs-foreground": colorVars.fgPrimary,
+    "--docs-muted": colorVars.fgSecondary,
+    "--docs-primary": colorVars.bgActionPrimary,
+    "--docs-border": colorVars.strokeDefault,
+    "--docs-control": colorVars.strokeControl,
+    "--docs-focus": colorVars.strokeFocus,
     "--bolerish-unit": settings.unit === "px" ? "16px" : "1rem",
     "--bolerish-density": { default: "1", compact: "0.875", spacious: "1.125" }[settings.density],
     "--bolerish-font-heading":

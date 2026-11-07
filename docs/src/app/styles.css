@@ -1,6 +1,5 @@
 @layer docs-base;
 @import "@bolerish/ui";
-@import "../shared/styles/theme.css";
 @import "../shared/styles/code-theme.css";
 html {
   background: var(--docs-background);
@@ -18,10 +17,6 @@ body {
     color: inherit;
     text-underline-offset: 3px;
   }
-}
-::selection {
-  background: var(--docs-selection-background);
-  color: var(--docs-selection-foreground);
 }
 .site-header {
   height: 65px;
