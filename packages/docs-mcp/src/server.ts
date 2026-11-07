@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 import { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
 
+import { checkCss } from "./check-css.js";
+
 type Document = {
   id: string;
   section: string;
@@ -22,7 +24,7 @@ export function createServer() {
     { name: "bolerish-docs", version: catalog.version },
     {
       instructions:
-        "Search bolerish documentation before composing UI. Use get_doc with an ID from search_docs for exact APIs, examples and tokens. References are bundled at build time; the consumer's installed package declarations take precedence.",
+        "Before composing or changing UI, read guides/agent-workflow with get_doc. Search related Foundations, exact component APIs and original examples before writing controls or styles. Prefer supported props and semantic tokens. Submit added or changed CSS blocks to check_css, follow nextOffset until null and review every diagnostic and unreviewed area, and run the consuming app checks. References are bundled at build time; installed package declarations take precedence. Tools do not establish rendered correctness or guarantee agent adherence.",
     },
   );
   server.registerTool(
@@ -79,6 +81,42 @@ export function createServer() {
           isError: true,
         };
       return textResult({ packages: catalog.packages, document });
+    },
+  );
+  server.registerTool(
+    "check_css",
+    {
+      description:
+        "Inspect supplied CSS text for raw color, typography and spacing values using @bolerish/lint policies. Returns located diagnostics and explicitly unreviewed declarations. No file access, fixes, import loading or conformance certification. Submit full relevant blocks rather than only selected declarations.",
+      inputSchema: z.object({
+        css: z.string().min(1).max(100_000),
+        limit: z.number().int().min(1).max(200).default(50),
+        offset: z.number().int().min(0).default(0),
+      }),
+      annotations: { readOnlyHint: true, openWorldHint: false },
+    },
+    ({ css, limit, offset }) => {
+      const result = checkCss(css);
+      if ("error" in result)
+        return { ...textResult({ packages: catalog.packages, ...result }), isError: true };
+      const issues = [
+        ...result.diagnostics.map((value) => ({ kind: "diagnostic" as const, value })),
+        ...result.coverage.unreviewed.map((value) => ({ kind: "unreviewed" as const, value })),
+      ].sort((a, b) => a.value.line - b.value.line || a.value.column - b.value.column);
+      const page = issues.slice(offset, offset + limit);
+      return textResult({
+        packages: catalog.packages,
+        totalIssues: issues.length,
+        nextOffset: offset + limit < issues.length ? offset + limit : null,
+        diagnosticsTotal: result.diagnostics.length,
+        diagnostics: page.flatMap((issue) => (issue.kind === "diagnostic" ? [issue.value] : [])),
+        coverage: {
+          ...result.coverage,
+          unreviewedTotal: result.coverage.unreviewed.length,
+          unreviewed: page.flatMap((issue) => (issue.kind === "unreviewed" ? [issue.value] : [])),
+        },
+        limitations: result.limitations,
+      });
     },
   );
   return server;

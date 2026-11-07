@@ -26,7 +26,11 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./foundations": "./dist/foundations.json"
+    "./foundations": "./dist/foundations.json",
+    "./declarations": {
+      "types": "./dist/declarations.d.ts",
+      "default": "./dist/declarations.js"
+    }
   },
   "publishConfig": {
     "access": "public"

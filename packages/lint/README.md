@@ -75,14 +75,32 @@ is alpha; compatibility is tested with ESLint 9.39 and Oxlint 1.80.
 
 ## Boundaries
 
-CSS files, class strings, referenced objects, CommonJS and shorthand properties
-are not analyzed. Variables/expressions do not prove token use. Positive relative
+The ESLint/Oxlint rules do not analyze CSS files, class strings, referenced objects,
+CommonJS or shorthand object properties. Variables/expressions do not prove token use. Positive relative
 `em` typography/margins/gaps and unitless line heights are permitted; padding has
 no relative-unit allowance. Width, height, contrast and semantic role need review.
 
 `@bolerish/lint/foundations` exports the same property/token/allowed
 value metadata used by the rules. Only `dist/`, this README and package metadata
 are distributed. ESLint is an optional peer for configuration types.
+
+## Parsed CSS declarations
+
+`@bolerish/lint/declarations` exports `checkDeclarations(records)` for parsed
+`{property, value, line, column}` records. It shares the same Foundations metadata
+and allowed static-value policy as the JS rules, with CSS kebab-case support.
+It has no parser or runtime dependencies and does not read or change files.
+
+Results contain located `diagnostics` and `coverage` (`checked`, `outsideScope`,
+`unreviewed`, `complete`). Color, typography and spacing literals are checked;
+geometry and component choice remain review tasks. Variables, functions, quoted
+or escaped values, custom-property definitions and token-bearing shorthands are
+unreviewed. Fallbacks and aliases do not establish token provenance. The caller
+must separately account for syntax errors, descriptors and at-rules from its parser.
+An empty result or `coverage.complete` is not a conformance or accessibility verdict.
+
+The docs MCP's `check_css` tool supplies PostCSS parsing and exposes these checks
+to agents. ESLint/Oxlint does not automatically run that tool or scan CSS files.
 
 ## Development
 

@@ -1,17 +1,8 @@
 import type { TSESLint, TSESTree } from "@typescript-eslint/utils";
 import type { ESLint, Rule } from "eslint";
 
-import foundations from "./foundations.json" with { type: "json" };
+import { isAllowedLiteral, policies, type Group, type Policy } from "./token-policy.js";
 
-type Group = "color" | "typography" | "spacing";
-type Policy = {
-  foundation: string;
-  tokens: string;
-  properties: readonly string[];
-  keywords: readonly string[];
-  recommendations?: Readonly<Record<string, string>>;
-  relativeUnits?: Readonly<Record<string, readonly string[]>>;
-};
 type Preset = Group | "recommended";
 type PresetConfig = {
   name: string;
@@ -19,9 +10,6 @@ type PresetConfig = {
   rules: Record<string, "warn">;
 };
 type LiteralValue = { node: TSESTree.Node; value: string | number };
-
-const policies: Record<Group, Policy> = foundations;
-const globalKeywords = new Set(["inherit", "initial", "unset", "revert", "revert-layer"]);
 
 function propertyName(node: TSESTree.Property): string | null {
   if (!node.computed && node.key.type === "Identifier") return node.key.name;
@@ -119,34 +107,8 @@ function literalValues(node: TSESTree.Node): LiteralValue[] {
   return [];
 }
 
-function isRelativeValue(policy: Policy, property: string, value: string): boolean {
-  const units = policy.relativeUnits?.[property];
-  if (!units) return false;
-  const parts = value.split(/\s+/);
-  const maximum =
-    property === "margin" ? 4 : ["marginInline", "marginBlock", "gap"].includes(property) ? 2 : 1;
-  if (parts.length > maximum) return false;
-  return parts.every((part) => {
-    if (property.startsWith("margin") && part === "auto") return true;
-    const match = part.match(/^([+-]?(?:\d+(?:\.\d+)?|\.\d+))(em)?$/);
-    if (!match) return false;
-    const amount = Number(match[1]);
-    if (
-      amount === 0 &&
-      (property.startsWith("margin") || property.endsWith("Gap") || property === "gap")
-    )
-      return true;
-    return (
-      units.includes(match[2] ?? "number") &&
-      Number.isFinite(amount) &&
-      (property.startsWith("margin") || amount > 0)
-    );
-  });
-}
-
 function createTokenRule(group: Group, policy: Policy): Rule.RuleModule {
   const properties = new Set(policy.properties);
-  const keywords = new Set([...globalKeywords, ...policy.keywords]);
   const rule: TSESLint.RuleModule<"token", []> = {
     meta: {
       type: "suggestion",
@@ -184,17 +146,7 @@ function createTokenRule(group: Group, policy: Policy): Rule.RuleModule {
             return;
           for (const literal of literalValues(node.value)) {
             const value = String(literal.value).trim().toLowerCase();
-            if (isRelativeValue(policy, property, value)) continue;
-            if (keywords.has(value) || /^var\(--[\w-]+(?:\s*,[\s\S]+)?\)$/.test(value)) continue;
-            if (
-              group === "spacing" &&
-              value
-                .split(/\s+/)
-                .every(
-                  (part) => keywords.has(part) || /^[-+]?0(?:\.0+)?(?:px|rem|em|%)?$/.test(part),
-                )
-            )
-              continue;
+            if (isAllowedLiteral(group, property, value)) continue;
             context.report({
               node: literal.node,
               messageId: "token",

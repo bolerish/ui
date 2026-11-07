@@ -21,13 +21,15 @@
     "access": "public"
   },
   "scripts": {
-    "build": "node --experimental-strip-types scripts/build.ts && tsc -p tsconfig.build.json",
+    "build": "pnpm --filter @bolerish/lint build && node --experimental-strip-types scripts/build.ts && tsc -p tsconfig.build.json",
     "prepack": "pnpm build",
     "test": "pnpm build && node --experimental-strip-types --test src/*.test.ts package.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "pnpm --filter @bolerish/lint build && tsc --noEmit"
   },
   "dependencies": {
+    "@bolerish/lint": "workspace:*",
     "@modelcontextprotocol/server": "^2.4.0",
+    "postcss": "8.5.26",
     "zod": "^4.6.7"
   },
   "devDependencies": {

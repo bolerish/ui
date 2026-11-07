@@ -36,14 +36,17 @@ test("the packed plugin loads outside the workspace without a TS loader or runti
         "--eval",
         `
       import plugin from "@bolerish/lint";
+      import { checkDeclarations } from "@bolerish/lint/declarations";
       import foundations from "@bolerish/lint/foundations" with { type: "json" };
-      console.log(JSON.stringify({ name: plugin.meta.name, rules: Object.keys(plugin.rules), groups: Object.keys(foundations) }));
+      console.log(JSON.stringify({ name: plugin.meta.name, rules: Object.keys(plugin.rules), groups: Object.keys(foundations), diagnostics: checkDeclarations([{property:"padding",value:"16px",line:1,column:1}]).diagnostics.length }));
     `,
       ],
       { cwd: directory },
     );
     const result = JSON.parse(consumer.stdout);
     assert.equal(result.name, "@bolerish/lint");
+    assert.equal(result.diagnostics, 1);
+    await access(join(target, "dist", "declarations.d.ts"));
     assert.deepEqual(result.rules, ["color-tokens", "typography-tokens", "spacing-tokens"]);
     assert.deepEqual(result.groups, ["color", "typography", "spacing"]);
     const manifest = JSON.parse(await readFile(join(target, "package.json"), "utf8"));

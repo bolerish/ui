@@ -32,7 +32,7 @@ codex mcp add bolerish-docs -- bunx --package @bolerish/docs-mcp bolerish-docs-m
 The package name and executable name differ, so each command selects the
 package explicitly. For other MCP hosts, use the command and arguments after
 `--` as the server configuration. Restart or reconnect the host, then check
-that `search_docs` and `get_doc` are listed.
+that `search_docs`, `get_doc` and `check_css` are listed.
 
 Runner references: [npm](https://docs.npmjs.com/cli/v11/commands/npx/),
 [pnpm](https://pnpm.io/cli/dlx), [Yarn](https://yarnpkg.com/cli/dlx),
@@ -76,6 +76,15 @@ Restart or reconnect the host after registration. Ask it, for example:
 The local build follows this checkout. Publishing and host registration are
 separate actions.
 
+## Agent workflow
+
+Read `get_doc({id: "guides/agent-workflow"})` first. Search for the related
+Foundation, exact component API and real example before writing UI. Prefer
+supported props and tokens; justify necessary local styles at their actual scope.
+Before completing CSS edits, pass full relevant blocks to `check_css`, review
+both diagnostics and unreviewed areas, then run the consuming app's checks.
+The tool is available to agents; availability does not guarantee they call it.
+
 ## Tools
 
 - `search_docs`: search the complete reference text. `query` defaults to an
@@ -88,7 +97,20 @@ separate actions.
   such as `components/button`, `foundations/spacing`, `tokens/semantic` or
   `examples/button/Default`. Unknown IDs return a tool error.
 
-Both tools identify the bundled UI, tokens and lint versions. References are
+- `check_css`: accepts `{css: string}` (1–100000 characters). Parses supplied CSS
+  without loading imports or touching files. Returns located color, typography
+  and spacing diagnostics from `@bolerish/lint`, coverage and explicit limitations.
+  `limit` is 1–200 (default 50); `offset` starts at 0. Diagnostics and unreviewed
+  entries share a source-ordered page. Repeat with `nextOffset` until null.
+  `diagnosticsTotal` and `coverage.unreviewedTotal` count the complete submission;
+  `coverage.complete` is computed across it, not just the current page.
+  It never modifies source or chooses semantic roles. Syntax/input failures return
+  tool errors, not an empty successful check. Layout properties are outside scope;
+  custom properties, unresolved values, descriptors, at-rules and token-bearing
+  shorthands may be unreviewed. `coverage.complete` describes supported static
+  declarations only. Zero findings does not certify DS use, contrast or behavior.
+
+All tools identify the bundled UI, tokens and lint versions. References are
 English. Search matches all whitespace-separated terms without case sensitivity;
 it is a text search, not semantic search or translation.
 

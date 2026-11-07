@@ -35,6 +35,25 @@ Documentation examples live beside each component's `docs.mdx` as ordinary
 React files. Display their actual source with `?raw`; do not reconstruct code
 from Storybook metadata or regular expressions.
 
+## Agent UI workflow
+
+Before changing UI, inspect the installed versions and existing composition, then
+read the relevant Foundation, component API and original example. With the docs
+MCP enabled, start at `get_doc({id: "guides/agent-workflow"})` and use
+`search_docs` / `get_doc` to retrieve focused references. Without MCP, use the
+canonical files in this checkout. Installed declarations override bundled snapshots.
+
+Before completion, reread changed controls and styles for duplicated DS behavior
+or token values. Submit changed CSS blocks to `check_css` when available; otherwise
+review them manually and state that limitation. Review all diagnostics and
+unreviewed areas. The checker does not establish variable provenance, semantic
+roles, contrast, layout correctness or rendered behavior. ESLint/Oxlint does not
+run CSS checks automatically. Run the consumer's applicable checks as well.
+
+A general "Site exceptions" comment is not justification. For a necessary local
+rule, identify the missing supported capability and keep the exception specific
+to its component or declaration. Preserve legitimate app-owned composition.
+
 ## Tests
 
 Keep tests beside the implementation they verify, including component tests

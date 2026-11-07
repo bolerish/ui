@@ -79,6 +79,16 @@ for (const filename of (await readdir(new URL("api/", publicRoot))).sort()) {
     content,
   });
 }
+documents.push({
+  id: "guides/agent-workflow",
+  section: "guides",
+  title: "Agent workflow",
+  url: `${manifest.homepage}/agent/SKILL.md`,
+  content: (await readFile(new URL("agent/SKILL.md", publicRoot), "utf8")).replace(
+    /^---[\s\S]*?---\s*/,
+    "",
+  ),
+});
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 await writeFile(
