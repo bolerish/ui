@@ -3,6 +3,7 @@ export type SearchDocument = {
   slug: string;
   title: string;
   text: string;
+  isNew?: boolean;
 };
 
 export function searchText(markdown: string) {
@@ -15,11 +16,11 @@ export function searchText(markdown: string) {
 }
 
 export function searchDocuments(documents: SearchDocument[], query: string) {
-  const terms = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+  const { terms, newOnly } = parseSearchQuery(query);
   return documents
     .filter((item) => {
       const text = `${item.title} ${item.text}`.toLocaleLowerCase();
-      return terms.every((term) => text.includes(term));
+      return (!newOnly || item.isNew === true) && terms.every((term) => text.includes(term));
     })
     .map((item) => {
       const position = terms.length ? item.text.toLocaleLowerCase().indexOf(terms[0]) : -1;
@@ -30,4 +31,9 @@ export function searchDocuments(documents: SearchDocument[], query: string) {
         description: `${start ? "…" : ""}${excerpt}${start + 240 < item.text.length ? "…" : ""}`,
       };
     });
+}
+
+export function parseSearchQuery(query: string) {
+  const tokens = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+  return { terms: tokens.filter((term) => term !== "#new"), newOnly: tokens.includes("#new") };
 }

@@ -27,6 +27,41 @@ test("search finds body text, combines terms and shows a nearby excerpt", () => 
   );
 });
 
+test("#New filters release additions and combines with ordinary search terms", () => {
+  const documents: SearchDocument[] = [
+    {
+      section: "components",
+      slug: "snackbar",
+      title: "Snackbar",
+      text: "Compact notification feedback.",
+      isNew: true,
+    },
+    {
+      section: "components",
+      slug: "button",
+      title: "Button",
+      text: "New action styles.",
+      isNew: false,
+    },
+    { section: "guide", slug: "setup", title: "Setup", text: "New project setup." },
+  ];
+  assert.deepEqual(
+    searchDocuments(documents, "  #NEW ").map((item) => item.slug),
+    ["snackbar"],
+  );
+  assert.deepEqual(
+    searchDocuments(documents, "notification #New").map((item) => item.slug),
+    ["snackbar"],
+  );
+  assert.equal(searchDocuments(documents, "#New missing").length, 0);
+  assert.equal(searchDocuments(documents, "#New button").length, 0);
+  assert.equal(searchDocuments(documents, "#New #new").length, 1);
+  assert.equal(searchDocuments(documents, "#newish").length, 0);
+  assert.equal(searchDocuments(documents, "new").length, 2);
+  assert.equal(searchDocuments(documents, "").length, 3);
+  assert.match(searchDocuments(documents, "#New notification")[0].description, /notification/);
+});
+
 test("generated localized indexes cover all docs and search actual body content", async () => {
   const content = new URL("../../app/(site)/docs/_content/", import.meta.url);
   const expected = (await readdir(new URL("guides/", content)))
@@ -65,5 +100,6 @@ test("generated localized indexes cover all docs and search actual body content"
       ),
     );
     assert.ok(!index.some((item) => item.slug === "content-row"));
+    assert.deepEqual(searchDocuments(index, "#New"), []);
   }
 });

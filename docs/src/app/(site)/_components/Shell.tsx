@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@bolerish/ui/accordion";
+import { Badge } from "@bolerish/ui/badge";
 import { Button } from "@bolerish/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@bolerish/ui/dialog";
 import { Input } from "@bolerish/ui/input";
@@ -30,8 +31,9 @@ import { Link, useNavigate, useLocation } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 
 import { catalog } from "@/app/(site)/docs/_lib/catalog";
+import { isNewComponent } from "@/shared/lib/component-releases";
 import { documentLink, localizedPath } from "@/shared/lib/paths";
-import { searchDocuments, type SearchDocument } from "@/shared/lib/search";
+import { parseSearchQuery, searchDocuments, type SearchDocument } from "@/shared/lib/search";
 import type { DocumentationGlobals } from "@/shared/model/settings";
 import {
   useDocumentationGlobals,
@@ -134,6 +136,7 @@ export function Shell({ children, home = false }: { children: ReactNode; home?: 
     (item) => searchSection === "all" || item.section === searchSection,
   );
   const searching = query.trim() !== "" || searchSection !== "all";
+  const { newOnly } = parseSearchQuery(query);
   return (
     <>
       <a className="skip-link" href="#content">
@@ -217,6 +220,24 @@ export function Shell({ children, home = false }: { children: ReactNode; home?: 
                         </span>
                       </Button>
                     ))}
+                    <Button
+                      size="sm"
+                      variant={newOnly ? "secondary" : "ghost"}
+                      aria-pressed={newOnly}
+                      onClick={() =>
+                        setQuery((current) => {
+                          if (parseSearchQuery(current).newOnly)
+                            return current
+                              .split(/\s+/)
+                              .filter((term) => term.toLowerCase() !== "#new")
+                              .join(" ")
+                              .trim();
+                          return `${current.trim()} #New`.trim();
+                        })
+                      }
+                    >
+                      #New
+                    </Button>
                   </nav>
                   <div className="search-matches">
                     <output className="search-count" aria-live="polite">
@@ -245,7 +266,10 @@ export function Shell({ children, home = false }: { children: ReactNode; home?: 
                             setMenuOpen(false);
                           }}
                         >
-                          <span className="search-result-title">{item.title}</span>
+                          <span className="search-result-title">
+                            {item.title}
+                            {item.isNew ? <Badge variant="secondary">New</Badge> : null}
+                          </span>
                           <span className="search-result-description">{item.description}</span>
                         </Link>
                       ))}
@@ -396,6 +420,11 @@ export function Shell({ children, home = false }: { children: ReactNode; home?: 
                             onClick={() => setMenuOpen(false)}
                           >
                             {item.title}
+                            {isNewComponent(item.section, item.slug) ? (
+                              <Badge variant="secondary" className="component-new-badge">
+                                New
+                              </Badge>
+                            ) : null}
                           </Link>
                         ))}
                     </AccordionContent>

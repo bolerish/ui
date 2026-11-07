@@ -91,6 +91,12 @@ replace a failed module download with a generic missing-preload error.
 
 ## Generated files and checks
 
+The component introduction map in `src/shared/lib/component-releases.ts` owns
+navigation `New` badges and the search index's `#New` filter. Add new public
+component names with their introduction version. Badges apply only when that
+version exactly matches the current UI package version, including the patch.
+Changes to existing components do not receive a `New` badge.
+
 Build/dev generates localized Markdown, search JSON, `llms.txt`, `llms-full.txt`,
 `api/*.md`, `agent/SKILL.md`, robots and sitemap from the canonical docs/source.
 `installation.md` comes from the root README. Generated files are not edited by

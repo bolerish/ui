@@ -1,5 +1,6 @@
 import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 
+import { isNewComponent } from "../src/shared/lib/component-releases.ts";
 import { searchText, type SearchDocument } from "../src/shared/lib/search.ts";
 import { siteOrigin } from "../src/shared/lib/site.ts";
 import { guideMarkdown } from "./guide-markdown.ts";
@@ -171,6 +172,7 @@ for (const locale of ["ko", "en"]) {
       section: "components",
       slug,
       title,
+      isNew: isNewComponent("components", slug),
       text: searchText(content.replace(/^# .*\n/, "")),
     });
     const componentSource = await readFile(
