@@ -72,6 +72,9 @@ async function verifyPackage(directory: string) {
     packageJsonEntry,
   ]);
   const manifest = JSON.parse(stdout) as PackageManifest;
+  if (manifest.name === "@bolerish/ui" && !entries.has("package/README.md")) {
+    throw new Error("@bolerish/ui tarball is missing package/README.md.");
+  }
   const targets = getExportTargets(manifest.exports);
   let binTargets: string[] = [];
   if (typeof manifest.bin === "string") binTargets = [manifest.bin];
