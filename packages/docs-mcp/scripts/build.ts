@@ -3,6 +3,7 @@ import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
 import type { SearchDocument } from "../../../docs/src/shared/lib/search.ts";
+import { createBundle, type CatalogDocument } from "../src/catalog.ts";
 
 const root = new URL("../../../", import.meta.url);
 const publicRoot = new URL("docs/public/", root);
@@ -19,13 +20,7 @@ for (const name of ["ui", "tokens", "lint"]) {
   const pkg = JSON.parse(await readFile(new URL(`packages/${name}/package.json`, root), "utf8"));
   packages[pkg.name] = pkg.version;
 }
-const documents: {
-  id: string;
-  section: string;
-  title: string;
-  url: string;
-  content: string;
-}[] = [];
+const documents: CatalogDocument[] = [];
 const search: SearchDocument[] = JSON.parse(
   await readFile(new URL("search.en.json", publicRoot), "utf8"),
 );
@@ -95,6 +90,7 @@ await writeFile(
   new URL("documents.json", output),
   JSON.stringify({
     version: manifest.version,
+    bundle: createBundle(manifest.version, packages, documents),
     packages,
     documents,
   }),

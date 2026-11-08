@@ -3,20 +3,20 @@ import { readFileSync } from "node:fs";
 import { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
 
+import { toolNames, type Catalog } from "./catalog.js";
 import { checkCss } from "./check-css.js";
+import { searchDocuments, relatedExamples } from "./search.js";
+import { getSections } from "./sections.js";
+const catalog: Catalog = JSON.parse(
+  readFileSync(new URL("./documents.json", import.meta.url), "utf8"),
+);
 
-type Document = {
-  id: string;
-  section: string;
-  title: string;
-  url: string;
-  content: string;
-};
-const catalog: { version: string; packages: Record<string, string>; documents: Document[] } =
-  JSON.parse(readFileSync(new URL("./documents.json", import.meta.url), "utf8"));
-
-function textResult(value: unknown) {
-  return { content: [{ type: "text" as const, text: JSON.stringify(value) }] };
+function textResult(value: Record<string, unknown>) {
+  return {
+    content: [
+      { type: "text" as const, text: JSON.stringify({ ...value, bundle: catalog.bundle }) },
+    ],
+  };
 }
 
 export function createServer() {
@@ -28,10 +28,10 @@ export function createServer() {
     },
   );
   server.registerTool(
-    "search_docs",
+    toolNames.search,
     {
       description:
-        "Find bolerish components, exact API references, real examples, tokens and Foundations. An empty query lists documents. Returns IDs for get_doc and the bundled package versions.",
+        "Find bolerish components, exact API references, real examples, tokens and Foundations. Ranks text and supported Korean/English task phrases with matchReasons. Filter by section and paginate with limit/offset. An empty query lists documents; returns get_doc IDs and bundled package versions.",
       inputSchema: z.object({
         query: z.string().max(200).default(""),
         section: z
@@ -43,18 +43,14 @@ export function createServer() {
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     ({ query, section, limit, offset }) => {
-      const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
-      const matches = catalog.documents.filter((doc) => {
-        if (section && doc.section !== section) return false;
-        const text = `${doc.id} ${doc.title} ${doc.content}`.toLowerCase();
-        return terms.every((term) => text.includes(term));
-      });
+      const matches = searchDocuments(catalog.documents, query, section);
       return textResult({
         packages: catalog.packages,
         total: matches.length,
         nextOffset: offset + limit < matches.length ? offset + limit : null,
         documents: matches.slice(offset, offset + limit).map(({ content, ...doc }) => ({
           ...doc,
+          relatedExamples: relatedExamples(catalog.documents, doc.id),
           description: content
             .split("\n")
             .filter((line) => line.trim() && !line.startsWith("#"))
@@ -66,25 +62,52 @@ export function createServer() {
     },
   );
   server.registerTool(
-    "get_doc",
+    toolNames.get,
     {
       description:
-        "Read a complete bolerish reference by its exact search_docs ID, including original example source or token definitions where available. Check bundled versions against the installed package.",
-      inputSchema: z.object({ id: z.string().min(1).max(200) }),
+        "Read a bolerish reference by its exact search_docs ID: full content, view outline, or one heading ID. Includes original examples where available and bundle snapshot metadata; compare bundled versions with installed packages.",
+      inputSchema: z.object({
+        id: z.string().min(1).max(200),
+        view: z.enum(["full", "outline"]).default("full"),
+        heading: z.string().trim().min(1).optional(),
+      }),
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
-    ({ id }) => {
+    ({ id, view, heading }) => {
       const document = catalog.documents.find((doc) => doc.id === id);
       if (!document)
         return {
           ...textResult({ error: `Unknown document: ${id}. Use search_docs to find an ID.` }),
           isError: true,
         };
-      return textResult({ packages: catalog.packages, document });
+      const sections = getSections(document.content);
+      if (heading && view === "outline")
+        return {
+          ...textResult({ error: "heading cannot be combined with outline" }),
+          isError: true,
+        };
+      const selected = heading ? sections.find((section) => section.id === heading) : undefined;
+      if (heading && !selected)
+        return { ...textResult({ error: `Unknown heading: ${heading}` }), isError: true };
+      const examples = relatedExamples(catalog.documents, id);
+      if (view === "outline")
+        return textResult({
+          packages: catalog.packages,
+          document: { ...document, content: undefined },
+          sections: sections.map(({ start: _start, end: _end, ...section }) => section),
+          relatedExamples: examples,
+        });
+      return textResult({
+        packages: catalog.packages,
+        relatedExamples: examples,
+        document: selected
+          ? { ...document, content: document.content.slice(selected.start, selected.end) }
+          : document,
+      });
     },
   );
   server.registerTool(
-    "check_css",
+    toolNames.css,
     {
       description:
         "Inspect supplied CSS text for raw color, typography and spacing values using @bolerish/lint policies. Returns located diagnostics and explicitly unreviewed declarations. No file access, fixes, import loading or conformance certification. Submit full relevant blocks rather than only selected declarations.",

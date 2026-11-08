@@ -30,6 +30,103 @@ test("stdio tools find and return bundled references outside the checkout", asyn
     return JSON.parse(block.text);
   }
 
+  await t.test("task phrases expose components, foundations and valid examples", async () => {
+    for (const [queries, component, foundation] of [
+      [["저장 실패 알림", "save failure notification"], "components/toast", "foundations/feedback"],
+      [["즉시 적용되는 설정", "immediate setting"], "components/switch", "foundations/overview"],
+      [["선택된 행", "selected row"], "components/table", "foundations/state"],
+    ] as const) {
+      for (const query of queries) {
+        const result = await call("search_docs", { query });
+        assert.deepEqual(
+          result.documents.map((doc: { id: string }) => doc.id).sort(),
+          [component, foundation].sort(),
+        );
+        assert.equal(result.total, 2);
+        for (const doc of result.documents) {
+          assert.equal("rank" in doc, false);
+          assert.deepEqual(doc.matchReasons, ["keyword"]);
+        }
+        const filtered = await call("search_docs", { query, section: "foundations", limit: 1 });
+        assert.equal(filtered.total, 1);
+        assert.equal(filtered.documents[0].id, foundation);
+        assert.equal(filtered.nextOffset, null);
+        const first = await call("search_docs", { query, limit: 1 });
+        assert.equal(first.total, 2);
+        assert.equal(first.nextOffset, 1);
+        const last = await call("search_docs", { query, limit: 1, offset: 1 });
+        assert.equal(last.total, 2);
+        assert.equal(last.nextOffset, null);
+        assert.notEqual(first.documents[0].id, last.documents[0].id);
+        const doc = result.documents.find((doc: { id: string }) => doc.id === component);
+        assert.ok(doc.relatedExamples.length > 0);
+        for (const id of doc.relatedExamples) {
+          assert.ok(id.startsWith(`examples/${component.slice(11)}/`));
+          assert.equal((await call("get_doc", { id })).document.id, id);
+        }
+        assert.equal((await call("search_docs", { query: query + " zzz-no-matching" })).total, 0);
+      }
+    }
+    for (const query of [
+      "notselected row",
+      "selected rowsomething",
+      "미선택된 행",
+      "선택된 행동",
+    ]) {
+      assert.equal((await call("search_docs", { query })).total, 0, query);
+    }
+  });
+
+  await t.test("bundle, ranking, phrases and section views", async () => {
+    const { createHash } = await import("node:crypto");
+    const catalog = JSON.parse(
+      await readFile(new URL("../dist/documents.json", import.meta.url), "utf8"),
+    );
+    const full = await call("get_doc", { id: "components/button" });
+    assert.equal(
+      full.bundle.contentHash,
+      createHash("sha256")
+        .update(
+          JSON.stringify({
+            version: catalog.version,
+            packages: catalog.packages,
+            documents: catalog.documents,
+          }),
+        )
+        .digest("hex"),
+    );
+    assert.equal(full.bundle.documentCount, catalog.documents.length);
+    assert.deepEqual([...full.bundle.tools].sort(), tools.map((t) => t.name).sort());
+    assert.equal(
+      (await call("search_docs", { query: "button" })).documents[0].id,
+      "components/button",
+    );
+    for (const [query, id] of [
+      ["저장 실패 알림", "components/toast"],
+      ["즉시 적용되는 설정", "components/switch"],
+      ["선택된 행", "components/table"],
+    ]) {
+      assert.equal((await call("search_docs", { query })).documents[0].id, id);
+      assert.equal((await call("search_docs", { query: query + " zzz-no-matching" })).total, 0);
+    }
+    const outline = await call("get_doc", { id: "components/button", view: "outline" });
+    assert.ok(outline.sections.length);
+    assert.ok(full.relatedExamples.includes("examples/button/Default"));
+    assert.deepEqual(outline.relatedExamples, full.relatedExamples);
+    const selected = await call("get_doc", {
+      id: "components/button",
+      heading: outline.sections[0].id,
+    });
+    assert.ok(full.document.content.includes(selected.document.content));
+    assert.deepEqual(selected.relatedExamples, full.relatedExamples);
+    for (const args of [
+      { id: "components/button", heading: "" },
+      { id: "components/button", heading: "missing" },
+      { id: "components/button", view: "outline", heading: "x" },
+    ])
+      assert.equal((await client.callTool({ name: "get_doc", arguments: args })).isError, true);
+  });
+
   await t.test(
     "search intersects terms, filters sections and reports truncated totals",
     async () => {

@@ -114,6 +114,27 @@ All tools identify the bundled UI, tokens and lint versions. References are
 English. Search matches all whitespace-separated terms without case sensitivity;
 it is a text search, not semantic search or translation.
 
+## Focused retrieval and bundle identity
+
+Search results include `matchReasons` and `relatedExamples` IDs. A small explicit
+set of English and Korean task phrases connects components and relevant
+Foundations; this is not general translation. Registered phrases require token
+boundaries and normalize whitespace. Multiple phrases intersect their allowed
+documents, and all remaining query terms must still match. Internal ranking is
+not returned.
+
+`get_doc({id, view: "outline"})` returns heading IDs. Pass an exact returned ID
+as `heading` to select original source from that heading through its children,
+ending before the next equal or higher heading. Default `view: "full"` preserves
+the complete original. Unknown document or heading IDs and combining outline
+with heading return errors.
+
+Responses include `bundle`: `schemaVersion` describes the metadata schema,
+`contentHash` identifies the bundled document content, `documentCount` counts
+bundled documents, and `tools` lists registered tools. This identifies content;
+it does not verify all code, installed consumer versions, deployment or a live
+connection.
+
 ## Source and freshness
 
 The build regenerates the existing canonical Markdown and search catalog with
