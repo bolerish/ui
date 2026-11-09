@@ -142,7 +142,7 @@ function Document({ children }: { children: ReactNode }) {
     document.cookie = `bolerish-docs-settings=${encodeURIComponent(JSON.stringify(saved))}; Path=/; Max-Age=31536000; SameSite=Lax${window.location.protocol === "https:" ? "; Secure" : ""}`;
   }, [routeSettings, isolated, hydrated]);
   const runtimeStyle = {
-    "--docs-background": colorVars.bgCanvas,
+    "--docs-background": colorVars.bgSurface,
     "--docs-surface": colorVars.bgSurface,
     "--docs-subtle": colorVars.bgSubtle,
     "--docs-selected": colorVars.bgSelected,
@@ -203,7 +203,6 @@ function Document({ children }: { children: ReactNode }) {
 
 const styles = stylex.create({
   html: {
-    background: colorVars.bgCanvas,
     color: colorVars.fgPrimary,
     fontFamily: typo.fontFamilyBody,
     scrollbarColor: "var(--docs-control) transparent",
@@ -211,6 +210,8 @@ const styles = stylex.create({
     scrollbarGutter: "stable",
   },
   body: {
+    backgroundColor: colorVars.bgSurface,
+    minHeight: "100dvh",
     marginTop: "0",
     marginRight: "0",
     marginBottom: "0",

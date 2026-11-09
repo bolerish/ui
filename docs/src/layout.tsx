@@ -581,13 +581,13 @@ const styles = stylex.create({
     },
     // The shell header follows the panel opacity/filter preferences without adding a panel wrapper.
     backgroundColor: {
-      default: colorVars.bgCanvas,
+      default: colorVars.bgSurface,
       [stylex.when.ancestor('[data-bolerish-surface="liquid"]', documentMarker)]: {
-        default: colorVars.bgCanvas,
+        default: colorVars.bgSurface,
         "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))":
           {
-            default: `color-mix(in srgb, ${colorVars.bgCanvas} var(--bolerish-panel-opacity, 100%), transparent)`,
-            "@media (prefers-reduced-transparency: reduce)": colorVars.bgCanvas,
+            default: `color-mix(in srgb, ${colorVars.bgSurface} var(--bolerish-panel-opacity, 100%), transparent)`,
+            "@media (prefers-reduced-transparency: reduce)": colorVars.bgSurface,
             "@media (forced-colors: active)": "Canvas",
           },
       },
@@ -803,7 +803,7 @@ const styles = stylex.create({
     },
     background: {
       default: null,
-      "@media (max-width: 760px)": colorVars.bgCanvas,
+      "@media (max-width: 760px)": colorVars.bgSurface,
     },
     borderBottomWidth: {
       default: null,

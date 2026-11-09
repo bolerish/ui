@@ -1,4 +1,5 @@
 import { colorVars, spacingVars, typo } from "@bolerish/tokens/semantic.stylex";
+import { Link } from "@bolerish/ui/link";
 import * as stylex from "@stylexjs/stylex";
 
 import { useLocale } from "@/shared/model/locale";
@@ -16,16 +17,18 @@ export function TableOfContents({
       aria-label={locale === "ko" ? "이 페이지에서" : "On this page"}
     >
       <p {...stylex.props(styles.title)}>{locale === "ko" ? "이 페이지에서" : "On this page"}</p>
-      {(headings[locale] ?? []).map((heading) => (
-        <a {...stylex.props(styles.link)} href={`#${heading.id}`} key={heading.id}>
-          {heading.title}
-        </a>
-      ))}
+      <div {...stylex.props(styles.links)}>
+        {(headings[locale] ?? []).map((heading) => (
+          <Link variant="plain" href={`#${heading.id}`} key={heading.id}>
+            {heading.title}
+          </Link>
+        ))}
+      </div>
     </nav>
   );
 }
 
-// These dimensions preserve the documentation layout; controls keep their own DS behavior.
+// The sticky offset follows the measured site header; Link owns its interaction styles.
 const styles = stylex.create({
   root: {
     alignSelf: "start",
@@ -41,25 +44,24 @@ const styles = stylex.create({
     scrollbarGutter: "stable",
     scrollbarWidth: "thin",
     fontSize: typo.fontSizeXs,
-    lineHeight: "1.6",
-    color: "var(--docs-muted)",
+    lineHeight: typo.lineHeightNormal,
+    color: colorVars.fgSecondary,
+    flexDirection: "column",
+    gap: spacingVars.space4,
     display: {
-      default: null,
+      default: "flex",
       "@media (max-width: 1150px)": "none",
     },
   },
   title: {
     fontWeight: typo.fontWeightMedium,
-    marginBottom: `calc(${spacingVars.space0_5} * 7.0)`,
+    marginBlock: spacingVars.space0,
     color: colorVars.fgPrimary,
   },
-  link: {
-    display: "block",
-    textDecoration: "none",
-    marginBlock: `calc(${spacingVars.space0_5} * 4.5)`,
-    color: {
-      default: null,
-      ":hover": colorVars.fgPrimary,
-    },
+  links: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: spacingVars.space2,
   },
 });

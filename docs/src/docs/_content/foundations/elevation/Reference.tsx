@@ -11,7 +11,9 @@ import { useLayoutEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
 import korean from "@/docs/_config/locales/reference.ko.json";
+import { useColorMode } from "@/shared/lib/useColorMode";
 import { useLocale } from "@/shared/model/locale";
+import { useDocumentationGlobals } from "@/shared/model/useDocumentationGlobals";
 const translations: Record<string, string> = korean;
 const styles = stylex.create({
   page: {
@@ -123,6 +125,8 @@ function Example({
   );
 }
 function TokenValue({ token }: { token: string }) {
+  const globals = useDocumentationGlobals();
+  const colorMode = useColorMode(globals.colorMode);
   const elementRef = useRef<HTMLElement>(null);
   const [value, setValue] = useState(token);
   useLayoutEffect(() => {
@@ -134,7 +138,7 @@ function TokenValue({ token }: { token: string }) {
         : "";
     const nextValue = resolvedValue || token;
     setValue((currentValue) => (currentValue === nextValue ? currentValue : nextValue));
-  }, [token]);
+  }, [token, colorMode]);
   return (
     <code ref={elementRef} {...stylex.props(styles.token)}>
       {value}

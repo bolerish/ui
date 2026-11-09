@@ -1,5 +1,38 @@
 import { expect, test } from "@playwright/test";
 
+for (const locale of ["en", "ko"] as const) {
+  test(`table of contents uses accessible themed links ${locale}`, async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(`/docs/foundations/elevation${locale === "ko" ? "/ko" : ""}?colorMode=dark`);
+    await page.waitForLoadState("networkidle");
+    const contents = page.getByRole("navigation", {
+      name: locale === "ko" ? "이 페이지에서" : "On this page",
+      exact: true,
+    });
+    const headingId = locale === "ko" ? "토큰-목록" : "token-reference";
+    const link = contents.locator(`a[href="#${headingId}"]`);
+    await expect(link).toBeVisible();
+    await expect(link).toHaveCSS("color", "rgb(228, 228, 231)");
+    await expect(link).toHaveCSS("text-decoration-line", "none");
+    await link.hover();
+    await expect(link).toHaveCSS("opacity", "0.72");
+    await page.keyboard.press("Tab");
+    await link.focus();
+    await expect(link).toHaveCSS("outline-style", "solid");
+    await link.click();
+    await expect.poll(() => decodeURIComponent(new URL(page.url()).hash.slice(1))).toBe(headingId);
+    await expect
+      .poll(() =>
+        page.locator(`#${headingId}`).evaluate((heading) => {
+          const header = document.querySelector("header")!.getBoundingClientRect();
+          const rect = heading.getBoundingClientRect();
+          return rect.top >= header.bottom && rect.top < innerHeight;
+        }),
+      )
+      .toBe(true);
+  });
+}
+
 test("language selection navigates to the matching document and retain appearance preferences", async ({
   page,
 }) => {

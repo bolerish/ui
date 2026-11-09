@@ -131,7 +131,7 @@ test(
         await expect(
           previewPage.getByRole("button", { name: "Preview", exact: true }).first(),
         ).toHaveAttribute("aria-pressed", "true");
-        const expected = preference === "light" ? "rgb(238, 238, 238)" : "rgb(8, 9, 10)";
+        const expected = preference === "light" ? "rgb(255, 255, 255)" : "rgb(15, 16, 17)";
         await expect(canvas).toHaveCSS("background-color", expected);
         await previewPage.unroute("**/*");
         await previewPage.reload({ waitUntil: "networkidle" });
