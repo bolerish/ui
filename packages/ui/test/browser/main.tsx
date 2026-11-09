@@ -1,11 +1,11 @@
 import * as stylex from "@stylexjs/stylex";
 import { createRoot } from "react-dom/client";
 
-import ArrowOnlyCarousel from "../../../../docs/src/app/(site)/docs/_content/components/carousel/ArrowOnly";
-import InsideCarousel from "../../../../docs/src/app/(site)/docs/_content/components/carousel/InsideControls";
-import VerticalCarousel from "../../../../docs/src/app/(site)/docs/_content/components/carousel/Vertical";
-import InputVariants from "../../../../docs/src/app/(site)/docs/_content/components/input/Variants";
-import ToastPositions from "../../../../docs/src/app/(site)/docs/_content/components/toast/Positions";
+import ArrowOnlyCarousel from "../../../../docs/src/docs/_content/components/carousel/ArrowOnly";
+import InsideCarousel from "../../../../docs/src/docs/_content/components/carousel/InsideControls";
+import VerticalCarousel from "../../../../docs/src/docs/_content/components/carousel/Vertical";
+import InputVariants from "../../../../docs/src/docs/_content/components/input/Variants";
+import ToastPositions from "../../../../docs/src/docs/_content/components/toast/Positions";
 import { Button } from "../../dist/button.js";
 import { Card, CardContent, CardDescription } from "../../dist/card.js";
 import {

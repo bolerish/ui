@@ -10,10 +10,7 @@ import {
   openedExamples,
 } from "../test/browser/example-coverage";
 
-const directory = new URL(
-  "../../../docs/src/app/(site)/docs/_content/components/",
-  import.meta.url,
-);
+const directory = new URL("../../../docs/src/docs/_content/components/", import.meta.url);
 test("all documented Default examples have an explicit audit decision", async () => {
   const actual = readdirSync(directory)
     .filter((name) => existsSync(new URL(name + "/Default.tsx", directory)))

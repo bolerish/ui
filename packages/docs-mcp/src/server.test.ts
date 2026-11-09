@@ -172,10 +172,7 @@ test("stdio tools find and return bundled references outside the checkout", asyn
     assert.ok(token.document.content.includes(tokenSource));
     const example = await call("get_doc", { id: "examples/button/Default" });
     const exampleSource = await readFile(
-      new URL(
-        "../../../docs/src/app/(site)/docs/_content/components/button/Default.tsx",
-        import.meta.url,
-      ),
+      new URL("../../../docs/src/docs/_content/components/button/Default.tsx", import.meta.url),
       "utf8",
     );
     assert.ok(example.document.content.includes(exampleSource));

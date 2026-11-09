@@ -54,13 +54,28 @@ test("document navigation stays with its content until the home gallery is ready
     await route.continue();
   });
   try {
-    await page.locator("a.brand").click();
+    await page.getByRole("link", { name: "bolerish/ui", exact: true }).click();
     await pending;
     await expect(page.locator("#docs-navigation")).toBeVisible();
     await expect(page.getByRole("heading", { name: "Tabs", exact: true })).toBeVisible();
   } finally {
     release();
   }
-  await expect(page.locator(".home-gallery")).toBeVisible();
+  await expect(page.locator("[data-docs=home-gallery]")).toBeVisible();
   await expect(page.locator("#docs-navigation")).toHaveCount(0);
+});
+
+test("mobile navigation stays closed when returning from home", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/docs/components/tabs");
+  await page.waitForLoadState("networkidle");
+  await page.getByRole("button", { name: "Toggle navigation" }).click();
+  await expect(page.locator("#docs-navigation")).toBeVisible();
+  await page.getByRole("link", { name: "bolerish/ui", exact: true }).click();
+  await expect(page.locator("[data-docs=home-gallery]")).toBeVisible();
+  await page.goBack();
+  await expect(page.getByRole("heading", { name: "Tabs", exact: true })).toBeVisible();
+  await expect(page.locator("#docs-navigation")).toBeHidden();
+  await page.getByRole("button", { name: "Toggle navigation" }).click();
+  await expect(page.locator("#docs-navigation")).toBeVisible();
 });

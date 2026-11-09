@@ -85,7 +85,7 @@ test("every sitemap page exposes its own metadata, one primary heading and a lan
       ),
       `Missing alternate language metadata: ${path}`,
     );
-    const selector = html.match(/<button\b[^>]*class="[^"]*language-select[^>]*>/)?.[0];
+    const selector = html.match(/<button\b[^>]*data-docs="language-select"[^>]*>/)?.[0];
     assert.ok(selector, `Missing language selector: ${path}`);
     assert.ok(selector.includes('role="combobox"'), path);
     assert.ok(selector.includes(`aria-label="${locale === "ko" ? "언어" : "Language"}"`), path);

@@ -1,0 +1,129 @@
+import PositionsSource from "./Positions.tsx?raw";
+import { LocaleContent } from "@/shared/model/locale";
+import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
+import StatesSource from "./States.tsx?raw";
+import MultipleNotificationsSource from "./MultipleNotifications.tsx?raw";
+import ActionsSource from "./Actions.tsx?raw";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Toast
+
+현재 작업에서 벗어나지 않고 결과를 확인할 수 있습니다.
+
+완료에는 짧은 알림을 사용하고 계속 알아야 하는 상태는 `Banner`나 페이지에 남깁니다.
+
+> Undo는 데이터를 복원해야 합니다. 알림을 닫는 것은 복구가 아닙니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Toast
+
+Confirm a result without pulling people away from their current task.
+
+Use a short-lived notice for completion and keep persistent conditions in `Banner` or the page itself.
+
+> Undo must restore data; closing a notification is not recovery.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="toast--Default" source={DefaultSource} isolated height={420} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+### 사용할 때
+
+보관함으로 이동한 결과처럼 현재 작업을 벗어나지 않고 완료를 알릴 때 사용합니다. 계속 보여야 하는 상태는 [Banner](/docs/components/banner), 값 수정은 `FieldError`를 사용합니다. 작업을 막는 실패를 토스트에만 남기지 않습니다.
+
+사용자 정의 `type` 문자열은 허용합니다. 기본 상태만 아이콘을 제공하며, 알 수 없는 상태는 제목·설명으로 전달됩니다.
+
+### 행동과 유지할 정보
+
+제목에는 결과를 씁니다. 설명은 결과의 영향이나 다음 행동을 알릴 때만 추가합니다. Undo는 실제로 데이터를 복원하는 처리와 연결합니다. 알림을 닫는 것은 작업을 되돌리는 것이 아닙니다.
+
+진행 중인 작업과 그 결과는 알림 하나의 상태로 이어 줍니다. 각각 별도 알림을 추가해 경쟁하게 하지 않습니다. 높은 우선순위는 읽고 있는 안내를 중단할 만큼 시급한 정보에만 사용합니다. 아이콘이 빨간색이라는 이유로 우선순위를 높이지 않습니다.
+
+### 닫기
+
+앱에는 공유 `toast` 관리자당 `Toaster` 하나만 마운트합니다. 여러 개를 마운트하면 같은 알림이 중복 표시됩니다. 개별 닫기 버튼은 `closeLabel`, 전체 닫기는 `clearAllProps.children`과 `clearAllProps["aria-label"]`로 현지화합니다.
+
+> Escape는 가장 최근 알림부터 하나씩 닫습니다. 입력 중이거나 다른 컨트롤이 Escape를 처리한 경우 알림을 유지합니다. Dismiss all은 요청이 아니라 알림을 지웁니다. 필요한 재시도나 복구 행동은 토스트가 사라진 뒤에도 페이지에서 사용할 수 있게 합니다. `clearAllProps.children`에 제품 문구를 지정합니다.
+
+`Toaster`의 `position`으로 `top-left`, `top-right`, `bottom-left`, `bottom-right`를 지정합니다. 중앙 위치도 지원합니다. 공유 알림 관리자마다 `Toaster`는 하나만 사용하세요.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+### When to use
+
+Use Toast to confirm a completed action without taking the user away from their task, such as moving an item to an archive. Use [Banner](/docs/components/banner) when the condition must remain visible, and `FieldError` when a value needs correction. A toast must not be the only record of a failure that blocks the task.
+
+Custom `type` strings remain supported. Built-in states provide icons; unknown states communicate through the title and description.
+
+### Actions and persistence
+
+Keep the title about the result. Add a description only when it explains the consequence or next step. Offer Undo only when its handler actually restores the data; dismissing the notification does not undo the operation.
+
+Use one notification lifecycle for a pending operation and its result instead of adding separate, competing messages. Reserve high priority for time-sensitive information that warrants interrupting an announcement. A red icon alone does not justify higher priority.
+
+### Dismissal
+
+Mount one `Toaster` per shared `toast` manager. Multiple instances display the same notifications. Localize individual dismiss buttons with `closeLabel`, and the clear-all action with `clearAllProps.children` and `clearAllProps["aria-label"]`.
+
+> Escape dismisses the newest notification, one at a time. Editing fields and controls that handle Escape keep their notifications. Dismiss all clears notifications, not requests. Keep any required retry or recovery action available in the page after the toast disappears. Set `clearAllProps.children` to the product's wording.
+
+Set `Toaster` position to `top-left`, `top-right`, `bottom-left`, or `bottom-right`. Center positions are also supported. Mount only one `Toaster` per shared toast manager.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## More examples"} />
+
+<LocalizedMarkdown text={"### Actions"} />
+
+<LocalizedMarkdown
+  text={
+    "Use an action for reversible work. This example closes the notification when\nUndo is pressed; in your application, restore the archived item in that handler.\nUse `toast.promise()` to follow a pending operation through success or failure."
+  }
+/>
+
+<ComponentPreview name="toast--Actions" source={ActionsSource} isolated height={420} />
+
+<LocalizedMarkdown text={"### Multiple notifications"} />
+
+<LocalizedMarkdown
+  text={
+    "The latest three notifications stack. Hover over the stack to expand it.\nPress Escape to dismiss one notification at a time, newest first.\nCustomize the clear-all label with `clearAllProps.children`."
+  }
+/>
+
+<ComponentPreview
+  name="toast--MultipleNotifications"
+  source={MultipleNotificationsSource}
+  isolated
+  height={420}
+/>
+
+<LocalizedMarkdown text={"### States"} />
+
+<LocalizedMarkdown
+  text={
+    "Combine icons and text to distinguish success, information, warnings, and errors.\nUse high priority for errors that need immediate attention."
+  }
+/>
+
+<ComponentPreview name="toast--States" source={StatesSource} isolated height={420} />
+
+<LocalizedMarkdown text={"### Position"} />
+
+<ComponentPreview name="toast--Positions" source={PositionsSource} isolated height={420} />

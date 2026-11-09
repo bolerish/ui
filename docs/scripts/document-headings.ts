@@ -7,7 +7,7 @@ import Markdown from "react-markdown";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
-import korean from "../src/app/(site)/docs/_config/locales/content.ko.json" with { type: "json" };
+import korean from "../src/docs/_config/locales/content.ko.json" with { type: "json" };
 
 type Node = {
   type: string;

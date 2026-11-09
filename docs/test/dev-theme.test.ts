@@ -24,7 +24,7 @@ test(
         };
         state.missingDocumentFrames = 0;
         function sample() {
-          const article = document.querySelector("article.document");
+          const article = document.querySelector("article[data-docs=document]");
           if (article && !state.firstDocument) state.firstDocument = article;
           if (state.firstDocument && !article) state.missingDocumentFrames!++;
           requestAnimationFrame(sample);
@@ -52,7 +52,7 @@ test(
           return {
             same:
               Boolean(state.firstDocument) &&
-              state.firstDocument === document.querySelector("article.document"),
+              state.firstDocument === document.querySelector("article[data-docs=document]"),
             missingFrames: state.missingDocumentFrames,
           };
         });
@@ -71,17 +71,17 @@ test(
         );
         await codePage.goto(url, { waitUntil: "networkidle" });
         const dark = preference !== "light";
-        const block = codePage.locator(".docs-codeblock").first();
+        const block = codePage.locator("[data-docs=codeblock]").first();
         await expect(block).toBeVisible();
         await expect(block).toHaveCSS(
           "background-color",
           dark ? "rgb(22, 23, 24)" : "rgb(245, 245, 245)",
         );
         await expect(
-          codePage.locator(dark ? ".theme-icon-dark" : ".theme-icon-light"),
+          codePage.locator(dark ? "[data-docs=theme-icon-dark]" : "[data-docs=theme-icon-light]"),
         ).toBeVisible();
         const before = await block
-          .locator(".token")
+          .locator("[data-code-token]")
           .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color));
         await codePage.unroute("**/*");
         await codePage.reload({ waitUntil: "networkidle" });
@@ -90,7 +90,7 @@ test(
           dark ? "rgb(22, 23, 24)" : "rgb(245, 245, 245)",
         );
         const after = await block
-          .locator(".token")
+          .locator("[data-code-token]")
           .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color));
         assert.deepEqual(after, before, `${preference}: token colors before and after hydration`);
         await codePage.close();
@@ -105,8 +105,8 @@ test(
           `${server.resolvedUrls!.local[0]}docs/components/toggle-group?colorMode=${preference}`,
           { waitUntil: "networkidle" },
         );
-        const canvas = previewPage.locator(".preview-canvas").first();
-        const toc = previewPage.locator(".table-of-contents a");
+        const canvas = previewPage.locator("[data-docs=preview-canvas]").first();
+        const toc = previewPage.locator("[data-docs=table-of-contents] a");
         const headingIds = await previewPage
           .locator("article h2[id]")
           .evaluateAll((nodes) => nodes.map((node) => `#${node.id}`));
@@ -116,7 +116,9 @@ test(
           headingIds,
         );
         const beforeColors = await previewPage
-          .locator(".site-header a, .site-header button, .table-of-contents a")
+          .locator(
+            "[data-docs=site-header] a, [data-docs=site-header] button, [data-docs=table-of-contents] a",
+          )
           .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color));
         const selectedTab = previewPage
           .getByRole("button", { name: "Preview", exact: true })
@@ -142,7 +144,9 @@ test(
         await expect(toc).toHaveCount(headingIds.length);
         assert.deepEqual(
           await previewPage
-            .locator(".site-header a, .site-header button, .table-of-contents a")
+            .locator(
+              "[data-docs=site-header] a, [data-docs=site-header] button, [data-docs=table-of-contents] a",
+            )
             .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color)),
           beforeColors,
           `${preference}: header and TOC colors survive hydration`,

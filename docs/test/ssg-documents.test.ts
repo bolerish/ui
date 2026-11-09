@@ -19,12 +19,12 @@ test(
         const html = await readFile(join(root.pathname, file), "utf8");
         await page.setContent(html, { waitUntil: "domcontentloaded" });
         const headings = await page
-          .locator("article.document h2[id]")
+          .locator("article[data-docs=document] h2[id]")
           .evaluateAll((nodes) =>
             nodes.map((node) => ({ id: `#${node.id}`, title: node.textContent })),
           );
         const toc = await page
-          .locator(".table-of-contents a")
+          .locator("[data-docs=table-of-contents] a")
           .evaluateAll((nodes) =>
             nodes.map((node) => ({ id: node.getAttribute("href"), title: node.textContent })),
           );

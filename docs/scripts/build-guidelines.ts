@@ -5,7 +5,7 @@ import { searchText, type SearchDocument } from "../src/shared/lib/search.ts";
 import { siteOrigin } from "../src/shared/lib/site.ts";
 import { guideMarkdown } from "./guide-markdown.ts";
 
-const source = new URL("../src/app/(site)/docs/_content/foundations/", import.meta.url);
+const source = new URL("../src/docs/_content/foundations/", import.meta.url);
 const output = new URL("../public/", import.meta.url);
 const checking = process.argv.includes("--check");
 if (!checking) await rm(new URL("llms-full.en.txt", output), { force: true });
@@ -36,14 +36,14 @@ async function readPage(directory: URL, suffix: string) {
 }
 
 const order = JSON.parse(await readFile(new URL("order.json", source), "utf8"));
-const components = new URL("../src/app/(site)/docs/_content/components/", import.meta.url);
+const components = new URL("../src/docs/_content/components/", import.meta.url);
 const componentNames = (await readdir(components)).sort();
-const apiSource = new URL("../src/app/(site)/docs/_content/api/", import.meta.url);
+const apiSource = new URL("../src/docs/_content/api/", import.meta.url);
 const apiNames = (await readdir(apiSource, { withFileTypes: true }))
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
   .sort();
-const guideSource = new URL("../src/app/(site)/docs/_content/guides/", import.meta.url);
+const guideSource = new URL("../src/docs/_content/guides/", import.meta.url);
 const guides = (await readdir(guideSource)).filter((name) => name.endsWith(".mdx")).sort();
 const guideOutput = new URL("guides/", output);
 if (!checking) {

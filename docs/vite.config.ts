@@ -20,7 +20,7 @@ const markdownDependencies = ["react-markdown", "rehype-slug", "remark-gfm"];
 
 const pages = ["/", "/ko"];
 for (const section of ["guides", "components", "foundations", "api"]) {
-  const directory = new URL(`./src/app/(site)/docs/_content/${section}/`, import.meta.url);
+  const directory = new URL(`./src/docs/_content/${section}/`, import.meta.url);
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
     if (
       section === "guides"
@@ -84,12 +84,12 @@ export default defineConfig({
         // Keep SSG route views available when native navigation cancels chunk requests.
         // MDX documents and examples retain their separate dynamic imports.
         codeSplittingOptions: { defaultBehavior: [["errorComponent"], ["notFoundComponent"]] },
-        entry: "./app/router.tsx",
-        routesDirectory: "app",
-        generatedRouteTree: "app/routeTree.gen.ts",
+        entry: "./index.tsx",
+        routesDirectory: ".",
+        generatedRouteTree: "routeTree.gen.ts",
         indexToken: "page",
         routeFileIgnorePattern:
-          "(^|/)(_components|_lib|_content|_config)(/|$)|(^|/)(router[.]tsx|routeTree[.]gen[.]ts)$|[.](test|spec)[.]",
+          "(^|/)(_ui|_api|_model|_lib|_content|_config|_shared|shared)(/|$)|(^|/)(index[.]tsx|layout[.]tsx|routeTree[.]gen[.]ts)$|[.](test|spec)[.]",
       },
       prerender: {
         enabled: true,

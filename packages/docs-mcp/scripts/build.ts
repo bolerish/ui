@@ -40,7 +40,7 @@ for (const entry of search) {
     content: await readFile(new URL(path, publicRoot), "utf8"),
   });
   if (section !== "components") continue;
-  const directory = new URL(`docs/src/app/(site)/docs/_content/components/${entry.slug}/`, root);
+  const directory = new URL(`docs/src/docs/_content/components/${entry.slug}/`, root);
   for (const filename of (await readdir(directory)).sort()) {
     if (!filename.endsWith(".tsx") || filename.endsWith(".test.tsx")) continue;
     const name = filename.slice(0, -4);
@@ -50,7 +50,7 @@ for (const entry of search) {
       section: "examples",
       title: `${entry.title}: ${name}`,
       url: `${manifest.homepage}/preview/${entry.slug}--${name}`,
-      content: `# ${entry.title}: ${name}\n\nSource: docs/src/app/(site)/docs/_content/components/${entry.slug}/${filename}\n\n\`\`\`tsx\n${source}\`\`\`\n`,
+      content: `# ${entry.title}: ${name}\n\nSource: docs/src/docs/_content/components/${entry.slug}/${filename}\n\n\`\`\`tsx\n${source}\`\`\`\n`,
     });
   }
 }

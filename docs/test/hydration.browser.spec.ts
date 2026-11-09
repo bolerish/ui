@@ -18,7 +18,7 @@ for (const path of ["/", "/ko"]) {
       await page.addInitScript(() => {
         const state = window as Window & { initialGallery?: Element; initialField?: Element };
         const observer = new MutationObserver(() => {
-          const gallery = document.querySelector(".home-gallery");
+          const gallery = document.querySelector("[data-docs=home-gallery]");
           const field = gallery?.querySelector('input:not([type="hidden"])');
           if (gallery && field && !gallery.closest("[hidden]")) {
             state.initialGallery = gallery;
@@ -46,12 +46,12 @@ for (const path of ["/", "/ko"]) {
               requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
             }),
         );
-        await expect(page.locator(".gallery-item").first()).toBeVisible();
+        await expect(page.locator("[data-docs=gallery-item]").first()).toBeVisible();
       } finally {
         release();
       }
       await page.waitForLoadState("networkidle");
-      await expect(page.locator(".gallery-item").first()).toBeVisible();
+      await expect(page.locator("[data-docs=gallery-item]").first()).toBeVisible();
       await expect(page.locator("html")).toHaveAttribute(
         "data-bolerish-theme",
         saved ? "dark" : "light",
@@ -67,7 +67,7 @@ for (const path of ["/", "/ko"]) {
       expect(
         await page.evaluate(() => {
           const state = window as Window & { initialGallery?: Element; initialField?: Element };
-          const current = document.querySelector(".home-gallery");
+          const current = document.querySelector("[data-docs=home-gallery]");
           return (
             state.initialGallery?.isConnected &&
             state.initialGallery === current &&
@@ -78,7 +78,7 @@ for (const path of ["/", "/ko"]) {
       expect(errors).toEqual([]);
       await page.getByRole("button", { name: "Theme:", exact: false }).click();
       expect(
-        await page.locator(".home-gallery").evaluate((node) => {
+        await page.locator("[data-docs=home-gallery]").evaluate((node) => {
           const state = window as Window & { initialGallery?: Element; initialField?: Element };
           return (
             node === state.initialGallery &&
@@ -106,10 +106,10 @@ test("critical document entry loads home examples only after navigation", async 
   });
   await page.goto("/docs/getting-started");
   await page.waitForLoadState("networkidle");
-  await expect(page.locator(".document h1")).toBeVisible();
+  await expect(page.locator("[data-docs=document] h1")).toBeVisible();
   expect(examples).toEqual([]);
-  await page.locator(".brand").click();
-  await expect(page.locator(".gallery-item").first()).toBeVisible();
+  await page.getByRole("link", { name: "bolerish/ui", exact: true }).click();
+  await expect(page.locator("[data-docs=gallery-item]").first()).toBeVisible();
   expect(examples.length).toBeGreaterThan(0);
 });
 
@@ -139,7 +139,7 @@ for (const path of [
         state.missingDocumentFrames = 0;
         state.documentFrames = 0;
         function sample() {
-          const article = document.querySelector("article.document");
+          const article = document.querySelector("article[data-docs=document]");
           if (article && !state.firstDocument) state.firstDocument = article;
           if (state.firstDocument) {
             state.documentFrames!++;
@@ -150,7 +150,7 @@ for (const path of [
         requestAnimationFrame(sample);
       });
       await page.goto(path, { waitUntil: "networkidle" });
-      await expect(page.locator("article.document h1")).toBeVisible();
+      await expect(page.locator("article[data-docs=document] h1")).toBeVisible();
       const result = await page.evaluate(() => {
         const state = window as Window & {
           firstDocument?: Element;
@@ -160,7 +160,7 @@ for (const path of [
         return {
           same:
             Boolean(state.firstDocument) &&
-            state.firstDocument === document.querySelector("article.document"),
+            state.firstDocument === document.querySelector("article[data-docs=document]"),
           missing: state.missingDocumentFrames,
           frames: state.documentFrames ?? 0,
         };

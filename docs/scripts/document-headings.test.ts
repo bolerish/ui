@@ -90,7 +90,7 @@ This later paragraph must not replace the opening summary.
 
 test("compiled Guideline metadata reads the imported language-specific Markdown", async () => {
   const path = fileURLToPath(
-    new URL("../src/app/(site)/docs/_content/foundations/gradient/docs.mdx", import.meta.url),
+    new URL("../src/docs/_content/foundations/gradient/docs.mdx", import.meta.url),
   );
   const metadata = await compileMetadata(
     `

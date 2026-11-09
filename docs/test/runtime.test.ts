@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 const base = process.env.DOCS_URL ?? "http://localhost:3000";
-const contentRoot = new URL("../src/app/(site)/docs/_content/", import.meta.url);
+const contentRoot = new URL("../src/docs/_content/", import.meta.url);
 const componentCount = (
   await readdir(new URL("components/", contentRoot), { withFileTypes: true })
 ).filter((entry) => entry.isDirectory()).length;
@@ -36,7 +36,7 @@ test("localized search indexes are served independently from document HTML", asy
 test("all documents are served as prerendered HTML", async () => {
   let count = 0;
   for (const group of ["components", "foundations", "api"]) {
-    const root = new URL(`../src/app/(site)/docs/_content/${group}/`, import.meta.url);
+    const root = new URL(`../src/docs/_content/${group}/`, import.meta.url);
     for (const entry of await readdir(root, { withFileTypes: true })) {
       if (
         !entry.isDirectory() ||
@@ -119,19 +119,20 @@ test("localized home gallery and canonical redirects", async () => {
     assert.equal(response.status, 200);
     const html = await response.text();
     assert.match(html, new RegExp(`lang="${suffix ? "ko" : "en"}"`));
-    assert.match(html, /bolerish<span>\/ui/);
-    assert.equal((html.match(/class="gallery-item"/g) ?? []).length, componentCount);
+    assert.match(html, /bolerish(?:<wbr\b[^>]*>)?<span\b[^>]*>\/ui/);
+    assert.equal((html.match(/data-docs="gallery-item"/g) ?? []).length, componentCount);
     assert.match(html, /Create account/);
-    assert.equal((html.match(/<header><h3>/g) ?? []).length, componentCount);
+    assert.equal((html.match(/<header\b[^>]*><h3\b[^>]*>/g) ?? []).length, componentCount);
     assert.doesNotMatch(html, /<iframe/);
     assert.doesNotMatch(html, /gallery-placeholder|Could not load this page/);
-    const previews = html.match(/<div class="gallery-preview" lang="en">/g) ?? [];
+    const previews =
+      html.match(/<div\b[^>]*data-docs="gallery-preview"[^>]*lang="en"[^>]*>/g) ?? [];
     assert.equal(
       previews.length,
       componentCount,
       "every example must exist in the prerendered response",
     );
-    assert.doesNotMatch(html, /<div class="gallery-preview" lang="en"><\/div>/);
+    assert.doesNotMatch(html, /<div\b[^>]*data-docs="gallery-preview"[^>]*lang="en"[^>]*><\/div>/);
   }
   for (const path of [
     "/docs/getting-started",

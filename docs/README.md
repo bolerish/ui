@@ -28,20 +28,21 @@ Keep static asset routing in `wrangler.jsonc` and prerendering in `vite.config.t
 
 ```text
 src/
-  app/
-    __root.tsx
-    (site)/
-      page.tsx
-      _components/
-      _lib/
-      docs/
-        $guide/page.tsx
-        $section/$slug/{-$locale}/page.tsx
-        _components/
-        _lib/
-        _content/
-        _config/locales/
-    preview/$example/page.tsx
+  __root.tsx
+  index.tsx
+  page.tsx
+  layout.tsx
+  _ui/HomeGallery.tsx
+  _shared/
+  ko/page.tsx
+  docs/
+    $guide/page.tsx
+    $section/$slug/{-$locale}/page.tsx
+    _ui/
+    _shared/
+    _content/
+    _config/locales/
+  preview/$example/page.tsx
   shared/
     lib/
     model/
@@ -49,24 +50,24 @@ src/
 ```
 
 Routes use nested `page.tsx` files and TanStack's `__root.tsx`/`$param` conventions.
-Auxiliary folders are excluded from route discovery. Keep page-specific code
+The root route adapter mounts `layout.tsx`; the layout owns the header, search, preferences and navigation. Auxiliary folders and `layout.tsx` are excluded from route discovery. Keep page-specific code
 near its route; `shared` must not import app internals. Tests follow their owners.
 
 `@/` maps to `docs/src/` in TypeScript and Vite. Use it across directories and
 relative imports for adjacent files and Node-run tools/tests. Import UI through
-`@bolerish/ui` public subpaths. The generated `app/routeTree.gen.ts` is committed;
+`@bolerish/ui` public subpaths. The generated `src/routeTree.gen.ts` is committed;
 rebuild after route changes.
 
 ## Edit documentation
 
 Keep `docs.mdx` and its React examples together in
-`src/app/(site)/docs/_content/components/{name}/`. Pass actual `?raw` source to
+`src/docs/_content/components/{name}/`. Pass actual `?raw` source to
 `ComponentPreview`. Use two static `LocaleContent` blocks per language for the
 overview and usage text; shared previews stay outside them.
 
-Package guides live in `_content/guides/`. Add their entry to `_lib/catalog.ts`.
+Package guides live in `_content/guides/`. Add their entry to `src/_shared/catalog.ts`.
 Foundations use `guidelines.md` for English and `guidelines.kr.md` for Korean.
-[Translation conventions](<src/app/(site)/docs/_config/locales/README.md>) cover
+[Translation conventions](src/docs/_config/locales/README.md) cover
 prose and token descriptions. Verify props against the package source.
 
 Examples render inline. Use isolated previews only when shared global behavior

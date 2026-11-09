@@ -24,7 +24,7 @@ function inspectLayout() {
       detail: { viewport, width: document.documentElement.scrollWidth },
     });
   for (const n of document.querySelectorAll<HTMLElement>(
-    ".header-actions > button, .header-actions > a",
+    "[data-docs=header-actions] > button, [data-docs=header-actions] > a",
   )) {
     const r = n.getBoundingClientRect();
     if (!r.width || getComputedStyle(n).display === "none") continue;
@@ -35,14 +35,14 @@ function inspectLayout() {
         detail: { width: r.width, right: r.right, viewport },
       });
   }
-  const icon = document.querySelector(".documentation-search svg");
+  const icon = document.querySelector("[data-docs=documentation-search] svg");
   if (icon && icon.getBoundingClientRect().width < 16)
     issues.push({
       kind: "search-icon-clipped",
       target: "search",
       detail: icon.getBoundingClientRect().width,
     });
-  const language = document.querySelector(".language-select");
+  const language = document.querySelector("[data-docs=language-select]");
   if (innerWidth <= 760 && language && language.getBoundingClientRect().width > 0)
     issues.push({
       kind: "mobile-language-not-collapsed",
@@ -50,8 +50,8 @@ function inspectLayout() {
       detail: language.getBoundingClientRect().width,
     });
   const ctx = document.createElement("canvas").getContext("2d")!;
-  for (const n of document.querySelectorAll<HTMLElement>(".document th")) {
-    if (n.closest(".preview-canvas")) continue;
+  for (const n of document.querySelectorAll<HTMLElement>("[data-docs=document] th")) {
+    if (n.closest("[data-docs=preview-canvas]")) continue;
     const s = getComputedStyle(n);
     ctx.font = `${s.fontWeight} ${s.fontSize} ${s.fontFamily}`;
     const words = n.textContent?.match(/[a-zA-Z][a-zA-Z-]*/g) ?? [];
@@ -65,7 +65,7 @@ function inspectLayout() {
         detail: { available, longest },
       });
   }
-  for (const n of document.querySelectorAll<HTMLElement>(".document pre")) {
+  for (const n of document.querySelectorAll<HTMLElement>("[data-docs=document] pre")) {
     const content = n.parentElement!;
     const copy = content.parentElement?.querySelector("button");
     if (copy && content.getBoundingClientRect().right > copy.getBoundingClientRect().left + 1)
@@ -78,7 +78,9 @@ function inspectLayout() {
         },
       });
   }
-  for (const n of document.querySelectorAll<HTMLElement>(".preview-canvas, .gallery-preview")) {
+  for (const n of document.querySelectorAll<HTMLElement>(
+    "[data-docs=preview-canvas], [data-docs=gallery-preview]",
+  )) {
     if (n.scrollWidth > n.clientWidth + 2)
       issues.push({
         kind: "example-overflow",
@@ -114,7 +116,9 @@ for (const width of [320, 390, 768, 1024, 1440]) {
           await page.goto(path);
           await expect(page.locator("h1").first()).toBeVisible();
           await expect(
-            page.locator(route === "/" ? ".gallery-preview" : ".document").first(),
+            page
+              .locator(route === "/" ? "[data-docs=gallery-preview]" : "[data-docs=document]")
+              .first(),
           ).toBeVisible();
           await expect(page.locator("html")).toHaveAttribute("data-bolerish-theme", theme);
           const failures = await page.evaluate(inspectLayout);
@@ -185,7 +189,7 @@ for (const locale of ["en", "ko"] as const) {
       const search = page.getByRole("dialog");
       await expect(search).toBeVisible();
       await search.getByRole("textbox").fill("button");
-      await expect(search.locator(".search-results a").first()).toBeVisible();
+      await expect(search.locator("[data-docs=search-results] a").first()).toBeVisible();
       expect(
         await search.evaluate((node) => {
           const rect = node.getBoundingClientRect();
@@ -200,7 +204,7 @@ for (const locale of ["en", "ko"] as const) {
         .getByRole("button", { name: locale === "ko" ? "설정" : "Settings", exact: true })
         .click();
       await page.getByRole("combobox", { name: "Density" }).selectOption("spacious");
-      const preferences = page.locator(".preferences-popover");
+      const preferences = page.locator("[data-docs=preferences-popover]");
       expect(
         await preferences.evaluate((node) => {
           const rect = node.getBoundingClientRect();
@@ -212,11 +216,11 @@ for (const locale of ["en", "ko"] as const) {
 
       for (const name of ["calendar", "attachment", "carousel", "pagination"]) {
         await page.goto(`/docs/components/${name}${locale === "ko" ? "/ko" : ""}`);
-        await expect(page.locator(".preview-canvas").first()).toBeVisible();
+        await expect(page.locator("[data-docs=preview-canvas]").first()).toBeVisible();
         expect(await page.evaluate(inspectLayout), name).toEqual([]);
       }
       await page.goto(locale === "ko" ? "/ko" : "/");
-      await expect(page.locator(".gallery-preview").first()).toBeVisible();
+      await expect(page.locator("[data-docs=gallery-preview]").first()).toBeVisible();
       expect(await page.evaluate(inspectLayout)).toEqual([]);
       await test.info().attach("mobile-home", {
         body: await page.screenshot(),
@@ -240,7 +244,7 @@ for (const enlarged of [false, true]) {
       });
     expect(await page.evaluate(inspectLayout)).toEqual([]);
     await page.getByRole("button", { name: "Settings", exact: true }).click();
-    const preferences = page.locator(".preferences-popover");
+    const preferences = page.locator("[data-docs=preferences-popover]");
     await expect(preferences).toBeVisible();
     expect(
       await preferences.evaluate((node) => {
@@ -268,6 +272,19 @@ for (const enlarged of [false, true]) {
         );
       }),
     ).toBe(true);
+    if (enlarged) {
+      await page.keyboard.press("Escape");
+      await page.getByRole("button", { name: "Toggle navigation" }).click();
+      const navigation = page.locator("#docs-navigation");
+      await expect(navigation).toBeVisible();
+      await expect
+        .poll(async () => {
+          const header = await page.locator("[data-docs=site-header]").boundingBox();
+          const sidebar = await navigation.boundingBox();
+          return Boolean(header && sidebar && sidebar.y >= header.y + header.height - 1);
+        })
+        .toBe(true);
+    }
   });
 }
 
@@ -290,7 +307,7 @@ for (const viewport of [
       await page.goto(`/docs/components/${name}`);
       await page.waitForLoadState("networkidle");
       const opening = openedExamples[name];
-      const preview = page.locator(".preview-canvas").first();
+      const preview = page.locator("[data-docs=preview-canvas]").first();
       if (opening.action === "fill") {
         const input = preview.getByRole("combobox", { name: opening.name });
         await input.scrollIntoViewIfNeeded();

@@ -63,7 +63,7 @@ test("#New filters release additions and combines with ordinary search terms", (
 });
 
 test("generated localized indexes cover all docs and search actual body content", async () => {
-  const content = new URL("../../app/(site)/docs/_content/", import.meta.url);
+  const content = new URL("../../docs/_content/", import.meta.url);
   const expected = (await readdir(new URL("guides/", content)))
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => `guide/${file.slice(0, -4)}`);

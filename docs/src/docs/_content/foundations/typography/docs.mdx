@@ -1,0 +1,15 @@
+import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import source from "./TypographyExample.tsx?raw";
+import { Typography } from "./Reference";
+import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
+import { Guideline } from "@/docs/_ui/Guideline";
+import guidelines from "./guidelines.kr.md?raw";
+import english from "./guidelines.md?raw";
+
+<Guideline content={guidelines} english={english} />
+
+<ComponentPreview name="typography--TypographyExample" source={source} />
+
+<LocalizedMarkdown text={"## Token reference"} />
+
+<Typography />

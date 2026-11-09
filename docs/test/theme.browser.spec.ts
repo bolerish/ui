@@ -32,10 +32,10 @@ for (const mode of ["light", "dark"] as const) {
         mode === "light" ? "rgb(238, 238, 238)" : "rgb(8, 9, 10)",
       );
       await expect(page.locator("html")).toHaveCSS("color", foreground);
-      await expect(page.locator(".document h1")).toHaveCSS("color", foreground);
-      await expect(page.locator(".document p").first()).toHaveCSS("color", secondary);
-      await expect(page.locator(".language-select")).toHaveCSS("color", foreground);
-      await expect(page.locator(".document pre").first().locator("../..")).toHaveCSS(
+      await expect(page.locator("[data-docs=document] h1")).toHaveCSS("color", foreground);
+      await expect(page.locator("[data-docs=document] p").first()).toHaveCSS("color", secondary);
+      await expect(page.locator("[data-docs=language-select]")).toHaveCSS("color", foreground);
+      await expect(page.locator("[data-docs=document] pre").first().locator("../..")).toHaveCSS(
         "background-color",
         subtle,
       );
@@ -55,14 +55,14 @@ for (const mode of ["light", "dark"] as const) {
       await navigation.click();
       await expect(navigation).toHaveAttribute("aria-expanded", "true");
     }
-    await page.locator('.sidebar a[href="/docs/styling"]').click();
-    await expect(page.locator(".document h1")).toHaveText("Styling");
+    await page.locator('[data-docs=sidebar] a[href="/docs/styling"]').click();
+    await expect(page.locator("[data-docs=document] h1")).toHaveText("Styling");
     if (await navigation.isVisible()) {
       await navigation.click();
       await expect(navigation).toHaveAttribute("aria-expanded", "true");
     }
-    await page.locator('.sidebar a[href="/docs/theming"]').click();
-    await expect(page.locator(".document h1")).toHaveText("Theming");
+    await page.locator('[data-docs=sidebar] a[href="/docs/theming"]').click();
+    await expect(page.locator("[data-docs=document] h1")).toHaveText("Theming");
     await assertTheme();
     expect(stylesheetFailures).toEqual([]);
   });
@@ -82,7 +82,10 @@ test("documentation shell follows custom semantic token values", async ({ page }
       root.style.setProperty(reference, value);
     }
   });
-  await expect(page.locator(".document h1")).toHaveCSS("color", "rgb(20, 40, 60)");
+  await expect(page.locator("[data-docs=document] h1")).toHaveCSS("color", "rgb(20, 40, 60)");
   await expect(page.locator("html")).toHaveCSS("background-color", "rgb(230, 235, 240)");
-  await expect(page.locator(".site-header")).toHaveCSS("background-color", "rgb(230, 235, 240)");
+  await expect(page.locator("[data-docs=site-header]")).toHaveCSS(
+    "background-color",
+    "rgb(230, 235, 240)",
+  );
 });

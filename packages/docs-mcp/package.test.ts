@@ -12,7 +12,7 @@ test("the distributable contains a complete unique snapshot without tests", asyn
   const ids = catalog.documents.map(({ id }: { id: string }) => id);
   assert.equal(new Set(ids).size, ids.length);
   const components = await readdir(
-    new URL("../../docs/src/app/(site)/docs/_content/components/", import.meta.url),
+    new URL("../../docs/src/docs/_content/components/", import.meta.url),
   );
   for (const name of components) assert.ok(ids.includes(`components/${name}`), name);
   assert.ok(catalog.documents.every(({ content }: { content: string }) => content.trim()));

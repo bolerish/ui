@@ -1,7 +1,7 @@
 import type { ComponentType } from "react";
 
 const examples = import.meta.glob<{ default: ComponentType }>(
-  "../../../../docs/src/app/**/docs/_content/components/*/Default.tsx",
+  "../../../../docs/src/docs/_content/components/*/Default.tsx",
   { eager: true },
 );
 

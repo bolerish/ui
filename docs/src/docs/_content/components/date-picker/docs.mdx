@@ -1,0 +1,48 @@
+import { LocaleContent } from "@/shared/model/locale";
+import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
+import DefaultSource from "./Default.tsx?raw";
+import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+
+<LocaleContent locale="ko">
+
+# Date Picker
+
+폼을 간결하게 유지하면서 날짜를 고를 때 달력을 확인할 수 있습니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Date Picker
+
+Keep a form compact while letting people inspect a calendar when choosing a date.
+
+</LocaleContent>
+
+<LocalizedMarkdown text={"## Basic example"} />
+
+<ComponentPreview name="date-picker--Default" source={DefaultSource} height={360} />
+
+<LocaleContent locale="ko">
+
+## 사용 가이드
+
+트리거의 캘린더 아이콘으로 날짜 선택 동작을 구분하며, 달력 팝업은 화면 너비 제한 안에서 트리거 너비에 맞춥니다.
+
+실행 컨트롤에 선택한 날짜를 표시하고 허용 범위는 필드 가까이에 설명합니다. 항상 보이는 일정에는 `Calendar`를 사용합니다.
+
+> 날짜 형식을 분명히 하고 팝업을 닫아도 선택값을 유지합니다.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+## Usage guidelines
+
+The trigger includes a calendar icon. The calendar popup matches its trigger width within viewport limits.
+
+Show the selected date in the trigger and explain any allowed range near the field. Use `Calendar` for an always-visible schedule.
+
+> Use a clear date format and preserve the selected value when the popup closes.
+
+</LocaleContent>
