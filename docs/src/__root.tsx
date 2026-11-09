@@ -12,7 +12,7 @@ import {
 import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react";
 
 import { catalog } from "@/_shared/catalog";
-import { DocumentError, DocumentNotFound } from "@/_shared/DocumentError";
+import { DocumentError } from "@/_shared/DocumentError";
 import { documentPath, legacyDocumentPath, localizedPath } from "@/shared/lib/paths";
 import { previewTabBootstrap } from "@/shared/lib/preview-tab";
 import { useColorMode } from "@/shared/lib/useColorMode";
@@ -24,6 +24,7 @@ import {
 } from "@/shared/model/useDocumentationGlobals";
 
 import { SiteLayout } from "./layout";
+import { NotFound } from "./not-found";
 import { documentMarker } from "./shared/styles/document-marker.stylex";
 
 import stylesheet from "@bolerish/ui/global.css?url";
@@ -78,7 +79,7 @@ export const Route = createRootRoute({
   }),
   component: SiteLayout,
   shellComponent: Document,
-  notFoundComponent: DocumentNotFound,
+  notFoundComponent: NotFound,
   errorComponent: DocumentError,
 });
 function Document({ children }: { children: ReactNode }) {
@@ -180,7 +181,7 @@ function Document({ children }: { children: ReactNode }) {
       </head>
       <body {...stylex.props(styles.body)}>
         {pathname === "/404" ? (
-          <DocumentNotFound />
+          <NotFound />
         ) : (
           <>
             <DocumentationContext.Provider value={settings}>

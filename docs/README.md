@@ -31,6 +31,7 @@ src/
   __root.tsx
   index.tsx
   page.tsx
+  not-found.tsx
   layout.tsx
   _ui/HomeGallery.tsx
   _shared/
@@ -78,7 +79,9 @@ composition runnable; avoid documentation-specific code in displayed examples.
 
 English uses `/` and `/docs/...`; Korean appends `/ko`. Unknown paths return
 HTTP 404. `_redirects` handles old short paths; Storybook and locale query links
-resolve in the browser. The 404 document has a working docs link and no hydration.
+resolve in the browser. `src/not-found.tsx` owns the not-found view. Its explicit
+route mapping preserves `/404` for prerendering `404.html`; other routes still
+follow their folders. The 404 document has a working docs link and no hydration.
 
 Browser settings persist in a cookie. Explicit URL values take precedence;
 language follows the path. A head script applies color mode before React loads.

@@ -89,7 +89,15 @@ export default defineConfig({
         generatedRouteTree: "routeTree.gen.ts",
         indexToken: "page",
         routeFileIgnorePattern:
-          "(^|/)(_ui|_api|_model|_lib|_content|_config|_shared|shared)(/|$)|(^|/)(index[.]tsx|layout[.]tsx|routeTree[.]gen[.]ts)$|[.](test|spec)[.]",
+          "(^|/)(_ui|_api|_model|_lib|_content|_config|_shared|shared)(/|$)|(^|/)(index[.]tsx|layout[.]tsx|not-found[.]tsx|routeTree[.]gen[.]ts)$|[.](test|spec)[.]",
+        virtualRouteConfig: {
+          type: "root",
+          file: "__root.tsx",
+          children: [
+            { type: "physical", directory: ".", pathPrefix: "" },
+            { type: "route", path: "/404/", file: "not-found.tsx" },
+          ],
+        },
       },
       prerender: {
         enabled: true,

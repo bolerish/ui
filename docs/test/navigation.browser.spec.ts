@@ -1,5 +1,20 @@
 import { expect, test } from "@playwright/test";
 
+test("unknown paths render a standalone not-found document with a working recovery link", async ({
+  page,
+}) => {
+  for (const path of ["/missing-page", "/docs/missing-guide", "/not-found"]) {
+    const response = await page.goto(path);
+    expect(response?.status()).toBe(404);
+    await expect(page.getByRole("heading", { name: "Page not found", exact: true })).toBeVisible();
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex");
+    await expect(page.locator('script[src], script[type="module"]')).toHaveCount(0);
+    await page.getByRole("link", { name: "Go to documentation", exact: true }).click();
+    await expect(page).toHaveURL(/\/docs\/getting-started$/);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Introduction");
+  }
+});
+
 for (const locale of ["en", "ko"] as const) {
   test(`table of contents uses accessible themed links ${locale}`, async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });

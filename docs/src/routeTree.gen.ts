@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './__root'
 import { Route as PageRouteImport } from './page'
-import { Route as R404PageRouteImport } from './404/page'
+import { Route as notFoundRouteImport } from './not-found'
 import { Route as KoPageRouteImport } from './ko/page'
 import { Route as DocsGuidePageRouteImport } from './docs/$guide/page'
 import { Route as PreviewExamplePageRouteImport } from './preview/$example/page'
@@ -23,7 +23,7 @@ const PageRoute = PageRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const R404PageRoute = R404PageRouteImport.update({
+const notFoundRoute = notFoundRouteImport.update({
   id: '/404/',
   path: '/404/',
   getParentRoute: () => rootRouteImport,
@@ -63,7 +63,7 @@ const DocsSectionSlugChar123LocaleChar125PageRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof PageRoute
-  '/404/': typeof R404PageRoute
+  '/404/': typeof notFoundRoute
   '/ko/': typeof KoPageRoute
   '/docs/$guide/': typeof DocsGuidePageRoute
   '/preview/$example/': typeof PreviewExamplePageRoute
@@ -73,7 +73,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof PageRoute
-  '/404': typeof R404PageRoute
+  '/404': typeof notFoundRoute
   '/ko': typeof KoPageRoute
   '/docs/$guide': typeof DocsGuidePageRoute
   '/preview/$example': typeof PreviewExamplePageRoute
@@ -84,7 +84,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof PageRoute
-  '/404/': typeof R404PageRoute
+  '/404/': typeof notFoundRoute
   '/ko/': typeof KoPageRoute
   '/docs/$guide/': typeof DocsGuidePageRoute
   '/preview/$example/': typeof PreviewExamplePageRoute
@@ -127,7 +127,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   PageRoute: typeof PageRoute
-  R404PageRoute: typeof R404PageRoute
+  notFoundRoute: typeof notFoundRoute
   KoPageRoute: typeof KoPageRoute
   DocsGuidePageRoute: typeof DocsGuidePageRoute
   PreviewExamplePageRoute: typeof PreviewExamplePageRoute
@@ -149,7 +149,7 @@ declare module '@tanstack/react-router' {
       id: '/404/'
       path: '/404'
       fullPath: '/404/'
-      preLoaderRoute: typeof R404PageRouteImport
+      preLoaderRoute: typeof notFoundRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ko/': {
@@ -199,7 +199,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   PageRoute: PageRoute,
-  R404PageRoute: R404PageRoute,
+  notFoundRoute: notFoundRoute,
   KoPageRoute: KoPageRoute,
   DocsGuidePageRoute: DocsGuidePageRoute,
   PreviewExamplePageRoute: PreviewExamplePageRoute,
