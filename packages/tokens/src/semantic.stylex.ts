@@ -125,9 +125,9 @@ export const radiusVars = stylex.defineVars({
 });
 
 export const shadowVars = stylex.defineVars({
-  subtle: "0 1px 4px oklch(0% 0 0 / 8%)",
-  floating: "0 2px 10px oklch(0% 0 0 / 10%)",
-  overlay: "0 4px 16px oklch(0% 0 0 / 12%)",
+  subtle: "0 1px 2px oklch(0% 0 0 / 6%), 0 2px 4px oklch(0% 0 0 / 4%)",
+  floating: "0 2px 4px oklch(0% 0 0 / 8%), 0 8px 20px oklch(0% 0 0 / 6%)",
+  overlay: "0 4px 8px oklch(0% 0 0 / 10%), 0 16px 40px oklch(0% 0 0 / 8%)",
 });
 
 export const layerVars = stylex.defineVars({
