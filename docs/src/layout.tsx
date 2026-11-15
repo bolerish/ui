@@ -17,7 +17,7 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@bolerish/ui/
 import { Input } from "@bolerish/ui/input";
 import { InputGroup } from "@bolerish/ui/input-group";
 import { NativeSelect } from "@bolerish/ui/native-select";
-import { Popover, PopoverTrigger, PopoverContent } from "@bolerish/ui/popover";
+import { Popover, PopoverTrigger, PopoverContent, PopoverClose } from "@bolerish/ui/popover";
 import {
   Select,
   SelectTrigger,
@@ -407,6 +407,25 @@ function Preferences({
           <p {...stylex.props(styles.preferencesTitle)}>
             {settings.locale === "ko" ? "설정" : "Settings"}
           </p>
+          {settings.surface === "liquid" && (
+            <PopoverClose
+              onClick={() => onChange({ surface: "solid" })}
+              render={
+                <Button
+                  variant="secondary"
+                  // Button has no multiline height prop; allow this recovery action to wrap.
+                  style={{
+                    whiteSpace: "normal",
+                    height: "auto",
+                    minHeight: sizeVars.controlMd,
+                    paddingBlock: spacingVars.space2,
+                  }}
+                >
+                  {settings.locale === "ko" ? "불투명 표면 사용" : "Use solid surfaces"}
+                </Button>
+              }
+            />
+          )}
           {controls.map(([name, label, options]) => (
             <label
               key={name}
@@ -524,14 +543,6 @@ const sectionNames: Record<string, string> = {
 };
 
 const controls = [
-  [
-    "surface",
-    "Surface",
-    [
-      ["solid", "Solid"],
-      ["liquid", "Liquid"],
-    ],
-  ],
   [
     "locale",
     "Language",
