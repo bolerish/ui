@@ -38,7 +38,7 @@ for (const theme of ["light", "dark"]) {
     expect(glass.filter).toContain("blur");
     expect(glass.shadow).not.toContain("inset");
     await expect(card).toHaveCSS("background-image", "none");
-    expect((await card.evaluate(backgroundPixel))[3] / 255).toBeCloseTo(0.92, 2);
+    expect((await card.evaluate(backgroundPixel))[3] / 255).toBeCloseTo(0.72, 2);
     expect(
       (await page.getByRole("textbox", { name: "Surface field" }).evaluate(backgroundPixel))[3] /
         255,
@@ -128,7 +128,7 @@ for (const theme of ["light", "dark"]) {
     await page.goto(`/?fixture=surface&translucent&theme=${theme}&surface=glass`);
     await trigger.click();
     await expect(dialog).toBeVisible();
-    expect((await dialog.evaluate(backgroundPixel))[3] / 255).toBeCloseTo(0.94, 2);
+    expect((await dialog.evaluate(backgroundPixel))[3] / 255).toBeCloseTo(0.8, 2);
     const shadow = await dialog.evaluate((n) => getComputedStyle(n).boxShadow);
     expect(shadow).not.toContain("inset");
     expect(shadow).not.toEqual(solidShadow);
@@ -155,5 +155,54 @@ for (const theme of ["light", "dark"]) {
     await page.locator("html").evaluate((node) => node.removeAttribute("data-bolerish-surface"));
     expect((await card.evaluate(backgroundPixel))[3]).toBe(255);
     await expect(card).toHaveCSS("backdrop-filter", "none");
+  });
+}
+
+for (const theme of ["light", "dark"]) {
+  test(`Glass ${theme} visibly separates from Solid over detailed backing`, async ({ page }) => {
+    await page.goto(`/?fixture=surface&translucent&pattern&theme=${theme}&surface=solid`);
+    const card = page.getByTestId("surface");
+    await card.locator(":scope > *").evaluateAll((nodes) => {
+      for (const node of nodes) (node as HTMLElement).style.visibility = "hidden";
+    });
+    const solid = await card.screenshot();
+    await page.locator("html").evaluate((node) => {
+      node.dataset.bolerishSurface = "glass";
+    });
+    await expect(card).toHaveCSS("backdrop-filter", "blur(24px) saturate(1.6)");
+    await page.evaluate(
+      () =>
+        new Promise<void>((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+        ),
+    );
+    const glass = await card.screenshot();
+    await test.info().attach("solid", { body: solid, contentType: "image/png" });
+    await test.info().attach("glass", { body: glass, contentType: "image/png" });
+    const difference = await page.evaluate(
+      async ([solid, glass]) => {
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d")!;
+        const pixels: Uint8ClampedArray[] = [];
+        for (const encoded of [solid, glass]) {
+          const image = new Image();
+          image.src = encoded;
+          await image.decode();
+          canvas.width = image.width;
+          canvas.height = image.height;
+          context.drawImage(image, 0, 0);
+          pixels.push(context.getImageData(16, 16, image.width - 32, image.height - 32).data);
+        }
+        let difference = 0;
+        for (let index = 0; index < pixels[0].length; index += 4) {
+          for (let channel = 0; channel < 3; channel++) {
+            difference += Math.abs(pixels[0][index + channel] - pixels[1][index + channel]);
+          }
+        }
+        return difference / ((pixels[0].length / 4) * 3);
+      },
+      [solid, glass].map((buffer) => `data:image/png;base64,${buffer.toString("base64")}`),
+    );
+    expect(difference).toBeGreaterThanOrEqual(20);
   });
 }

@@ -98,7 +98,7 @@ See [Card](/docs/components/card) for the example and its scope.
 
 Decorative boundaries retain strokeDefault without additional fading. Essential control, selection, error and focus boundaries retain their dedicated tokens.
 
-Solid is the default, including when the surface attribute is omitted. In Glass mode, menus, popovers, selection lists, dialogs, drawers, toasts and tooltips use 94% bgRaised and 16px backdrop blur. Explicitly translucent Cards and Menubar use 92% bgSurface with the same blur. Ordinary Cards and input fields remain opaque. No refraction, sheen or inset reflection is added. Existing shadow tokens apply in both modes.
+Solid is the default, including when the surface attribute is omitted. In Glass mode, menus, popovers, selection lists, dialogs, drawers, toasts and tooltips use 80% bgRaised and 24px backdrop blur with 1.6× saturation. Explicitly translucent Cards and Menubar use 72% bgSurface with the same blur. Ordinary Cards and input fields remain opaque. No refraction, sheen or inset reflection is added. Existing shadow tokens apply in both modes.
 
 Reduced transparency, forced colors and unsupported effects use opaque fallbacks. Glass modals with a visible overlay also require :has(); otherwise they use an opaque panel and ordinary backdrop. Check actual composite backgrounds and custom themes. Decorative borders do not establish a 3:1 essential boundary.
 

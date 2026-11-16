@@ -12,7 +12,7 @@ import { surface } from "@bolerish/ui/surface";
 
 `options.mode` is required: `"solid" | "glass"`. Returns `SurfaceProps`: `{ "data-bolerish-surface": "solid" | "glass" }`. `SurfaceOptions` is exported from both `@bolerish/ui` and `@bolerish/ui/surface`. Missing or unsupported modes throw `TypeError`.
 
-Solid is the default, including when the attribute is omitted. Glass adds 94% `bgRaised` and 16px backdrop blur to floating and raised surfaces. Explicitly translucent cards and Menubar use 92% `bgSurface` and the same blur. Ordinary cards and fields keep their opaque material. Glass does not refract or distort the background and uses the existing shadow tokens.
+Solid is the default, including when the attribute is omitted. Glass adds 80% `bgRaised` and 24px backdrop blur with 1.6× saturation to floating and raised surfaces. Explicitly translucent cards and Menubar use 72% `bgSurface` and the same blur. Ordinary cards and fields keep their opaque material. Glass does not refract or distort the background and uses the existing shadow tokens.
 
 Reduced transparency, forced colors and unsupported effects use solid fallbacks. Visible-overlay modals also require `:has()` for the glass treatment; otherwise they use an opaque panel and ordinary backdrop. Theme colors, selection, error, focus, disabled states and text opacity retain their contracts. Custom themes must be checked against their actual composite backgrounds; the helper does not correct translucent or low-contrast custom colors.
 

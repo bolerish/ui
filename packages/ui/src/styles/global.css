@@ -9,10 +9,10 @@
   --bolerish-modal-scrim-spread: 0px;
 }
 [data-bolerish-surface="glass"] {
-  --bolerish-panel-opacity: 92%;
-  --bolerish-floating-opacity: 94%;
-  --bolerish-panel-filter: blur(16px);
-  --bolerish-floating-filter: blur(16px);
+  --bolerish-panel-opacity: 72%;
+  --bolerish-floating-opacity: 80%;
+  --bolerish-panel-filter: blur(24px) saturate(1.6);
+  --bolerish-floating-filter: blur(24px) saturate(1.6);
 }
 
 /* Keep the dimming outside translucent modal panels, so their glass samples the undimmed page. */

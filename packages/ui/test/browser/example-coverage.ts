@@ -64,7 +64,11 @@ export const excludedExamples: Record<string, string> = {};
 export const openedExamples = {
   "alert-dialog": { action: "click", name: "Delete project", target: '[role="alertdialog"]' },
   dialog: { action: "click", name: "Open profile", target: '[role="dialog"]' },
-  drawer: { action: "click", name: "Open down drawer", target: '[role="dialog"]' },
+  drawer: {
+    action: "click",
+    name: /^Open (down|up|left|right) drawer$/,
+    target: '[role="dialog"]',
+  },
   popover: { action: "click", name: "Align left", target: '[role="dialog"]' },
   select: { action: "combobox", name: "Theme", target: '[role="listbox"]' },
   combobox: { action: "fill", name: "Framework", target: '[role="listbox"]' },

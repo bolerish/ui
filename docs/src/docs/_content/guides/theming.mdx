@@ -82,7 +82,7 @@ Motion follows the OS by default. `data-bolerish-motion="off"` on `html` reduces
 
 ## Select a surface treatment
 
-Use `surface.props({ mode: "solid" | "glass" })` on `html`. Solid is the default, including when the attribute is omitted. Glass applies 16px backdrop blur and a 94% fill to floating surfaces, and a 92% fill to explicitly translucent cards and Menubar. Ordinary cards and fields remain opaque. This is independent of light/dark themes and component variants. See the [Surface API](/docs/api/surface).
+Use `surface.props({ mode: "solid" | "glass" })` on `html`. Solid is the default, including when the attribute is omitted. Glass applies 24px backdrop blur with 1.6× saturation and a 80% fill to floating surfaces, and a 72% fill to explicitly translucent cards and Menubar. Ordinary cards and fields remain opaque. This is independent of light/dark themes and component variants. See the [Surface API](/docs/api/surface).
 
 ```tsx
 import { surface } from "@bolerish/ui/surface";
@@ -108,7 +108,7 @@ For a custom app surface, choose existing [Color](/docs/foundations/color) roles
 
 ## 표면 표현 선택하기
 
-`html`에 `surface.props({ mode: "solid" | "glass" })`를 적용합니다. 속성을 생략해도 기본 표면은 불투명합니다. 유리는 떠 있는 표면에 94% 채움과 16px 배경 블러, 명시적 반투명 카드와 Menubar에 92% 채움과 같은 블러를 적용합니다. 일반 카드와 입력은 불투명합니다. 라이트·다크 테마와 컴포넌트 배리언트는 별도로 유지됩니다. [Surface API](/docs/api/surface/ko)를 참고하세요.
+`html`에 `surface.props({ mode: "solid" | "glass" })`를 적용합니다. 속성을 생략해도 기본 표면은 불투명합니다. 유리는 떠 있는 표면에 80% 채움과 24px 배경 블러와 1.6배 채도 보정, 명시적 반투명 카드와 Menubar에 72% 채움과 같은 블러를 적용합니다. 일반 카드와 입력은 불투명합니다. 라이트·다크 테마와 컴포넌트 배리언트는 별도로 유지됩니다. [Surface API](/docs/api/surface/ko)를 참고하세요.
 
 ```tsx
 import { surface } from "@bolerish/ui/surface";

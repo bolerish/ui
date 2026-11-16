@@ -47,12 +47,13 @@ for (const theme of ["light", "dark"]) {
         throw new Error("Opened content has no translucent surface");
       });
       const popup = page.locator("[data-tested-floating-surface]");
-      expect(await popup.evaluate(backgroundAlpha)).toBeCloseTo(0.94, 2);
+      expect(await popup.evaluate(backgroundAlpha)).toBeCloseTo(0.8, 2);
       await expect(popup).toHaveCSS("opacity", "1");
       const filter = await popup.evaluate((node) => getComputedStyle(node).backdropFilter);
       const blur = filter.match(/blur\(([\d.]+)px\)/);
       expect(blur).not.toBeNull();
-      expect(Number(blur![1])).toBe(16);
+      expect(Number(blur![1])).toBe(24);
+      expect(filter).toContain("saturate(1.6)");
       const audit = new AxeBuilder({ page }).withTags([
         "wcag2a",
         "wcag2aa",
