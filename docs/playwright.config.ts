@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: "./test",
   testMatch: "*.browser.spec.ts",
   fullyParallel: true,
-  workers: process.env.CI ? 4 : 2,
+  workers: 2,
   timeout: 180000,
   reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : "list",
   use: { baseURL: "http://127.0.0.1:3005", screenshot: "only-on-failure" },
