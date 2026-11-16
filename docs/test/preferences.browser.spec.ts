@@ -15,7 +15,7 @@ for (const locale of ["en", "ko"]) {
       },
     ]);
     await page.goto(locale === "ko" ? "/ko?surface=solid" : "/?surface=solid");
-    await page.waitForLoadState("networkidle");
+    await expect(page.locator("html")).toHaveCSS("--bolerish-density", "0.875");
     await expect(page.locator("html")).toHaveAttribute("data-bolerish-theme", "dark");
     await expect(page.locator("html")).not.toHaveAttribute("data-bolerish-surface");
     const trigger = page.getByRole("button", {
@@ -43,7 +43,7 @@ for (const locale of ["en", "ko"]) {
     await page.keyboard.press("Escape");
     await expect(trigger).toBeFocused();
     await page.reload();
-    await page.waitForLoadState("networkidle");
+    await expect(page.locator("html")).toHaveCSS("--bolerish-density", "1.125");
     await trigger.click();
     await expect(density).toHaveValue("spacious");
   });
