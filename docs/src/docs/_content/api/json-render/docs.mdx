@@ -1,0 +1,12 @@
+import { Guideline } from "@/docs/_ui/Guideline";
+import { CodeBlock } from "@/docs/_ui/CodeBlock";
+import korean from "./reference.kr.md?raw";
+import english from "./reference.md?raw";
+import Playground from "./playground/Playground";
+import source from "./playground/Playground?raw";
+
+<Guideline content={korean} english={english} />
+
+<Playground />
+
+<CodeBlock code={source} />

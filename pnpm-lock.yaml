@@ -65,12 +65,21 @@ importers:
 
   docs:
     dependencies:
+      '@bolerish/json-render':
+        specifier: workspace:*
+        version: link:../packages/json-render
       '@bolerish/tokens':
         specifier: workspace:*
         version: link:../packages/tokens
       '@bolerish/ui':
         specifier: workspace:*
         version: link:../packages/ui
+      '@json-render/core':
+        specifier: 0.23.1
+        version: 0.23.1(zod@4.6.7)
+      '@json-render/react':
+        specifier: 0.23.1
+        version: 0.23.1(react@19.2.8)(zod@4.6.7)
       '@phosphor-icons/react':
         specifier: catalog:2026-08-27-stable
         version: 2.1.10(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -92,6 +101,9 @@ importers:
       react-dom:
         specifier: catalog:2026-08-27-stable
         version: 19.2.8(react@19.2.8)
+      zod:
+        specifier: ^4.6.7
+        version: 4.6.7
     devDependencies:
       '@bolerish/lint':
         specifier: workspace:*
@@ -163,6 +175,40 @@ importers:
       '@types/node':
         specifier: catalog:2026-08-27-stable
         version: 26.4.1
+      typescript:
+        specifier: catalog:2026-08-27-stable
+        version: 7.0.2
+
+  packages/json-render:
+    dependencies:
+      zod:
+        specifier: ^4.6.7
+        version: 4.6.7
+    devDependencies:
+      '@bolerish/ui':
+        specifier: workspace:*
+        version: link:../ui
+      '@json-render/core':
+        specifier: 0.23.1
+        version: 0.23.1(zod@4.6.7)
+      '@json-render/react':
+        specifier: 0.23.1
+        version: 0.23.1(react@19.2.8)(zod@4.6.7)
+      '@types/node':
+        specifier: catalog:2026-08-27-stable
+        version: 26.4.1
+      '@types/react':
+        specifier: catalog:2026-08-27-stable
+        version: 19.2.18
+      '@types/react-dom':
+        specifier: catalog:2026-08-27-stable
+        version: 19.2.5(@types/react@19.2.18)
+      react:
+        specifier: catalog:2026-08-27-stable
+        version: 19.2.8
+      react-dom:
+        specifier: catalog:2026-08-27-stable
+        version: 19.2.8(react@19.2.8)
       typescript:
         specifier: catalog:2026-08-27-stable
         version: 7.0.2
@@ -930,6 +976,16 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@json-render/core@0.23.1':
+    resolution: {integrity: sha512-FVTxhxucSNdcZe9CWQ/767N/vtj4f5YLu5BEY8P8eXYs80tvbKh/26avadTEDaAMfCnnyGRsuA/POzyvA2O85A==}
+    peerDependencies:
+      zod: ^4.0.0
+
+  '@json-render/react@0.23.1':
+    resolution: {integrity: sha512-brRkMkVi2944EhYG/oa/UbXXdgq5nHU7GWty4l/LDYO6TOrKDPyO2A6m+cXC5wC04oefkHfI3LPPA9lVVArFog==}
+    peerDependencies:
+      react: ^19.2.3
 
   '@manypkg/find-root@3.1.0':
     resolution: {integrity: sha512-BcSqCyKhBVZ5YkSzOiheMCV41kqAFptW6xGqYSTjkVTl9XQpr+pqHhwgGCOHQtjDCv7Is6EFyA14Sm5GVbVABA==}
@@ -3861,6 +3917,17 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@json-render/core@0.23.1(zod@4.6.7)':
+    dependencies:
+      zod: 4.6.7
+
+  '@json-render/react@0.23.1(react@19.2.8)(zod@4.6.7)':
+    dependencies:
+      '@json-render/core': 0.23.1(zod@4.6.7)
+      react: 19.2.8
+    transitivePeerDependencies:
+      - zod
 
   '@manypkg/find-root@3.1.0':
     dependencies:
