@@ -1,5 +1,12 @@
 # @bolerish/ui
 
+## 1.0.1
+
+### Patch Changes
+
+- b5c9d3d: Use the Phosphor SSR entry point for built-in icons to remove their React Context dependency. Built-in icons no longer inherit Phosphor IconContext defaults; pass icon properties explicitly for custom icons.
+- @bolerish/tokens@1.0.1
+
 ## 1.0.0
 
 ### Major Changes
