@@ -1,5 +1,6 @@
 /* Global styles are composed by the package build. */
 [data-bolerish-surface="solid"] {
+  --bolerish-surface-highlight: 0 0 transparent;
   --bolerish-panel-opacity: 100%;
   --bolerish-floating-opacity: 100%;
   --bolerish-panel-filter: none;
@@ -9,6 +10,8 @@
   --bolerish-modal-scrim-spread: 0px;
 }
 [data-bolerish-surface="glass"] {
+  --bolerish-surface-highlight:
+    inset 0 1px 0 rgb(255 255 255 / 18%), inset 0 0 0 1px rgb(255 255 255 / 6%);
   --bolerish-panel-opacity: 72%;
   --bolerish-floating-opacity: 80%;
   --bolerish-panel-filter: blur(24px) saturate(1.6);

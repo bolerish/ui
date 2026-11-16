@@ -8,7 +8,8 @@ const styles = stylex.create({
   },
   material: {
     "--bolerish-material-shadow": "0 0 transparent",
-    boxShadow: "var(--bolerish-material-shadow)",
+    "--bolerish-material-highlight": "0 0 transparent",
+    boxShadow: "var(--bolerish-material-highlight), var(--bolerish-material-shadow)",
     backgroundColor: {
       default: `var(--bolerish-material-color, ${colorVars.bgSurface})`,
       "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, var(--bolerish-material-color, ${colorVars.bgSurface}) var(--bolerish-material-opacity), transparent)`,
@@ -37,9 +38,10 @@ const styles = stylex.create({
     },
   },
   panel: {
+    "--bolerish-material-highlight": "var(--bolerish-surface-highlight, 0 0 transparent)",
     "--bolerish-material-color": colorVars.bgSurface,
-    "--bolerish-material-opacity": "100%",
-    "--bolerish-material-filter": "none",
+    "--bolerish-material-opacity": "var(--bolerish-panel-opacity, 100%)",
+    "--bolerish-material-filter": "var(--bolerish-panel-filter, none)",
   },
   control: {
     "--bolerish-material-color": colorVars.bgSurface,
@@ -57,17 +59,20 @@ const styles = stylex.create({
     "--bolerish-material-filter": "none",
   },
   raised: {
+    "--bolerish-material-highlight": "var(--bolerish-surface-highlight, 0 0 transparent)",
     "--bolerish-material-shadow": shadowVars.overlay,
     "--bolerish-material-color": colorVars.bgRaised,
     "--bolerish-material-opacity": "var(--bolerish-floating-opacity, 100%)",
     "--bolerish-material-filter": "var(--bolerish-floating-filter, none)",
   },
   translucent: {
+    "--bolerish-material-highlight": "var(--bolerish-surface-highlight, 0 0 transparent)",
     "--bolerish-material-color": colorVars.bgSurface,
     "--bolerish-material-opacity": "var(--bolerish-panel-opacity, 100%)",
     "--bolerish-material-filter": "var(--bolerish-panel-filter, none)",
   },
   floating: {
+    "--bolerish-material-highlight": "var(--bolerish-surface-highlight, 0 0 transparent)",
     "--bolerish-material-shadow": shadowVars.floating,
     "--bolerish-material-color": colorVars.bgRaised,
     "--bolerish-material-opacity": "var(--bolerish-floating-opacity, 100%)",

@@ -32,8 +32,8 @@ Keep the information and actions for one independent item together.
 
 프로젝트 요약처럼 항목 자체를 구분해야 할 때 사용합니다. 같은 폼의 관련 부분은 간격만으로 묶을 수 있습니다.
 
-배경의 분위기를 조금 공유해야 하는 카드에는 `variant="translucent"`를 사용합니다.
-유리(`glass`) 표면 모드에서 기존 표면 색상에 72%의 불투명도와 24px 배경 블러와 1.6배 채도 보정를 적용합니다. 불투명(`solid`) 모드와 속성 미지정 시에는 불투명합니다. 글자와 자식 요소의 불투명도는 낮추지 않습니다.
+기본 Card와 `variant="translucent"`는 모두 사이트의 표면 모드를 따릅니다.
+유리(`glass`) 표면 모드에서 기존 표면 색상에 72%의 불투명도와 24px 배경 블러와 1.6배 채도 보정을 적용합니다. 불투명(`solid`) 모드와 속성 미지정 시에는 불투명합니다. 글자와 자식 요소의 불투명도는 낮추지 않습니다.
 블러 또는 색상 혼합 미지원 환경, 투명도 줄이기 설정, 강제 색상 모드에서는 불투명 표면으로 표시합니다.
 배경 그라디언트는 카드를 감싼 영역에서 구성하며, 앨범 색상 추출과 음악 데이터는 앱에서 관리합니다.
 커스텀 테마나 스타일로 바꾼 경우에는 실제 배경과 글자·초점 표시의 대비를 다시 확인합니다.
@@ -57,7 +57,7 @@ Keep the information and actions for one independent item together.
 
 Use a card when the item has its own identity, such as a project summary. Use spacing alone for related parts of the same form.
 
-Use `variant="translucent"` when a card should share a little of its background's atmosphere.
+Both default Cards and `variant="translucent"` follow the shared surface mode.
 In Glass mode it uses 72% of the existing surface color and 24px backdrop blur with 1.6× saturation without fading text or children. Solid mode and omitted attributes use an opaque surface.
 An opaque surface is used when backdrop blur or color mixing is unsupported, when reduced transparency is requested, or in forced colors mode.
 Compose the gradient on the surrounding container. Album color extraction and music data belong to the app.

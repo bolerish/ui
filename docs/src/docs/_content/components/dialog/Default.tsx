@@ -9,11 +9,11 @@ import {
   DialogFooter,
   DialogClose,
 } from "@bolerish/ui/dialog";
+import { Field, FieldLabel } from "@bolerish/ui/field";
 import { Input } from "@bolerish/ui/input";
-import { useId } from "react";
 export default function Default() {
-  const nameId = useId();
   return (
+    /* @example-start */
     <Dialog>
       <DialogTrigger render={<Button variant="secondary">Open profile</Button>} />
       <DialogContent>
@@ -21,15 +21,16 @@ export default function Default() {
           <DialogTitle>Profile</DialogTitle>
           <DialogDescription>Change the name shown to project members.</DialogDescription>
         </DialogHeader>
-        <label htmlFor={nameId}>
-          Display name
-          <Input id={nameId} />
-        </label>
+        <Field>
+          <FieldLabel>Display name</FieldLabel>
+          <Input />
+        </Field>
         <DialogFooter>
           <DialogClose render={<Button variant="ghost">Cancel</Button>} />
           <DialogClose render={<Button>Save changes</Button>} />
         </DialogFooter>
       </DialogContent>
     </Dialog>
+    /* @example-end */
   );
 }

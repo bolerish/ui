@@ -5,6 +5,7 @@ import {
   spacingVars,
   typo,
 } from "@bolerish/tokens/semantic.stylex";
+import { Card } from "@bolerish/ui/card";
 import { Separator } from "@bolerish/ui/separator";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
@@ -34,22 +35,24 @@ export function HomeGallery({ items }: { items: ReturnType<typeof getHomeGallery
             {...stylex.props(styles.item, stylex.defaultMarker())}
             data-docs="gallery-item"
           >
-            <header {...stylex.props(styles.itemHeader)}>
-              <h3 {...stylex.props(styles.itemTitle)}>{page.title}</h3>
-              <Link
-                {...documentLink(page, locale)}
-                search={{}}
-                {...stylex.props(styles.itemLink)}
-                aria-label={`${page.title} ${ko ? "문서" : "Docs"}`}
-              >
-                {ko ? "문서" : "Docs"}
-                <ArrowUpRightIcon {...stylex.props(styles.itemIcon)} aria-hidden="true" />
-              </Link>
-            </header>
-            <Separator />
-            <div {...stylex.props(styles.preview)} data-docs="gallery-preview" lang="en">
-              <page.Example />
-            </div>
+            <Card>
+              <header {...stylex.props(styles.itemHeader)}>
+                <h3 {...stylex.props(styles.itemTitle)}>{page.title}</h3>
+                <Link
+                  {...documentLink(page, locale)}
+                  search={{}}
+                  {...stylex.props(styles.itemLink)}
+                  aria-label={`${page.title} ${ko ? "문서" : "Docs"}`}
+                >
+                  {ko ? "문서" : "Docs"}
+                  <ArrowUpRightIcon {...stylex.props(styles.itemIcon)} aria-hidden="true" />
+                </Link>
+              </header>
+              <Separator />
+              <div {...stylex.props(styles.preview)} data-docs="gallery-preview" lang="en">
+                <page.Example />
+              </div>
+            </Card>
           </article>
         ))}
       </div>
@@ -82,14 +85,6 @@ const styles = stylex.create({
     breakInside: "avoid",
     marginBottom: spacingVars.space8,
     minWidth: "0",
-    background: colorVars.bgSubtle,
-    borderWidth: sizeVars.stroke,
-    borderStyle: "solid",
-    borderColor: colorVars.strokeDefault,
-    borderTopLeftRadius: radiusVars.lg,
-    borderTopRightRadius: radiusVars.lg,
-    borderBottomRightRadius: radiusVars.lg,
-    borderBottomLeftRadius: radiusVars.lg,
   },
   itemHeader: {
     display: "flex",
@@ -100,7 +95,6 @@ const styles = stylex.create({
     paddingRight: spacingVars.space5,
     paddingBottom: spacingVars.space3,
     paddingLeft: spacingVars.space5,
-    background: colorVars.bgSurface,
     borderTopLeftRadius: `calc(${radiusVars.lg} - ${sizeVars.stroke})`,
     borderTopRightRadius: `calc(${radiusVars.lg} - ${sizeVars.stroke})`,
     borderBottomRightRadius: "0",

@@ -36,7 +36,7 @@ for (const theme of ["light", "dark"]) {
     await expect(card).toHaveCSS("border-top-width", borderWidth);
     expect(glass.color).not.toBe(solid.color);
     expect(glass.filter).toContain("blur");
-    expect(glass.shadow).not.toContain("inset");
+    expect(glass.shadow).toContain("inset");
     await expect(card).toHaveCSS("background-image", "none");
     expect((await card.evaluate(backgroundPixel))[3] / 255).toBeCloseTo(0.72, 2);
     expect(
@@ -130,7 +130,7 @@ for (const theme of ["light", "dark"]) {
     await expect(dialog).toBeVisible();
     expect((await dialog.evaluate(backgroundPixel))[3] / 255).toBeCloseTo(0.8, 2);
     const shadow = await dialog.evaluate((n) => getComputedStyle(n).boxShadow);
-    expect(shadow).not.toContain("inset");
+    expect(shadow).toContain("inset");
     expect(shadow).not.toEqual(solidShadow);
     await page.locator("html").evaluate((n) => {
       n.dataset.bolerishSurface = "solid";
@@ -144,13 +144,16 @@ for (const theme of ["light", "dark"]) {
 }
 
 for (const theme of ["light", "dark"]) {
-  test(`Glass ${theme} keeps default cards opaque and omitted attributes solid`, async ({
+  test(`Glass ${theme} applies glass to default cards, keeps fields opaque and omitted attributes solid`, async ({
     page,
   }) => {
     await page.goto(`/?fixture=surface&theme=${theme}&surface=glass`);
     const card = page.getByTestId("surface");
-    expect((await card.evaluate(backgroundPixel))[3]).toBe(255);
-    await expect(card).toHaveCSS("backdrop-filter", "none");
+    expect((await card.evaluate(backgroundPixel))[3] / 255).toBeCloseTo(0.72, 2);
+    await expect(card).toHaveCSS("backdrop-filter", "blur(24px) saturate(1.6)");
+    expect(
+      (await page.getByRole("textbox", { name: "Surface field" }).evaluate(backgroundPixel))[3],
+    ).toBe(255);
     await page.goto(`/?fixture=surface&translucent&theme=${theme}`);
     await page.locator("html").evaluate((node) => node.removeAttribute("data-bolerish-surface"));
     expect((await card.evaluate(backgroundPixel))[3]).toBe(255);
