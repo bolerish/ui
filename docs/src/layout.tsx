@@ -36,7 +36,7 @@ import {
 } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import { Link, Outlet, useNavigate, useLocation, useRouterState } from "@tanstack/react-router";
-import { useCallback, useEffect, useState, type RefCallback } from "react";
+import { useCallback, useEffect, useId, useState, type RefCallback } from "react";
 
 import { catalog } from "@/_shared/catalog";
 import { isNewComponent } from "@/shared/lib/component-releases";
@@ -383,6 +383,7 @@ function Preferences({
   settings: DocumentationGlobals;
   onChange: (changes: Partial<DocumentationGlobals>) => void;
 }) {
+  const surfaceId = useId();
   return (
     <Popover>
       <PopoverTrigger
@@ -407,18 +408,19 @@ function Preferences({
           <p {...stylex.props(styles.preferencesTitle)}>
             {settings.locale === "ko" ? "설정" : "Settings"}
           </p>
-          <label {...stylex.props(styles.preferenceLabel)}>
-            <span>{settings.locale === "ko" ? "표면" : "Surface"}</span>
+          <label htmlFor={surfaceId} {...stylex.props(styles.preferenceLabel)}>
+            <span>Surface</span>
             <NativeSelect
               xstyle={styles.preferenceControl}
-              aria-label={settings.locale === "ko" ? "표면" : "Surface"}
+              id={surfaceId}
+              aria-label="Surface"
               value={settings.surface}
               onChange={(event) =>
                 onChange({ surface: event.target.value === "glass" ? "glass" : "solid" })
               }
             >
-              <option value="solid">{settings.locale === "ko" ? "불투명" : "Solid"}</option>
-              <option value="glass">{settings.locale === "ko" ? "유리" : "Glass"}</option>
+              <option value="solid">Solid</option>
+              <option value="glass">Glass</option>
             </NativeSelect>
           </label>
           {controls.map(([name, label, options]) => (

@@ -25,7 +25,7 @@ for (const locale of ["en", "ko"]) {
       exact: true,
     });
     const select = page.getByRole("combobox", {
-      name: locale === "ko" ? "표면" : "Surface",
+      name: "Surface",
       exact: true,
     });
     await trigger.click();
