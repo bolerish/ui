@@ -103,3 +103,5 @@ Solid is the default, including when the surface attribute is omitted. In Glass 
 Reduced transparency, forced colors and unsupported effects use opaque fallbacks. Glass modals with a visible overlay also require :has(); otherwise they use an opaque panel and ordinary backdrop. Check actual composite backgrounds and custom themes. Decorative borders do not establish a 3:1 essential boundary.
 
 Secondary buttons and grouped tabs/toggles retain bgSubtle. Semantic feedback, selection and disabled states preserve their roles. Progress tracks and scrollbar affordances keep their existing tokens. Background decoration does not change text opacity, focus or HTML state.
+
+Error feedback and destructive actions use bright red text over a 12% red fill. This visual choice does not guarantee 4.5:1 contrast for small text. Adjust the foreground in your theme when your product requires that target.

@@ -33,11 +33,13 @@ for (const mode of ["light", "dark"]) {
     ]) {
       const background = composite(rgba(theme[`bg${role}`]), canvas);
       const foreground = rgba(theme[`fg${role.startsWith("Feedback") ? role : `On${role}`}`]);
-      assert.ok(contrast(foreground, background) >= 4.5, `${role}: unreadable text`);
+      // The approved bright-red reference intentionally uses lower small-text contrast.
+      const minimum = role === "ActionDestructive" || role === "FeedbackError" ? 2.5 : 4.5;
+      assert.ok(contrast(foreground, background) >= minimum, `${role}: unreadable text`);
       if (role.startsWith("Feedback")) continue;
       for (const state of ["interactionSolidHover", "interactionSolidPressed"]) {
         const ratio = contrast(foreground, composite(rgba(theme[state]), background));
-        assert.ok(ratio >= 4.5, `${role}/${state}: ${ratio.toFixed(2)} < 4.5`);
+        assert.ok(ratio >= minimum, `${role}/${state}: ${ratio.toFixed(2)} < ${minimum}`);
       }
     }
     assert.ok(contrast(rgba(theme.fgOnActionPrimary), rgba(theme.bgActionPrimaryHover)) >= 4.5);

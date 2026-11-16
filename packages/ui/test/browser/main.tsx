@@ -159,6 +159,15 @@ function NestedModalExample() {
   );
 }
 function App() {
+  if (fixture === "destructive")
+    return (
+      <>
+        <Button variant="destructive">Delete</Button>
+        <Button variant="destructive" disabled>
+          Unavailable
+        </Button>
+      </>
+    );
   if (fixture === "modal-nested") return <NestedModalExample />;
   if (fixture === "input-variants")
     return (

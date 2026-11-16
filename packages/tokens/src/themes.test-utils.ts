@@ -3,6 +3,8 @@ import { readFile } from "node:fs/promises";
 import { stripTypeScriptTypes } from "node:module";
 import { SourceTextModule, SyntheticModule } from "node:vm";
 
+import { oklchToHex } from "../palette/palette-color.ts";
+
 const stylex = new SyntheticModule(["defineVars", "createTheme"], function () {
   this.setExport("defineVars", (values: Record<string, unknown>) => values);
   this.setExport(
@@ -31,6 +33,7 @@ export const defaults = (
 ).colorVars;
 
 export function rgba(value: string) {
+  if (value.startsWith("oklch(")) value = oklchToHex(value);
   assert.match(value, /^#[0-9A-F]{6}([0-9A-F]{2})?$/i);
   const hex = value.slice(1);
   return [0, 2, 4]

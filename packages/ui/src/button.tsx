@@ -67,6 +67,15 @@ const styles = stylex.create({
     },
     "::after": { backgroundColor: colorVars.interactionDefault },
   },
+  destructiveInteraction: {
+    "::after": {
+      backgroundColor: {
+        default: colorVars.interactionDefault,
+        ":hover": `color-mix(in srgb, ${colorVars.fgOnActionDestructive} 14%, transparent)`,
+        ":active": `color-mix(in srgb, ${colorVars.fgOnActionDestructive} 26%, transparent)`,
+      },
+    },
+  },
   solidInteraction: {
     "::after": {
       backgroundColor: {
@@ -157,7 +166,7 @@ const variantStyles = stylex.create({
   },
   destructive: {
     backgroundColor: colorVars.bgActionDestructive,
-    borderColor: colorVars.bgActionDestructive,
+    borderColor: colorVars.interactionDefault,
     color: colorVars.fgOnActionDestructive,
   },
 });
@@ -221,6 +230,7 @@ export function Button({
           shapeWidth,
           hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
           variant === "primary" && styles.primaryInteraction,
+          variant === "destructive" && styles.destructiveInteraction,
           disabled && styles.disabled,
           disabled && variant === "ghost" && styles.disabledGhost,
           xstyle,
