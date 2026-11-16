@@ -1,0 +1,30 @@
+# Source map
+
+Use this map to answer a specific UI question without loading the whole documentation set. Paths below are relative to a discovered bolerish/ui checkout, not to this skill or a fixed home directory. Resolve the checkout from the workspace or its known dependencies; do not assume it exists beside the consumer.
+
+## Locate the source of truth
+
+- **Installed contract:** Resolve `@bolerish/ui` from the consuming workspace. Inspect its manifest and exported declarations, following inherited types into installed dependencies. Resolve `@bolerish/tokens` separately when the app uses it. A lockfile range or a sibling checkout alone does not establish the resolved API.
+- **Canonical checkout:** English Foundations live at `docs/src/docs/_content/foundations/<topic>/guidelines.md`; Korean translations use `guidelines.kr.md`. Guides live at `docs/src/docs/_content/guides/<guide>.mdx`. Components use `docs/src/docs/_content/components/<component>/docs.mdx` and adjacent original `.tsx` examples. Implementation is at `packages/ui/src/<component>.tsx`; token definitions are in `packages/tokens/src/semantic.stylex.ts` and related exports.
+- **Docs MCP:** Search short English terms and retrieve exact returned IDs. Common families are `foundations/<topic>`, `components/<component>`, `examples/<component>/<name>`, `guides/<guide>`, and `tokens/...`; discover IDs rather than constructing unconfirmed ones. Newer outline/section capabilities may be absent. Use only capabilities advertised by the connected tool.
+- **Generated references:** Without a checkout, begin at [the documentation index](https://ui.bolerish.com/llms.txt) and follow its current links. Generated English Foundations use `guidelines/<topic>.en.md`; component API references use `api/<component>.en.md`. These are snapshots, not the installed contract. If unavailable, use available installed sources and state what guidance could not be retrieved.
+
+## Route a question
+
+| Question | Canonical Foundation or guide | Component, example, or API to inspect |
+| --- | --- | --- |
+| What should this screen do first? | `overview`; then the affected topics | Existing consumer composition; relevant component `docs.mdx` and original example |
+| Is a preference immediate or submitted? | `overview`, `state`, `feedback`, `accessibility` | Switch or Checkbox plus Field; `Default.tsx` for each; installed state/event props |
+| How should saving and failure appear? | `feedback`, `state`, `writing`, `voice-and-tone` | Banner `Default.tsx` / `Messages.tsx`, Field, Button; installed Banner exports and announcement contract; app's actual save/retry handler |
+| Where do gaps, padding, widths, or alignment belong? | `layout`, `spacing`, `typography` | Field, Item, Card as appropriate; component styling target; `packages/ui/src/styles/control-layout.ts` and installed equivalent |
+| Can this app use plain CSS or inline styles? | Guides `installation`, `styling` | Installed `className` / `style` / `xstyle` types, exports, and actual global CSS entry |
+| Which color or token fits a role? | `design-token`, `color`, `state`; `radius`, `elevation`, `gradient`, or `iconography` when affected | Installed token exports; matching component's styles; no inferred token names or copied value table |
+| How do selection, focus, errors, and disabled states coexist? | `state`, `accessibility` | Affected control's installed semantics and state styles; original state examples where present |
+| Does this work with long text, zoom, or motion preferences? | `layout`, `typography`, `accessibility`, `motion`; guide `theming` | Real consumer flow, actual foreground/background pairings, keyboard/focus behavior, and persisted user preferences |
+| What does a CSS diagnostic establish? | Guides `lint`, `mcp` | Connected `check_css` schema and all result pages; manual review of unresolved values and rendered behavior |
+
+## Keep repository guidance aligned
+
+`docs/scripts/build-guidelines.ts` exports the canonical documentation to public references and generates `docs/public/agent/SKILL.md` with the name `bolerish`. That generated skill and this repository-owned `bolerish-ui` skill route to the same sources. Do not hand-edit generated output, change the generator to install this skill, or maintain a parallel props/token manual here.
+
+Read original React example files rather than reconstructing examples from previews or Storybook metadata. In documentation UI, display the actual source using the project's `?raw` convention. Examples illustrate composition; verify their imports, props, and styling approach against the consumer's installed environment before reuse.

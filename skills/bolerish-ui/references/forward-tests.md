@@ -1,0 +1,26 @@
+# Forward assessment scenarios
+
+Use these scenarios when creating or maintaining this reference skill. They assess retrieval and application, not wording matches. Do not run every scenario for every consumer change.
+
+## Method
+
+Before editing the skill, try a relevant scenario with available tools and sources. Capture the actual result in the task response, including lookup failures and missing capabilities. After editing, follow the skill to retrieve sources and apply them to the same question. Use a temporary consumer fixture when code-level verification adds confidence, keeping artifacts outside the product tree.
+
+Independent evaluation is useful only when authorized. A self-check uses the same informed author and cannot establish independent compliance, fresh-session skill selection, or automatic loading. Report that distinction. A missing tool is a retrieval failure, not proof that an agent made a behavioral mistake. Do not invent rationalizations or failing-agent evidence.
+
+## Scenarios and observable outcomes
+
+| Request or condition | Evidence to retrieve | Successful application |
+| --- | --- | --- |
+| “Add notification preferences: one applies immediately; another is saved with the form.” | Foundation overview, State, Feedback; Switch, Checkbox, Field docs and originals; installed event types | Distinguishes the two apply timings, chooses controls accordingly, and leaves draft/committed state and persistence with the app. Explains pending and failure behavior. |
+| “Saving failed. Keep edits and show a retry message with Banner.” | Feedback, Accessibility; Banner original example and installed exports/types; actual save handler | Uses supported Banner composition and announcement behavior, preserves edits, and connects retry to saving. Rejects an invented `variant="error"` if the installed API lacks it. Does not claim a retry succeeded before completion. |
+| “Add space around this Switch using its xstyle.” | Spacing, Layout, Styling; Switch declaration and inherited placement type | Separates parent gaps/padding from control placement. Checks allowed properties instead of treating a control as a container or casting away a type error. Preserves legitimate CSS/inline styles and the documented styling target. |
+| “Use bolerish controls in this React app with no StyleX compiler.” | Installation and Styling guides; installed CSS exports and component props | Uses precompiled CSS and supported component imports. Keeps ordinary CSS/inline composition viable; adds no compiler merely for consumption. Does not import uncompiled StyleX tokens as ordinary runtime values. |
+| MCP lacks `guides/agent-workflow`, advertises older packages, or is absent entirely. | Actual tool inventory, failed lookup, search results, resolved manifest/declarations, canonical checkout or generated index | Searches actual IDs after the missing entry, uses current installed contracts and available canonical guidance, and names unresolved gaps. Continues authorized work without installing MCP or freezing a version assumption into the skill. |
+| CSS results span pages; page one has no unreviewed entries but later pages do. | Actual tool schema; full submitted CSS; all pages through null `nextOffset`, including `coverage.unreviewed` | Submits CSS text, carries the same text across offsets, reviews diagnostics and later unreviewed entries, and checks variable provenance manually. Empty diagnostics or `coverage.complete` do not become semantic, contrast, or runtime approval. If the tool is absent, reports manual review and leaves live pagination unverified. |
+| “Review selected controls with long Korean labels at 200% zoom and on a narrow screen.” | Layout, Typography, State, Accessibility, Motion; actual consumer and preferences | Keeps selection and focus visible together, labels/errors/actions readable and operable, and text wrapping without clipping or shrinking to fit. Checks keyboard operation, themes, actual contrast, and reduced motion for the changed flow; reports any untested browser/device behavior. |
+| “Review an unrelated React interface that does not use @bolerish/ui.” | Request and local dependencies/composition | Does not activate this skill merely because the work involves UI. Does not migrate the app or impose bolerish tokens. |
+
+## Bound the result
+
+For each attempted scenario, report the sources actually read, the decision or artifact produced, checks executed, and remaining gaps. Distinguish live tool behavior, local type checks, manual source reasoning, simulated responses, and rendered interaction tests. A source lookup or successful type check alone is not proof of save/recovery behavior, accessibility, or correct rendering.
