@@ -11,17 +11,17 @@ Use this map to answer a specific UI question without loading the whole document
 
 ## Route a question
 
-| Question | Canonical Foundation or guide | Component, example, or API to inspect |
-| --- | --- | --- |
-| What should this screen do first? | `overview`; then the affected topics | Existing consumer composition; relevant component `docs.mdx` and original example |
-| Is a preference immediate or submitted? | `overview`, `state`, `feedback`, `accessibility` | Switch or Checkbox plus Field; `Default.tsx` for each; installed state/event props |
-| How should saving and failure appear? | `feedback`, `state`, `writing`, `voice-and-tone` | Banner `Default.tsx` / `Messages.tsx`, Field, Button; installed Banner exports and announcement contract; app's actual save/retry handler |
-| Where do gaps, padding, widths, or alignment belong? | `layout`, `spacing`, `typography` | Field, Item, Card as appropriate; component styling target; `packages/ui/src/styles/control-layout.ts` and installed equivalent |
-| Can this app use plain CSS or inline styles? | Guides `installation`, `styling` | Installed `className` / `style` / `xstyle` types, exports, and actual global CSS entry |
-| Which color or token fits a role? | `design-token`, `color`, `state`; `radius`, `elevation`, `gradient`, or `iconography` when affected | Installed token exports; matching component's styles; no inferred token names or copied value table |
-| How do selection, focus, errors, and disabled states coexist? | `state`, `accessibility` | Affected control's installed semantics and state styles; original state examples where present |
-| Does this work with long text, zoom, or motion preferences? | `layout`, `typography`, `accessibility`, `motion`; guide `theming` | Real consumer flow, actual foreground/background pairings, keyboard/focus behavior, and persisted user preferences |
-| What does a CSS diagnostic establish? | Guides `lint`, `mcp` | Connected `check_css` schema and all result pages; manual review of unresolved values and rendered behavior |
+| Question                                                      | Canonical Foundation or guide                                                                       | Component, example, or API to inspect                                                                                                     |
+| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| What should this screen do first?                             | `overview`; then the affected topics                                                                | Existing consumer composition; relevant component `docs.mdx` and original example                                                         |
+| Is a preference immediate or submitted?                       | `overview`, `state`, `feedback`, `accessibility`                                                    | Switch or Checkbox plus Field; `Default.tsx` for each; installed state/event props                                                        |
+| How should saving and failure appear?                         | `feedback`, `state`, `writing`, `voice-and-tone`                                                    | Banner `Default.tsx` / `Messages.tsx`, Field, Button; installed Banner exports and announcement contract; app's actual save/retry handler |
+| Where do gaps, padding, widths, or alignment belong?          | `layout`, `spacing`, `typography`                                                                   | Field, Item, Card as appropriate; component styling target; `packages/ui/src/styles/control-layout.ts` and installed equivalent           |
+| Can this app use plain CSS or inline styles?                  | Guides `installation`, `styling`                                                                    | Installed `className` / `style` / `xstyle` types, exports, and actual global CSS entry                                                    |
+| Which color or token fits a role?                             | `design-token`, `color`, `state`; `radius`, `elevation`, `gradient`, or `iconography` when affected | Installed token exports; matching component's styles; no inferred token names or copied value table                                       |
+| How do selection, focus, errors, and disabled states coexist? | `state`, `accessibility`                                                                            | Affected control's installed semantics and state styles; original state examples where present                                            |
+| Does this work with long text, zoom, or motion preferences?   | `layout`, `typography`, `accessibility`, `motion`; guide `theming`                                  | Real consumer flow, actual foreground/background pairings, keyboard/focus behavior, and persisted user preferences                        |
+| What does a CSS diagnostic establish?                         | Guides `lint`, `mcp`                                                                                | Connected `check_css` schema and all result pages; manual review of unresolved values and rendered behavior                               |
 
 ## Keep repository guidance aligned
 
