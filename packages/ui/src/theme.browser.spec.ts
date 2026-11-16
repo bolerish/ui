@@ -1,15 +1,17 @@
 import { expect, test } from "@playwright/test";
 
+import { expectColor } from "../test/browser/color-assertions";
+
 test("omitted attributes retain light tokens and legacy classes still select dark", async ({
   page,
 }) => {
   await page.goto("/?fixture=surface");
   await page.locator("html").evaluate((html) => html.removeAttribute("data-bolerish-theme"));
-  await expect(page.getByTestId("surface")).toHaveCSS("color", "rgb(35, 37, 42)");
+  await expectColor(page.getByTestId("surface"), "color", [35, 37, 42, 255]);
   await page.goto("/?fixture=surface&theme=dark&legacyTheme");
   await expect(page.locator("html")).not.toHaveAttribute("data-bolerish-theme");
   await expect(page.locator("html")).toHaveCSS("color-scheme", "dark");
-  await expect(page.getByTestId("surface")).toHaveCSS("color", "rgb(245, 246, 248)");
+  await expectColor(page.getByTestId("surface"), "color", [245, 246, 248, 255]);
 });
 
 test("CSS-only color modes switch root and portaled surfaces without replacing classes", async ({
@@ -21,8 +23,8 @@ test("CSS-only color modes switch root and portaled surfaces without replacing c
     html.setAttribute("data-bolerish-theme", "dark");
   });
   const root = page.locator("html");
-  await expect(root).toHaveCSS("background-color", "rgb(8, 9, 10)");
-  await expect(root).toHaveCSS("color", "rgb(245, 246, 248)");
+  await expectColor(root, "background-color", [8, 9, 10, 255]);
+  await expectColor(root, "color", [245, 246, 248, 255]);
   await expect(root).toHaveCSS("color-scheme", "dark");
   expect(
     await page.getByTestId("surface").evaluate((node) => {
@@ -34,13 +36,13 @@ test("CSS-only color modes switch root and portaled surfaces without replacing c
   ).toEqual([15, 16, 17, 255]);
   await page.getByRole("button", { name: "Open dialog" }).click();
   const dialog = page.getByRole("dialog", { name: "Edit project" });
-  await expect(dialog).toHaveCSS("color", "rgb(245, 246, 248)");
+  await expectColor(dialog, "color", [245, 246, 248, 255]);
   const darkShadow = await dialog.evaluate((node) => getComputedStyle(node).boxShadow);
   await root.evaluate((html) => html.setAttribute("data-bolerish-theme", "light"));
-  await expect(root).toHaveCSS("background-color", "rgb(250, 251, 252)");
-  await expect(root).toHaveCSS("color", "rgb(35, 37, 42)");
+  await expectColor(root, "background-color", [255, 255, 255, 255]);
+  await expectColor(root, "color", [35, 37, 42, 255]);
   await expect(root).toHaveCSS("color-scheme", "light");
-  await expect(dialog).toHaveCSS("color", "rgb(35, 37, 42)");
+  await expectColor(dialog, "color", [35, 37, 42, 255]);
   expect(await dialog.evaluate((node) => getComputedStyle(node).boxShadow)).not.toBe(darkShadow);
   await expect(root).toHaveClass("consumer-root");
 });
@@ -49,19 +51,19 @@ test("compiled StyleX themes override built-in attributes on the same root", asy
   await page.goto("/?fixture=dialog&theme=dark&customTheme");
   const root = page.locator("html");
   const classes = await root.getAttribute("class");
-  await expect(root).toHaveCSS("background-color", "rgb(18, 52, 86)");
-  await expect(root).toHaveCSS("color", "rgb(254, 220, 186)");
+  await expectColor(root, "background-color", [18, 52, 86, 255]);
+  await expectColor(root, "color", [254, 220, 186, 255]);
   await page.getByRole("button", { name: "Open dialog" }).click();
   const dialog = page.getByRole("dialog", { name: "Edit project" });
-  await expect(dialog).toHaveCSS("color", "rgb(254, 220, 186)");
+  await expectColor(dialog, "color", [254, 220, 186, 255]);
   const shadow = await dialog.evaluate((node) => getComputedStyle(node).boxShadow);
   await root.evaluate((html) => html.setAttribute("data-bolerish-theme", "light"));
-  await expect(root).toHaveCSS("background-color", "rgb(18, 52, 86)");
+  await expectColor(root, "background-color", [18, 52, 86, 255]);
   await expect(root).toHaveCSS("color-scheme", "light");
   await expect(root).toHaveAttribute("class", classes!);
   await expect(dialog).toHaveCSS("box-shadow", shadow);
   await root.evaluate((html) => html.removeAttribute("class"));
-  await expect(root).toHaveCSS("background-color", "rgb(250, 251, 252)");
+  await expectColor(root, "background-color", [255, 255, 255, 255]);
   expect(await dialog.evaluate((node) => getComputedStyle(node).boxShadow)).not.toBe(shadow);
 });
 
@@ -69,9 +71,9 @@ test("a scoped light surface resets inherited dark tokens", async ({ page }) => 
   await page.goto("/?fixture=surface&theme=dark");
   const card = page.getByTestId("surface");
   await card.evaluate((node) => node.setAttribute("data-bolerish-theme", "light"));
-  await expect(card).toHaveCSS("color", "rgb(35, 37, 42)");
+  await expectColor(card, "color", [35, 37, 42, 255]);
   await expect(card).toHaveCSS("color-scheme", "light");
-  await expect(page.locator("html")).toHaveCSS("color", "rgb(245, 246, 248)");
+  await expectColor(page.locator("html"), "color", [245, 246, 248, 255]);
 });
 
 for (const theme of ["default", "light", "dark"]) {

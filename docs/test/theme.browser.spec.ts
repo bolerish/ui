@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+import { expectColor } from "../../packages/ui/test/browser/color-assertions";
+
 for (const locale of ["en", "ko"] as const) {
   test(`elevation reference values follow manual and system themes ${locale}`, async ({ page }) => {
     await page.emulateMedia({ colorScheme: "light" });
@@ -69,27 +71,32 @@ for (const mode of ["light", "dark"] as const) {
       await blocked;
       await route.continue();
     });
-    const foreground = mode === "dark" ? "rgb(245, 246, 248)" : "rgb(35, 37, 42)";
-    const subtle = mode === "dark" ? "rgb(22, 23, 24)" : "rgb(244, 244, 245)";
+    const foreground: [number, number, number, number] =
+      mode === "dark" ? [245, 246, 248, 255] : [35, 37, 42, 255];
+    const subtle: [number, number, number, number] =
+      mode === "dark" ? [22, 23, 24, 255] : [244, 244, 245, 255];
     const assertTheme = async () => {
       await expect(page.locator("html")).toHaveAttribute("data-bolerish-theme", mode);
-      await expect(page.locator("body")).toHaveCSS(
+      await expectColor(
+        page.locator("body"),
         "background-color",
-        mode === "light" ? "rgb(255, 255, 255)" : "rgb(8, 9, 10)",
+        mode === "light" ? [255, 255, 255, 255] : [8, 9, 10, 255],
       );
-      const surface = mode === "light" ? "rgb(255, 255, 255)" : "rgb(15, 16, 17)";
-      await expect(page.locator("[data-docs=site-header]")).toHaveCSS("background-color", surface);
+      const surface: [number, number, number, number] =
+        mode === "light" ? [255, 255, 255, 255] : [15, 16, 17, 255];
+      await expectColor(page.locator("[data-docs=site-header]"), "background-color", surface);
       await expect
         .poll(() => page.locator("[data-docs=documentation-search]").evaluate(readBackground))
         .toEqual(mode === "light" ? [255, 255, 255, 255] : [15, 16, 17, 255]);
-      await expect(page.locator("html")).toHaveCSS("color", foreground);
-      await expect(page.locator("[data-docs=document] h1")).toHaveCSS("color", foreground);
+      await expectColor(page.locator("html"), "color", foreground);
+      await expectColor(page.locator("[data-docs=document] h1"), "color", foreground);
       const paragraph = page.locator("[data-docs=document] p").first();
-      await expect(paragraph).toHaveCSS("color", foreground);
+      await expectColor(paragraph, "color", foreground);
       await expect(paragraph).toHaveCSS("font-size", "16px");
       await expect(paragraph).toHaveCSS("line-height", "28px");
-      await expect(page.locator("[data-docs=language-select]")).toHaveCSS("color", foreground);
-      await expect(page.locator("[data-docs=document] pre").first().locator("../..")).toHaveCSS(
+      await expectColor(page.locator("[data-docs=language-select]"), "color", foreground);
+      await expectColor(
+        page.locator("[data-docs=document] pre").first().locator("../.."),
         "background-color",
         subtle,
       );
@@ -142,11 +149,12 @@ test("documentation surfaces follow custom semantic tokens independently of the 
       root.style.setProperty(reference, value);
     }
   });
-  await expect(page.locator("[data-docs=document] h1")).toHaveCSS("color", "rgb(20, 40, 60)");
-  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(255, 255, 255)");
-  await expect(page.locator("[data-docs=site-header]")).toHaveCSS(
+  await expectColor(page.locator("[data-docs=document] h1"), "color", [20, 40, 60, 255]);
+  await expectColor(page.locator("body"), "background-color", [255, 255, 255, 255]);
+  await expectColor(
+    page.locator("[data-docs=site-header]"),
     "background-color",
-    "rgb(230, 235, 240)",
+    [230, 235, 240, 255],
   );
 });
 

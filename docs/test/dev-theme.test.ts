@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 import { chromium, expect } from "@playwright/test";
 import { createServer } from "vite";
 
+import { expectColor } from "../../packages/ui/test/browser/color-assertions.ts";
+
 test(
   "development StyleX updates preserve dark and light component colors",
   { timeout: 120_000 },
@@ -31,10 +33,7 @@ test(
         }
         requestAnimationFrame(sample);
       });
-      for (const [mode, expected] of [
-        ["dark", "rgb(245, 246, 248)"],
-        ["light", "rgb(8, 9, 10)"],
-      ] as const) {
+      for (const mode of ["dark", "light"] as const) {
         await page.goto(
           `${server.resolvedUrls!.local[0]}docs/components/toggle-group?colorMode=${mode}`,
         );
@@ -43,7 +42,11 @@ test(
         await page.waitForFunction(() =>
           Boolean(document.getElementById("__stylex_virtual__")?.textContent),
         );
-        await expect(button).toHaveCSS("color", expected);
+        await expectColor(
+          button,
+          "color",
+          mode === "dark" ? [245, 246, 248, 255] : [35, 37, 42, 255],
+        );
         const continuity = await page.evaluate(() => {
           const state = window as Window & {
             firstDocument?: Element;
@@ -73,9 +76,10 @@ test(
         const dark = preference !== "light";
         const block = codePage.locator("[data-docs=codeblock]").first();
         await expect(block).toBeVisible();
-        await expect(block).toHaveCSS(
+        await expectColor(
+          block,
           "background-color",
-          dark ? "rgb(22, 23, 24)" : "rgb(245, 245, 245)",
+          dark ? [22, 23, 24, 255] : [244, 244, 245, 255],
         );
         await expect(
           codePage.locator(dark ? "[data-docs=theme-icon-dark]" : "[data-docs=theme-icon-light]"),
@@ -85,9 +89,10 @@ test(
           .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).color));
         await codePage.unroute("**/*");
         await codePage.reload({ waitUntil: "networkidle" });
-        await expect(block).toHaveCSS(
+        await expectColor(
+          block,
           "background-color",
-          dark ? "rgb(22, 23, 24)" : "rgb(245, 245, 245)",
+          dark ? [22, 23, 24, 255] : [244, 244, 245, 255],
         );
         const after = await block
           .locator("[data-code-token]")
@@ -131,11 +136,12 @@ test(
         await expect(
           previewPage.getByRole("button", { name: "Preview", exact: true }).first(),
         ).toHaveAttribute("aria-pressed", "true");
-        const expected = preference === "light" ? "rgb(255, 255, 255)" : "rgb(15, 16, 17)";
-        await expect(canvas).toHaveCSS("background-color", expected);
+        const expected: [number, number, number, number] =
+          preference === "light" ? [255, 255, 255, 255] : [15, 16, 17, 255];
+        await expectColor(canvas, "background-color", expected);
         await previewPage.unroute("**/*");
         await previewPage.reload({ waitUntil: "networkidle" });
-        await expect(canvas).toHaveCSS("background-color", expected);
+        await expectColor(canvas, "background-color", expected);
         assert.equal(
           (await canvas.boundingBox())!.height,
           beforeHeight,
