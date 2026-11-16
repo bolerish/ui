@@ -86,7 +86,8 @@ export const syntaxStyles: Record<string, stylex.StyleXStyles> = stylex.create({
   punctuation: {
     color: {
       default: "rgb(4, 81, 165)",
-      [stylex.when.ancestor('[data-bolerish-theme="dark"]', documentMarker)]: "#808080",
+      [stylex.when.ancestor('[data-bolerish-theme="dark"]', documentMarker)]:
+        "oklch(59.98708% 0 0)",
     },
   },
   function: {

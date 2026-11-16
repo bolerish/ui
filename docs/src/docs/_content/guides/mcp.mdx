@@ -161,7 +161,7 @@ Start with `get_doc({ id: "guides/agent-workflow" })`, then retrieve the relevan
 After CSS edits, submit full relevant blocks:
 
 ```ts
-check_css({ css: ".card { padding: 16px; color: #fff; }" });
+check_css({ css: ".card { padding: 16px; color: oklch(99.999999% 0 0); }" });
 ```
 
 The read-only tool accepts 1–100000 characters. It returns bundled versions, located color/typography/spacing diagnostics, coverage and limitations. It parses text without fetching imports, reading files or modifying source. Input and syntax failures are tool errors.
@@ -181,7 +181,7 @@ Reconnect the MCP host after updating to discover `check_css`. Tool availability
 CSS 수정 후 관련 블록 전체를 전달합니다.
 
 ```ts
-check_css({ css: ".card { padding: 16px; color: #fff; }" });
+check_css({ css: ".card { padding: 16px; color: oklch(99.999999% 0 0); }" });
 ```
 
 읽기 전용 도구는 1–100000자를 받으며 번들 버전, 위치가 포함된 색상·타이포그래피·간격 진단, 검사 범위와 한계를 반환합니다. 임포트 요청, 파일 읽기, 원본 수정 없이 텍스트를 파싱합니다. 입력 및 구문 오류는 도구 오류로 반환합니다.

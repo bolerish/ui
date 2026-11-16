@@ -40,40 +40,40 @@ for selection and drop backgrounds, foregrounds and borders. `bgSubtle` alone do
 
 Use cool near-black surfaces and monochrome Zinc primary actions. Light surfaces and essential control boundaries preserve contrast for reading and interaction.
 
-| Role                  | Value   | Use                                |
-| --------------------- | ------- | ---------------------------------- |
-| Dark canvas           | #08090A | Lowest screen surface              |
-| Dark content          | #0F1011 | Cards, inputs and default surfaces |
-| Dark raised surface   | #161718 | Popups and subtle grouping         |
-| Dark selected surface | #23252A | Selected surfaces                  |
-| Dark supporting text  | #8A8F98 | Descriptions and metadata          |
-| Light canvas          | #FFFFFF | Lowest light surface               |
-| Light content         | #FFFFFF | Cards and inputs                   |
-| Light grouping        | #F5F5F5 | Subtle groups                      |
-| Light primary action  | #18181B | Dark button on a light surface     |
-| Light primary label   | #FFFFFF | Light label on a dark button       |
-| Dark primary action   | #E4E4E7 | Light button on a dark surface     |
-| Dark primary label    | #18181B | Dark label on a light button       |
-| Light primary hover   | #3F3F46 | Dark button hover                  |
-| Dark primary hover    | #D4D4D8 | Light button hover                 |
+| Role                  | Value                             | Use                                |
+| --------------------- | --------------------------------- | ---------------------------------- |
+| Dark canvas           | oklch(13.89505% 0.002948 246.256) | Lowest screen surface              |
+| Dark content          | oklch(17.2333% 0.002638 247.98)   | Cards, inputs and default surfaces |
+| Dark raised surface   | oklch(20.39403% 0.002529 247.951) | Popups and subtle grouping         |
+| Dark selected surface | oklch(26.44965% 0.009761 268.306) | Selected surfaces                  |
+| Dark supporting text  | oklch(64.88123% 0.014593 262.359) | Descriptions and metadata          |
+| Light canvas          | oklch(100% 0 0)                   | Lowest light surface               |
+| Light content         | oklch(100% 0 0)                   | Cards and inputs                   |
+| Light grouping        | oklch(96.74343% 0.001326 286.375) | Subtle groups                      |
+| Light primary action  | oklch(21.03309% 0.00586 285.885)  | Dark button on a light surface     |
+| Light primary label   | oklch(100% 0 0)                   | Light label on a dark button       |
+| Dark primary action   | oklch(91.97285% 0.004031 286.32)  | Light button on a dark surface     |
+| Dark primary label    | oklch(21.03309% 0.00586 285.885)  | Dark label on a light button       |
+| Light primary hover   | oklch(37.03234% 0.01188 285.805)  | Dark button hover                  |
+| Dark primary hover    | oklch(87.11079% 0.005451 286.286) | Light button hover                 |
 
 Distinguish primary actions and current progress through monochrome contrast. Information, success, warning and error colors communicate their respective states.
 
-Essential input boundaries use #81868F in light mode and #62666D in dark mode.
+Essential input boundaries use oklch(61.88292% 0.014771 262.356) in light mode and oklch(50.91762% 0.01212 261.768) in dark mode.
 Decorative strokeDefault does not replace them. Dark selected boundaries use
-#81868F via strokeStrong. Focus uses #383B3F in light and #8A8F98 in dark. Tested
+oklch(61.88292% 0.014771 262.356) via strokeStrong. Focus uses oklch(35.09517% 0.008057 255.546) in light and oklch(64.88123% 0.014593 262.359) in dark. Tested
 text pairings target 4.5:1 and essential control/focus boundaries target 3:1.
 
 ## Palette authoring and generation
 
 Author colors in OKLCH in `packages/tokens/palette.oklch.json`. Adjust lightness,
-chroma and hue, then run `pnpm palette:generate` to emit literal HEX StyleX tokens.
+chroma and hue, then run `pnpm palette:generate` to emit literal OKLCH StyleX tokens.
 Do not edit the palette values in generated `color-palette.stylex.ts` directly.
-Solid colors use six-digit HEX; translucent colors use eight-digit HEX with
-eight-bit alpha rounding. Generation rejects colors outside sRGB; reduce chroma
+Solid colors retain OKLCH coordinates; translucent colors include a percentage alpha.
+Generation rejects colors outside sRGB; reduce chroma
 and review them again. `pnpm palette:check` checks generated values against the
 source, and `pnpm test:tokens` checks conversion and contrast. Consumers receive
-generated tokens without runtime OKLCH conversion.
+generated tokens that browsers resolve without JavaScript color conversion.
 
 ## Content backgrounds
 

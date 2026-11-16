@@ -5,7 +5,11 @@ Apply a themed gradient to an existing element without a wrapper or consumer Sty
 ```tsx
 import { gradient } from "@bolerish/ui/gradient";
 
-<section {...gradient.props({ colors: ["#80414b", "#b49058"] })} />;
+<section
+  {...gradient.props({
+    colors: ["oklch(45.703878% 0.087141 11.072122)", "oklch(67.450066% 0.085527 77.562903)"],
+  })}
+/>;
 ```
 
 `colors[0]` is the accent radiating from the top left; `colors[1]` is the glow radiating from the upper right. They overlap and fade into the canvas rather than defining linear-gradient start and end stops. Read [Gradient foundations](/docs/foundations/gradient) for composition principles and the interactive example.

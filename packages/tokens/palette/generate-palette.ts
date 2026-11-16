@@ -12,7 +12,8 @@ assert.ok(
 );
 const values = Object.entries(colors).map(([name, value]) => {
   assert.match(name, /^[a-zA-Z][a-zA-Z0-9]*$/, "Palette names must be identifiers.");
-  return `  ${name}: "${oklchToHex(value)}",`;
+  oklchToHex(value);
+  return `  ${name}: "${value}",`;
 });
 const current = await readFile(target, "utf8");
 const block = /export const colorPalette = stylex\.defineVars\(\{[\s\S]*?\n\}\);/;

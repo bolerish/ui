@@ -5,7 +5,11 @@
 ```tsx
 import { gradient } from "@bolerish/ui/gradient";
 
-<section {...gradient.props({ colors: ["#80414b", "#b49058"] })} />;
+<section
+  {...gradient.props({
+    colors: ["oklch(45.703878% 0.087141 11.072122)", "oklch(67.450066% 0.085527 77.562903)"],
+  })}
+/>;
 ```
 
 `colors[0]`은 왼쪽 위에서 퍼지는 강조색, `colors[1]`은 오른쪽 위에서 퍼지는 보조색입니다. 선형 그라디언트의 시작·끝 색상이 아니라 서로 겹쳐 캔버스로 사라지는 색상입니다. 구성 원칙과 인터랙티브 예제는 [Gradient Foundations](/docs/foundations/gradient/ko)를 참고하세요.

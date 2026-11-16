@@ -47,7 +47,7 @@ bun add --dev @bolerish/lint
 
 Rules inspect literal values in imported `stylex.create()` calls and JSX `style` objects, including nested states and conditional values. Diagnostics explain which token family to use for the property. Choose the semantic role for your content; the plugin does not choose one exact token or autofix it.
 
-For example, use `colorVars.fgPrimary` for primary text and `spacingRoleVars.fieldGap` between fields, rather than `color: "#333"` and `gap: 13`.
+For example, use `colorVars.fgPrimary` for primary text and `spacingRoleVars.fieldGap` between fields, rather than `color: "oklch(32.109251% 0 0)"` and `gap: 13`.
 
 ## ESLint
 
@@ -67,7 +67,7 @@ In an app with the plugin installed, enable the recommended warning rules. Confi
 
 가져온 `stylex.create()` 호출과 JSX `style` 객체의 직접 값을 검사하며, 중첩된 상태와 조건부 값도 포함합니다. 진단은 속성에 맞는 토큰 계열을 안내합니다. 실제 콘텐츠에 맞는 의미 역할은 직접 선택해야 합니다. 플러그인이 정확한 토큰 하나를 고르거나 자동으로 수정하지는 않습니다.
 
-예를 들어 기본 본문 색상은 `colorVars.fgPrimary`, 필드 사이 간격은 `spacingRoleVars.fieldGap`을 사용하세요. `color: "#333"`, `gap: 13`처럼 직접 지정하면 진단합니다.
+예를 들어 기본 본문 색상은 `colorVars.fgPrimary`, 필드 사이 간격은 `spacingRoleVars.fieldGap`을 사용하세요. `color: "oklch(32.109251% 0 0)"`, `gap: 13`처럼 직접 지정하면 진단합니다.
 
 ## ESLint
 
