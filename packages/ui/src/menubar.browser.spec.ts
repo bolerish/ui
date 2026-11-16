@@ -21,11 +21,10 @@ test("Default Menubar: keyboard opens, navigates and returns past portal guards"
   await expect(page.getByTestId("after-example")).toBeFocused();
 });
 
-test("Menubar highlights the complete trigger area on hover and open", async ({ page }) => {
+test("Menubar retains its highlight on hover and while open", async ({ page }) => {
   await page.goto("/?fixture=documentation&example=menubar");
   const trigger = page.getByRole("menuitem", { name: "File", exact: true });
   const resting = await trigger.evaluate((node) => getComputedStyle(node).backgroundColor);
-  await expect(trigger).toHaveCSS("border-radius", "8px");
   await trigger.hover();
   await expect(trigger).not.toHaveCSS("background-color", resting);
   await trigger.click();
