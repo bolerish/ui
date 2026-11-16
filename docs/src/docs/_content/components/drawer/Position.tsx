@@ -11,6 +11,7 @@ import {
   DrawerTrigger,
 } from "@bolerish/ui/drawer";
 import * as stylex from "@stylexjs/stylex";
+
 const layout = stylex.create({
   preview: {
     alignItems: "center",
@@ -23,6 +24,7 @@ const layout = stylex.create({
     width: "100%",
   },
 });
+
 function DrawerExample({ swipeDirection = "down" }: { swipeDirection?: DrawerDirection }) {
   return (
     <div {...stylex.props(layout.preview)}>
@@ -42,13 +44,15 @@ function DrawerExample({ swipeDirection = "down" }: { swipeDirection?: DrawerDir
     </div>
   );
 }
+
 type DrawerDirection = "down" | "up" | "left" | "right";
+
 export default function Position() {
   return (
     <div {...stylex.props(layout.preview)}>
       <DrawerExample swipeDirection="up" />
       <DrawerExample swipeDirection="left" />
-      <DrawerExample swipeDirection="right" />
+      <DrawerExample swipeDirection="down" />
     </div>
   );
 }
