@@ -2,9 +2,14 @@ name: Verify
 
 on:
   pull_request:
+  merge_group:
   push:
     branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: verify-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -34,18 +39,6 @@ jobs:
   checks:
     name: static checks and unit tests
     runs-on: ubuntu-latest
-    # Keep browser dependencies off the slow Ubuntu package mirror.
-    container:
-      image: mcr.microsoft.com/playwright:v1.63.0-noble
-      options: --ipc=host
-    defaults:
-      run:
-        shell: bash
-    env:
-      GIT_CONFIG_COUNT: "1"
-      GIT_CONFIG_KEY_0: safe.directory
-      GIT_CONFIG_VALUE_0: ${{ github.workspace }}
-
     steps:
       - uses: actions/checkout@v7
 

@@ -14,16 +14,6 @@ jobs:
   build:
     name: build documentation once
     runs-on: ubuntu-latest
-    container:
-      image: mcr.microsoft.com/playwright:v1.63.0-noble
-      options: --ipc=host
-    defaults:
-      run:
-        shell: bash
-    env:
-      GIT_CONFIG_COUNT: "1"
-      GIT_CONFIG_KEY_0: safe.directory
-      GIT_CONFIG_VALUE_0: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup
