@@ -9,6 +9,7 @@
 ### Patch Changes
 
 - 547ee4a: Refine the existing subtle, floating and overlay shadows with contact and ambient layers in light and dark themes. Token names and component APIs remain unchanged; existing consumers receive the updated appearance without migration.
+- 05b0ed6: Emit palette colors as OKLCH instead of HEX, preserving the authored colors and alpha. Consumers reading raw token CSS values must accept OKLCH syntax.
 - 5a7219d: Use the bright #e5484d error accent as text over a 12% red fill for destructive actions and error feedback in both themes. This deliberately prioritizes the reference appearance over the 4.5:1 small-text contrast target; check suitability for your product. Other semantic feedback roles retain their values.
 - 09caebb: Use subtle 12% tinted information, success and warning feedback backgrounds with readable theme-specific foregrounds and stronger semantic borders. Error feedback also uses a readable theme-specific foreground. The light canvas is now pure white; the dark canvas is unchanged. Existing semantic token names remain compatible and require no migration.
 

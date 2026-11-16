@@ -22,6 +22,7 @@
 - 05fcfaf: Include a package README linking to official documentation and the existing agent workflow, with installed-version and declaration precedence guidance. No API changes or migration are required.
 - Updated dependencies [547ee4a]
 - Updated dependencies [f2a9ba4]
+- Updated dependencies [05b0ed6]
 - Updated dependencies [5a7219d]
 - Updated dependencies [09caebb]
   - @bolerish/tokens@1.0.0
