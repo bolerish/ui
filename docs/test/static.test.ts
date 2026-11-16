@@ -87,8 +87,11 @@ test("every sitemap page exposes its own metadata, one primary heading and a lan
     );
     const selector = html.match(/<button\b[^>]*data-docs="language-select"[^>]*>/)?.[0];
     assert.ok(selector, `Missing language selector: ${path}`);
-    assert.ok(selector.includes('role="combobox"'), path);
-    assert.ok(selector.includes(`aria-label="${locale === "ko" ? "언어" : "Language"}"`), path);
+    assert.ok(selector.includes('aria-haspopup="menu"'), path);
+    assert.ok(
+      selector.includes(`aria-label="${locale === "ko" ? "언어 선택" : "Choose language"}"`),
+      path,
+    );
   }
   const koreanInstallation = await readFile(
     new URL("docs/installation/ko/index.html", root),

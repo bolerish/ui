@@ -14,19 +14,20 @@ import {
 import { Badge } from "@bolerish/ui/badge";
 import { Button } from "@bolerish/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@bolerish/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+} from "@bolerish/ui/dropdown-menu";
 import { Input } from "@bolerish/ui/input";
 import { InputGroup } from "@bolerish/ui/input-group";
 import { NativeSelect } from "@bolerish/ui/native-select";
 import { Popover, PopoverTrigger, PopoverContent } from "@bolerish/ui/popover";
 import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectPopup,
-  SelectList,
-  SelectItem,
-} from "@bolerish/ui/select";
-import {
+  TranslateIcon,
+  CaretDownIcon,
   SlidersHorizontalIcon,
   ListIcon,
   GithubLogoIcon,
@@ -140,31 +141,35 @@ function SiteHeader({
         </nav>
         <div {...stylex.props(styles.headerActions)} data-docs="header-actions">
           <DocumentationSearch onNavigate={onNavigate} />
-          <Select
-            value={settings.locale}
-            items={{ en: "English", ko: "한국어" }}
-            onValueChange={(locale) => {
-              if (locale === "en" || locale === "ko") updatePreferences({ locale });
-            }}
-          >
-            <SelectTrigger
-              {...stylex.props(styles.languageSelect)}
-              data-docs="language-select"
-              aria-label={settings.locale === "ko" ? "언어" : "Language"}
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectPopup>
-              <SelectList>
-                <SelectItem value="en" lang="en">
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  aria-label={settings.locale === "ko" ? "언어 선택" : "Choose language"}
+                  data-docs="language-select"
+                >
+                  <TranslateIcon aria-hidden="true" />
+                  <CaretDownIcon aria-hidden="true" />
+                </Button>
+              }
+            />
+            <DropdownMenuContent align="end">
+              <DropdownMenuRadioGroup
+                value={settings.locale}
+                onValueChange={(locale) => {
+                  if (locale === "en" || locale === "ko") updatePreferences({ locale });
+                }}
+              >
+                <DropdownMenuRadioItem value="en" lang="en" closeOnClick>
                   English
-                </SelectItem>
-                <SelectItem value="ko" lang="ko">
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="ko" lang="ko" closeOnClick>
                   한국어
-                </SelectItem>
-              </SelectList>
-            </SelectPopup>
-          </Select>
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Preferences settings={settings} onChange={updatePreferences} />
           <Button
             variant="ghost"
@@ -408,13 +413,7 @@ function Preferences({
             {settings.locale === "ko" ? "설정" : "Settings"}
           </p>
           {controls.map(([name, label, options]) => (
-            <label
-              key={name}
-              {...stylex.props(
-                styles.preferenceLabel,
-                name === "locale" && styles.preferenceLanguage,
-              )}
-            >
+            <label key={name} {...stylex.props(styles.preferenceLabel)}>
               <span>{label}</span>
               <NativeSelect
                 xstyle={styles.preferenceControl}
@@ -472,6 +471,7 @@ function Sidebar({ open, onNavigate }: { open: boolean; onNavigate: () => void }
               <AccordionContent xstyle={styles.sectionContent}>
                 {catalog
                   .filter((item) => item.section === section)
+                  .sort((a, b) => a.title.localeCompare(b.title, "en"))
                   .map((item) => (
                     <Link
                       key={item.slug}
@@ -524,14 +524,6 @@ const sectionNames: Record<string, string> = {
 };
 
 const controls = [
-  [
-    "locale",
-    "Language",
-    [
-      ["ko", "한국어"],
-      ["en", "English"],
-    ],
-  ],
   [
     "density",
     "Density",
@@ -653,14 +645,6 @@ const styles = stylex.create({
     fontWeight: typo.fontWeightRegular,
     color: "var(--docs-muted)",
     border: "0",
-  },
-  languageSelect: {
-    width: "110px",
-    flexShrink: "0",
-    display: {
-      default: null,
-      "@media (max-width: 760px)": "none",
-    },
   },
   repositoryLink: {
     display: "inline-flex",
@@ -841,12 +825,6 @@ const styles = stylex.create({
     display: {
       default: null,
       "@media (max-width: 760px)": "block",
-    },
-  },
-  preferenceLanguage: {
-    display: {
-      default: "none",
-      "@media (max-width: 760px)": "grid",
     },
   },
   searchDialog: {

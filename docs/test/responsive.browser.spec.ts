@@ -43,11 +43,11 @@ function inspectLayout() {
       detail: icon.getBoundingClientRect().width,
     });
   const language = document.querySelector("[data-docs=language-select]");
-  if (innerWidth <= 760 && language && language.getBoundingClientRect().width > 0)
+  if (!language || !language.getBoundingClientRect().width)
     issues.push({
-      kind: "mobile-language-not-collapsed",
+      kind: "language-control-hidden",
       target: "language",
-      detail: language.getBoundingClientRect().width,
+      detail: innerWidth,
     });
   const ctx = document.createElement("canvas").getContext("2d")!;
   for (const n of document.querySelectorAll<HTMLElement>("[data-docs=document] th")) {
