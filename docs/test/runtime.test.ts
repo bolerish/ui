@@ -147,8 +147,8 @@ test("localized home gallery and canonical redirects", async () => {
   const redirect = await fetch(`${base}/docs/components/button?locale=ko&colorMode=dark`, {
     redirect: "manual",
   });
-  assert.equal(redirect.status, 200, "query preferences are applied in the browser");
-  assert.equal(redirect.headers.get("location"), null);
+  assert.equal(redirect.status, 308, "locale queries redirect to their canonical path");
+  assert.equal(redirect.headers.get("location"), "/docs/components/button/ko?colorMode=dark");
   for (const path of ["/docs/components/button/kr", "/docs/getting-started/fr"])
     assert.equal((await fetch(`${base}${path}`)).status, 404);
 });
