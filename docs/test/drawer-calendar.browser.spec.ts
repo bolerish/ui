@@ -63,7 +63,12 @@ for (const colorMode of ["light", "dark"]) {
     const ordinary = range.getByRole("button", { name: /^18, / });
     await start.click();
     await end.click();
+    await expect(middle.locator("..")).toHaveAttribute("aria-selected", "true");
+    await expect(middle).not.toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
     await page.mouse.move(0, 0);
+    await middle.evaluate((element) =>
+      Promise.all(element.getAnimations().map((animation) => animation.finished)),
+    );
     const middleBackground = await middle.evaluate(
       (element) => getComputedStyle(element).backgroundColor,
     );
