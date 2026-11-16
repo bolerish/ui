@@ -95,6 +95,7 @@ test("CLI compares the PR branch with its merge base and includes deleted rename
     git("commit", "-qm", "move UI source into docs");
     assert.equal(run(env), "ui=true\ndocs=true\nroutes=[]\n");
     assert.equal(run({ EVENT_NAME: "push" }), "ui=true\ndocs=true\nroutes=[]\n");
+    assert.equal(run({ EVENT_NAME: "merge_group" }), "ui=true\ndocs=true\nroutes=[]\n");
     assert.equal(run({ EVENT_NAME: "workflow_dispatch" }), "ui=true\ndocs=true\nroutes=[]\n");
   } finally {
     rmSync(cwd, { recursive: true, force: true });

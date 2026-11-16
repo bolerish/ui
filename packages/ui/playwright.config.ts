@@ -3,8 +3,8 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "./src",
   testMatch: "**/*.browser.spec.ts",
-  fullyParallel: false,
-  workers: 1,
+  fullyParallel: Boolean(process.env.CI),
+  workers: process.env.CI ? 4 : 1,
   projects: [
     { name: "chromium", use: { browserName: "chromium" } },
     {

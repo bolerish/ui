@@ -84,8 +84,14 @@ responsive page sweep visits only those documents and the home page, retaining
 all viewport/language/theme combinations. Other browser interaction tests still
 run. Shared code, examples, assets, configuration and unknown paths retain full
 page coverage. Removed or unknown document routes also fall back to full coverage.
-Main pushes, manual Verify runs and local tests always use full coverage unless
-an explicit route selection is supplied. Each selected job must pass.
+Merge-queue checks, main pushes, manual Verify runs and local tests always use full coverage unless
+an explicit route selection is supplied. Each selected job must pass. New PR commits
+cancel older runs for that PR; main, manual and merge-queue runs remain independent.
+UI browsers use four isolated workers in CI; docs keep two workers and local runs
+retain their existing worker counts. Static
+checks and documentation builds run directly on the runner without a browser container.
+The merge-group trigger supports full verification in a merge queue; repository
+branch rules must separately require that queue before merging.
 
 Run the selection tests locally with:
 
