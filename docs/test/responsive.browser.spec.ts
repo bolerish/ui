@@ -3,16 +3,20 @@ import { readFileSync } from "node:fs";
 import { test, expect, type Page } from "@playwright/test";
 
 import { openedExamples } from "../../packages/ui/test/browser/example-coverage";
+import { responsiveRoutes } from "./responsive-routes";
 
 const index: Array<{ section: string; slug: string }> = JSON.parse(
   readFileSync(new URL("../public/search.en.json", import.meta.url), "utf8"),
 );
-const routes = [
-  "/",
-  ...index.map(({ section, slug }) =>
-    section === "guide" ? `/docs/${slug}` : `/docs/${section}/${slug}`,
-  ),
-];
+const routes = responsiveRoutes(
+  [
+    "/",
+    ...index.map(({ section, slug }) =>
+      section === "guide" ? `/docs/${slug}` : `/docs/${section}/${slug}`,
+    ),
+  ],
+  process.env.DOCS_RESPONSIVE_ROUTES,
+);
 
 function inspectLayout() {
   const issues: Array<{ kind: string; target: string; detail: unknown }> = [];

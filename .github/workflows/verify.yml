@@ -4,13 +4,35 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  verify:
-    name: verify
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      ui: ${{ steps.scope.outputs.ui }}
+      docs: ${{ steps.scope.outputs.docs }}
+      routes: ${{ steps.scope.outputs.routes }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - id: scope
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node --experimental-strip-types scripts/ci-scope.ts >> "$GITHUB_OUTPUT"
+
+  checks:
+    name: static checks and unit tests
     runs-on: ubuntu-latest
     # Keep browser dependencies off the slow Ubuntu package mirror.
     container:
@@ -27,50 +49,40 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: pnpm/action-setup@v6
-        with:
-          version: 11.23.0
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 24
-          cache: pnpm
-
-      - run: pnpm install --frozen-lockfile
+      - uses: ./.github/actions/setup
       - run: pnpm check
+      - run: node --experimental-strip-types --test scripts/ci-scope.test.ts docs/test/responsive-routes.test.ts
       - run: pnpm test
-      - run: pnpm --filter @bolerish/ui exec playwright install chromium firefox webkit
-      # Firefox rejects a root process with another user's mounted home.
-      - run: chown "$(id -u):$(id -g)" "$HOME"
-      - run: pnpm --filter @bolerish/ui test:browser
-      - name: Upload browser and axe reports
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: browser-accessibility
-          path: packages/ui/playwright-report
-          if-no-files-found: ignore
-          retention-days: 7
-      - run: pnpm build:docs
-      - run: pnpm --filter @bolerish/docs test:browser
-      - name: Upload responsive layout reports
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: docs-responsive-layout
-          path: docs/playwright-report
-          if-no-files-found: ignore
-          retention-days: 7
-      - run: pnpm --filter @bolerish/docs test:static
-      - name: Verify static HTTP contracts
+
+  ui-browser:
+    needs: changes
+    if: needs.changes.outputs.ui == 'true'
+    uses: ./.github/workflows/verify-ui.yml
+
+  docs:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true'
+    uses: ./.github/workflows/verify-docs.yml
+    with:
+      routes: ${{ needs.changes.outputs.routes }}
+
+  verify:
+    name: verify
+    if: always()
+    needs: [changes, checks, ui-browser, docs]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require all selected checks to pass
+        env:
+          RESULTS: ${{ toJSON(needs) }}
         run: |
-          pnpm --filter @bolerish/docs exec wrangler dev --config wrangler.jsonc --port 3004 > /tmp/docs-preview.log 2>&1 &
-          preview_pid=$!
-          trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
-          for attempt in {1..60}; do
-            if curl --silent --fail http://localhost:3004/ > /dev/null; then break; fi
-            sleep 1
-          done
-          DOCS_URL=http://localhost:3004 pnpm --filter @bolerish/docs test:runtime
-      - run: pnpm --filter @bolerish/docs test:agent
-      - run: pnpm --filter @bolerish/docs test:dev
+          node --input-type=module <<'JS'
+          const jobs = JSON.parse(process.env.RESULTS);
+          for (const name of ["changes", "checks"]) {
+            if (jobs[name].result !== "success") process.exit(1);
+          }
+          for (const [name, output] of [["ui-browser", "ui"], ["docs", "docs"]]) {
+            const expected = jobs.changes.outputs[output] === "true" ? "success" : "skipped";
+            if (jobs[name].result !== expected) process.exit(1);
+          }
+          JS

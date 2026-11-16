@@ -62,3 +62,29 @@ pnpm build:docs
 
 [Docs development](docs/README.md) · [Lint package](packages/lint/README.md)
 · [Release workflow](.changeset/README.md) · [Changelog](CHANGELOG.md)
+
+### Verification workflow
+
+Lefthook checks staged files before commits, running lint and formatting in
+parallel. Before a push it runs the workspace type checks.
+
+`verify.yml` selects the PR scope, runs static/unit checks and collects the final
+`verify` result. Reusable `verify-ui.yml` and `verify-docs.yml` own browser and docs
+verification; the local setup action installs the pinned workspace tools.
+Documentation browsers run in two shards, while static, HTTP, agent and dev
+contracts run independently.
+
+PRs changing only documentation Markdown/MDX or lint/docs-MCP skip UI browsers.
+When every changed file is a document's `docs.mdx` or a guide MDX, the expensive
+responsive page sweep visits only those documents and the home page, retaining
+all viewport/language/theme combinations. Other browser interaction tests still
+run. Shared code, examples, assets, configuration and unknown paths retain full
+page coverage. Removed or unknown document routes also fall back to full coverage.
+Main pushes, manual Verify runs and local tests always use full coverage unless
+an explicit route selection is supplied. Each selected job must pass.
+
+Run the selection tests locally with:
+
+```sh
+node --experimental-strip-types --test scripts/ci-scope.test.ts docs/test/responsive-routes.test.ts
+```

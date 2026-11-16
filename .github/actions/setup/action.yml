@@ -1,0 +1,14 @@
+name: Set up workspace
+description: Install the pinned Node and pnpm versions and workspace dependencies.
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v6
+      with:
+        version: 11.23.0
+    - uses: actions/setup-node@v6
+      with:
+        node-version: 24
+        cache: pnpm
+    - run: pnpm install --frozen-lockfile
+      shell: bash
