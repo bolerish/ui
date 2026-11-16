@@ -30,10 +30,10 @@ export const documentStyles = stylex.create({
   },
   title: {
     fontSize: {
-      default: `calc(${typo.fontSizeXl} * 1.5)`,
-      "@media (max-width: 760px)": `calc(${typo.fontSizeXl} * 1.25)`,
+      default: `calc(${typo.fontSizeXl} * 1.125)`,
+      "@media (max-width: 760px)": typo.fontSizeXl,
     },
-    letterSpacing: "-0.035em",
+    letterSpacing: "normal",
     lineHeight: "1.2",
     marginTop: "0",
     marginRight: "0",
@@ -44,6 +44,7 @@ export const documentStyles = stylex.create({
     scrollMarginTop: `calc(var(--docs-header-height, 65px) + ${spacingVars.space6} + ${sizeVars.stroke})`,
   },
   paragraph: {
+    lineHeight: 1.75,
     overflowWrap: "anywhere",
   },
   pre: {

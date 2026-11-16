@@ -1,11 +1,13 @@
 import * as stylex from "@stylexjs/stylex";
 import { createRoot } from "react-dom/client";
 
+import AccountCreationForm from "../../../../docs/src/docs/_content/components/card/AccountCreationForm";
 import ArrowOnlyCarousel from "../../../../docs/src/docs/_content/components/carousel/ArrowOnly";
 import InsideCarousel from "../../../../docs/src/docs/_content/components/carousel/InsideControls";
 import VerticalCarousel from "../../../../docs/src/docs/_content/components/carousel/Vertical";
 import InputVariants from "../../../../docs/src/docs/_content/components/input/Variants";
 import ToastPositions from "../../../../docs/src/docs/_content/components/toast/Positions";
+import TypographyExample from "../../../../docs/src/docs/_content/foundations/typography/TypographyExample";
 import { Button } from "../../dist/button.js";
 import { Card, CardContent, CardDescription } from "../../dist/card.js";
 import {
@@ -292,6 +294,13 @@ function App() {
           <input aria-label="Folder" />
         </DrawerContent>
       </Drawer>
+    );
+  if (fixture === "visual-system")
+    return (
+      <main>
+        <TypographyExample />
+        <AccountCreationForm />
+      </main>
     );
   if (fixture === "surface")
     return (

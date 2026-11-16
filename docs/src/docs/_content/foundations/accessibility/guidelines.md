@@ -54,3 +54,5 @@ Tab to a field, change its value, save, and check the completion announcement wi
 4. Check light and dark themes, zoom, text spacing overrides, high contrast, and reduced motion.
 
 Passing automated checks does not establish full conformance. Record the screens, environments, and tasks verified manually. This guide is a verification baseline, not WCAG certification for @bolerish/ui.
+
+Check text and essential boundaries against the rendered composite background, including translucent surfaces and custom themes. Preserve labels, errors and primary actions at 200% zoom and with text-spacing overrides. The 24px minimum target and 44px touch-target token are separate constraints; density alone does not guarantee a 44px target.

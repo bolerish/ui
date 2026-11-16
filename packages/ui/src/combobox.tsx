@@ -24,8 +24,8 @@ const styles = stylex.create({
   inputGroup: {
     alignItems: "center",
     backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.sm,
+    borderColor: colorVars.strokeControl,
+    borderRadius: radiusVars.lg,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     display: "flex",
@@ -35,6 +35,10 @@ const styles = stylex.create({
     transitionProperty: "border-color",
     transitionTimingFunction: motionVars.easingStandard,
     width: "14rem",
+    ":has(input:disabled, textarea:disabled)": {
+      borderColor: colorVars.strokeDefault,
+      backgroundColor: colorVars.bgSubtle,
+    },
     ":focus-within": {
       borderColor: colorVars.strokeFocus,
       outlineColor: colorVars.strokeFocus,
@@ -96,7 +100,7 @@ const styles = stylex.create({
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.lg,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     boxShadow: shadowVars.floating,
@@ -139,12 +143,12 @@ const styles = stylex.create({
   },
   item: {
     alignItems: "center",
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     cursor: "default",
     display: "flex",
     fontSize: typo.fontSizeSm,
     gap: spacingVars.space2,
-    minHeight: sizeVars.controlSm,
+    minHeight: sizeVars.controlMd,
     outline: "none",
     paddingInlineEnd: spacingVars.space3,
     paddingInlineStart: spacingVars.space8,
@@ -182,7 +186,7 @@ const styles = stylex.create({
     fontSize: typo.fontSizeXs,
     fontWeight: typo.fontWeightMedium,
     paddingBlock: spacingVars.space2,
-    paddingInline: spacingVars.space2,
+    paddingInline: spacingVars.space3,
   },
   separator: {
     backgroundColor: colorVars.strokeDefault,

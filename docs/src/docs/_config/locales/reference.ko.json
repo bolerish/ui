@@ -124,5 +124,13 @@
   "Loading animation cycle": "로딩 애니메이션 주기",
   "Reduced loading animation cycle": "모션 줄임 시 로딩 애니메이션 주기",
   "Opacity of a layer; not a complete disabled state": "레이어의 불투명도. 비활성 상태는 색상과 동작을 함께 적용합니다.",
-  "Essential control boundary": "식별에 필요한 컨트롤 경계"
+  "Essential control boundary": "식별에 필요한 컨트롤 경계",
+  "Descriptions, form labels and action labels": "설명·폼 레이블·행동 레이블",
+  "Body text": "본문",
+  "Section and task headings": "섹션·작업 제목",
+  "Small details": "작은 세부 요소",
+  "Small actions and inset items": "작은 행동·안쪽 항목",
+  "Controls and popups": "컨트롤·팝업",
+  "Cards and dialogs": "카드·대화상자",
+  "Circles and pills": "원형·캡슐 형태"
 }

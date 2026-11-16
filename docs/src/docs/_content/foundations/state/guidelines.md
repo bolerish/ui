@@ -85,3 +85,5 @@ files and drags from outside the list; dropping on the source does not change th
 Primary buttons use `bgActionPrimaryHover` for their monochrome hover state. Segmented Tabs use a subtle `strokeDefault` inset edge and shadow; soft Toggle Group uses the selected background.
 
 Default and soft Toggle/Toggle Group use the selected background without adding an inset border. Only outline keeps the selected boundary. Segmented Tabs use strokeDefault and the subtle shadow for the selected surface. Keyboard focus remains independent of selection.
+
+Keep persistent selection visible during hover and keyboard focus. Invalid fields retain their error boundary when focused; active fields use strokeControl and disabled fields use strokeDefault. Surface color and shape do not replace HTML state or accessible error descriptions.

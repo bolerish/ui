@@ -75,22 +75,22 @@ const firstItemStyles = stylex.create({
 });
 
 const onlyItemStyles = stylex.create({
-  horizontal: { borderRadius: radiusVars.sm },
-  vertical: { borderRadius: radiusVars.sm },
+  horizontal: { borderRadius: radiusVars.lg },
+  vertical: { borderRadius: radiusVars.lg },
 });
 
 const firstItemRadiusStyles = stylex.create({
   horizontal: {
-    borderBottomLeftRadius: radiusVars.sm,
+    borderBottomLeftRadius: radiusVars.lg,
     borderBottomRightRadius: 0,
-    borderTopLeftRadius: radiusVars.sm,
+    borderTopLeftRadius: radiusVars.lg,
     borderTopRightRadius: 0,
   },
   vertical: {
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    borderTopLeftRadius: radiusVars.sm,
-    borderTopRightRadius: radiusVars.sm,
+    borderTopLeftRadius: radiusVars.lg,
+    borderTopRightRadius: radiusVars.lg,
   },
 });
 
@@ -102,13 +102,13 @@ const middleItemStyles = stylex.create({
 const lastItemStyles = stylex.create({
   horizontal: {
     borderBottomLeftRadius: 0,
-    borderBottomRightRadius: radiusVars.sm,
+    borderBottomRightRadius: radiusVars.lg,
     borderTopLeftRadius: 0,
-    borderTopRightRadius: radiusVars.sm,
+    borderTopRightRadius: radiusVars.lg,
   },
   vertical: {
-    borderBottomLeftRadius: radiusVars.sm,
-    borderBottomRightRadius: radiusVars.sm,
+    borderBottomLeftRadius: radiusVars.lg,
+    borderBottomRightRadius: radiusVars.lg,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
   },

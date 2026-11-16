@@ -17,8 +17,8 @@ import { surfaceStyles } from "./styles/surface";
 const styles = stylex.create({
   root: {
     backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.sm,
+    borderColor: colorVars.strokeControl,
+    borderRadius: radiusVars.lg,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
@@ -35,7 +35,7 @@ const styles = stylex.create({
     width: "100%",
     "::placeholder": { color: colorVars.fgTertiary },
     ":hover:not(:disabled):not([aria-invalid='true']):not(:user-invalid):not(:focus-visible)": {
-      borderColor: colorVars.strokeDefault,
+      borderColor: colorVars.strokeControl,
     },
     ":focus-visible": {
       borderColor: colorVars.strokeFocus,

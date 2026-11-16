@@ -54,7 +54,7 @@ const styles = stylex.create({
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.xl,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     boxShadow: shadowVars.overlay,
@@ -93,7 +93,7 @@ const styles = stylex.create({
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     color: colorVars.fgSecondary,
     cursor: "pointer",
     display: "inline-flex",
@@ -132,7 +132,7 @@ const styles = stylex.create({
     color: colorVars.fgPrimary,
     fontSize: typo.fontSizeLg,
     fontWeight: typo.fontWeightSemibold,
-    lineHeight: typo.lineHeightTight,
+    lineHeight: typo.lineHeightNormal,
     margin: 0,
   },
   description: {

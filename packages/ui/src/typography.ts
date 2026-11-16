@@ -29,8 +29,8 @@ export const typographyStyles = stylex.create({
   title: {
     fontFamily: typo.fontFamilyBody,
     fontSize: typo.fontSizeSm,
-    fontWeight: typo.fontWeightMedium,
-    lineHeight: typo.lineHeightTight,
+    fontWeight: typo.fontWeightSemibold,
+    lineHeight: typo.lineHeightNormal,
   },
   page: {
     fontFamily: typo.fontFamilyHeading,

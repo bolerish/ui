@@ -15,7 +15,7 @@ const styles = stylex.create({
   root: {
     alignItems: "center",
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.xl,
     borderStyle: "dashed",
     borderWidth: sizeVars.stroke,
     display: "flex",
@@ -36,7 +36,7 @@ const styles = stylex.create({
   media: {
     alignItems: "center",
     backgroundColor: colorVars.bgSubtle,
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     color: colorVars.fgSecondary,
     display: "flex",
     height: sizeVars.touchTarget,
@@ -46,8 +46,8 @@ const styles = stylex.create({
   title: {
     color: colorVars.fgPrimary,
     fontSize: typo.fontSizeLg,
-    fontWeight: typo.fontWeightMedium,
-    lineHeight: typo.lineHeightTight,
+    fontWeight: typo.fontWeightSemibold,
+    lineHeight: typo.lineHeightNormal,
     margin: 0,
   },
   description: {

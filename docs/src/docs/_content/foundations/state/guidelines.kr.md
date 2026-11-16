@@ -89,3 +89,5 @@ Tabs는 연결된 패널을 전환하고 Toggle Group은 값을 선택합니다.
 주요 버튼은 모노크롬 호버에 `bgActionPrimaryHover`를 사용합니다. Segmented Tabs는 선택 면에 약한 `strokeDefault` 경계와 그림자를 사용하고, soft Toggle Group은 배경으로 선택을 표시합니다.
 
 기본·soft Toggle과 Toggle Group은 선택 배경을 사용하고 클릭으로 테두리를 추가하지 않습니다. outline 변형은 선택 경계를 유지합니다. segmented Tabs의 선택 면은 약한 strokeDefault 경계와 subtle 그림자를 사용합니다. 키보드 초점은 선택 표시와 독립적으로 유지합니다.
+
+호버와 키보드 초점이 겹쳐도 저장된 선택을 유지합니다. 잘못된 입력은 초점 중에도 오류 경계를 유지하며 활성 필드는 strokeControl, 비활성 필드는 strokeDefault를 사용합니다. 표면색과 형태로 HTML 상태나 접근 가능한 오류 설명을 대신하지 않습니다.

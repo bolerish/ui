@@ -23,9 +23,9 @@ const styles = stylex.create({
 });
 const fontSizeTokens = [
   ["fontSizeXs", typo.fontSizeXs, "Supporting information and token values"],
-  ["fontSizeSm", typo.fontSizeSm, "Body text and form labels"],
-  ["fontSizeMd", typo.fontSizeMd, "Emphasized body text"],
-  ["fontSizeLg", typo.fontSizeLg, "Section headings"],
+  ["fontSizeSm", typo.fontSizeSm, "Descriptions, form labels and action labels"],
+  ["fontSizeMd", typo.fontSizeMd, "Body text"],
+  ["fontSizeLg", typo.fontSizeLg, "Section and task headings"],
   ["fontSizeXl", typo.fontSizeXl, "Page titles"],
 ] as const;
 const lineHeightTokens = [

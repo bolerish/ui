@@ -31,9 +31,7 @@ Use `fgPrimary` for essential content, `fgSecondary` for readable supporting tex
 `fgTertiary` for low-priority supplementary marks, and `fgDisabled` only for unavailable
 controls. Supporting descriptions are not disabled content.
 
-Use `strokeDefault` for ordinary divisions and `strokeStrong` for a clearer separation
-between action groups in menus. Dropdown Menu separators follow this rule. A strong border
-is not a substitute for selection, error or focus, and does not guarantee sufficient contrast.
+Use `strokeDefault` for decorative divisions, including menu separators. Use spacing and labels to distinguish action groups. Essential control boundaries use `strokeControl`; selection, error and focus retain dedicated tokens. A border alone does not guarantee sufficient contrast.
 
 Follow the role composition contracts in [State](/docs/foundations/state)
 for selection and drop backgrounds, foregrounds and borders. `bgSubtle` alone does not mean selected.
@@ -117,7 +115,9 @@ share `strokeDefault`. Essential input, checkbox, radio, switch and slider
 boundaries remain distinct. Progress uses `bgSubtle` for its track; draggable
 scrollbar thumbs use `strokeControl`. Dialogs, drawers, toasts and banners keep
 opaque or semantic feedback surfaces. Layout-only components add no new surface.
-Typography components, selection, error and focus styling remain unchanged.
+Selection, error and focus retain their dedicated state tokens.
 This is a shared visual language, not a requirement to blur every component.
 
-Resting form boundaries use strokeDefault; filled surfaces and labels identify fields. Focus and invalid outlines keep their dedicated tokens. strokeControl remains available for distinct affordances such as scrollbar thumbs.
+Use fgPrimary for essential content, fgSecondary for descriptions, and fgTertiary for metadata. Active fields use strokeControl; decorative divisions and menu separators use strokeDefault. Validate contrast on the actual composite surface and with custom themes.
+
+Liquid material softens decorative panel edges, while essential form boundaries retain opaque strokeControl. Native forced-colors rendering supplies the system control boundary; do not opt controls out with forced-color-adjust: none.

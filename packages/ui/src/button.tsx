@@ -29,7 +29,7 @@ const styles = stylex.create({
     fontWeight: typo.fontWeightMedium,
     gap: spacingVars.space2,
     isolation: "isolate",
-    lineHeight: typo.lineHeightTight,
+    lineHeight: typo.lineHeightNormal,
     outline: "none",
     overflow: "hidden",
     position: "relative",
@@ -112,22 +112,22 @@ const alignStyles = stylex.create({
 
 const sizeStyles = stylex.create({
   sm: {
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     height: sizeVars.controlSm,
     paddingInline: spacingVars.space3,
   },
   md: {
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.lg,
     height: sizeVars.controlMd,
     paddingInline: spacingVars.space4,
   },
   lg: {
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.lg,
     height: sizeVars.controlLg,
     paddingInline: spacingVars.space5,
   },
   icon: {
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.lg,
     height: sizeVars.controlMd,
     paddingInline: 0,
     width: sizeVars.controlMd,

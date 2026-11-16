@@ -23,8 +23,8 @@ const styles = stylex.create({
   root: {
     alignItems: "center",
     backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.sm,
+    borderColor: colorVars.strokeControl,
+    borderRadius: radiusVars.lg,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     display: "flex",
@@ -35,6 +35,10 @@ const styles = stylex.create({
     transitionProperty: "border-color",
     transitionTimingFunction: motionVars.easingStandard,
     width: "100%",
+    ":has(input:disabled, textarea:disabled)": {
+      borderColor: colorVars.strokeDefault,
+      backgroundColor: colorVars.bgSubtle,
+    },
     ":focus-within": {
       borderColor: colorVars.strokeFocus,
       outlineColor: colorVars.strokeFocus,
@@ -67,7 +71,7 @@ const styles = stylex.create({
     borderColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.lg,
     boxShadow: "none",
     flex: 1,
     minWidth: 0,

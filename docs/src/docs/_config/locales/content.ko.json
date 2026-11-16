@@ -98,5 +98,9 @@
   "Change the background color to compare the gradient and translucent surface. Use the documentation theme setting to compare light and dark modes.": "배경색을 바꿔 그라디언트와 반투명 표면의 조합을 확인합니다. 문서의 테마 설정에서 라이트·다크 모드를 비교할 수 있습니다.",
   "Read the entry on a shared, softly colored background. Compare Burgundy, Navy and Apricot palettes or choose a custom color. Use Edit entry to change the note and song, then Read entry to return. Use the documentation theme setting to compare light and dark modes. Changes stay in this example.": "하나의 부드러운 색상 배경 위에서 기록을 읽습니다. 버건디·네이비·살구색 팔레트를 비교하거나 직접 색상을 선택합니다. Edit entry로 본문과 곡을 수정하고 Read entry로 읽기 화면에 돌아옵니다. 문서의 테마 설정으로 라이트·다크를 비교합니다. 변경은 이 예제 안에서만 유지됩니다.",
   "### Global surface modes": "### 전역 표면 모드",
-  "Use shadows when the background alone does not establish enough separation. Contact and ambient shadows share one overhead light. In dark mode, retain semantic surface colors and borders alongside the shadows.": "배경만으로 표면을 구분하기 어려울 때 그림자를 사용합니다. 접촉 그림자와 주변 그림자는 위쪽의 같은 광원을 따릅니다. 다크 모드에서는 의미에 맞는 표면색·경계선을 그림자와 함께 유지합니다."
+  "Use shadows when the background alone does not establish enough separation. Contact and ambient shadows share one overhead light. In dark mode, retain semantic surface colors and borders alongside the shadows.": "배경만으로 표면을 구분하기 어려울 때 그림자를 사용합니다. 접촉 그림자와 주변 그림자는 위쪽의 같은 광원을 따릅니다. 다크 모드에서는 의미에 맞는 표면색·경계선을 그림자와 함께 유지합니다.",
+  "Change the name shown to project members.": "프로젝트 구성원에게 표시되는 이름을 수정하세요.",
+  "Display name": "표시 이름",
+  "Cancel": "취소",
+  "Save changes": "변경 사항 저장"
 }

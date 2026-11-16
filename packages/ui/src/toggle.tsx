@@ -21,7 +21,7 @@ const styles = stylex.create({
   root: {
     alignItems: "center",
     borderColor: "transparent",
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,

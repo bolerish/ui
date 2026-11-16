@@ -85,3 +85,5 @@ Use `em` margins and gaps when an icon's alignment must scale with its adjacent
 text. Use shared spacing tokens for layout gaps and padding. When joining control
 borders, derive negative overlap from `sizeVars.stroke` rather than a raw `-1`.
 These component relationships do not require lint suppression comments.
+
+Cards use 24px insets; small panels use panelPadding (16px). Separate related fields by 16px, titles and descriptions by 8px, and small text groups by 4px. Menu rows have a 36px minimum height at default density (31.5px compact).

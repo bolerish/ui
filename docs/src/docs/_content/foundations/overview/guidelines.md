@@ -56,3 +56,5 @@ Context-only roots, providers and portals do not gain a styling target.
 Styling follows the component's documented target. AccordionContent styles its
 inner content rather than its animated panel. NativeSelect styles the wrapper,
 including the icon, and DrawerContent styles the element directly around children.
+
+Separate page (32px), section (20px), and task titles (20px/30px) from body (16px), descriptions (14px), and metadata (12px). Choose one primary action per task.

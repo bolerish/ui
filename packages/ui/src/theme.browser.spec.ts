@@ -5,7 +5,7 @@ test("omitted attributes retain light tokens and legacy classes still select dar
 }) => {
   await page.goto("/?fixture=surface");
   await page.locator("html").evaluate((html) => html.removeAttribute("data-bolerish-theme"));
-  await expect(page.getByTestId("surface")).toHaveCSS("color", "rgb(8, 9, 10)");
+  await expect(page.getByTestId("surface")).toHaveCSS("color", "rgb(35, 37, 42)");
   await page.goto("/?fixture=surface&theme=dark&legacyTheme");
   await expect(page.locator("html")).not.toHaveAttribute("data-bolerish-theme");
   await expect(page.locator("html")).toHaveCSS("color-scheme", "dark");
@@ -37,10 +37,10 @@ test("CSS-only color modes switch root and portaled surfaces without replacing c
   await expect(dialog).toHaveCSS("color", "rgb(245, 246, 248)");
   const darkShadow = await dialog.evaluate((node) => getComputedStyle(node).boxShadow);
   await root.evaluate((html) => html.setAttribute("data-bolerish-theme", "light"));
-  await expect(root).toHaveCSS("background-color", "rgb(238, 238, 238)");
-  await expect(root).toHaveCSS("color", "rgb(8, 9, 10)");
+  await expect(root).toHaveCSS("background-color", "rgb(250, 251, 252)");
+  await expect(root).toHaveCSS("color", "rgb(35, 37, 42)");
   await expect(root).toHaveCSS("color-scheme", "light");
-  await expect(dialog).toHaveCSS("color", "rgb(8, 9, 10)");
+  await expect(dialog).toHaveCSS("color", "rgb(35, 37, 42)");
   expect(await dialog.evaluate((node) => getComputedStyle(node).boxShadow)).not.toBe(darkShadow);
   await expect(root).toHaveClass("consumer-root");
 });
@@ -61,7 +61,7 @@ test("compiled StyleX themes override built-in attributes on the same root", asy
   await expect(root).toHaveAttribute("class", classes!);
   await expect(dialog).toHaveCSS("box-shadow", shadow);
   await root.evaluate((html) => html.removeAttribute("class"));
-  await expect(root).toHaveCSS("background-color", "rgb(238, 238, 238)");
+  await expect(root).toHaveCSS("background-color", "rgb(250, 251, 252)");
   expect(await dialog.evaluate((node) => getComputedStyle(node).boxShadow)).not.toBe(shadow);
 });
 
@@ -69,7 +69,7 @@ test("a scoped light surface resets inherited dark tokens", async ({ page }) => 
   await page.goto("/?fixture=surface&theme=dark");
   const card = page.getByTestId("surface");
   await card.evaluate((node) => node.setAttribute("data-bolerish-theme", "light"));
-  await expect(card).toHaveCSS("color", "rgb(8, 9, 10)");
+  await expect(card).toHaveCSS("color", "rgb(35, 37, 42)");
   await expect(card).toHaveCSS("color-scheme", "light");
   await expect(page.locator("html")).toHaveCSS("color", "rgb(245, 246, 248)");
 });

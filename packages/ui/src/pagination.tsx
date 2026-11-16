@@ -37,7 +37,7 @@ const styles = stylex.create({
       ":active": colorVars.interactionPressed,
     },
     borderColor: "transparent",
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.lg,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,

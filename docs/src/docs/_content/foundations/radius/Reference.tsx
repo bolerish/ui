@@ -21,11 +21,11 @@ const styles = stylex.create({
   }),
 });
 const radiusTokens = [
-  ["xl", radiusVars.xl, "Large rounded panels"],
-  ["sm", radiusVars.sm, "Small controls"],
-  ["md", radiusVars.md, "Default controls"],
-  ["lg", radiusVars.lg, "Cards and large surfaces"],
-  ["full", radiusVars.full, "Circular icons and badges"],
+  ["sm", radiusVars.sm, "Small details"],
+  ["md", radiusVars.md, "Small actions and inset items"],
+  ["lg", radiusVars.lg, "Controls and popups"],
+  ["xl", radiusVars.xl, "Cards and dialogs"],
+  ["full", radiusVars.full, "Circles and pills"],
 ] as const;
 export function Radius() {
   return (

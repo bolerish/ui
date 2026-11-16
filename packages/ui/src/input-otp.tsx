@@ -20,11 +20,11 @@ import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   root: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
-  group: { display: "inline-flex", width: "fit-content", borderRadius: radiusVars.sm },
+  group: { display: "inline-flex", width: "fit-content", borderRadius: radiusVars.lg },
   slot: {
     appearance: "none",
     backgroundColor: "transparent",
-    borderColor: colorVars.strokeDefault,
+    borderColor: colorVars.strokeControl,
     borderRadius: 0,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
@@ -40,12 +40,12 @@ const styles = stylex.create({
     transitionTimingFunction: motionVars.easingStandard,
     width: sizeVars.controlLg,
     ":first-child": {
-      borderBottomLeftRadius: radiusVars.sm,
-      borderTopLeftRadius: radiusVars.sm,
+      borderBottomLeftRadius: radiusVars.lg,
+      borderTopLeftRadius: radiusVars.lg,
       marginInlineStart: 0,
     },
-    ":last-child": { borderBottomRightRadius: radiusVars.sm, borderTopRightRadius: radiusVars.sm },
-    ":hover:not(:disabled)": { borderColor: colorVars.strokeDefault },
+    ":last-child": { borderBottomRightRadius: radiusVars.lg, borderTopRightRadius: radiusVars.lg },
+    ":hover:not(:disabled)": { borderColor: colorVars.strokeControl },
     ":focus-visible": {
       outlineColor: colorVars.strokeFocus,
       outlineOffset: sizeVars.stroke,
@@ -53,7 +53,11 @@ const styles = stylex.create({
       outlineWidth: sizeVars.focusRing,
       zIndex: 1,
     },
-    ":disabled": { cursor: "not-allowed", opacity: opacityVars.disabled },
+    ":disabled": {
+      borderColor: colorVars.strokeDefault,
+      cursor: "not-allowed",
+      opacity: opacityVars.disabled,
+    },
   },
   separator: { color: colorVars.fgTertiary, paddingInline: spacingVars.space1 },
 });

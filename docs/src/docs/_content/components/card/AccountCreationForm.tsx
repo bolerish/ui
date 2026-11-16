@@ -16,7 +16,7 @@ const layout = stylex.create({
     display: "flex",
     flexWrap: "wrap",
     fontSize: typo.fontSizeSm,
-    gap: spacingVars.space3,
+    gap: spacingVars.space4,
     lineHeight: typo.lineHeightNormal,
     justifyContent: "center",
     width: "100%",
@@ -29,7 +29,7 @@ const layout = stylex.create({
   stack: {
     display: "flex",
     flexDirection: "column",
-    gap: spacingVars.space3,
+    gap: spacingVars.space4,
   },
   form: { maxWidth: sizeVars.contentSm },
 });

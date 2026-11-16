@@ -125,6 +125,8 @@ export const colorPalette = stylex.defineVars({
   alphaWhite50: "#FFFFFF80",
   mist: "#EEEEEE",
   paper: "#F5F5F5",
+  neutral350: "#ADB2BB",
+  neutral550: "#3F434B",
 });
 
 export const colorPaletteGroups = {
@@ -146,9 +148,11 @@ export const colorPaletteGroups = {
     175: colorPalette.neutral175,
     200: colorPalette.neutral200,
     300: colorPalette.neutral300,
+    350: colorPalette.neutral350,
     400: colorPalette.neutral400,
     450: colorPalette.neutral450,
     500: colorPalette.neutral500,
+    550: colorPalette.neutral550,
     600: colorPalette.neutral600,
     700: colorPalette.neutral700,
     800: colorPalette.neutral800,

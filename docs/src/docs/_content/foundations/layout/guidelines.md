@@ -35,3 +35,5 @@ Move secondary actions to the next row or a related menu when space is limited. 
 ### Compose a file list
 
 Use Item to group a file name, modified time, and secondary action. Consider `Table` when people need to compare several values across items. The same data can need a different layout depending on whether the task is browsing or comparison.
+
+Keep page and section headings distinct from task titles inside cards and dialogs. Align field labels and controls, and let descriptions and actions wrap on narrow screens without hiding the primary action.

@@ -47,7 +47,7 @@ const styles = stylex.create({
     backgroundColor: "transparent",
     borderStyle: "none",
     borderWidth: 0,
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     color: colorVars.fgPrimary,
     cursor: "pointer",
     display: "inline-flex",
@@ -100,7 +100,7 @@ const styles = stylex.create({
 
   link: {
     alignItems: "center",
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     color: colorVars.fgPrimary,
     display: "flex",
     gap: spacingVars.space2,
@@ -135,7 +135,7 @@ const styles = stylex.create({
   popup: {
     backgroundColor: colorVars.bgRaised,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.lg,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     boxShadow: shadowVars.floating,

@@ -22,8 +22,8 @@ const styles = stylex.create({
     "--bolerish-input-focus-color": colorVars.strokeFocus,
     appearance: "none",
     backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.sm,
+    borderColor: colorVars.strokeControl,
+    borderRadius: radiusVars.lg,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
@@ -42,7 +42,7 @@ const styles = stylex.create({
       color: colorVars.fgTertiary,
     },
     ":hover:not(:disabled):not([aria-invalid='true']):not(:user-invalid):not(:focus-visible)": {
-      borderColor: colorVars.strokeDefault,
+      borderColor: colorVars.strokeControl,
     },
     ":focus-visible": {
       outlineColor: "var(--bolerish-input-focus-color)",

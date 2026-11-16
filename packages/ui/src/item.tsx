@@ -12,7 +12,7 @@ const styles = stylex.create({
   root: {
     alignItems: "center",
     borderColor: "transparent",
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
@@ -54,14 +54,14 @@ const styles = stylex.create({
 const mediaVariantStyles = stylex.create({
   icon: {
     backgroundColor: colorVars.bgSubtle,
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     color: colorVars.fgSecondary,
     height: sizeVars.controlMd,
     width: sizeVars.controlMd,
   },
   avatar: { borderRadius: radiusVars.full },
   image: {
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     height: sizeVars.touchTarget,
     width: sizeVars.touchTarget,
   },

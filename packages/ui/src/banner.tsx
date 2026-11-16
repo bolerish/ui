@@ -8,7 +8,7 @@ import type { StyledProps } from "./styles/merge-styles";
 const styles = stylex.create({
   root: {
     backgroundColor: colorVars.bgSubtle,
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     color: colorVars.fgPrimary,
     display: "flex",
     flexDirection: "column",
@@ -32,7 +32,7 @@ const styles = stylex.create({
 
 const sizeStyles = stylex.create({
   sm: {
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     gap: spacingVars.space1,
     paddingBlock: spacingVars.space2,
     paddingInline: spacingVars.space3,

@@ -5,7 +5,6 @@ import {
   spacingVars,
   typo,
 } from "@bolerish/tokens/semantic.stylex";
-import { Paragraph } from "@bolerish/ui/paragraph";
 import * as stylex from "@stylexjs/stylex";
 import { Link } from "@tanstack/react-router";
 import { isValidElement, type ReactNode, type ComponentProps } from "react";
@@ -41,6 +40,12 @@ function DocumentationLink({ href, children, ...props }: ComponentProps<"a">) {
 }
 
 const styles = stylex.create({
+  body: {
+    fontFamily: typo.fontFamilyBody,
+    fontSize: typo.fontSizeMd,
+    fontWeight: typo.fontWeightRegular,
+    lineHeight: typo.lineHeightNormal,
+  },
   h1: {
     color: colorVars.fgPrimary,
     fontFamily: typo.fontFamilyHeading,
@@ -52,7 +57,7 @@ const styles = stylex.create({
   h2: {
     color: colorVars.fgPrimary,
     fontFamily: typo.fontFamilyHeading,
-    fontSize: typo.fontSizeLg,
+    fontSize: `calc(${typo.fontSizeXl} * 0.75)`,
     fontWeight: typo.fontWeightSemibold,
     lineHeight: typo.lineHeightTight,
     marginTop: spacingVars.space8,
@@ -62,17 +67,18 @@ const styles = stylex.create({
   h3: {
     color: colorVars.fgPrimary,
     fontFamily: typo.fontFamilyHeading,
-    fontSize: typo.fontSizeMd,
+    fontSize: typo.fontSizeLg,
+    lineHeight: typo.lineHeightTight,
     fontWeight: typo.fontWeightSemibold,
     marginTop: spacingVars.space6,
     marginBottom: spacingVars.space3,
   },
-  p: { marginBlock: spacingVars.space3 },
+  p: { color: colorVars.fgPrimary, margin: 0 },
   list: {
-    color: colorVars.fgSecondary,
+    color: colorVars.fgPrimary,
     fontFamily: typo.fontFamilyBody,
-    fontSize: typo.fontSizeSm,
-    lineHeight: typo.lineHeightNormal,
+    fontSize: typo.fontSizeMd,
+    lineHeight: 1.75,
     paddingInlineStart: spacingVars.space6,
     marginBlock: spacingVars.space3,
   },
@@ -115,7 +121,8 @@ const styles = stylex.create({
     whiteSpace: "nowrap",
   },
   code: {
-    whiteSpace: "nowrap",
+    whiteSpace: "normal",
+    overflowWrap: "anywhere",
     fontFamily: "var(--bolerish-font-code)",
     backgroundColor: colorVars.bgSubtle,
     color: colorVars.fgPrimary,
@@ -154,12 +161,7 @@ export const MarkdownH3: Components["h3"] = ({ node: _node, children, ...props }
 );
 
 export const MarkdownP: Components["p"] = ({ node: _node, ...props }) => (
-  <Paragraph
-    {...props}
-    variant="description"
-    xstyle={styles.p}
-    {...stylex.props(documentStyles.paragraph)}
-  />
+  <p {...props} {...stylex.props(styles.body, styles.p, documentStyles.paragraph)} />
 );
 
 export const MarkdownUl: Components["ul"] = ({ node: _node, ...props }) => (

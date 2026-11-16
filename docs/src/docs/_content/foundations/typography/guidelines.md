@@ -46,3 +46,5 @@ Prefer typography tokens for shared roles. Inline code may use a positive `em`
 font size to follow the surrounding prose. Reading surfaces may choose a positive
 unitless line height, which scales with their text. Foundations lint accepts these
 relative relationships while still reporting fixed raw font sizes and line heights.
+
+At the default unit and density, page titles are 32px/40px, section titles 20px/25px, and task titles 20px/30px. Body text is 16px/24px, descriptions 14px/21px, metadata 12px/18px. Documentation uses 16px/28px reading text and 36px titles (32px on narrow screens). Preserve font, unit and density choices.

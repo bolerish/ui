@@ -69,9 +69,8 @@ for (const mode of ["light", "dark"] as const) {
       await blocked;
       await route.continue();
     });
-    const foreground = mode === "dark" ? "rgb(245, 246, 248)" : "rgb(8, 9, 10)";
-    const secondary = mode === "dark" ? "rgb(138, 143, 152)" : "rgb(56, 59, 63)";
-    const subtle = mode === "dark" ? "rgb(22, 23, 24)" : "rgb(245, 245, 245)";
+    const foreground = mode === "dark" ? "rgb(245, 246, 248)" : "rgb(35, 37, 42)";
+    const subtle = mode === "dark" ? "rgb(22, 23, 24)" : "rgb(244, 244, 245)";
     const assertTheme = async () => {
       await expect(page.locator("html")).toHaveAttribute("data-bolerish-theme", mode);
       await expect(page.locator("body")).toHaveCSS(
@@ -85,7 +84,10 @@ for (const mode of ["light", "dark"] as const) {
         .toEqual(mode === "light" ? [255, 255, 255, 255] : [15, 16, 17, 255]);
       await expect(page.locator("html")).toHaveCSS("color", foreground);
       await expect(page.locator("[data-docs=document] h1")).toHaveCSS("color", foreground);
-      await expect(page.locator("[data-docs=document] p").first()).toHaveCSS("color", secondary);
+      const paragraph = page.locator("[data-docs=document] p").first();
+      await expect(paragraph).toHaveCSS("color", foreground);
+      await expect(paragraph).toHaveCSS("font-size", "16px");
+      await expect(paragraph).toHaveCSS("line-height", "28px");
       await expect(page.locator("[data-docs=language-select]")).toHaveCSS("color", foreground);
       await expect(page.locator("[data-docs=document] pre").first().locator("../..")).toHaveCSS(
         "background-color",

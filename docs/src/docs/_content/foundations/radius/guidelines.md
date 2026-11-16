@@ -4,12 +4,12 @@ Consistent corners make controls and panels feel like parts of the same system. 
 
 ## Selection guidelines
 
-| Situation                  | Recommended choice      | Code                            |
-| -------------------------- | ----------------------- | ------------------------------- |
-| Small controls and badges  | `radiusVars.sm`         | `borderRadius: radiusVars.sm`   |
-| General surfaces           | `radiusVars.md`         | `borderRadius: radiusVars.md`   |
-| Large panels and previews  | `radiusVars.lg` or `xl` | `borderRadius: radiusVars.lg`   |
-| Circular avatars and pills | `radiusVars.full`       | `borderRadius: radiusVars.full` |
+| Situation                     | Recommended choice | Code                            |
+| ----------------------------- | ------------------ | ------------------------------- |
+| Small details                 | `radiusVars.sm`    | `borderRadius: radiusVars.sm`   |
+| Small actions and inset items | `radiusVars.md`    | `borderRadius: radiusVars.md`   |
+| Controls and popups           | `radiusVars.lg`    | `borderRadius: radiusVars.lg`   |
+| Circular avatars and pills    | `radiusVars.full`  | `borderRadius: radiusVars.full` |
 
 Existing components already define their corners. These values are starting points for new surfaces, not instructions to override each component.
 
@@ -24,3 +24,5 @@ Check inner and outer corners together with their spacing. Avoid applying one ra
 ### A card containing an image
 
 When an image touches the card's edge, check that the two contours meet cleanly. When it sits inside padding, inspect the inset and inner radius together. Check for focus indicators and menus extending outside before clipping the entire card.
+
+Use sm (4px) for details, md (8px) for small actions and inset items, lg (12px) for controls and popups, and xl (16px) for cards and dialogs. Keep circles and pills full.

@@ -4,12 +4,12 @@
 
 ## 선택 기준
 
-| 사용 상황             | 권장 선택                 | 적용 코드                       |
-| --------------------- | ------------------------- | ------------------------------- |
-| 작은 컨트롤·배지      | `radiusVars.sm`           | `borderRadius: radiusVars.sm`   |
-| 일반 표면             | `radiusVars.md`           | `borderRadius: radiusVars.md`   |
-| 큰 패널·미리보기 영역 | `radiusVars.lg` 또는 `xl` | `borderRadius: radiusVars.lg`   |
-| 원형 아바타·캡슐 형태 | `radiusVars.full`         | `borderRadius: radiusVars.full` |
+| 사용 상황             | 권장 선택         | 적용 코드                       |
+| --------------------- | ----------------- | ------------------------------- |
+| 작은 세부 요소        | `radiusVars.sm`   | `borderRadius: radiusVars.sm`   |
+| 작은 행동·안쪽 항목   | `radiusVars.md`   | `borderRadius: radiusVars.md`   |
+| 컨트롤·팝업           | `radiusVars.lg`   | `borderRadius: radiusVars.lg`   |
+| 원형 아바타·캡슐 형태 | `radiusVars.full` | `borderRadius: radiusVars.full` |
 
 기존 컴포넌트에는 이미 선택된 모서리가 있습니다. 화면을 맞춘다는 이유로 컴포넌트마다 별도 값을 덮어쓰지 않습니다. 위 표는 새로운 표면을 설계할 때의 출발점입니다.
 
@@ -24,3 +24,5 @@
 ### 이미지가 있는 카드
 
 카드 안 이미지가 바깥 모서리에 닿으면 두 경계가 어긋나지 않는지 확인합니다. 이미지가 여백 안에 있으면 그 간격과 안쪽 반경을 함께 봅니다. 카드 전체를 잘라 내기 전에 초점 표시와 메뉴가 밖으로 나오는지도 확인합니다.
+
+세부 요소는 sm(4px), 작은 행동·안쪽 항목은 md(8px), 컨트롤·팝업은 lg(12px), 카드·대화상자는 xl(16px)을 사용합니다. 원형·캡슐은 full을 유지합니다.

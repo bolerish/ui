@@ -131,7 +131,7 @@ const styles = stylex.create({
     color: colorVars.fgPrimary,
     fontSize: typo.fontSizeLg,
     fontWeight: typo.fontWeightSemibold,
-    lineHeight: typo.lineHeightTight,
+    lineHeight: typo.lineHeightNormal,
     margin: 0,
   },
   description: {

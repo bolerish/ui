@@ -3,18 +3,18 @@ import * as stylex from "@stylexjs/stylex";
 import { colorPalette } from "./color-palette.stylex";
 
 export const colorVars = stylex.defineVars({
-  bgCanvas: colorPalette.mist,
+  bgCanvas: colorPalette.neutral50,
   bgSurface: colorPalette.white,
   bgSurfacePressed: colorPalette.chalk,
   bgInverse: colorPalette.carbon,
   /** Neutral grouping surface; does not indicate selection. */
-  bgSubtle: colorPalette.paper,
+  bgSubtle: colorPalette.primaryWeak,
   bgRaised: colorPalette.white,
   bgRaisedPressed: colorPalette.chalk,
   /** Flat persistent selection. Pair with fgPrimary and a check or boundary. */
-  bgSelected: colorPalette.fog,
+  bgSelected: colorPalette.neutral150,
   /** Area that will receive a dragged item; not an insertion marker. */
-  bgDropTarget: colorPalette.fog,
+  bgDropTarget: colorPalette.neutral150,
   bgCurrent: colorPalette.alphaBlack6,
   bgOverlay: colorPalette.alphaBlack40,
   bgSkeleton: colorPalette.fog,
@@ -25,8 +25,8 @@ export const colorVars = stylex.defineVars({
   bgFeedbackSuccess: colorPalette.greenWeak,
   bgFeedbackWarning: colorPalette.yellowWeak,
   bgFeedbackError: colorPalette.redWeak,
-  fgPrimary: colorPalette.carbon,
-  fgSecondary: colorPalette.iron,
+  fgPrimary: colorPalette.graphite,
+  fgSecondary: colorPalette.neutral550,
   fgTertiary: colorPalette.steel,
   fgDisabled: colorPalette.silver,
   fgInverse: colorPalette.chalk,
@@ -38,7 +38,7 @@ export const colorVars = stylex.defineVars({
   fgFeedbackWarning: colorPalette.yellowFeedback,
   fgFeedbackError: colorPalette.redFeedback,
   strokeDefault: colorPalette.alphaBlack10,
-  /** Emphasized grouping boundary, including menu separators. */
+  /** Active form fields and essential control boundaries. */
   strokeControl: colorPalette.neutral450,
   strokeStrong: colorPalette.steel,
   /** Exact insertion position during drag; pair with a position label. */
@@ -148,8 +148,8 @@ export const typo = stylex.defineVars({
   fontSizeXs: "calc(0.75 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
   fontSizeSm: "calc(0.875 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
   fontSizeMd: "calc(1 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
-  fontSizeLg: "calc(1.125 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
-  fontSizeXl: "calc(1.5 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  fontSizeLg: "calc(1.25 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
+  fontSizeXl: "calc(2 * var(--bolerish-unit, 1rem) * var(--bolerish-density, 1))",
   lineHeightTight: "1.25",
   lineHeightNormal: "1.5",
   fontWeightRegular: "400",

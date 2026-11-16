@@ -28,7 +28,7 @@ const styles = stylex.create({
     borderColor: colorVars.strokeDefault,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     boxShadow: shadowVars.floating,
     color: colorVars.fgPrimary,
     fontSize: typo.fontSizeXs,

@@ -101,7 +101,7 @@ const listVariantStyles = stylex.create({
   segmented: {
     backgroundColor: colorVars.bgSubtle,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.lg,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     minHeight: sizeVars.controlMd,
@@ -118,12 +118,12 @@ const listVariantStyles = stylex.create({
 
 const triggerVariantStyles = stylex.create({
   segmented: {
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     height: sizeVars.controlSm,
     paddingInline: spacingVars.space3,
   },
   underline: {
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     height: sizeVars.controlMd,
     paddingInline: spacingVars.space2,
     ":hover": { backgroundColor: colorVars.interactionHover, color: colorVars.fgPrimary },
@@ -141,7 +141,7 @@ const indicatorVariantStyles = stylex.create({
   segmented: {
     display: "none",
     backgroundColor: colorVars.interactionSelected,
-    borderRadius: radiusVars.sm,
+    borderRadius: radiusVars.md,
     boxShadow: `inset 0 0 0 ${sizeVars.stroke} ${colorVars.strokeDefault}, ${shadowVars.subtle}`,
     height: "var(--active-tab-height)",
     top: "var(--active-tab-top)",

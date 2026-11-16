@@ -16,7 +16,7 @@ const styles = stylex.create({
   card: {
     backgroundColor: colorVars.bgSurface,
     borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.md,
+    borderRadius: radiusVars.xl,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,
     color: colorVars.fgPrimary,
@@ -31,14 +31,14 @@ const styles = stylex.create({
   header: {
     display: "flex",
     flexDirection: "column",
-    gap: spacingVars.space1,
+    gap: spacingVars.space2,
     paddingBlock: spacingVars.space6,
     paddingInline: spacingVars.space6,
   },
   title: {
     fontSize: typo.fontSizeLg,
     fontWeight: typo.fontWeightSemibold,
-    lineHeight: typo.lineHeightTight,
+    lineHeight: typo.lineHeightNormal,
     margin: 0,
   },
   description: {

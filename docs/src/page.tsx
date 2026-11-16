@@ -69,7 +69,7 @@ const styles = stylex.create({
     fontWeight: typo.fontWeightMedium,
     letterSpacing: "0.035em",
     whiteSpace: "normal",
-    fontSize: `clamp(calc(${typo.fontSizeXl} * 1.75), 6vw, calc(${typo.fontSizeXl} * 3))`,
+    fontSize: `clamp(calc(${typo.fontSizeXl} * 1.3125), 6vw, calc(${typo.fontSizeXl} * 2.25))`,
     lineHeight: "1.08",
     marginTop: "0",
     marginRight: "0",
@@ -112,7 +112,7 @@ const styles = stylex.create({
   description: {
     fontSize: {
       default: `calc(${typo.fontSizeMd} * 1.25)`,
-      "@media (max-width: 760px)": typo.fontSizeLg,
+      "@media (max-width: 760px)": `calc(${typo.fontSizeLg} * 0.9)`,
     },
     lineHeight: "1.6",
     color: "var(--docs-muted)",
