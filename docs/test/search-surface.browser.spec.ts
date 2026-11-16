@@ -40,5 +40,23 @@ for (const mode of ["light", "dark"]) {
     const search = await read();
     expect(search.popup).toEqual(profile.popup);
     expect(search.backdrop).toEqual(profile.backdrop);
+    await page
+      .getByRole("textbox", { name: "Search titles and content", exact: true })
+      .fill("field");
+    const results = page.getByRole("navigation", { name: "Search results", exact: true });
+    const field = results.getByRole("link", { name: /^Field / });
+    await expect(field).toBeVisible();
+    const foreground = await page
+      .getByRole("dialog")
+      .evaluate((node) => getComputedStyle(node).color);
+    await expect(field).toHaveCSS("color", foreground);
+    await expect(field).toHaveCSS("text-decoration-line", "none");
+    await expect(results).not.toContainText(/-{3,}/);
+    await field.focus();
+    await expect(field).toBeFocused();
+    await expect(field).toHaveCSS("color", foreground);
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(/\/docs\/components\/field/);
+    await expect(page.getByRole("dialog")).toBeHidden();
   });
 }
