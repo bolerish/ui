@@ -9,7 +9,7 @@ import {
   spacingVars,
   typo,
 } from "@bolerish/tokens/semantic.stylex";
-import { ArrowsDownUpIcon } from "@phosphor-icons/react";
+import { CaretUpDownIcon } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 
@@ -90,7 +90,12 @@ const styles = stylex.create({
     },
   },
   panelTransitioning: { height: 0, opacity: 0 },
-  panelContent: { display: "flex", flexDirection: "column", gap: spacingVars.space2 },
+  panelContent: {
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space2,
+    paddingBlock: spacingVars.space4,
+  },
   icon: {
     flexShrink: 0,
     alignItems: "center",
@@ -138,7 +143,7 @@ export function CollapsibleTrigger({
     >
       {children}
       <span aria-hidden="true" {...stylex.props(styles.icon)}>
-        <ArrowsDownUpIcon />
+        <CaretUpDownIcon />
       </span>
     </CollapsiblePrimitive.Trigger>
   );
