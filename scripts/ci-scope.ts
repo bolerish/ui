@@ -7,6 +7,7 @@ export function browserScope(files: readonly string[]) {
   let allRoutes = false;
   const routes = new Set<string>();
   for (const file of files) {
+    if (file === "README.md" || (file.startsWith("skills/") && file.endsWith(".md"))) continue;
     const document = file.match(
       /^docs\/src\/docs\/_content\/(components|foundations|api)\/([a-z0-9-]+)\/docs\.mdx$/,
     );

@@ -33,6 +33,31 @@ test("docs and lint changes omit only UI browsers; shared and unknown changes ru
   }
 });
 
+test("repository guidance alone needs no browser jobs and cannot hide other changes", () => {
+  const guidance = [
+    "README.md",
+    "skills/bolerish-ui/SKILL.md",
+    "skills/bolerish-ui/references/source-map.md",
+  ];
+  assert.deepEqual(browserScope(guidance), { ui: false, docs: false, routes: [] });
+  assert.deepEqual(
+    browserScope([...guidance, "docs/src/docs/_content/components/button/docs.mdx"]),
+    {
+      ui: false,
+      docs: true,
+      routes: ["/docs/components/button"],
+    },
+  );
+  for (const file of [
+    "packages/ui/src/button.tsx",
+    "skills/check.ts",
+    "new-file.md",
+    ".github/workflows/verify.yml",
+  ]) {
+    assert.deepEqual(browserScope([...guidance, file]), { ui: true, docs: true, routes: [] });
+  }
+});
+
 test("CLI compares the PR branch with its merge base and includes deleted rename sources", () => {
   const cwd = mkdtempSync(join(tmpdir(), "bolerish-ci-scope-"));
   const git = (...args: string[]) => execFileSync("git", args, { cwd, encoding: "utf8" }).trim();

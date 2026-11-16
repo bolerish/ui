@@ -71,10 +71,14 @@ parallel. Before a push it runs the workspace type checks.
 `verify.yml` selects the PR scope, runs static/unit checks and collects the final
 `verify` result. Reusable `verify-ui.yml` and `verify-docs.yml` own browser and docs
 verification; the local setup action installs the pinned workspace tools.
-Documentation browsers run in two shards, while static, HTTP, agent and dev
-contracts run independently.
+Documentation is built once. Its static assets, generated public references and
+compiled UI are shared with two browser shards and the static, HTTP, agent and
+dev contract job. These consumers do not rebuild the documentation or UI.
 
-PRs changing only documentation Markdown/MDX or lint/docs-MCP skip UI browsers.
+PRs changing only the root README or repository skill Markdown skip browser
+jobs; static checks and unit tests still run. These paths do not hide other
+changes in a mixed PR. PRs changing documentation Markdown/MDX or lint/docs-MCP
+skip UI browsers.
 When every changed file is a document's `docs.mdx` or a guide MDX, the expensive
 responsive page sweep visits only those documents and the home page, retaining
 all viewport/language/theme combinations. Other browser interaction tests still
