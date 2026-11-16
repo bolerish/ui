@@ -18,9 +18,9 @@ example-owned styles. It supplies document language/title and a main landmark.
 - Opened state as well: AlertDialog, Dialog, Drawer (default down direction),
   Popover, Select, Combobox (matching results), DropdownMenu, ContextMenu,
   Menubar, NavigationMenu, DatePicker, Tooltip, HoverCard and Toast.
-- The same opened examples also run in Glass mode in both themes, checking
-  translucent surface alpha, 16px blur, full foreground opacity, axe and
-  opaque Solid/reduced-transparency/forced-colors fallbacks. These checks follow
+- The same opened examples also run in both themes, checking
+  opaque panel backgrounds, subtle modal backdrop blur, full foreground opacity, axe and
+  reduced-transparency/forced-colors fallbacks. These checks follow
   the rendered portal content rather than assuming it inherits the preview container.
 - Tags: `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`, `wcag22aa`.
   All violations in this scope fail; no rule is globally disabled.
@@ -39,7 +39,7 @@ Input checks reuse the actual Variants example in light/dark, verify normal fiel
 sizing, editing, `none` focus/error outlines, bottom-only `underline` focus,
 explicit/native invalid states, disabled fields and the forced-colors fallback.
 
-Glass material checks cover translucent cards and floating surfaces, opaque fields and ordinary cards, unchanged foreground opacity, contrast over captured backgrounds, and opaque reduced-transparency/forced-colors fallbacks. Modal checks cover outside-only dimming and nested scrim ownership. No refraction asset or dedicated Liquid component remains. Chromium runs the full suite; Firefox and WebKit run the theme and composition projects listed in playwright.config.ts. Native device checks remain separate.
+Panel checks cover opaque backgrounds, unchanged foreground opacity, contrast and forced-colors fallbacks. Modal checks cover gray outside-only dimming, subtle backdrop blur and nested ownership. Chromium runs the full suite; Firefox and WebKit run the theme and composition projects listed in playwright.config.ts. Native device checks remain separate.
 
 ## Limits
 

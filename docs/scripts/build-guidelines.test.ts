@@ -72,14 +72,12 @@ test("public guides are readable Markdown and search discovery lists canonical p
     "/docs/mcp/ko",
     "/docs/components/item",
     "/docs/components/item/ko",
-    "/docs/api/surface",
-    "/docs/api/surface/ko",
     "/docs/api/gradient",
     "/docs/api/gradient/ko",
   ])
     assert.ok(sitemap.includes(`${path}</loc>`), path);
   for (const match of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g))
-    assert.doesNotMatch(match[1], /\/preview\/|content-row|\?/);
+    assert.doesNotMatch(match[1], /\/preview\/|content-row|\/api\/surface|\?/);
   const robots = await readFile(new URL("robots.txt", root), "utf8");
   assert.match(robots, /User-agent: \*\nAllow: \/\nSitemap: https:\/\/.+\/sitemap.xml/);
 });

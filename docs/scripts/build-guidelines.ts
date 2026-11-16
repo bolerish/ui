@@ -107,7 +107,7 @@ for (const [label, directory, names] of [
   [
     "shared-types",
     new URL("../../packages/ui/src/", import.meta.url),
-    ["styles/control-layout.ts", "typography.ts", "theme.ts", "gradient.ts", "surface.ts"],
+    ["styles/control-layout.ts", "typography.ts", "theme.ts", "gradient.ts"],
   ],
 ] as const) {
   for (const name of names) {

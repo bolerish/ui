@@ -38,7 +38,6 @@ async function getEntryPoints() {
     primitives: join(sourceDirectory, "primitives.ts"),
     theme: join(sourceDirectory, "theme.ts"),
     gradient: join(sourceDirectory, "gradient.ts"),
-    surface: join(sourceDirectory, "surface.ts"),
     // Include definitions even when StyleX inlines their references in components.
     _tokens: resolve("../tokens/src/index.ts"),
   };

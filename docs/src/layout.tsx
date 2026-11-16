@@ -36,7 +36,7 @@ import {
 } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import { Link, Outlet, useNavigate, useLocation, useRouterState } from "@tanstack/react-router";
-import { useCallback, useEffect, useId, useState, type RefCallback } from "react";
+import { useCallback, useEffect, useState, type RefCallback } from "react";
 
 import { catalog } from "@/_shared/catalog";
 import { isNewComponent } from "@/shared/lib/component-releases";
@@ -383,7 +383,6 @@ function Preferences({
   settings: DocumentationGlobals;
   onChange: (changes: Partial<DocumentationGlobals>) => void;
 }) {
-  const surfaceId = useId();
   return (
     <Popover>
       <PopoverTrigger
@@ -408,21 +407,6 @@ function Preferences({
           <p {...stylex.props(styles.preferencesTitle)}>
             {settings.locale === "ko" ? "설정" : "Settings"}
           </p>
-          <label htmlFor={surfaceId} {...stylex.props(styles.preferenceLabel)}>
-            <span>Surface</span>
-            <NativeSelect
-              xstyle={styles.preferenceControl}
-              id={surfaceId}
-              aria-label="Surface"
-              value={settings.surface}
-              onChange={(event) =>
-                onChange({ surface: event.target.value === "glass" ? "glass" : "solid" })
-              }
-            >
-              <option value="solid">Solid</option>
-              <option value="glass">Glass</option>
-            </NativeSelect>
-          </label>
           {controls.map(([name, label, options]) => (
             <label
               key={name}
@@ -578,53 +562,7 @@ const styles = stylex.create({
     borderBottomWidth: sizeVars.stroke,
     borderBottomStyle: "solid",
     borderBottomColor: colorVars.strokeDefault,
-    // The shell header follows the panel opacity/filter preferences without adding a panel wrapper.
-    backgroundColor: {
-      default: colorVars.bgSurface,
-      [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: {
-        default: colorVars.bgSurface,
-        "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))":
-          {
-            default: `color-mix(in srgb, ${colorVars.bgSurface} var(--bolerish-panel-opacity, 100%), transparent)`,
-            "@media (prefers-reduced-transparency: reduce)": colorVars.bgSurface,
-            "@media (forced-colors: active)": "Canvas",
-          },
-      },
-    },
-    WebkitBackdropFilter: {
-      default: null,
-      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and\n  (background-color: color-mix(in srgb, white, transparent))":
-        {
-          default: null,
-          [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]:
-            "var(--bolerish-panel-filter, none)",
-        },
-      "@media (prefers-reduced-transparency: reduce)": {
-        default: null,
-        [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: "none",
-      },
-      "@media (forced-colors: active)": {
-        default: null,
-        [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: "none",
-      },
-    },
-    backdropFilter: {
-      default: null,
-      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and\n  (background-color: color-mix(in srgb, white, transparent))":
-        {
-          default: null,
-          [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]:
-            "var(--bolerish-panel-filter, none)",
-        },
-      "@media (prefers-reduced-transparency: reduce)": {
-        default: null,
-        [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: "none",
-      },
-      "@media (forced-colors: active)": {
-        default: null,
-        [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: "none",
-      },
-    },
+    backgroundColor: colorVars.bgSurface,
   },
   headerInner: {
     maxWidth: "1440px",

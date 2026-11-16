@@ -1,5 +1,4 @@
 import { colorVars, typo } from "@bolerish/tokens/semantic.stylex";
-import { surface } from "@bolerish/ui/surface";
 import * as stylex from "@stylexjs/stylex";
 import {
   HeadContent,
@@ -49,11 +48,6 @@ function canonicalRedirect(
       const query = new URLSearchParams(Object.entries(preferences));
       return `${target}${query.size ? `?${query}` : ""}${location.hash ? `#${location.hash}` : ""}`;
     }
-  }
-  const query = new URLSearchParams(location.searchStr);
-  if (query.get("surface") === "liquid") {
-    query.set("surface", "glass");
-    return `${location.pathname}?${query}${location.hash ? `#${location.hash}` : ""}`;
   }
 }
 
@@ -176,7 +170,6 @@ function Document({ children }: { children: ReactNode }) {
       suppressHydrationWarning
       lang={settings.locale}
       data-bolerish-theme={mode}
-      {...surface.props({ mode: settings.surface })}
       data-bolerish-motion={
         { system: "system", reduce: "off", "no-preference": "on" }[settings.motionPreference]
       }
@@ -185,7 +178,7 @@ function Document({ children }: { children: ReactNode }) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{const value=document.cookie.split('; ').find(c=>c.startsWith('bolerish-docs-settings='))?.slice('bolerish-docs-settings='.length);let saved={};try{const parsed=JSON.parse(decodeURIComponent(value||''));if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))saved=parsed}catch{}const preference=new URLSearchParams(location.search).get('colorMode')||saved.colorMode;const mode=preference==='dark'||preference==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.bolerishTheme=mode;const params=new URLSearchParams(location.search);const material=params.has('surface')?params.get('surface'):saved.surface;document.documentElement.dataset.bolerishSurface=material==='glass'||material==='liquid'?'glass':'solid'}catch{}`,
+            __html: `try{const value=document.cookie.split('; ').find(c=>c.startsWith('bolerish-docs-settings='))?.slice('bolerish-docs-settings='.length);let saved={};try{const parsed=JSON.parse(decodeURIComponent(value||''));if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))saved=parsed}catch{}const preference=new URLSearchParams(location.search).get('colorMode')||saved.colorMode;const mode=preference==='dark'||preference==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.bolerishTheme=mode;}catch{}`,
           }}
         />
         <script dangerouslySetInnerHTML={{ __html: previewTabBootstrap }} />

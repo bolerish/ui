@@ -209,11 +209,11 @@ test("previous short URLs redirect to the docs hierarchy", async () => {
   }
 });
 
-test("surface preferences, Item docs and crawler discovery cross real HTTP boundaries", async () => {
-  const response = await fetch(`${base}/docs/installation/ko?surface=liquid`);
+test("theme preferences, Item docs and crawler discovery cross real HTTP boundaries", async () => {
+  const response = await fetch(`${base}/docs/installation/ko?colorMode=dark`);
   assert.equal(response.status, 200);
   const html = await response.text();
-  assert.match(html, /data-bolerish-surface="solid"/);
+  assert.doesNotMatch(html, /data-bolerish-surface=/);
   const links = [...html.matchAll(/<link\b[^>]*>/g)].map((match) => match[0]);
   assert.ok(
     links.some((link) => link.includes('rel="describedby"') && link.includes('href="/llms.txt"')),

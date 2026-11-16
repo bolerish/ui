@@ -9,7 +9,6 @@ Extend content colors into an atmosphere. Keep semantic color tokens on ordinary
 | An atmosphere derived from music or photography | Layered radial gradients          | Two colors blend across a shared background               |
 | A transition into the next content region       | A linear fade into `bgCanvas`     | The background meets the base surface without a hard edge |
 | Long text or inputs over a background           | A contrast veil or opaque surface | Reading and editing remain predictable as colors change   |
-| Floating secondary controls                     | `Card variant="translucent"`      | Controls remain distinct while sharing the background     |
 
 ## Compose the background
 
@@ -27,10 +26,8 @@ Spread two colors with `radial-gradient()` layers and add a veil using the base 
 
 ## Example
 
-The example combines background color selection, a contrast veil, a bottom fade and a translucent Card. Its reading surface stays opaque. Change the documentation theme and the selected background color together.
+The example combines background color selection, a contrast veil, a bottom fade and an opaque Card. Its reading surface stays opaque. Change the documentation theme and the selected background color together.
 
 ## API reference
 
 Read the [Gradient API](/docs/api/gradient) for `gradient.props()`, color order, StyleX composition and fallbacks.
-
-The comparison explicitly selects Glass for its translucent surface. Outside that scope, omitted surface attributes use Solid. Use the documentation surface setting for other examples.

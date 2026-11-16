@@ -2,7 +2,6 @@ import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
 import DefaultSource from "./Default.tsx?raw";
-import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -23,33 +22,3 @@ Keep the information and actions for one independent item together.
 <LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="card--Default" source={DefaultSource} />
-
-<LocaleContent locale="ko">
-
-## Props
-
-### variant
-
-기본값: `default`
-
-| Value         | Preview                                  |
-| ------------- | ---------------------------------------- |
-| `default`     | {propExamples["variant"]["default"]}     |
-| `translucent` | {propExamples["variant"]["translucent"]} |
-
-</LocaleContent>
-
-<LocaleContent locale="en">
-
-## Props
-
-### variant
-
-Default: `default`
-
-| Value         | Preview                                  |
-| ------------- | ---------------------------------------- |
-| `default`     | {propExamples["variant"]["default"]}     |
-| `translucent` | {propExamples["variant"]["translucent"]} |
-
-</LocaleContent>

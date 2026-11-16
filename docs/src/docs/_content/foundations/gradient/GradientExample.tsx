@@ -2,7 +2,6 @@ import { radiusVars, spacingVars } from "@bolerish/tokens/semantic.stylex";
 import { Button } from "@bolerish/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription } from "@bolerish/ui/card";
 import { gradient } from "@bolerish/ui/gradient";
-import { surface } from "@bolerish/ui/surface";
 import * as stylex from "@stylexjs/stylex";
 import { useState } from "react";
 
@@ -59,16 +58,7 @@ export default function GradientExample() {
           </Button>
         ))}
       </fieldset>
-      <div
-        {...surface.props({ mode: "glass" })}
-        {...gradient.props({ colors: [palette.accent, palette.glow] }, styles.stage)}
-      >
-        <Card variant="translucent">
-          <CardHeader>
-            <CardTitle>Floating surface</CardTitle>
-            <CardDescription>A translucent layer shares the background colors.</CardDescription>
-          </CardHeader>
-        </Card>
+      <div {...gradient.props({ colors: [palette.accent, palette.glow] }, styles.stage)}>
         <Card>
           <CardHeader>
             <CardTitle>Reading surface</CardTitle>

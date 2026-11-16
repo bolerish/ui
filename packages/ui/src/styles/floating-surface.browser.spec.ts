@@ -12,12 +12,9 @@ function backgroundAlpha(node: Element) {
 
 for (const theme of ["light", "dark"]) {
   for (const [name, opening] of Object.entries(openedExamples)) {
-    // Semantic feedback keeps its opaque tone instead of inheriting the glass material.
     if ("material" in opening && opening.material === "opaque") continue;
-    test(`Glass ${theme} ${name} transmits its backing and retains opaque fallbacks`, async ({
-      page,
-    }) => {
-      await page.goto(`/?fixture=documentation&example=${name}&theme=${theme}&surface=glass`);
+    test(`${theme} ${name} retains an opaque accessible panel`, async ({ page }) => {
+      await page.goto(`/?fixture=documentation&example=${name}&theme=${theme}`);
       if (opening.action === "fill")
         await page.getByRole("combobox", { name: opening.name }).fill("Re");
       else if (opening.action === "combobox")
@@ -38,22 +35,26 @@ for (const theme of ["light", "dark"]) {
           : page.locator(opening.target).first();
       await expect(content).toBeVisible();
       await content.evaluate((node) => {
-        for (let current: Element | null = node; current; current = current.parentElement) {
-          if (getComputedStyle(current).backdropFilter !== "none") {
+        const context = document.createElement("canvas").getContext("2d")!;
+        for (
+          let current: Element | null = node;
+          current && current !== document.body;
+          current = current.parentElement
+        ) {
+          context.clearRect(0, 0, 1, 1);
+          context.fillStyle = getComputedStyle(current).backgroundColor;
+          context.fillRect(0, 0, 1, 1);
+          if (context.getImageData(0, 0, 1, 1).data[3] === 255) {
             current.setAttribute("data-tested-floating-surface", "");
             return;
           }
         }
-        throw new Error("Opened content has no translucent surface");
+        throw new Error("Opened content has no opaque panel");
       });
       const popup = page.locator("[data-tested-floating-surface]");
-      expect(await popup.evaluate(backgroundAlpha)).toBeCloseTo(0.8, 2);
+      expect(await popup.evaluate(backgroundAlpha)).toBe(1);
       await expect(popup).toHaveCSS("opacity", "1");
-      const filter = await popup.evaluate((node) => getComputedStyle(node).backdropFilter);
-      const blur = filter.match(/blur\(([\d.]+)px\)/);
-      expect(blur).not.toBeNull();
-      expect(Number(blur![1])).toBe(24);
-      expect(filter).toContain("saturate(1.6)");
+      await expect(popup).toHaveCSS("backdrop-filter", "none");
       const audit = new AxeBuilder({ page }).withTags([
         "wcag2a",
         "wcag2aa",
@@ -63,21 +64,13 @@ for (const theme of ["light", "dark"]) {
       ]);
       for (const node of excludedAuditNodes) audit.exclude(node.selector);
       const result = await audit.analyze();
-      await test.info().attach("axe-open-glass", {
+      await test.info().attach("axe-open-panel", {
         body: JSON.stringify({ violations: result.violations, incomplete: result.incomplete }),
         contentType: "application/json",
       });
       expect(result.violations).toEqual([]);
       await popup.screenshot({ path: test.info().outputPath(`${name}-${theme}.png`) });
 
-      await page.locator("html").evaluate((node) => {
-        node.dataset.bolerishSurface = "solid";
-      });
-      expect(await popup.evaluate(backgroundAlpha)).toBe(1);
-      await expect(popup).toHaveCSS("backdrop-filter", "none");
-      await page.locator("html").evaluate((node) => {
-        node.dataset.bolerishSurface = "glass";
-      });
       const session = await page.context().newCDPSession(page);
       await session.send("Emulation.setEmulatedMedia", {
         features: [{ name: "prefers-reduced-transparency", value: "reduce" }],

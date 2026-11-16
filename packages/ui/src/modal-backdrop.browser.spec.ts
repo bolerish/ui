@@ -5,11 +5,11 @@ for (const [fixture, trigger] of [
   ["documentation&example=alert-dialog", "Delete project"],
   ["drawer", "Open drawer"],
 ] as const) {
-  test(`Glass ${fixture} blurs the outside page while retaining its panel material`, async ({
+  test(`${fixture} dims and subtly blurs the outside page while its panel stays sharp`, async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(`/?fixture=${fixture}&surface=glass`);
+    await page.goto(`/?fixture=${fixture}`);
     await page.evaluate(() => {
       document.documentElement.style.background =
         "repeating-linear-gradient(90deg, black 0 4px, white 4px 8px)";
@@ -18,9 +18,9 @@ for (const [fixture, trigger] of [
     });
     await page.getByRole("button", { name: trigger, exact: true }).click();
     const backdrop = page.locator("[data-bolerish-modal-backdrop]").last();
-    await expect(backdrop).toHaveCSS("backdrop-filter", "blur(8px)");
+    await expect(backdrop).toHaveCSS("backdrop-filter", "blur(4px)");
     const popup = page.getByRole(fixture.startsWith("documentation") ? "alertdialog" : "dialog");
-    await expect(popup).toHaveCSS("backdrop-filter", "blur(24px) saturate(1.6)");
+    await expect(popup).toHaveCSS("backdrop-filter", "none");
     await expect(popup).toHaveCSS("opacity", "1");
     const blurred = await page.screenshot();
     await backdrop.evaluate((node) => {
@@ -57,8 +57,9 @@ for (const [fixture, trigger] of [
       (node as HTMLElement).style.backdropFilter = "";
       (node as HTMLElement).style.removeProperty("-webkit-backdrop-filter");
     });
-    await page.locator("html").evaluate((node) => {
-      node.dataset.bolerishSurface = "solid";
+    const session = await page.context().newCDPSession(page);
+    await session.send("Emulation.setEmulatedMedia", {
+      features: [{ name: "prefers-reduced-transparency", value: "reduce" }],
     });
     await expect(backdrop).toHaveCSS("backdrop-filter", "none");
     await expect(popup).toHaveCSS("backdrop-filter", "none");

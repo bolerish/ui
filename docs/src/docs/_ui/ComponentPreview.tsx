@@ -14,7 +14,6 @@ import { usePreviewTab } from "@/shared/lib/preview-tab";
 import { ui } from "@/shared/model/locale";
 import { useDocumentationGlobals } from "@/shared/model/useDocumentationGlobals";
 
-import { documentMarker } from "../../shared/styles/document-marker.stylex";
 import { CodeBlock } from "./CodeBlock";
 import { getExampleSource } from "./example-source";
 
@@ -44,10 +43,7 @@ const styles = stylex.create({
     minWidth: 0,
   },
   preview: {
-    backgroundColor: {
-      default: "var(--docs-background)",
-      [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: "transparent",
-    },
+    backgroundColor: "var(--docs-background)",
     borderColor: colorVars.strokeDefault,
     borderStyle: "solid",
     borderWidth: sizeVars.stroke,

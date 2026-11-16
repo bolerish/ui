@@ -1,57 +1,19 @@
 /* Global styles are composed by the package build. */
-[data-bolerish-surface="solid"] {
-  --bolerish-surface-highlight: 0 0 transparent;
-  --bolerish-panel-opacity: 100%;
-  --bolerish-floating-opacity: 100%;
-  --bolerish-panel-filter: none;
-  --bolerish-floating-filter: none;
-  --bolerish-modal-nested-opacity: 0;
-  --bolerish-modal-backdrop-opacity: 100%;
-  --bolerish-modal-backdrop-filter: none;
-  --bolerish-modal-scrim-spread: 0px;
-}
-[data-bolerish-surface="glass"] {
-  --bolerish-surface-highlight:
-    inset 0 1px 0 rgb(255 255 255 / 18%), inset 0 0 0 1px rgb(255 255 255 / 6%);
-  --bolerish-panel-opacity: 72%;
-  --bolerish-floating-opacity: 80%;
-  --bolerish-modal-backdrop-filter: blur(8px);
-  --bolerish-panel-filter: blur(24px) saturate(1.6);
-  --bolerish-floating-filter: blur(24px) saturate(1.6);
-}
-
-/* Keep the dimming outside translucent modal panels, so their glass samples the undimmed page. */
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and
-  (background-color: color-mix(in srgb, white, transparent)) and selector(:has(*)) {
-  [data-bolerish-surface="glass"] {
-    --bolerish-modal-nested-opacity: 1;
-    --bolerish-modal-backdrop-opacity: 0%;
-    --bolerish-modal-scrim-spread: 100vmax;
-  }
-}
-/* Keep only the last mounted modal's scrim, including while it exits. */
-[data-base-ui-portal]:has(
-    ~ [data-base-ui-portal] [data-bolerish-modal-popup="visible"],
-    [data-base-ui-portal] [data-bolerish-modal-popup="visible"]
-  )
-  > [role="presentation"]
-  > [data-bolerish-modal-popup] {
-  --bolerish-modal-current-spread: 0px;
-}
+/* Only the frontmost modal dims and blurs the page. */
 [data-base-ui-portal]:has(
     ~ [data-base-ui-portal] [data-bolerish-modal-backdrop],
     [data-base-ui-portal] [data-bolerish-modal-backdrop]
   )
   > [data-bolerish-modal-backdrop] {
-  --bolerish-modal-backdrop-filter: none;
+  background-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
-@media (prefers-reduced-transparency: reduce), (forced-colors: active) {
-  [data-bolerish-surface="glass"] {
-    --bolerish-modal-backdrop-filter: none;
-    --bolerish-modal-nested-opacity: 0;
-    --bolerish-modal-backdrop-opacity: 100%;
-    --bolerish-modal-scrim-spread: 0px;
-  }
+/* Keep existing dimming steady while a nested modal enters or exits. */
+[data-base-ui-portal]:has([data-bolerish-modal-backdrop])
+  ~ [data-base-ui-portal]
+  > [data-bolerish-modal-backdrop] {
+  opacity: 1;
 }
 
 :root[data-bolerish-motion="off"],

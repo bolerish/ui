@@ -2,12 +2,12 @@ import { expect, test } from "@playwright/test";
 
 for (const component of ["dialog", "alert-dialog"] as const) {
   for (const theme of ["light", "dark"]) {
-    test(`Glass ${theme} ${component} dims only outside its panel`, async ({ page }) => {
+    test(`${theme} ${component} dims only outside its panel`, async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 900 });
       await page.goto(
         component === "dialog"
-          ? `/?fixture=dialog&surface=glass&theme=${theme}`
-          : `/?fixture=documentation&example=alert-dialog&surface=glass&theme=${theme}`,
+          ? `/?fixture=dialog&theme=${theme}`
+          : `/?fixture=documentation&example=alert-dialog&theme=${theme}`,
       );
       await page.evaluate(() => {
         document.documentElement.style.backgroundColor = "#b0c8e0";
@@ -83,7 +83,7 @@ for (const component of ["dialog", "alert-dialog"] as const) {
 for (const parent of ["dialog", "drawer"]) {
   test(`nested Dialog over ${parent} keeps only the frontmost scrim`, async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(`/?fixture=modal-nested&surface=glass&parent=${parent}`);
+    await page.goto(`/?fixture=modal-nested&parent=${parent}`);
     await page.evaluate(() => {
       document.documentElement.style.backgroundColor = "#b0c8e0";
       document.body.style.backgroundColor = "#b0c8e0";
@@ -142,7 +142,7 @@ for (const parent of ["dialog", "drawer"]) {
   });
 }
 
-for (const preference of ["solid", "reduced-transparency", "forced-colors"]) {
+for (const preference of ["reduced-transparency", "forced-colors"]) {
   test(`${preference} retains the ordinary Dialog backdrop and opaque panel`, async ({ page }) => {
     if (preference === "reduced-transparency") {
       const session = await page.context().newCDPSession(page);
@@ -151,7 +151,7 @@ for (const preference of ["solid", "reduced-transparency", "forced-colors"]) {
       });
     }
     if (preference === "forced-colors") await page.emulateMedia({ forcedColors: "active" });
-    await page.goto(`/?fixture=dialog&surface=${preference === "solid" ? "solid" : "glass"}`);
+    await page.goto("/?fixture=dialog");
     await page.getByRole("button", { name: "Open dialog", exact: true }).click();
     const popup = page.getByRole("dialog");
     await expect(popup).toHaveCSS("backdrop-filter", "none");
@@ -170,8 +170,8 @@ for (const preference of ["solid", "reduced-transparency", "forced-colors"]) {
   });
 }
 
-test("opening a menu in a Glass modal keeps the modal scrim", async ({ page }) => {
-  await page.goto("/?fixture=modal-nested&surface=glass&parent=dialog");
+test("opening a menu in a modal keeps the modal scrim", async ({ page }) => {
+  await page.goto("/?fixture=modal-nested&parent=dialog");
   await page.getByRole("button", { name: "Open parent", exact: true }).click();
   const popup = page.getByRole("dialog", { name: "Parent modal", exact: true });
   const before = await popup.evaluate((node) => getComputedStyle(node).boxShadow);

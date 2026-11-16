@@ -91,7 +91,7 @@ export function Menubar({
     <MenubarPrimitive
       {...props}
       {...mergeStyles(
-        stylex.props(styles.root, surfaceStyles.edge, surfaceStyles.translucent, xstyle),
+        stylex.props(styles.root, surfaceStyles.edge, surfaceStyles.panel, xstyle),
         className,
         style,
       )}

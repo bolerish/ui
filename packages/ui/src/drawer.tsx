@@ -18,7 +18,7 @@ import type { ComponentProps } from "react";
 import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
-import { modalOverlayStyles } from "./styles/modal-overlay";
+import { modalBackdropStyles } from "./styles/modal-backdrop";
 import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
@@ -42,7 +42,11 @@ const styles = stylex.create({
       },
     },
   },
-  overlayTransparent: { backgroundColor: "transparent" },
+  overlayTransparent: {
+    backgroundColor: "transparent",
+    WebkitBackdropFilter: "none",
+    backdropFilter: "none",
+  },
   viewport: { inset: 0, position: "fixed", zIndex: layerVars.modal },
   popup: {
     backgroundColor: colorVars.bgRaised,
@@ -302,7 +306,7 @@ function DrawerOverlay({ className, style, xstyle, ...props }: DrawerOverlayProp
       {...props}
       data-slot="drawer-overlay"
       {...mergeStyles(
-        stylex.props(styles.overlay, modalOverlayStyles.backdrop, xstyle),
+        stylex.props(styles.overlay, modalBackdropStyles.root, xstyle),
         className,
         style,
       )}
@@ -364,7 +368,6 @@ export function DrawerContent({
             styles.popup,
             surfaceStyles.raised,
             surfaceStyles.edge,
-            overlay === "visible" && modalOverlayStyles.outsideScrim,
             isHorizontal ? styles.horizontalPopup : styles.verticalPopup,
             popupDirectionStyles[swipeDirection],
           )}

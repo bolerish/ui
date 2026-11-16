@@ -12,18 +12,12 @@ import { build } from "vite";
 const execFile = promisify(execFileCallback);
 const testDirectory = dirname(fileURLToPath(import.meta.url));
 
-test("surface root and subpath exports share the same attribute-only API", async () => {
-  const entry = await import("@bolerish/ui/surface");
+test("removed Surface and Liquid APIs and assets are absent from the distribution", async () => {
   const root = await import("./dist/index.js");
-  assert.equal(entry.surface, root.surface);
-  assert.deepEqual(entry.surface.props({ mode: "glass" }), { "data-bolerish-surface": "glass" });
-});
-
-test("removed Liquid API and assets are absent from the distribution", async () => {
-  const root = await import("./dist/index.js");
+  assert.equal("surface" in root, false);
   assert.equal("Liquid" in root, false);
   assert.equal("Glass" in root, false);
-  for (const path of ["@bolerish/ui/liquid", "@bolerish/ui/glass"]) {
+  for (const path of ["@bolerish/ui/surface", "@bolerish/ui/liquid", "@bolerish/ui/glass"]) {
     await assert.rejects(import(path), { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" });
   }
   const files = await readdir(new URL("./dist/", import.meta.url), { recursive: true });
@@ -140,10 +134,9 @@ test("package consumers build components and both themes without a StyleX plugin
       [
         'import React from "react";',
         'import { createRoot } from "react-dom/client";',
-        'import { Button, surface } from "@bolerish/ui";',
+        'import { Button } from "@bolerish/ui";',
         'import "./custom.css";',
         'document.documentElement.dataset.bolerishTheme = "dark";',
-        'for (const [name, value] of Object.entries(surface.props({ mode: "glass" }))) document.documentElement.setAttribute(name, value);',
         'createRoot(document.getElementById("root")!).render(<div><Button className="consumer-button" style={{ maxWidth: 320 }}>Save</Button></div>);',
       ].join("\n"),
     );
@@ -192,7 +185,7 @@ test("package consumers build components and both themes without a StyleX plugin
     assert.equal(
       result.output.some((entry) => entry.type === "asset" && entry.fileName.endsWith(".svg")),
       false,
-      "shared glass does not emit a refraction asset",
+      "removed material effects do not emit a refraction asset",
     );
     const { themeClassNames } = await import("./dist/theme.js");
     for (const mode of ["light", "dark"] as const) {

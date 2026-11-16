@@ -11,7 +11,7 @@ for (const path of ["/", "/ko"]) {
         await page.context().addCookies([
           {
             name: "bolerish-docs-settings",
-            value: encodeURIComponent(JSON.stringify({ colorMode: "dark", surface: "liquid" })),
+            value: encodeURIComponent(JSON.stringify({ colorMode: "dark" })),
             url: test.info().project.use.baseURL!,
           },
         ]);
@@ -56,10 +56,7 @@ for (const path of ["/", "/ko"]) {
         "data-bolerish-theme",
         saved ? "dark" : "light",
       );
-      await expect(page.locator("html")).toHaveAttribute(
-        "data-bolerish-surface",
-        saved ? "glass" : "solid",
-      );
+
       await test.info().attach("hydration-errors", {
         body: JSON.stringify(errors),
         contentType: "application/json",

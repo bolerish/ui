@@ -25,7 +25,6 @@ import type { Progress } from "./dist/progress.js";
 import type { SelectTrigger } from "./dist/select.js";
 import type { Slider } from "./dist/slider.js";
 import type { Spinner } from "./dist/spinner.js";
-import { surface } from "./dist/surface.js";
 import type { Switch } from "./dist/switch.js";
 import type { Table } from "./dist/table.js";
 import type { Textarea } from "./dist/textarea.js";
@@ -122,9 +121,8 @@ export const buttonMotion: ComponentProps<typeof Button> = {
   // @ts-expect-error Motion cannot be replaced through a layout extension.
   xstyle: styles.motion,
 };
-export const translucentCard: ComponentProps<typeof Card> = { variant: "translucent" };
 export const invalidCardVariant: ComponentProps<typeof Card> = {
-  // @ts-expect-error Card supports only its documented surface treatments.
+  // @ts-expect-error Card no longer has a material variant.
   variant: "liquid",
 };
 export const cardPaint: ComponentProps<typeof Card> = { xstyle: styles.paint };
@@ -202,14 +200,6 @@ export const buttonCss: ComponentProps<typeof Button> = {
 };
 
 export const gradientStyleX = gradient.props({ colors: ["red", "blue"] }, styles.layout);
-export const surfaceElement = (
-  <html lang="en" {...stylex.props(styles.layout)} {...surface.props({ mode: "glass" })} />
-);
-export const solidSurfaceElement = <body {...surface.props({ mode: "solid" })} />;
-// @ts-expect-error Refraction is not a global material mode.
-surface.props({ mode: "refraction" });
-// @ts-expect-error A material mode is required.
-surface.props({});
 export const gradientConvertedProps = gradient.props(
   { colors: ["red", "blue"] },
   // @ts-expect-error Pass source StyleX styles, not the already converted DOM props.
@@ -269,5 +259,6 @@ export const unknownInputVariant: ComponentProps<typeof Input> = { variant: "bot
 // @ts-expect-error The removed Liquid subpath is not a public entry.
 import type { LiquidProps } from "@bolerish/ui/liquid";
 export type RemovedLiquidContract = LiquidProps;
-// @ts-expect-error The removed liquid mode is not supported by the package.
-export const removedLiquidMode = surface.props({ mode: "liquid" });
+// @ts-expect-error The removed Surface subpath is not a public entry.
+import type { SurfaceOptions } from "@bolerish/ui/surface";
+export type RemovedSurfaceContract = SurfaceOptions;

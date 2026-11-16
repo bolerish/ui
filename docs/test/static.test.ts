@@ -96,29 +96,3 @@ test("every sitemap page exposes its own metadata, one primary heading and a lan
   );
   assert.match(koreanInstallation, /<title>설치 · bolerish\/ui<\/title>/);
 });
-
-test("built head migrates surface cookies and respects explicit URL keys before React", async () => {
-  const html = await readFile(new URL("../dist/client/index.html", import.meta.url), "utf8");
-  const script = html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
-  assert.ok(script);
-  for (const [saved, search, expected] of [
-    ["liquid", "", "glass"],
-    ["glass", "?surface=", "solid"],
-    ["glass", "?surface=invalid", "solid"],
-    ["solid", "?surface=liquid", "glass"],
-    ["solid", "?surface=glass", "glass"],
-    ["liquid", "?surface=solid", "solid"],
-  ]) {
-    const element = { dataset: {} as Record<string, string> };
-    runInNewContext(script, {
-      document: {
-        cookie: `bolerish-docs-settings=${encodeURIComponent(JSON.stringify({ surface: saved }))}`,
-        documentElement: element,
-      },
-      location: { search },
-      URLSearchParams,
-      matchMedia: () => ({ matches: false }),
-    });
-    assert.equal(element.dataset.bolerishSurface, expected);
-  }
-});

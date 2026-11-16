@@ -8,7 +8,6 @@ test("invalid URL and saved preferences normalize to safe defaults", () => {
   assert.deepEqual(
     validateSettings({
       colorMode: "purple",
-      surface: "frost",
       locale: [],
       density: -1,
       unit: "vw",
@@ -25,16 +24,11 @@ test("invalid URL and saved preferences normalize to safe defaults", () => {
     locale: "en",
     density: "compact",
     colorMode: "dark",
-    surface: "liquid",
     motionPreference: "reduce",
     unit: "px",
     fontPreset: "serif-heading",
   });
   assert.equal(settings.colorMode, "dark");
-  assert.equal(settings.surface, "glass");
-  assert.equal(validateSettings({}).surface, "solid");
-  assert.deepEqual(validateSearch({ surface: "liquid" }), { surface: "glass" });
-  assert.equal(parseSavedPreferences(encodeURIComponent('{"surface":"liquid"}'))!.surface, "glass");
   assert.equal(settings.density, "compact");
   assert.equal(settings.locale, "en");
 });
@@ -48,15 +42,16 @@ test("malformed preference cookies normalize safely", () => {
   );
 });
 
-test("legacy surface inputs migrate without overriding explicit invalid URL values", () => {
-  for (const value of ["glass", "liquid"]) {
-    assert.equal(validateSettings({ surface: value }).surface, "glass");
+test("removed surface preferences are ignored without changing supported settings", () => {
+  for (const surface of ["solid", "glass", "liquid", "", null]) {
+    assert.deepEqual(validateSettings({ surface }), validateSettings({}));
+    assert.deepEqual(validateSearch({ surface, colorMode: "dark" }), { colorMode: "dark" });
     assert.equal(
-      parseSavedPreferences(encodeURIComponent(JSON.stringify({ surface: value })))!.surface,
-      "glass",
+      Object.hasOwn(
+        parseSavedPreferences(encodeURIComponent(JSON.stringify({ surface })))!,
+        "surface",
+      ),
+      false,
     );
-  }
-  for (const value of ["", "liqude", null, [], 1]) {
-    assert.deepEqual(validateSearch({ surface: value }), { surface: "solid" });
   }
 });

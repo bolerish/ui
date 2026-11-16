@@ -75,19 +75,16 @@ and review them again. `pnpm palette:check` checks generated values against the
 source, and `pnpm test:tokens` checks conversion and contrast. Consumers receive
 generated tokens without runtime OKLCH conversion.
 
-## Content backgrounds and translucent surfaces
+## Content backgrounds
 
 Use colors derived from content, such as album artwork, in an app-owned background gradient.
 Do not remap action, error, or selection tokens to match the content. Keep existing semantic tokens for ordinary screens.
 
-Use `Card` with `variant="translucent"` when its background should show through slightly.
-Apply the gradient to the surrounding container. Translucent surfaces separate a reading area;
-avoid repeating backdrop blur across the screen or behind long passages of text.
-Adjust the surface background rather than the entire card's `opacity`, which would also fade text and controls.
+Apply the gradient to the surrounding container and keep cards opaque so text and controls remain readable.
 
 For prose placed directly on the background, use a full-surface contrast veil to bound luminance.
 Keep a readable foreground for prose, dates and song details rather than blurring surrounding text.
-Reserve translucent surfaces for floating controls and use an opaque surface for editing.
+Use an opaque surface for reading and editing.
 Recheck contrast when changing veil strength, text colors or consumer themes.
 
 Check body and secondary text contrast on light and dark backgrounds with the default themes.
@@ -98,9 +95,7 @@ See [Card](/docs/components/card) for the example and its scope.
 
 Decorative boundaries retain strokeDefault without additional fading. Essential control, selection, error and focus boundaries retain their dedicated tokens.
 
-Solid is the default, including when the surface attribute is omitted. In Glass mode, menus, popovers, selection lists, dialogs, drawers, toasts and tooltips use 80% bgRaised and 24px backdrop blur with 1.6× saturation. Cards, ordinary Attachment panels, outlined Items and Menubar use 72% bgSurface with the same blur. Input fields remain opaque. Glass panels add a thin inset highlight without refraction or lens distortion. Existing elevation shadow tokens apply in both modes.
-
-Reduced transparency, forced colors and unsupported effects use opaque fallbacks. Glass modals with a visible overlay also require :has(); otherwise they use an opaque panel and ordinary backdrop. Check actual composite backgrounds and custom themes. Decorative borders do not establish a 3:1 essential boundary.
+Panels remain opaque. Modal backdrops use the gray overlay role with subtle blur; reduced transparency and forced colors disable the blur. Check contrast in custom themes.
 
 Secondary buttons and grouped tabs/toggles retain bgSubtle. Semantic feedback, selection and disabled states preserve their roles. Progress tracks and scrollbar affordances keep their existing tokens. Background decoration does not change text opacity, focus or HTML state.
 

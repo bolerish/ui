@@ -71,8 +71,6 @@ if (params.has("legacyTheme")) {
 if (params.has("customTheme"))
   document.documentElement.className = stylex.props(brandColors, brandShadows).className ?? "";
 document.documentElement.dataset.bolerishMotion = "off";
-if (params.has("surface"))
-  document.documentElement.dataset.bolerishSurface = params.get("surface")!;
 const options = ["React", "Vue", "Svelte"];
 function SelectExample() {
   return (
@@ -275,11 +273,7 @@ function App() {
           padding: 32,
         }}
       >
-        <Card
-          variant={params.has("translucent") ? "translucent" : "default"}
-          data-testid="surface"
-          style={params.has("pattern") ? { height: 260 } : undefined}
-        >
+        <Card data-testid="surface" style={params.has("pattern") ? { height: 260 } : undefined}>
           <CardContent>
             <p>Primary text</p>
             <CardDescription data-testid="description">Supporting text</CardDescription>

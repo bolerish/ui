@@ -5,7 +5,7 @@ for (const theme of ["light", "dark"]) {
     page,
     browserName,
   }) => {
-    await page.goto(`/?fixture=visual-system&theme=${theme}&surface=solid`);
+    await page.goto(`/?fixture=visual-system&theme=${theme}`);
     await expect(page.getByRole("heading", { name: "Project settings" })).toHaveCSS(
       "font-size",
       "32px",
@@ -33,13 +33,13 @@ for (const theme of ["light", "dark"]) {
       path: test.info().outputPath(`${theme}-composition.png`),
       fullPage: true,
     });
-    await page.goto(`/?fixture=dialog&theme=${theme}&surface=solid`);
+    await page.goto(`/?fixture=dialog&theme=${theme}`);
     await page.getByRole("button", { name: "Open dialog", exact: true }).click();
     await expect(page.getByRole("dialog", { name: "Edit project" })).toHaveCSS(
       "padding-top",
       "24px",
     );
-    await page.goto(`/?fixture=visual-system&theme=${theme}&surface=glass`);
+    await page.goto(`/?fixture=visual-system&theme=${theme}`);
     await expect(name).toHaveCSS("border-top-color", resting);
     // WebKit does not emulate the system palette; verify it on native devices.
     if (browserName !== "chromium") return;

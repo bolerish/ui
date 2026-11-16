@@ -179,7 +179,7 @@ test("stdio tools find and return bundled references outside the checkout", asyn
     for (const id of [
       "foundations/spacing",
       "guides/installation",
-      "api/surface",
+      "api/gradient",
       "api/shared-types-control-layout",
     ]) {
       const result = await call("get_doc", { id });

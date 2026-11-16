@@ -1,15 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
-async function scene(
-  page: Page,
-  theme: string,
-  direction: string,
-  overlay: string,
-  surface = "glass",
-) {
-  await page.goto(
-    `/?fixture=drawer&theme=${theme}&surface=${surface}&direction=${direction}&overlay=${overlay}`,
-  );
+async function scene(page: Page, theme: string, direction: string, overlay: string) {
+  await page.goto(`/?fixture=drawer&theme=${theme}&direction=${direction}&overlay=${overlay}`);
   await page.evaluate(() => {
     document.documentElement.style.backgroundColor = "#b0c8e0";
     document.body.style.backgroundColor = "#b0c8e0";
@@ -46,7 +38,7 @@ async function scene(
 
 for (const theme of ["light", "dark"]) {
   for (const direction of ["down", "up", "left", "right"]) {
-    test(`Glass ${theme} ${direction} Drawer keeps its glass undimmed and outside click closes`, async ({
+    test(`${theme} ${direction} Drawer keeps its opaque panel undimmed and outside click closes`, async ({
       page,
     }) => {
       await page.setViewportSize({ width: 1280, height: 900 });
@@ -67,14 +59,12 @@ for (const theme of ["light", "dark"]) {
   }
 }
 
-for (const surface of ["solid", "glass"]) {
-  test(`${surface} preserves transparent and absent overlay appearance`, async ({ page }) => {
-    await page.setViewportSize({ width: 1280, height: 900 });
-    const transparent = await scene(page, "light", "down", "transparent", surface);
-    const absent = await scene(page, "light", "down", "none", surface);
-    expect(absent.pixels).toEqual(transparent.pixels);
-  });
-}
+test("Drawer preserves transparent and absent overlay appearance", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  const transparent = await scene(page, "light", "down", "transparent");
+  const absent = await scene(page, "light", "down", "none");
+  expect(absent.pixels).toEqual(transparent.pixels);
+});
 
 test("reduced transparency restores an opaque Drawer and its ordinary backdrop", async ({
   page,

@@ -85,15 +85,11 @@ test("generated localized indexes cover all docs and search actual body content"
       [...expected].sort(),
     );
     assert.ok(index.every((item) => item.title && item.text));
-    const results = searchDocuments(index, locale === "en" ? "portals" : "포털");
+    const results = searchDocuments(index, locale === "en" ? "portal" : "포털");
     assert.ok(results.some((item) => item.slug === "theming"));
     assert.ok(searchDocuments(index, "Biome").some((item) => item.slug === "lint"));
     assert.ok(index.some((item) => item.slug === "item"));
-    assert.ok(
-      searchDocuments(index, "surface").some(
-        (item) => item.section === "api" && item.slug === "surface",
-      ),
-    );
+    assert.ok(!index.some((item) => item.section === "api" && item.slug === "surface"));
     assert.ok(
       searchDocuments(index, "gradient").some(
         (item) => item.section === "api" && item.slug === "gradient",

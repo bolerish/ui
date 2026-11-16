@@ -107,8 +107,8 @@ for (const theme of ["default", "light", "dark"]) {
     test(`${theme} ${example} preserves contact and ambient shadow layers`, async ({ page }) => {
       await page.goto(
         example === "dialog"
-          ? `/?fixture=dialog&surface=solid&theme=${theme}`
-          : `/?fixture=documentation&example=${example}&surface=solid&theme=${theme}`,
+          ? `/?fixture=dialog&theme=${theme}`
+          : `/?fixture=documentation&example=${example}&theme=${theme}`,
       );
       if (theme === "default")
         await page.locator("html").evaluate((node) => node.removeAttribute("data-bolerish-theme"));

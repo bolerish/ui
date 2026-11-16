@@ -70,24 +70,12 @@ type ElementProps = StyledProps<ComponentProps<"div">> & StyleProps;
 type HeadingProps = StyledProps<ComponentProps<"h3">> & StyleProps;
 type ParagraphProps = StyledProps<ComponentProps<"p">> & StyleProps;
 
-export function Card({
-  className,
-  style,
-  variant = "default",
-  xstyle,
-  ...props
-}: ElementProps & { variant?: "default" | "translucent" }) {
+export function Card({ className, style, xstyle, ...props }: ElementProps) {
   return (
     <div
       {...props}
       {...mergeStyles(
-        stylex.props(
-          styles.card,
-          surfaceStyles.panel,
-          surfaceStyles.edge,
-          variant === "translucent" && surfaceStyles.translucent,
-          xstyle,
-        ),
+        stylex.props(styles.card, surfaceStyles.panel, surfaceStyles.edge, xstyle),
         className,
         style,
       )}

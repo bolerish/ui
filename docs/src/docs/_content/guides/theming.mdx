@@ -80,20 +80,6 @@ Load your font separately. Default density is `1`; compact is `0.875`. Keep the 
 
 Motion follows the OS by default. `data-bolerish-motion="off"` on `html` reduces motion; `on` explicitly overrides the OS and should only follow an end-user choice. See [Motion](/docs/foundations/motion) and [Accessibility](/docs/foundations/accessibility).
 
-## Select a surface treatment
-
-Use `surface.props({ mode: "solid" | "glass" })` on `html`. Solid is the default, including when the attribute is omitted. Glass applies 24px backdrop blur with 1.6× saturation and a 80% fill to floating surfaces, and a 72% fill to cards, ordinary Attachment panels, outlined Items and Menubar. Input fields remain opaque. This is independent of light/dark themes and component variants. See the [Surface API](/docs/api/surface).
-
-```tsx
-import { surface } from "@bolerish/ui/surface";
-
-<html data-bolerish-theme="dark" {...surface.props({ mode: "glass" })}>
-  <body>{children}</body>
-</html>;
-```
-
-A nested `data-bolerish-surface="solid"` region can opt out. Portals outside that region follow `html`. Glass does not refract or distort the background. Reduced transparency, forced colors and unsupported effects use solid fallbacks. Check custom colors against the actual composite background. See the [Card comparison](/docs/components/card#global-surface-modes) and [Liquid migration](/docs/api/surface#migrate-from-liquid).
-
 ## Extend the palette
 
 For a custom app surface, choose existing [Color](/docs/foundations/color) roles before adding values. Use [Styling](/docs/styling) for StyleX token imports. Generated StyleX class and variable names are not stable customization hooks; use exported tokens and the documented CSS variables.
@@ -105,20 +91,6 @@ For a custom app surface, choose existing [Color](/docs/foundations/color) roles
 글꼴 파일은 별도로 로드합니다. 기본 밀도는 `1`, compact는 `0.875`입니다. 루트 글자 크기 설정을 따르려면 기본 `rem` 단위를 유지하세요. 밀도가 모든 접근성 대상 크기를 줄이지는 않습니다.
 
 모션은 기본적으로 OS 설정을 따릅니다. `html`의 `data-bolerish-motion="off"`는 움직임을 줄입니다. `on`은 OS 설정까지 덮어쓰므로 사용자가 직접 선택했을 때만 적용하세요. [Motion](/docs/foundations/motion)과 [Accessibility](/docs/foundations/accessibility)를 참고하세요.
-
-## 표면 표현 선택하기
-
-`html`에 `surface.props({ mode: "solid" | "glass" })`를 적용합니다. 속성을 생략해도 기본 표면은 불투명합니다. 유리는 떠 있는 표면에 80% 채움과 24px 배경 블러와 1.6배 채도 보정, 카드·일반 Attachment 패널·테두리형 Item·Menubar에 72% 채움과 같은 블러를 적용합니다. 입력 필드는 불투명합니다. 라이트·다크 테마와 컴포넌트 배리언트는 별도로 유지됩니다. [Surface API](/docs/api/surface/ko)를 참고하세요.
-
-```tsx
-import { surface } from "@bolerish/ui/surface";
-
-<html data-bolerish-theme="dark" {...surface.props({ mode: "glass" })}>
-  <body>{children}</body>
-</html>;
-```
-
-하위 영역의 `data-bolerish-surface="solid"`로 부분 적용을 해제할 수 있습니다. 범위 밖 포털은 `html`을 따릅니다. 유리는 배경을 굴절시키거나 왜곡하지 않습니다. 효과 미지원·투명도 줄이기·강제 색상 모드에서는 불투명 표면으로 대체합니다. 사용자 색상은 실제 합성 배경에서 대비를 확인하세요. [Card 비교](/docs/components/card/ko#global-surface-modes)와 [Liquid 이전 안내](/docs/api/surface/ko)를 참고하세요.
 
 ## 팔레트 확장하기
 
