@@ -1,5 +1,31 @@
 # @bolerish/ui
 
+## 1.0.0
+
+### Major Changes
+
+- 280dc06: Remove the public Surface API, both solid and glass modes, and Card material variants. Panels now use opaque semantic backgrounds. Dialog, AlertDialog and Drawer backdrops use a gray overlay with subtle blur independently of any surface setting; reduced transparency and forced colors disable that blur.
+
+  Remove imports from `@bolerish/ui/surface`, root `surface`/`SurfaceOptions`/`SurfaceProps` imports, `surface.props()` calls, `data-bolerish-surface` attributes and saved surface mode settings. Remove `variant="default"` and `variant="translucent"` from Card. Keep semantic background roles such as `bgSurface`; they continue to support app composition and theming.
+
+  The earlier Liquid API and its refraction assets are also removed. Remove `@bolerish/ui/liquid` imports and liquid data attributes; use ordinary opaque components with app-owned backgrounds.
+
+### Patch Changes
+
+- 41f6ac3: Use a compact caret icon for CollapsibleTrigger and add vertical padding to CollapsibleContent. Existing props remain compatible; layouts that add content padding can adjust it through the existing styling props.
+- 3a14f52: Give DrawerContent default panel padding and scrolling in every direction without doubling DrawerHeader or DrawerFooter insets. Its styling props still target the inner content. Custom layouts that previously added their own padding can override or remove the default through the existing styling props.
+
+  Keep Calendar range interiors visible with the semantic selected background during hover and keyboard focus, while retaining stronger range endpoints.
+- f2a9ba4: Refine control, content, popup and selection shapes and spacing. Improve task-title line height and active form boundaries while preserving props and keyboard interactions. Review fixed-size layouts; no prop migration is required.
+- 89a32bc: Replace the Snackbar dot with a distinct bell, check, warning, error or information icon for each tone. Icons remain decorative so message text is announced once. Existing props remain compatible and require no migration.
+- 5a7219d: Give destructive buttons a soft red background with bright red text, a transparent border, and stronger red background layers on hover and press. Disabled and keyboard focus behavior are preserved.
+- 05fcfaf: Include a package README linking to official documentation and the existing agent workflow, with installed-version and declaration precedence guidance. No API changes or migration are required.
+- Updated dependencies [547ee4a]
+- Updated dependencies [f2a9ba4]
+- Updated dependencies [5a7219d]
+- Updated dependencies [09caebb]
+  - @bolerish/tokens@1.0.0
+
 ## 0.18.1
 
 ### Patch Changes
@@ -7,10 +33,10 @@
 - 4861414: Keep Liquid Drawer surfaces from sampling their own dark backdrop. Visible overlays now dim only the area outside the Drawer while preserving outside-click dismissal, keyboard recovery and all four directions. Transparent/absent overlays, Solid mode, reduced transparency and forced-color fallbacks retain their behavior. No API migration is required.
 - 5b19216: Refine Liquid surfaces with restrained stationary directional sheen, quieter structural edges and close contact shadows. Increase neutral tint to reduce background-text interference, and soften sheen on small controls. Text, geometry, focus/error states and browser-specific refraction fallbacks retain their existing behavior. No API migration is required.
 - 0b7d330: Keep Liquid blur, tint and reflections visible in Safari and Firefox when SVG backdrop reference filters cannot render. CSS engine-feature gates select a brightness identity filter for those engines instead of the SVG reference; these gates are a compatibility fallback, not a direct SVG-rendering capability test. Chromium retains its SVG refraction enhancement.
-  
+
   Support prefixed WebKit backdrop filtering across shared surfaces and Drawer dimming. Solid mode, reduced-transparency preferences and forced colors retain their opaque fallbacks. No API migration is required; browsers without color mixing still use opaque surfaces.
 - 5d2a266: Keep Liquid Dialog and AlertDialog panels from sampling their own dimmed backdrop, matching Drawer. Share modal dimming so only the last mounted modal paints the outside scrim, including during closing transitions. Solid mode, reduced transparency, forced colors and browsers without the required CSS support retain the existing backdrop path. No API migration is required.
-  
+
   Nested Liquid modals keep the outside dimming steady during entry and exit. Their transform motion remains; panel opacity stays stable while it owns the scrim.
 - @bolerish/tokens@0.18.1
 
