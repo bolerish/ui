@@ -1,3 +1,4 @@
+import "./props-table.css";
 import {
   colorVars,
   radiusVars,
@@ -104,6 +105,8 @@ const styles = stylex.create({
     lineHeight: typo.lineHeightNormal,
   },
   propsTable: { minWidth: "44rem" },
+  exampleTable: { minWidth: 0, tableLayout: "fixed" },
+  exampleContainer: { marginBlock: spacingVars.space4, "--docs-prop-row-gap": spacingVars.space4 },
   situationColumn: { width: "30%" },
   choiceColumn: { width: "30%" },
   codeColumn: { width: "40%" },
@@ -188,6 +191,7 @@ export const MarkdownTable: Components["table"] = ({ node: _node, children, ...p
   const isSelectionTable =
     headers.join("|") === "사용 상황|권장 선택|적용 코드" ||
     headers.join("|") === "Situation|Recommended choice|Code";
+  const isExampleTable = headers.join("|") === "Value|Preview";
   const isPropsTable =
     headers.join("|") === "속성|기본값|값|용도" ||
     headers.join("|") === "Prop|Default|Values|Meaning";
@@ -196,10 +200,19 @@ export const MarkdownTable: Components["table"] = ({ node: _node, children, ...p
     <section
       aria-label={locale === "ko" ? "문서 표" : "Documentation table"}
       // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- Keyboard users need to scroll wide tables.
-      tabIndex={0}
-      {...stylex.props(styles.scroll)}
+      tabIndex={isExampleTable ? undefined : 0}
+      {...stylex.props(isExampleTable ? styles.exampleContainer : styles.scroll)}
     >
-      <table {...props} {...stylex.props(styles.table, isPropsTable && styles.propsTable)}>
+      <table
+        {...props}
+        role={isExampleTable ? "table" : undefined}
+        data-docs={isExampleTable ? "props-table" : undefined}
+        {...stylex.props(
+          styles.table,
+          isPropsTable && styles.propsTable,
+          isExampleTable && styles.exampleTable,
+        )}
+      >
         {isSelectionTable ? (
           <colgroup>
             <col {...stylex.props(styles.situationColumn)} />
