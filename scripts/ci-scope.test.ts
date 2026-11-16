@@ -90,13 +90,49 @@ test("CLI compares the PR branch with its merge base and includes deleted rename
     const advancedBase = git("rev-parse", "HEAD");
     git("checkout", "-q", "--detach", head);
     const env = { EVENT_NAME: "pull_request", BASE_SHA: advancedBase, HEAD_SHA: "HEAD" };
-    assert.equal(run(env), 'ui=false\ndocs=true\nroutes=["/docs/components/button"]\n');
+    assert.equal(
+      run(env),
+      'format_only=false\nui=false\ndocs=true\nroutes=["/docs/components/button"]\n',
+    );
+    assert.equal(
+      run({ EVENT_NAME: "push", BASE_SHA: advancedBase, HEAD_SHA: head }),
+      "format_only=false\nui=true\ndocs=true\nroutes=[]\n",
+    );
     git("mv", "packages/ui/example.ts", "docs/example.md");
     git("commit", "-qm", "move UI source into docs");
-    assert.equal(run(env), "ui=true\ndocs=true\nroutes=[]\n");
-    assert.equal(run({ EVENT_NAME: "push" }), "ui=true\ndocs=true\nroutes=[]\n");
-    assert.equal(run({ EVENT_NAME: "merge_group" }), "ui=true\ndocs=true\nroutes=[]\n");
-    assert.equal(run({ EVENT_NAME: "workflow_dispatch" }), "ui=true\ndocs=true\nroutes=[]\n");
+    assert.equal(run(env), "format_only=false\nui=true\ndocs=true\nroutes=[]\n");
+    assert.equal(
+      run({ EVENT_NAME: "push", BASE_SHA: base, HEAD_SHA: head }),
+      'format_only=false\nui=false\ndocs=true\nroutes=["/docs/components/button"]\n',
+    );
+    writeFileSync(join(cwd, ".oxfmtrc.json"), "{}\n");
+    git("add", ".");
+    git("commit", "-qm", "format config");
+    const formatHead = git("rev-parse", "HEAD");
+    const formatBase = git("rev-parse", "HEAD^");
+    for (const event of ["push", "pull_request"]) {
+      assert.equal(
+        run({ EVENT_NAME: event, BASE_SHA: formatBase, HEAD_SHA: formatHead }),
+        "format_only=true\nui=false\ndocs=false\nroutes=[]\n",
+      );
+    }
+    assert.equal(
+      run({ EVENT_NAME: "push", BASE_SHA: base, HEAD_SHA: formatHead }),
+      "format_only=false\nui=true\ndocs=true\nroutes=[]\n",
+    );
+    assert.equal(
+      run({ EVENT_NAME: "push", BASE_SHA: "0".repeat(40), HEAD_SHA: formatHead }),
+      "format_only=false\nui=true\ndocs=true\nroutes=[]\n",
+    );
+    assert.equal(run({ EVENT_NAME: "push" }), "format_only=false\nui=true\ndocs=true\nroutes=[]\n");
+    assert.equal(
+      run({ EVENT_NAME: "merge_group" }),
+      "format_only=false\nui=true\ndocs=true\nroutes=[]\n",
+    );
+    assert.equal(
+      run({ EVENT_NAME: "workflow_dispatch" }),
+      "format_only=false\nui=true\ndocs=true\nroutes=[]\n",
+    );
   } finally {
     rmSync(cwd, { recursive: true, force: true });
   }

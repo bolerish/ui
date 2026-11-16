@@ -18,6 +18,7 @@ jobs:
   changes:
     runs-on: ubuntu-latest
     outputs:
+      format_only: ${{ steps.scope.outputs.format_only }}
       ui: ${{ steps.scope.outputs.ui }}
       docs: ${{ steps.scope.outputs.docs }}
       routes: ${{ steps.scope.outputs.routes }}
@@ -32,20 +33,26 @@ jobs:
       - id: scope
         env:
           EVENT_NAME: ${{ github.event_name }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: node --experimental-strip-types scripts/ci-scope.ts >> "$GITHUB_OUTPUT"
 
   checks:
     name: static checks and unit tests
+    needs: changes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
 
       - uses: ./.github/actions/setup
-      - run: pnpm check
-      - run: node --experimental-strip-types --test scripts/ci-scope.test.ts docs/test/responsive-routes.test.ts .github/workflows/metadata.test.mjs
-      - run: pnpm test
+      - if: needs.changes.outputs.format_only == 'true'
+        run: pnpm format:check
+      - if: needs.changes.outputs.format_only != 'true'
+        run: pnpm check
+      - if: needs.changes.outputs.format_only != 'true'
+        run: node --experimental-strip-types --test scripts/ci-scope.test.ts docs/test/responsive-routes.test.ts .github/workflows/metadata.test.mjs
+      - if: needs.changes.outputs.format_only != 'true'
+        run: pnpm test
 
   ui-browser:
     needs: changes
