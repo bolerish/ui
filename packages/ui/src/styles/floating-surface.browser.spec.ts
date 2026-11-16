@@ -14,10 +14,10 @@ for (const theme of ["light", "dark"]) {
   for (const [name, opening] of Object.entries(openedExamples)) {
     // Semantic feedback keeps its opaque tone instead of inheriting the glass material.
     if ("material" in opening && opening.material === "opaque") continue;
-    test(`Liquid ${theme} ${name} transmits its backing and retains opaque fallbacks`, async ({
+    test(`Glass ${theme} ${name} transmits its backing and retains opaque fallbacks`, async ({
       page,
     }) => {
-      await page.goto(`/?fixture=documentation&example=${name}&theme=${theme}&surface=liquid`);
+      await page.goto(`/?fixture=documentation&example=${name}&theme=${theme}&surface=glass`);
       if (opening.action === "fill")
         await page.getByRole("combobox", { name: opening.name }).fill("Re");
       else if (opening.action === "combobox")
@@ -47,12 +47,12 @@ for (const theme of ["light", "dark"]) {
         throw new Error("Opened content has no translucent surface");
       });
       const popup = page.locator("[data-tested-floating-surface]");
-      expect(await popup.evaluate(backgroundAlpha)).toBeLessThanOrEqual(0.5);
+      expect(await popup.evaluate(backgroundAlpha)).toBeCloseTo(0.94, 2);
       await expect(popup).toHaveCSS("opacity", "1");
       const filter = await popup.evaluate((node) => getComputedStyle(node).backdropFilter);
       const blur = filter.match(/blur\(([\d.]+)px\)/);
       expect(blur).not.toBeNull();
-      expect(Number(blur![1])).toBeLessThanOrEqual(8);
+      expect(Number(blur![1])).toBe(16);
       const audit = new AxeBuilder({ page }).withTags([
         "wcag2a",
         "wcag2aa",
@@ -62,7 +62,7 @@ for (const theme of ["light", "dark"]) {
       ]);
       for (const node of excludedAuditNodes) audit.exclude(node.selector);
       const result = await audit.analyze();
-      await test.info().attach("axe-open-liquid", {
+      await test.info().attach("axe-open-glass", {
         body: JSON.stringify({ violations: result.violations, incomplete: result.incomplete }),
         contentType: "application/json",
       });
@@ -75,7 +75,7 @@ for (const theme of ["light", "dark"]) {
       expect(await popup.evaluate(backgroundAlpha)).toBe(1);
       await expect(popup).toHaveCSS("backdrop-filter", "none");
       await page.locator("html").evaluate((node) => {
-        node.dataset.bolerishSurface = "liquid";
+        node.dataset.bolerishSurface = "glass";
       });
       const session = await page.context().newCDPSession(page);
       await session.send("Emulation.setEmulatedMedia", {

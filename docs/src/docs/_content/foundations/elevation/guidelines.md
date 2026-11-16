@@ -12,7 +12,7 @@ Showing the relationship between a floating menu and its background helps people
 | Modal backdrop and content        | `layerVars.modalBackdrop`, `layerVars.modal`         | `zIndex: layerVars.modal`        |
 | Popups and notifications          | `layerVars.popup`, `layerVars.notification`          | `zIndex: layerVars.popup`        |
 
-Each shadow role combines a short contact shadow with a wider ambient shadow from the same overhead light. Use the existing role rather than adding a shadow to every surface. In dark mode, keep semantic surface colors and borders to preserve separation; shadows do not replace those boundaries. Liquid material retains its own shared shadow treatment.
+Each shadow role combines a short contact shadow with a wider ambient shadow from the same overhead light. Use the existing role rather than adding a shadow to every surface. In dark mode, keep semantic surface colors and borders to preserve separation; shadows do not replace those boundaries. Solid and Glass use the same shadow roles.
 
 Use the portals and layers managed by components. If a menu is covered, inspect its parent stacking context and portal location before adding a value such as `z-index: 9999`.
 

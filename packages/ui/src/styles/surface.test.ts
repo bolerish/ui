@@ -5,7 +5,6 @@ import test from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import { Button } from "../../dist/button.js";
 import { Card } from "../../dist/card.js";
 import { Collapsible, CollapsibleTrigger } from "../../dist/collapsible.js";
 import { Input } from "../../dist/input.js";
@@ -24,7 +23,7 @@ function declarations(html: string, property: string) {
   });
 }
 
-test("resting fields and outline actions share the quiet surface edge", () => {
+test("resting fields share essential boundaries distinct from decorative card boundaries", () => {
   const border = [
     ...new Set(
       declarations(renderToStaticMarkup(createElement(Card)), "border-color").filter((value) =>
@@ -32,13 +31,15 @@ test("resting fields and outline actions share the quiet surface edge", () => {
       ),
     ),
   ];
-  for (const element of [
-    createElement(Input),
-    createElement(Textarea),
-    createElement(NativeSelect),
-    // oxlint-disable-next-line react/no-children-prop -- Required children type in this non-JSX Node test.
-    createElement(Button, { variant: "outline", children: "Cancel" }),
-  ]) {
+  const fieldBorder = [
+    ...new Set(
+      declarations(renderToStaticMarkup(createElement(Input)), "border-color").filter((value) =>
+        value.startsWith("var("),
+      ),
+    ),
+  ];
+  assert.notDeepEqual(fieldBorder, border);
+  for (const element of [createElement(Textarea), createElement(NativeSelect)]) {
     assert.deepEqual(
       [
         ...new Set(
@@ -47,7 +48,7 @@ test("resting fields and outline actions share the quiet surface edge", () => {
           ),
         ),
       ],
-      border,
+      fieldBorder,
     );
   }
 });

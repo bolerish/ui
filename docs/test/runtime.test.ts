@@ -237,6 +237,8 @@ test("surface preferences, Item docs and crawler discovery cross real HTTP bound
   assert.match(await markdown.text(), /^# 설치/m);
   assert.equal((await fetch(`${base}/docs/components/item`)).status, 200);
   assert.equal((await fetch(`${base}/docs/components/content-row`)).status, 404);
+  assert.equal((await fetch(`${base}/docs/components/liquid`)).status, 404);
+  assert.equal((await fetch(`${base}/preview/liquid--Default`)).status, 404);
   for (const file of ["llms.txt", "llms-full.txt", "robots.txt", "sitemap.xml"])
     assert.equal((await fetch(`${base}/${file}`)).status, 200, file);
   const preview = await (await fetch(`${base}/preview/card--Default`)).text();

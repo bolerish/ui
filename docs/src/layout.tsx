@@ -17,7 +17,7 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@bolerish/ui/
 import { Input } from "@bolerish/ui/input";
 import { InputGroup } from "@bolerish/ui/input-group";
 import { NativeSelect } from "@bolerish/ui/native-select";
-import { Popover, PopoverTrigger, PopoverContent, PopoverClose } from "@bolerish/ui/popover";
+import { Popover, PopoverTrigger, PopoverContent } from "@bolerish/ui/popover";
 import {
   Select,
   SelectTrigger,
@@ -407,25 +407,20 @@ function Preferences({
           <p {...stylex.props(styles.preferencesTitle)}>
             {settings.locale === "ko" ? "설정" : "Settings"}
           </p>
-          {settings.surface === "liquid" && (
-            <PopoverClose
-              onClick={() => onChange({ surface: "solid" })}
-              render={
-                <Button
-                  variant="secondary"
-                  // Button has no multiline height prop; allow this recovery action to wrap.
-                  style={{
-                    whiteSpace: "normal",
-                    height: "auto",
-                    minHeight: sizeVars.controlMd,
-                    paddingBlock: spacingVars.space2,
-                  }}
-                >
-                  {settings.locale === "ko" ? "불투명 표면 사용" : "Use solid surfaces"}
-                </Button>
+          <label {...stylex.props(styles.preferenceLabel)}>
+            <span>{settings.locale === "ko" ? "표면" : "Surface"}</span>
+            <NativeSelect
+              xstyle={styles.preferenceControl}
+              aria-label={settings.locale === "ko" ? "표면" : "Surface"}
+              value={settings.surface}
+              onChange={(event) =>
+                onChange({ surface: event.target.value === "glass" ? "glass" : "solid" })
               }
-            />
-          )}
+            >
+              <option value="solid">{settings.locale === "ko" ? "불투명" : "Solid"}</option>
+              <option value="glass">{settings.locale === "ko" ? "유리" : "Glass"}</option>
+            </NativeSelect>
+          </label>
           {controls.map(([name, label, options]) => (
             <label
               key={name}
@@ -581,21 +576,12 @@ const styles = stylex.create({
     borderBottomWidth: sizeVars.stroke,
     borderBottomStyle: "solid",
     borderBottomColor: colorVars.strokeDefault,
-    "--docs-muted": {
-      default: null,
-      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and\n  (background-color: color-mix(in srgb, white, transparent))":
-        {
-          default: null,
-          [stylex.when.ancestor('[data-bolerish-surface="liquid"]', documentMarker)]:
-            "color-mix(in srgb, var(--docs-foreground) 85%, var(--docs-background))",
-        },
-    },
     // The shell header follows the panel opacity/filter preferences without adding a panel wrapper.
     backgroundColor: {
       default: colorVars.bgSurface,
-      [stylex.when.ancestor('[data-bolerish-surface="liquid"]', documentMarker)]: {
+      [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: {
         default: colorVars.bgSurface,
-        "@supports (backdrop-filter: blur(1px)) and (background-color: color-mix(in srgb, white, transparent))":
+        "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))":
           {
             default: `color-mix(in srgb, ${colorVars.bgSurface} var(--bolerish-panel-opacity, 100%), transparent)`,
             "@media (prefers-reduced-transparency: reduce)": colorVars.bgSurface,
@@ -603,21 +589,38 @@ const styles = stylex.create({
           },
       },
     },
+    WebkitBackdropFilter: {
+      default: null,
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and\n  (background-color: color-mix(in srgb, white, transparent))":
+        {
+          default: null,
+          [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]:
+            "var(--bolerish-panel-filter, none)",
+        },
+      "@media (prefers-reduced-transparency: reduce)": {
+        default: null,
+        [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: "none",
+      },
+      "@media (forced-colors: active)": {
+        default: null,
+        [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: "none",
+      },
+    },
     backdropFilter: {
       default: null,
       "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and\n  (background-color: color-mix(in srgb, white, transparent))":
         {
           default: null,
-          [stylex.when.ancestor('[data-bolerish-surface="liquid"]', documentMarker)]:
-            "var(--bolerish-floating-filter, none)",
+          [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]:
+            "var(--bolerish-panel-filter, none)",
         },
       "@media (prefers-reduced-transparency: reduce)": {
         default: null,
-        [stylex.when.ancestor('[data-bolerish-surface="liquid"]', documentMarker)]: "none",
+        [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: "none",
       },
       "@media (forced-colors: active)": {
         default: null,
-        [stylex.when.ancestor('[data-bolerish-surface="liquid"]', documentMarker)]: "none",
+        [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: "none",
       },
     },
   },

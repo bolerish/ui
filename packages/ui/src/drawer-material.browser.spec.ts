@@ -5,7 +5,7 @@ async function scene(
   theme: string,
   direction: string,
   overlay: string,
-  surface = "liquid",
+  surface = "glass",
 ) {
   await page.goto(
     `/?fixture=drawer&theme=${theme}&surface=${surface}&direction=${direction}&overlay=${overlay}`,
@@ -46,7 +46,7 @@ async function scene(
 
 for (const theme of ["light", "dark"]) {
   for (const direction of ["down", "up", "left", "right"]) {
-    test(`Liquid ${theme} ${direction} Drawer keeps its glass undimmed and outside click closes`, async ({
+    test(`Glass ${theme} ${direction} Drawer keeps its glass undimmed and outside click closes`, async ({
       page,
     }) => {
       await page.setViewportSize({ width: 1280, height: 900 });
@@ -67,7 +67,7 @@ for (const theme of ["light", "dark"]) {
   }
 }
 
-for (const surface of ["solid", "liquid"]) {
+for (const surface of ["solid", "glass"]) {
   test(`${surface} preserves transparent and absent overlay appearance`, async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     const transparent = await scene(page, "light", "down", "transparent", surface);

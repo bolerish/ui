@@ -96,28 +96,10 @@ See [Card](/docs/components/card) for the example and its scope.
 
 ## Soft surface boundaries
 
-Decorative boundaries across components use `strokeDefault` directly: black at 10%
-in light mode and white at 12% in dark mode. Do not reduce its opacity again.
-Essential input, selection, error and focus boundaries keep their existing tokens.
-Menus, popovers and selection lists use 94% `bgRaised`; Menubar and translucent
-Card use 92% `bgSurface`, with a 16px backdrop blur. Dialog, Drawer, Toast,
-ordinary Card and inputs remain opaque. Opaque surfaces are the fallback;
-reduced transparency and forced colors remove the blur. Tooltip uses the same opaque bgRaised/fgPrimary colors as Popover.
+Decorative boundaries retain strokeDefault without additional fading. Essential control, selection, error and focus boundaries retain their dedicated tokens.
 
-Blend only the content background into `bgCanvas` toward its lower edge.
-Do not mask or reduce opacity on the text, cards or controls themselves.
+Solid is the default, including when the surface attribute is omitted. In Glass mode, menus, popovers, selection lists, dialogs, drawers, toasts and tooltips use 94% bgRaised and 16px backdrop blur. Explicitly translucent Cards and Menubar use 92% bgSurface with the same blur. Ordinary Cards and input fields remain opaque. No refraction, sheen or inset reflection is added. Existing shadow tokens apply in both modes.
 
-### Coverage across components
+Reduced transparency, forced colors and unsupported effects use opaque fallbacks. Glass modals with a visible overlay also require :has(); otherwise they use an opaque panel and ordinary backdrop. Check actual composite backgrounds and custom themes. Decorative borders do not establish a 3:1 essential boundary.
 
-Secondary buttons and grouped tabs/toggles use `bgSubtle`; decorative boundaries
-on cards, tables, accordions, attachments, empty states, timelines and badges
-share `strokeDefault`. Essential input, checkbox, radio, switch and slider
-boundaries remain distinct. Progress uses `bgSubtle` for its track; draggable
-scrollbar thumbs use `strokeControl`. Dialogs, drawers, toasts and banners keep
-opaque or semantic feedback surfaces. Layout-only components add no new surface.
-Selection, error and focus retain their dedicated state tokens.
-This is a shared visual language, not a requirement to blur every component.
-
-Use fgPrimary for essential content, fgSecondary for descriptions, and fgTertiary for metadata. Active fields use strokeControl; decorative divisions and menu separators use strokeDefault. Validate contrast on the actual composite surface and with custom themes.
-
-Liquid material softens decorative panel edges, while essential form boundaries retain opaque strokeControl. Native forced-colors rendering supplies the system control boundary; do not opt controls out with forced-color-adjust: none.
+Secondary buttons and grouped tabs/toggles retain bgSubtle. Semantic feedback, selection and disabled states preserve their roles. Progress tracks and scrollbar affordances keep their existing tokens. Background decoration does not change text opacity, focus or HTML state.

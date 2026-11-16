@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
 
 for (const phase of ["entering", "exiting"]) {
-  test(`nested Liquid modal keeps outside dimming steady while ${phase}`, async ({ page }) => {
+  test(`nested Glass modal keeps outside dimming steady while ${phase}`, async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto("/?fixture=modal-nested&surface=liquid");
+    await page.goto("/?fixture=modal-nested&surface=glass");
     await page.evaluate(() => {
       document.documentElement.dataset.bolerishMotion = "on";
       document.documentElement.style.background = "#b0c8e0";

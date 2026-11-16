@@ -2,13 +2,26 @@ import { radiusVars, spacingVars } from "@bolerish/tokens/semantic.stylex";
 import { Button } from "@bolerish/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription } from "@bolerish/ui/card";
 import { gradient } from "@bolerish/ui/gradient";
+import { surface } from "@bolerish/ui/surface";
 import * as stylex from "@stylexjs/stylex";
 import { useState } from "react";
 
 const palettes = [
-  { name: "Burgundy", accent: "#80414b", glow: "#b49058" },
-  { name: "Navy", accent: "#294c79", glow: "#688e91" },
-  { name: "Apricot", accent: "#e8c6a6", glow: "#8e8c65" },
+  {
+    name: "Burgundy",
+    accent: "oklch(45.703878% 0.087141 11.072122)",
+    glow: "oklch(67.450066% 0.085527 77.562903)",
+  },
+  {
+    name: "Navy",
+    accent: "oklch(41.304303% 0.08612 255.503679)",
+    glow: "oklch(61.96175% 0.042278 202.22388)",
+  },
+  {
+    name: "Apricot",
+    accent: "oklch(84.76175% 0.057696 65.192901)",
+    glow: "oklch(63.164762% 0.055093 105.40134)",
+  },
 ];
 const styles = stylex.create({
   root: { display: "grid", gap: spacingVars.space4, width: "100%" },
@@ -46,7 +59,10 @@ export default function GradientExample() {
           </Button>
         ))}
       </fieldset>
-      <div {...gradient.props({ colors: [palette.accent, palette.glow] }, styles.stage)}>
+      <div
+        {...surface.props({ mode: "glass" })}
+        {...gradient.props({ colors: [palette.accent, palette.glow] }, styles.stage)}
+      >
         <Card variant="translucent">
           <CardHeader>
             <CardTitle>Floating surface</CardTitle>

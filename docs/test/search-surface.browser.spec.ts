@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-for (const surface of ["solid", "liquid"]) {
+for (const surface of ["solid", "glass"]) {
   for (const mode of ["light", "dark"]) {
     test(`search and profile share dialog material and backdrop: ${surface}/${mode}`, async ({
       page,

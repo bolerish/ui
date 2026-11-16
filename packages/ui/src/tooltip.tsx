@@ -20,7 +20,7 @@ import { surfaceStyles } from "./styles/surface";
 
 const styles = stylex.create({
   elevation: {
-    "--bolerish-material-shadow": `var(--bolerish-floating-shadow, ${shadowVars.floating})`,
+    "--bolerish-material-shadow": shadowVars.floating,
   },
   positioner: { zIndex: layerVars.notification },
   popup: {

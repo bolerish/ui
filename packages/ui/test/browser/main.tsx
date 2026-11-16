@@ -40,7 +40,6 @@ import {
 } from "../../dist/dropdown-menu.js";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "../../dist/hover-card.js";
 import { Input } from "../../dist/input.js";
-import { Liquid } from "../../dist/liquid.js";
 import { Popover, PopoverTrigger, PopoverContent } from "../../dist/popover.js";
 import {
   Select,
@@ -161,51 +160,6 @@ function NestedModalExample() {
 }
 function App() {
   if (fixture === "modal-nested") return <NestedModalExample />;
-  if (fixture === "liquid")
-    return (
-      <main>
-        <h1>Liquid measurement</h1>
-        <Liquid
-          data-testid="liquid"
-          style={{ width: 240, height: 160 }}
-          background={
-            <svg width="100%" height="100%" viewBox="0 0 240 160" preserveAspectRatio="none">
-              {Array.from({ length: 40 }, (_, index) => (
-                <rect
-                  key={index}
-                  x={index * 6}
-                  width="6"
-                  height="160"
-                  fill={index % 2 ? "#3b82f6" : "#ef4444"}
-                />
-              ))}
-            </svg>
-          }
-        >
-          <div style={{ paddingBlock: 48, paddingInline: 4 }}>
-            <span
-              data-testid="foreground-label"
-              style={{
-                position: "absolute",
-                left: 2,
-                top: 20,
-                background: "Canvas",
-                color: "CanvasText",
-              }}
-            >
-              Sharp
-            </span>
-            <Button
-              onClick={(event) => {
-                event.currentTarget.textContent = "Selected";
-              }}
-            >
-              Choose
-            </Button>
-          </div>
-        </Liquid>
-      </main>
-    );
   if (fixture === "input-variants")
     return (
       <main>
@@ -307,12 +261,16 @@ function App() {
       <div
         style={{
           background: params.has("pattern")
-            ? "repeating-linear-gradient(90deg,#111 0 4px,#eee 4px 8px)"
-            : "#80414b",
+            ? "repeating-linear-gradient(90deg,oklch(17.763777% 0 0) 0 4px,oklch(94.911925% 0 0) 4px 8px)"
+            : "oklch(45.703878% 0.087141 11.072122)",
           padding: 32,
         }}
       >
-        <Card data-testid="surface" style={params.has("pattern") ? { height: 260 } : undefined}>
+        <Card
+          variant={params.has("translucent") ? "translucent" : "default"}
+          data-testid="surface"
+          style={params.has("pattern") ? { height: 260 } : undefined}
+        >
           <CardContent>
             <p>Primary text</p>
             <CardDescription data-testid="description">Supporting text</CardDescription>

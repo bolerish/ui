@@ -1,51 +1,37 @@
 # Surface
 
-설치한 컴포넌트의 Solid·Liquid 재질을 한 곳에서 선택합니다. Provider·래퍼·소비 앱의 StyleX 컴파일러는 필요하지 않습니다. `@bolerish/ui` 스타일시트를 먼저 불러옵니다.
+설치된 컴포넌트의 공유 재질을 불투명 또는 유리로 선택합니다. `@bolerish/ui/global.css`를 먼저 불러오세요. Provider·래퍼·소비자 StyleX 컴파일러는 필요하지 않습니다.
 
 ```tsx
 import { surface } from "@bolerish/ui/surface";
 
-<html data-bolerish-theme="dark" {...surface.props({ mode: "liquid" })} />;
+<html data-bolerish-theme="dark" {...surface.props({ mode: "glass" })} />;
 ```
 
 ## `surface.props(options)`
 
-| 인자           | 타입                  | 필수 여부 / 기본값 | 의미                                  |
-| -------------- | --------------------- | ------------------ | ------------------------------------- |
-| `options.mode` | `"solid" \| "liquid"` | 필수; 기본값 없음  | 불투명 또는 반투명 재질을 선택합니다. |
+`options.mode`는 필수이며 `"solid" | "glass"`를 받습니다. 반환 타입은 `SurfaceProps`: `{ "data-bolerish-surface": "solid" | "glass" }`입니다. `SurfaceOptions`는 `@bolerish/ui`와 `@bolerish/ui/surface`에서 내보냅니다. 누락되거나 지원하지 않는 모드는 `TypeError`를 던집니다.
 
-반환 타입 `SurfaceProps`는 `{ "data-bolerish-surface": "solid" | "liquid" }`이며 옵션 타입은 `SurfaceOptions`로 내보냅니다. `@bolerish/ui`와 `@bolerish/ui/surface`에서 가져올 수 있습니다. 모드가 없거나 지원하지 않는 값이면 `TypeError`를 던집니다.
+속성을 생략해도 기본 표면은 불투명합니다. 유리는 떠 있는 표면과 모달·알림에 94% `bgRaised`와 16px 배경 블러를 적용합니다. 명시적으로 반투명을 선택한 카드와 Menubar는 92% `bgSurface`와 같은 블러를 사용합니다. 일반 카드와 입력은 불투명 재질을 유지합니다. 배경을 굴절시키거나 왜곡하지 않으며 기존 그림자 토큰을 사용합니다.
 
-Solid는 불투명 표면을 사용합니다. Liquid는 표면 역할에 맞는 투명도·블러·얕은 그림자를 사용합니다. Chromium에서는 패키지의 SVG 필터로 기존 재질 표면 뒤의 실제 배경을 굴절시킵니다. Liquid 컴포넌트나 런타임 등록은 필요하지 않으며 Safari·Firefox는 블러 표현을 유지합니다. 테마 색상과 선택·오류·비활성 상태, 글자의 불투명도는 각자의 규칙을 유지합니다. 투명도 줄이기·강제 색상·효과 미지원 환경에서는 불투명한 대체 표현을 사용합니다.
+투명도 줄이기·강제 색상·효과 미지원 환경에서는 불투명한 표면으로 대체합니다. 배경을 어둡게 하는 모달의 유리 표현에는 `:has()`도 필요하며, 미지원 시 불투명 패널과 일반 배경을 사용합니다. 테마 색상·선택·오류·초점·비활성 상태와 글자 불투명도는 기존 계약을 유지합니다. 사용자 테마의 실제 합성 배경에서 대비를 확인하세요. 도우미가 반투명하거나 대비가 낮은 사용자 색상을 교정하지는 않습니다.
 
 ## 합성
 
-결과에 `className`·`style`·`ref`·이벤트 핸들러가 없습니다. 일반 DOM 속성이나 `stylex.props()`의 앞뒤에 펼쳐도 스타일을 덮어쓰지 않습니다.
-
-```tsx
-<html {...stylex.props(theme, styles.root)} {...surface.props({ mode: "liquid" })} />
-```
-
-선택적인 StyleX 예제에는 앱의 기존 컴파일러가 필요합니다. 헬퍼 자체는 미리 컴파일되어 별도 설정 없이 쓸 수 있습니다. 같은 데이터 속성을 두 번 지정하면 일반 JavaScript 펼침 순서를 따릅니다.
+반환값에는 `className`, `style`, `ref`, 이벤트 핸들러가 없습니다. 일반 속성이나 `stylex.props()` 앞뒤에 펼쳐도 해당 스타일을 바꾸지 않습니다. 같은 데이터 속성을 두 번 지정하면 JavaScript 펼침 순서를 따릅니다. StyleX 합성 예제에는 앱의 기존 컴파일러가 필요하지만 도우미 자체에는 필요하지 않습니다.
 
 ## 범위와 포털
 
-문서 전체에 적용할 때는 `html`에 지정합니다. 포털로 렌더하는 메뉴·대화상자·알림도 같은 설정을 받습니다. 하위 영역에서 재질을 바꿀 수도 있습니다.
+포털의 메뉴·대화상자·알림을 포함해 문서 전체에 적용하려면 `html`에 지정합니다. 국소적인 `surface.props({ mode: "solid" })`는 DOM 자손의 재질을 바꿉니다. 속성만으로 일반 `div`나 `section`을 칠하지 않으며 범위 밖에 마운트되는 포털에는 적용되지 않습니다.
 
-```tsx
-<section {...surface.props({ mode: "solid" })}>
-  <Card>Opaque reading surface</Card>
-</section>
-```
+`data-bolerish-surface="solid"`와 `"glass"` 직접 지정도 지원합니다. 설정 상태·저장·색 모드는 앱에서 관리합니다. [테마](/docs/theming/ko)를 참고하세요.
 
-이 속성은 재질을 지원하는 컴포넌트의 표현을 선택하며 일반 `div`나 `section`을 자동으로 채우지는 않습니다. 특정 하위 영역의 속성은 그 DOM 밖에 마운트한 포털에 전달되지 않습니다. 문서 전체를 일관되게 바꾸려면 `html`에 적용합니다.
+## 콘텐츠 배경
 
-헬퍼는 속성만 반환하며 DOM 변경·설정 저장·색상 모드 동기화를 수행하지 않습니다. 상태와 저장은 앱이 관리합니다. 앱 설정은 [Theming](/docs/theming/ko)을 참고하세요.
+앱 소유 배경에 [Gradient](/docs/api/gradient/ko)를 사용하고 필요한 경우 유리 범위 안에 `Card variant="translucent"`를 배치합니다. 편집 영역은 불투명하게 유지하고 실제 배경에서 글자·경계·초점의 대비를 확인하세요.
 
-## Gradient와 굴절
+## Liquid에서 이전하기
 
-콘텐츠 색상 배경은 [Gradient](/docs/api/gradient/ko)를 사용합니다. 공유 SVG는 약한 고정 굴절 지도를 각 표면 크기에 맞춰 늘립니다. 개별 모서리 형태를 추적하거나 페이지를 촬영하지 않습니다. 패키지 CSS를 처리할 때 참조한 `liquid-refraction.svg` 파일도 함께 제공해야 합니다. 브라우저에 관계없이 지정한 장식 배경에 크기·모서리에 맞춘 굴절을 적용하려면 배경 레이어·SVG 필터·크기 관측을 관리하는 선택적 [Liquid 컴포넌트](/docs/components/liquid/ko)를 사용합니다.
+`Liquid`·`LiquidProps`, `@bolerish/ui/liquid` 진입점과 `liquid` 표면 모드를 제거했습니다. 공유 유리 표면은 `surface.props({ mode: "glass" })`로 선택합니다. 직접 관리하던 장식 배경은 Gradient를 적용한 앱 배경과 필요한 경우 `Card variant="translucent"`로 구성합니다. 반투명 표면은 유지하지만 굴절은 제공하지 않습니다. 별도 Glass 컴포넌트는 없습니다.
 
-기존 `data-bolerish-surface="solid"`·`"liquid"` 직접 지정도 계속 지원합니다. `surface.props()`는 같은 동작을 타입이 있는 API로 제공합니다.
-
-Liquid는 공통 표면의 장식적 경계만 약화하며 테두리 폭과 위치는 유지합니다. 포커스·오류·선택 경계는 별개로 유지하고, 투명도 감소·강제 색상에서는 명확한 경계를 보존합니다.
+앱에 저장한 값과 직접 지정한 데이터 속성을 `liquid`에서 `glass`로 옮기세요. 문서 사이트는 자신의 옛 설정과 URL만 이관하며 npm 패키지는 앱의 저장 데이터를 이관하지 않습니다. 옛 `liquid` 데이터 속성에는 지원되는 선택자가 없으며 상위 유리 범위를 초기화하지 않습니다.

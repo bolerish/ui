@@ -16,32 +16,21 @@ test("surface root and subpath exports share the same attribute-only API", async
   const entry = await import("@bolerish/ui/surface");
   const root = await import("./dist/index.js");
   assert.equal(entry.surface, root.surface);
-  assert.deepEqual(entry.surface.props({ mode: "liquid" }), { "data-bolerish-surface": "liquid" });
+  assert.deepEqual(entry.surface.props({ mode: "glass" }), { "data-bolerish-surface": "glass" });
 });
 
-test("Liquid has matching root and subpath exports and renders server HTML", async () => {
-  const { Liquid } = await import("@bolerish/ui/liquid");
+test("removed Liquid API and assets are absent from the distribution", async () => {
   const root = await import("./dist/index.js");
-  const { createElement } = await import("react");
-  const { renderToStaticMarkup } = await import("react-dom/server");
-  assert.equal(root.Liquid, Liquid);
+  assert.equal("Liquid" in root, false);
   assert.equal("Glass" in root, false);
-  const removedPath = "@bolerish/ui/glass";
-  await assert.rejects(import(removedPath), { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" });
-  const html = renderToStaticMarkup(
-    createElement(Liquid, {
-      background: createElement("img", { src: "/scene.webp", alt: "" }),
-      className: "consumer-liquid",
-      "aria-label": "Player",
-      // oxlint-disable-next-line react/no-children-prop -- Node SSR contract without JSX.
-      children: createElement("button", null, "Play"),
-    }),
+  for (const path of ["@bolerish/ui/liquid", "@bolerish/ui/glass"]) {
+    await assert.rejects(import(path), { code: "ERR_PACKAGE_PATH_NOT_EXPORTED" });
+  }
+  const files = await readdir(new URL("./dist/", import.meta.url), { recursive: true });
+  assert.equal(
+    files.some((file) => /liquid|refraction/.test(file)),
+    false,
   );
-  assert.match(html, /consumer-liquid/);
-  assert.match(html, /aria-label="Player"/);
-  assert.match(html, /aria-hidden="true" inert=""/);
-  assert.match(html, /<button>Play<\/button>/);
-  assert.doesNotMatch(html, /<filter\b/);
 });
 
 test("Item is the public entry point and ContentRow has no compatibility export", async () => {
@@ -151,11 +140,11 @@ test("package consumers build components and both themes without a StyleX plugin
       [
         'import React from "react";',
         'import { createRoot } from "react-dom/client";',
-        'import { Button, Liquid, surface } from "@bolerish/ui";',
+        'import { Button, surface } from "@bolerish/ui";',
         'import "./custom.css";',
         'document.documentElement.dataset.bolerishTheme = "dark";',
-        'for (const [name, value] of Object.entries(surface.props({ mode: "liquid" }))) document.documentElement.setAttribute(name, value);',
-        'createRoot(document.getElementById("root")!).render(<Liquid background={<span>Decorative scene</span>}><Button className="consumer-button" style={{ maxWidth: 320 }}>Save</Button></Liquid>);',
+        'for (const [name, value] of Object.entries(surface.props({ mode: "glass" }))) document.documentElement.setAttribute(name, value);',
+        'createRoot(document.getElementById("root")!).render(<div><Button className="consumer-button" style={{ maxWidth: 320 }}>Save</Button></div>);',
       ].join("\n"),
     );
     await writeFile(
@@ -200,11 +189,11 @@ test("package consumers build components and both themes without a StyleX plugin
     assert.equal(styles.length, 1);
     assert.equal(styles[0].type, "asset");
     const css = String(styles[0].source);
-    const refractionAsset = result.output.find(
-      (entry) => entry.type === "asset" && entry.fileName.endsWith(".svg"),
+    assert.equal(
+      result.output.some((entry) => entry.type === "asset" && entry.fileName.endsWith(".svg")),
+      false,
+      "shared glass does not emit a refraction asset",
     );
-    assert.ok(refractionAsset, "the CSS consumer emits the packaged refraction asset");
-    assert.ok(css.includes(refractionAsset.fileName));
     const { themeClassNames } = await import("./dist/theme.js");
     for (const mode of ["light", "dark"] as const) {
       assert.ok(themeClassNames[mode].length > 0);

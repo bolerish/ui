@@ -58,7 +58,7 @@ for (const path of ["/", "/ko"]) {
       );
       await expect(page.locator("html")).toHaveAttribute(
         "data-bolerish-surface",
-        saved ? "liquid" : "solid",
+        saved ? "glass" : "solid",
       );
       await test.info().attach("hydration-errors", {
         body: JSON.stringify(errors),

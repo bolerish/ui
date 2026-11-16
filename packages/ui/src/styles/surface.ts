@@ -3,21 +3,12 @@ import * as stylex from "@stylexjs/stylex";
 
 const styles = stylex.create({
   edge: {
-    borderColor: {
-      default: colorVars.strokeDefault,
-      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, ${colorVars.strokeDefault} var(--bolerish-surface-edge-strength, 100%), transparent)`,
-    },
-    "@media (prefers-reduced-transparency: reduce)": { borderColor: colorVars.strokeDefault },
+    borderColor: colorVars.strokeDefault,
     "@media (forced-colors: active)": { borderColor: "CanvasText" },
   },
   material: {
-    "--bolerish-material-sheen": "var(--bolerish-surface-sheen, none)",
     "--bolerish-material-shadow": "0 0 transparent",
-    boxShadow: {
-      default: "var(--bolerish-material-shadow)",
-      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))":
-        "var(--bolerish-surface-reflection, 0 0 transparent), var(--bolerish-material-shadow)",
-    },
+    boxShadow: "var(--bolerish-material-shadow)",
     backgroundColor: {
       default: `var(--bolerish-material-color, ${colorVars.bgSurface})`,
       "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))": `color-mix(in srgb, var(--bolerish-material-color, ${colorVars.bgSurface}) var(--bolerish-material-opacity), transparent)`,
@@ -32,65 +23,55 @@ const styles = stylex.create({
       "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))":
         "var(--bolerish-material-filter)",
     },
-    backgroundImage: {
-      default: "none",
-      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent))":
-        "var(--bolerish-material-sheen, var(--bolerish-surface-sheen, none))",
-    },
     "@media (prefers-reduced-transparency: reduce)": {
       backgroundColor: `var(--bolerish-material-color, ${colorVars.bgSurface})`,
       WebkitBackdropFilter: "none",
       backdropFilter: "none",
-      backgroundImage: "none",
       boxShadow: "var(--bolerish-material-shadow)",
     },
     "@media (forced-colors: active)": {
       backgroundColor: "Canvas",
       WebkitBackdropFilter: "none",
       backdropFilter: "none",
-      backgroundImage: "none",
       boxShadow: "none",
     },
   },
   panel: {
     "--bolerish-material-color": colorVars.bgSurface,
-    "--bolerish-material-opacity": "var(--bolerish-panel-opacity, 100%)",
-    "--bolerish-material-filter": "var(--bolerish-panel-filter, none)",
+    "--bolerish-material-opacity": "100%",
+    "--bolerish-material-filter": "none",
   },
   control: {
-    "--bolerish-material-sheen": "var(--bolerish-control-sheen, none)",
     "--bolerish-material-color": colorVars.bgSurface,
-    "--bolerish-material-opacity": "var(--bolerish-control-opacity, 100%)",
-    "--bolerish-material-filter": "var(--bolerish-control-filter, none)",
+    "--bolerish-material-opacity": "100%",
+    "--bolerish-material-filter": "none",
   },
   subtle: {
-    "--bolerish-material-sheen": "var(--bolerish-control-sheen, none)",
     "--bolerish-material-color": colorVars.bgSubtle,
-    "--bolerish-material-opacity": "var(--bolerish-control-opacity, 100%)",
-    "--bolerish-material-filter": "var(--bolerish-control-filter, none)",
+    "--bolerish-material-opacity": "100%",
+    "--bolerish-material-filter": "none",
   },
   outline: {
-    "--bolerish-material-sheen": "var(--bolerish-control-sheen, none)",
     "--bolerish-material-color": colorVars.interactionDefault,
-    "--bolerish-material-opacity": "var(--bolerish-control-opacity, 100%)",
-    "--bolerish-material-filter": "var(--bolerish-control-filter, none)",
+    "--bolerish-material-opacity": "100%",
+    "--bolerish-material-filter": "none",
   },
   raised: {
-    "--bolerish-material-shadow": `var(--bolerish-raised-shadow, ${shadowVars.overlay})`,
+    "--bolerish-material-shadow": shadowVars.overlay,
     "--bolerish-material-color": colorVars.bgRaised,
     "--bolerish-material-opacity": "var(--bolerish-floating-opacity, 100%)",
     "--bolerish-material-filter": "var(--bolerish-floating-filter, none)",
   },
   translucent: {
     "--bolerish-material-color": colorVars.bgSurface,
-    "--bolerish-material-opacity": "var(--bolerish-panel-opacity, 92%)",
-    "--bolerish-material-filter": "var(--bolerish-panel-filter, blur(16px))",
+    "--bolerish-material-opacity": "var(--bolerish-panel-opacity, 100%)",
+    "--bolerish-material-filter": "var(--bolerish-panel-filter, none)",
   },
   floating: {
-    "--bolerish-material-shadow": `var(--bolerish-floating-shadow, ${shadowVars.floating})`,
+    "--bolerish-material-shadow": shadowVars.floating,
     "--bolerish-material-color": colorVars.bgRaised,
-    "--bolerish-material-opacity": "var(--bolerish-floating-opacity, 94%)",
-    "--bolerish-material-filter": "var(--bolerish-floating-filter, blur(16px))",
+    "--bolerish-material-opacity": "var(--bolerish-floating-opacity, 100%)",
+    "--bolerish-material-filter": "var(--bolerish-floating-filter, none)",
   },
 });
 

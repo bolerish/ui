@@ -10,6 +10,7 @@ import { Card } from "@bolerish/ui/card";
 import { gradient } from "@bolerish/ui/gradient";
 import { Input } from "@bolerish/ui/input";
 import { Label } from "@bolerish/ui/label";
+import { surface } from "@bolerish/ui/surface";
 import { Textarea } from "@bolerish/ui/textarea";
 import * as stylex from "@stylexjs/stylex";
 import { useId, useState } from "react";
@@ -150,7 +151,10 @@ export default function Translucent() {
 
   return (
     <section aria-label="Content background example" {...stylex.props(styles.example)}>
-      <div {...gradient.props({ colors: [accent, glow] }, styles.stage)}>
+      <div
+        {...surface.props({ mode: "glass" })}
+        {...gradient.props({ colors: [accent, glow] }, styles.stage)}
+      >
         <div {...stylex.props(styles.toolbar)}>
           <Card variant="translucent">
             <fieldset

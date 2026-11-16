@@ -4,7 +4,7 @@ export type DocumentationGlobals = {
   fontPreset: "default" | "serif-heading";
   locale: "ko" | "en";
   colorMode: "system" | "light" | "dark";
-  surface: "solid" | "liquid";
+  surface: "solid" | "glass";
   motionPreference: "system" | "reduce" | "no-preference";
   q: string;
 };
@@ -20,7 +20,11 @@ export function validateSettings(search: Record<string, unknown>): Documentation
     fontPreset: choice(search.fontPreset, ["default", "serif-heading"], "default"),
     locale: choice(search.locale, ["ko", "en"], "en"),
     colorMode: choice(search.colorMode, ["system", "light", "dark"], "light"),
-    surface: choice(search.surface, ["solid", "liquid"], "solid"),
+    surface: choice(
+      search.surface === "liquid" ? "glass" : search.surface,
+      ["solid", "glass"],
+      "solid",
+    ),
     motionPreference: choice(
       search.motionPreference,
       ["system", "reduce", "no-preference"],

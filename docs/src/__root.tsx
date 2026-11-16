@@ -6,6 +6,7 @@ import {
   Scripts,
   createRootRoute,
   useRouterState,
+  useRouter,
   redirect,
   useHydrated,
 } from "@tanstack/react-router";
@@ -49,13 +50,19 @@ function canonicalRedirect(
       return `${target}${query.size ? `?${query}` : ""}${location.hash ? `#${location.hash}` : ""}`;
     }
   }
+  const query = new URLSearchParams(location.searchStr);
+  if (query.get("surface") === "liquid") {
+    query.set("surface", "glass");
+    return `${location.pathname}?${query}${location.hash ? `#${location.hash}` : ""}`;
+  }
 }
 
 export const Route = createRootRoute({
   validateSearch,
   beforeLoad: ({ location, search }) => {
     const href = canonicalRedirect(location, search);
-    if (href) throw redirect({ href, replace: true, statusCode: 308 });
+    if (href && new URL(href, "https://ui.bolerish.com").pathname !== location.pathname)
+      throw redirect({ href, replace: true, statusCode: 308 });
   },
   head: () => ({
     meta: [
@@ -83,6 +90,7 @@ export const Route = createRootRoute({
   errorComponent: DocumentError,
 });
 function Document({ children }: { children: ReactNode }) {
+  const router = useRouter();
   const location = useRouterState({ select: (state) => state.location });
   const { search, pathname } = location;
   const hydrated = useHydrated();
@@ -115,8 +123,12 @@ function Document({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!hydrated) return;
     const href = canonicalRedirect(location, search);
-    if (href) window.location.replace(href);
-  }, [hydrated, location, search]);
+    if (href) {
+      if (new URL(href, window.location.href).pathname === location.pathname)
+        router.history.replace(href);
+      else window.location.replace(href);
+    }
+  }, [hydrated, location, search, router]);
   const [frameSettings, setFrameSettings] = useState<typeof routeSettings | null>(null);
   const settings = frameSettings ?? routeSettings;
   const mode = useColorMode(settings.colorMode);
@@ -173,7 +185,7 @@ function Document({ children }: { children: ReactNode }) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{const value=document.cookie.split('; ').find(c=>c.startsWith('bolerish-docs-settings='))?.slice('bolerish-docs-settings='.length);let saved={};try{saved=JSON.parse(decodeURIComponent(value||''))||{}}catch{}const preference=new URLSearchParams(location.search).get('colorMode')||saved.colorMode;const mode=preference==='dark'||preference==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.bolerishTheme=mode;document.documentElement.dataset.bolerishSurface=new URLSearchParams(location.search).get('surface')||saved.surface||'solid'}catch{}`,
+            __html: `try{const value=document.cookie.split('; ').find(c=>c.startsWith('bolerish-docs-settings='))?.slice('bolerish-docs-settings='.length);let saved={};try{const parsed=JSON.parse(decodeURIComponent(value||''));if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))saved=parsed}catch{}const preference=new URLSearchParams(location.search).get('colorMode')||saved.colorMode;const mode=preference==='dark'||preference==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.bolerishTheme=mode;const params=new URLSearchParams(location.search);const material=params.has('surface')?params.get('surface'):saved.surface;document.documentElement.dataset.bolerishSurface=material==='glass'||material==='liquid'?'glass':'solid'}catch{}`,
           }}
         />
         <script dangerouslySetInnerHTML={{ __html: previewTabBootstrap }} />

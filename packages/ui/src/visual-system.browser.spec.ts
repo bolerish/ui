@@ -1,7 +1,10 @@
 import { expect, test } from "@playwright/test";
 
 for (const theme of ["light", "dark"]) {
-  test(`${theme} composition separates headings and retains field boundaries`, async ({ page }) => {
+  test(`${theme} composition separates headings and retains field boundaries`, async ({
+    page,
+    browserName,
+  }) => {
     await page.goto(`/?fixture=visual-system&theme=${theme}&surface=solid`);
     await expect(page.getByRole("heading", { name: "Project settings" })).toHaveCSS(
       "font-size",
@@ -36,8 +39,10 @@ for (const theme of ["light", "dark"]) {
       "padding-top",
       "24px",
     );
-    await page.goto(`/?fixture=visual-system&theme=${theme}&surface=liquid`);
+    await page.goto(`/?fixture=visual-system&theme=${theme}&surface=glass`);
     await expect(name).toHaveCSS("border-top-color", resting);
+    // WebKit does not emulate the system palette; verify it on native devices.
+    if (browserName !== "chromium") return;
     await page.emulateMedia({ forcedColors: "active" });
     await expect(name).toHaveCSS("border-top-width", "1px");
     const systemBorder = await page.evaluate(() => {

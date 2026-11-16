@@ -9,11 +9,21 @@ export const modalOverlayStyles = stylex.create({
     },
   },
   outsideScrim: {
+    "--bolerish-material-opacity": {
+      default: "100%",
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent)) and selector(:has(*))":
+        "var(--bolerish-floating-opacity, 100%)",
+    },
+    "--bolerish-material-filter": {
+      default: "none",
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent)) and selector(:has(*))":
+        "var(--bolerish-floating-filter, none)",
+    },
     // A nested panel owns the existing dimming while its transform animates.
     ":is([data-nested])": {
       "--bolerish-modal-transition-opacity": "var(--bolerish-modal-nested-opacity, 0)",
     },
     "--bolerish-modal-current-spread": "var(--bolerish-modal-scrim-spread, 0px)",
-    "--bolerish-material-shadow": `var(--bolerish-raised-shadow, ${shadowVars.overlay}), 0 0 0 var(--bolerish-modal-current-spread) ${colorVars.bgOverlay}`,
+    "--bolerish-material-shadow": `${shadowVars.overlay}, 0 0 0 var(--bolerish-modal-current-spread) ${colorVars.bgOverlay}`,
   },
 });

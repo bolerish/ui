@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { surface } from "../dist/surface.js";
 
 test("surface selects either material without taking ownership of classes or styles", () => {
-  for (const mode of ["solid", "liquid"] as const) {
+  for (const mode of ["solid", "glass"] as const) {
     const attributes = surface.props({ mode });
     assert.deepEqual(attributes, { "data-bolerish-surface": mode });
     const existing = { className: "consumer-layout", style: { display: "grid" } };
@@ -28,7 +28,7 @@ test("surface rejects missing or unsupported material modes", () => {
     null,
     {},
     { mode: undefined },
-    { mode: "glass" },
+    { mode: "liquid" },
     { mode: 1 },
   ]) {
     assert.throws(() => Reflect.apply(surface.props, undefined, [options]), TypeError);

@@ -1,51 +1,37 @@
 # Surface
 
-Select the shared Solid or Liquid material once for installed components. No Provider, wrapper or consumer StyleX compiler is required. Load the `@bolerish/ui` stylesheet first.
+Select the shared Solid or Glass material for installed components. Load `@bolerish/ui/global.css` first. No Provider, wrapper or consumer StyleX compiler is required.
 
 ```tsx
 import { surface } from "@bolerish/ui/surface";
 
-<html data-bolerish-theme="dark" {...surface.props({ mode: "liquid" })} />;
+<html data-bolerish-theme="dark" {...surface.props({ mode: "glass" })} />;
 ```
 
 ## `surface.props(options)`
 
-| Argument       | Type                  | Required / default   | Meaning                                   |
-| -------------- | --------------------- | -------------------- | ----------------------------------------- |
-| `options.mode` | `"solid" \| "liquid"` | Required; no default | Select an opaque or translucent material. |
+`options.mode` is required: `"solid" | "glass"`. Returns `SurfaceProps`: `{ "data-bolerish-surface": "solid" | "glass" }`. `SurfaceOptions` is exported from both `@bolerish/ui` and `@bolerish/ui/surface`. Missing or unsupported modes throw `TypeError`.
 
-Returns `SurfaceProps`: `{ "data-bolerish-surface": "solid" | "liquid" }`. The options type is exported as `SurfaceOptions`. The helper is available from `@bolerish/ui` and `@bolerish/ui/surface`. Missing or unsupported modes throw `TypeError`.
+Solid is the default, including when the attribute is omitted. Glass adds 94% `bgRaised` and 16px backdrop blur to floating and raised surfaces. Explicitly translucent cards and Menubar use 92% `bgSurface` and the same blur. Ordinary cards and fields keep their opaque material. Glass does not refract or distort the background and uses the existing shadow tokens.
 
-Solid uses opaque surfaces. Liquid uses role-specific transparency, blur and shallow floating shadows. In Chromium, existing material surfaces also refract the live backdrop through a packaged SVG filter. No Liquid component or runtime registration is required. Safari and Firefox keep the blur treatment. Theme colors, selected/error/disabled states and text opacity keep their own contracts. Reduced transparency, forced colors and unsupported effects use opaque fallbacks.
+Reduced transparency, forced colors and unsupported effects use solid fallbacks. Visible-overlay modals also require `:has()` for the glass treatment; otherwise they use an opaque panel and ordinary backdrop. Theme colors, selection, error, focus, disabled states and text opacity retain their contracts. Custom themes must be checked against their actual composite backgrounds; the helper does not correct translucent or low-contrast custom colors.
 
 ## Composition
 
-The result contains no `className`, `style`, `ref` or event handlers. It can be spread before or after ordinary DOM props or `stylex.props()` without replacing their styling.
-
-```tsx
-<html {...stylex.props(theme, styles.root)} {...surface.props({ mode: "liquid" })} />
-```
-
-This optional StyleX example requires the app's existing compiler. The helper itself is precompiled and does not require one. If the same data attribute is supplied twice, normal JavaScript spread order applies.
+The result contains no `className`, `style`, `ref` or event handlers and can be spread before or after ordinary props or `stylex.props()` without replacing them. Normal JavaScript spread order applies if the same data attribute is supplied twice. The optional StyleX composition requires your existing compiler; the helper itself does not.
 
 ## Scope and portals
 
-Apply to `html` for the entire document, including menus, dialogs and notifications rendered through portals. A local scope can override material for descendants:
+Apply to `html` for the entire document, including portaled menus, dialogs and notifications. A local `surface.props({ mode: "solid" })` overrides material for DOM descendants. An attribute does not paint an ordinary `div` or `section`, and it does not reach portals mounted outside the subtree.
 
-```tsx
-<section {...surface.props({ mode: "solid" })}>
-  <Card>Opaque reading surface</Card>
-</section>
-```
+Direct `data-bolerish-surface="solid"` and `"glass"` attributes are supported. Your app owns preference state, persistence and color mode. See [Theming](/docs/theming).
 
-The attribute selects material for participating components; it does not automatically paint an ordinary `div` or `section`. A locally scoped attribute does not reach a portal mounted outside that DOM subtree. Use `html` for document-wide consistency.
+## Content backgrounds
 
-The helper returns attributes only: it does not mutate the DOM, store preferences or synchronize color mode. Your app owns state and persistence. See [Theming](/docs/theming) for application settings.
+Use [Gradient](/docs/api/gradient) on an app-owned background and, when needed, `Card variant="translucent"` inside a Glass scope. Keep editing surfaces opaque and check text, boundaries and focus against your actual background.
 
-## Gradient and refraction
+## Migrate from Liquid
 
-Use [Gradient](/docs/api/gradient) to add a content-colored background. The shared SVG uses a fixed, gentle displacement map stretched to each surface; it does not track individual corner geometry or capture the page. Keep the referenced `liquid-refraction.svg` asset available when processing package CSS. For an explicit decorative background with a map fitted to its size and corners across browsers, use the optional [Liquid component](/docs/components/liquid); it owns the background layer, SVG filter and resize handling.
+`Liquid`, `LiquidProps`, the `@bolerish/ui/liquid` entry point and the `liquid` surface mode have been removed. Use `surface.props({ mode: "glass" })` for shared glass surfaces. Replace an owned decorative background with an app background using Gradient and, when needed, `Card variant="translucent"`. This preserves a translucent surface without refraction. No separate Glass component is provided.
 
-Direct `data-bolerish-surface="solid"` and `"liquid"` attributes remain supported. `surface.props()` provides the same behavior through a typed API.
-
-Liquid weakens only shared decorative surface edges; border width and geometry remain stable. Focus, error and selection boundaries are independent. Reduced transparency and forced colors retain explicit boundaries.
+Migrate application storage and direct data attributes from `liquid` to `glass`. The documentation site migrates its own old preferences and URLs; the npm package does not migrate application storage. The old `liquid` data attribute has no supported selector and does not reset an enclosing Glass scope.

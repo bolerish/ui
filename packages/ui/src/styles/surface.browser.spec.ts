@@ -15,10 +15,10 @@ function borderPixel(node: Element) {
 }
 
 for (const theme of ["light", "dark"]) {
-  test(`Liquid ${theme} changes material, retains readable text and solid fallback`, async ({
+  test(`Glass ${theme} changes material, retains readable text and solid fallback`, async ({
     page,
   }) => {
-    await page.goto(`/?fixture=surface&theme=${theme}&surface=solid`);
+    await page.goto(`/?fixture=surface&translucent&theme=${theme}&surface=solid`);
     const card = page.getByTestId("surface");
     const solidPixel = await card.evaluate(backgroundPixel);
     const solidBorder = await card.evaluate(borderPixel);
@@ -27,22 +27,22 @@ for (const theme of ["light", "dark"]) {
       const s = getComputedStyle(n);
       return { color: s.backgroundColor, filter: s.backdropFilter, shadow: s.boxShadow };
     });
-    await page.goto(`/?fixture=surface&theme=${theme}&surface=liquid`);
-    const liquid = await card.evaluate((n) => {
+    await page.goto(`/?fixture=surface&translucent&theme=${theme}&surface=glass`);
+    const glass = await card.evaluate((n) => {
       const s = getComputedStyle(n);
       return { color: s.backgroundColor, filter: s.backdropFilter, shadow: s.boxShadow };
     });
-    expect((await card.evaluate(borderPixel))[3]).toBeLessThan(solidBorder[3]);
+    expect(await card.evaluate(borderPixel)).toEqual(solidBorder);
     await expect(card).toHaveCSS("border-top-width", borderWidth);
-    expect(liquid.color).not.toBe(solid.color);
-    expect(liquid.filter).toContain("blur");
-    expect(liquid.shadow).toContain("inset");
-    await expect(card).toHaveCSS("background-image", /linear-gradient/);
-    expect((await card.evaluate(backgroundPixel))[3] / 255).toBeLessThanOrEqual(0.7);
+    expect(glass.color).not.toBe(solid.color);
+    expect(glass.filter).toContain("blur");
+    expect(glass.shadow).not.toContain("inset");
+    await expect(card).toHaveCSS("background-image", "none");
+    expect((await card.evaluate(backgroundPixel))[3] / 255).toBeCloseTo(0.92, 2);
     expect(
       (await page.getByRole("textbox", { name: "Surface field" }).evaluate(backgroundPixel))[3] /
         255,
-    ).toBeLessThanOrEqual(0.6);
+    ).toBe(1);
     const description = page.getByTestId("description");
     const textColor = await description.evaluate((n) => getComputedStyle(n).color);
     const cardBox = (await card.boundingBox())!;
@@ -100,7 +100,7 @@ for (const theme of ["light", "dark"]) {
       },
     );
     expect(contrast).toBeGreaterThanOrEqual(4.5);
-    await page.screenshot({ path: test.info().outputPath(`liquid-${theme}.png`) });
+    await page.screenshot({ path: test.info().outputPath(`glass-${theme}.png`) });
     await page.emulateMedia({ forcedColors: "active" });
     await expect(card).toHaveCSS("backdrop-filter", "none");
     await expect(card).toHaveCSS("background-image", "none");
@@ -116,28 +116,22 @@ for (const theme of ["light", "dark"]) {
     expect(await card.evaluate(borderPixel)).toEqual(solidBorder);
   });
 
-  test(`Liquid ${theme} modal shares the quieter material and retains keyboard recovery`, async ({
+  test(`Glass ${theme} modal shares the quieter material and retains keyboard recovery`, async ({
     page,
   }) => {
-    await page.goto(`/?fixture=surface&theme=${theme}&surface=solid`);
+    await page.goto(`/?fixture=surface&translucent&theme=${theme}&surface=solid`);
     const trigger = page.getByRole("button", { name: "Open dialog", exact: true });
     await trigger.click();
     const dialog = page.getByRole("dialog", { name: "Edit project" });
     const solidShadow = await dialog.evaluate((n) => getComputedStyle(n).boxShadow);
     await page.keyboard.press("Escape");
-    await page.goto(`/?fixture=surface&theme=${theme}&surface=liquid`);
+    await page.goto(`/?fixture=surface&translucent&theme=${theme}&surface=glass`);
     await trigger.click();
     await expect(dialog).toBeVisible();
-    expect((await dialog.evaluate(backgroundPixel))[3] / 255).toBeLessThanOrEqual(0.6);
+    expect((await dialog.evaluate(backgroundPixel))[3] / 255).toBeCloseTo(0.94, 2);
     const shadow = await dialog.evaluate((n) => getComputedStyle(n).boxShadow);
-    expect(shadow).toContain("inset");
+    expect(shadow).not.toContain("inset");
     expect(shadow).not.toEqual(solidShadow);
-    const lengths = [...shadow.matchAll(/\)\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+([\d.]+)px/g)];
-    expect(lengths.length).toBeGreaterThan(0);
-    for (const [, , offset, blur] of lengths) {
-      expect(Math.abs(Number(offset))).toBeLessThanOrEqual(4);
-      expect(Number(blur)).toBeLessThanOrEqual(12);
-    }
     await page.locator("html").evaluate((n) => {
       n.dataset.bolerishSurface = "solid";
     });
@@ -146,5 +140,20 @@ for (const theme of ["light", "dark"]) {
     await page.keyboard.press("Escape");
     await expect(dialog).toBeHidden();
     await expect(trigger).toBeFocused();
+  });
+}
+
+for (const theme of ["light", "dark"]) {
+  test(`Glass ${theme} keeps default cards opaque and omitted attributes solid`, async ({
+    page,
+  }) => {
+    await page.goto(`/?fixture=surface&theme=${theme}&surface=glass`);
+    const card = page.getByTestId("surface");
+    expect((await card.evaluate(backgroundPixel))[3]).toBe(255);
+    await expect(card).toHaveCSS("backdrop-filter", "none");
+    await page.goto(`/?fixture=surface&translucent&theme=${theme}`);
+    await page.locator("html").evaluate((node) => node.removeAttribute("data-bolerish-surface"));
+    expect((await card.evaluate(backgroundPixel))[3]).toBe(255);
+    await expect(card).toHaveCSS("backdrop-filter", "none");
   });
 }

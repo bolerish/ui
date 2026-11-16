@@ -20,7 +20,6 @@ import type { Item } from "./dist/item.js";
 import type { Kbd } from "./dist/kbd.js";
 import type { Label } from "./dist/label.js";
 import type { Link } from "./dist/link.js";
-import { Liquid } from "./dist/liquid.js";
 import type { NativeSelect } from "./dist/native-select.js";
 import type { Progress } from "./dist/progress.js";
 import type { SelectTrigger } from "./dist/select.js";
@@ -40,18 +39,6 @@ export type RemovedContentRowContract = ContentRowProps;
 type HasStylingProps<Props> = "className" | "style" extends keyof Props ? true : false;
 type HasXstyle<Props> = "xstyle" extends keyof Props ? true : false;
 export type ButtonContract = Assert<HasStylingProps<ComponentProps<typeof Button>>>;
-export type LiquidContract = Assert<HasStylingProps<ComponentProps<typeof Liquid>>>;
-export const liquidBackgroundContract = (
-  <Liquid
-    background={<img src="/scene.webp" alt="" />}
-    aria-label="Player"
-    style={{ maxWidth: 320 }}
-  >
-    Foreground
-  </Liquid>
-);
-// @ts-expect-error The app must explicitly own the decorative background.
-export const missingLiquidBackground = <Liquid>Foreground</Liquid>;
 export type CardContract = Assert<HasStylingProps<ComponentProps<typeof Card>>>;
 export type AccordionContract = Assert<HasStylingProps<ComponentProps<typeof AccordionTrigger>>>;
 export type SelectContract = Assert<HasStylingProps<ComponentProps<typeof SelectTrigger>>>;
@@ -216,7 +203,7 @@ export const buttonCss: ComponentProps<typeof Button> = {
 
 export const gradientStyleX = gradient.props({ colors: ["red", "blue"] }, styles.layout);
 export const surfaceElement = (
-  <html lang="en" {...stylex.props(styles.layout)} {...surface.props({ mode: "liquid" })} />
+  <html lang="en" {...stylex.props(styles.layout)} {...surface.props({ mode: "glass" })} />
 );
 export const solidSurfaceElement = <body {...surface.props({ mode: "solid" })} />;
 // @ts-expect-error Refraction is not a global material mode.
@@ -278,3 +265,9 @@ export const unborderedInput: ComponentProps<typeof Input> = { variant: "none" }
 export const underlinedInput: ComponentProps<typeof Input> = { variant: "underline" };
 // @ts-expect-error The documented lower-edge variant is named underline.
 export const unknownInputVariant: ComponentProps<typeof Input> = { variant: "bottom-line" };
+
+// @ts-expect-error The removed Liquid subpath is not a public entry.
+import type { LiquidProps } from "@bolerish/ui/liquid";
+export type RemovedLiquidContract = LiquidProps;
+// @ts-expect-error The removed liquid mode is not supported by the package.
+export const removedLiquidMode = surface.props({ mode: "liquid" });

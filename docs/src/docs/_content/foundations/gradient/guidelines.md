@@ -32,3 +32,5 @@ The example combines background color selection, a contrast veil, a bottom fade 
 ## API reference
 
 Read the [Gradient API](/docs/api/gradient) for `gradient.props()`, color order, StyleX composition and fallbacks.
+
+The comparison explicitly selects Glass for its translucent surface. Outside that scope, omitted surface attributes use Solid. Use the documentation surface setting for other examples.

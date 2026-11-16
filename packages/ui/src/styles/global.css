@@ -1,63 +1,24 @@
 /* Global styles are composed by the package build. */
-
 [data-bolerish-surface="solid"] {
+  --bolerish-panel-opacity: 100%;
+  --bolerish-floating-opacity: 100%;
+  --bolerish-panel-filter: none;
+  --bolerish-floating-filter: none;
   --bolerish-modal-nested-opacity: 0;
   --bolerish-modal-backdrop-opacity: 100%;
   --bolerish-modal-scrim-spread: 0px;
-  --bolerish-surface-edge-strength: 100%;
-  --bolerish-panel-opacity: 100%;
-  --bolerish-control-opacity: 100%;
-  --bolerish-floating-opacity: 100%;
-  --bolerish-panel-filter: none;
-  --bolerish-control-filter: none;
-  --bolerish-floating-filter: none;
-  --bolerish-surface-sheen: none;
-  --bolerish-control-sheen: none;
-  --bolerish-surface-reflection: 0 0 transparent;
-  --bolerish-raised-shadow: initial;
-  --bolerish-floating-shadow: initial;
-  --bolerish-liquid-display: none;
-  --bolerish-liquid-opacity: 100%;
-  --bolerish-liquid-reflection: 0 0 transparent;
 }
-
-[data-bolerish-surface="liquid"] {
-  --bolerish-surface-edge-strength: 22%;
-  --bolerish-refraction: url("./liquid-refraction.svg#bolerish-refraction");
-  --bolerish-liquid-display: block;
-  --bolerish-liquid-opacity: 28%;
-  --bolerish-liquid-reflection:
-    inset 0 1px 0 rgb(255 255 255 / 0.5), inset 0 -1px 0 rgb(255 255 255 / 0.15);
-  --bolerish-panel-opacity: var(--bolerish-liquid-panel-opacity, 58%);
-  --bolerish-control-opacity: 58%;
-  --bolerish-floating-opacity: 48%;
-  --bolerish-panel-filter: var(--bolerish-refraction) blur(4px) saturate(1.15);
-  --bolerish-control-filter: var(--bolerish-refraction) blur(2px) saturate(1.1);
-  --bolerish-floating-filter: var(--bolerish-refraction) blur(3px) saturate(1.1);
-  --bolerish-surface-sheen: linear-gradient(
-    135deg,
-    rgb(255 255 255 / 0.12),
-    transparent 42%,
-    rgb(0 0 0 / 0.025)
-  );
-  --bolerish-control-sheen: linear-gradient(135deg, rgb(255 255 255 / 0.055), transparent 60%);
-  --bolerish-surface-reflection:
-    inset 0 1px 0 rgb(255 255 255 / 0.24), inset 0 -1px 0 rgb(0 0 0 / 0.04);
-  --bolerish-raised-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 4px 12px rgb(0 0 0 / 0.07);
-  --bolerish-floating-shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 3px 9px rgb(0 0 0 / 0.06);
-}
-
-/* Engine fallback: parsing url() does not establish SVG backdrop rendering support. */
-@supports (-webkit-backdrop-filter: blur(1px)) or selector(::-moz-range-thumb) {
-  [data-bolerish-surface="liquid"] {
-    --bolerish-refraction: brightness(1);
-  }
+[data-bolerish-surface="glass"] {
+  --bolerish-panel-opacity: 92%;
+  --bolerish-floating-opacity: 94%;
+  --bolerish-panel-filter: blur(16px);
+  --bolerish-floating-filter: blur(16px);
 }
 
 /* Keep the dimming outside translucent modal panels, so their glass samples the undimmed page. */
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and
   (background-color: color-mix(in srgb, white, transparent)) and selector(:has(*)) {
-  [data-bolerish-surface="liquid"] {
+  [data-bolerish-surface="glass"] {
     --bolerish-modal-nested-opacity: 1;
     --bolerish-modal-backdrop-opacity: 0%;
     --bolerish-modal-scrim-spread: 100vmax;
@@ -73,7 +34,7 @@
   --bolerish-modal-current-spread: 0px;
 }
 @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
-  [data-bolerish-surface="liquid"] {
+  [data-bolerish-surface="glass"] {
     --bolerish-modal-nested-opacity: 0;
     --bolerish-modal-backdrop-opacity: 100%;
     --bolerish-modal-scrim-spread: 0px;
@@ -223,19 +184,4 @@
     --bolerish-status-gap: var(--bolerish-status-offset, 16px);
     justify-content: center;
   }
-}
-
-[data-bolerish-theme="light"] {
-  --bolerish-liquid-panel-opacity: 58%;
-}
-[data-bolerish-theme="dark"] {
-  --bolerish-liquid-panel-opacity: 69.5%;
-}
-[data-bolerish-theme="dark"][data-bolerish-surface="liquid"] {
-  --bolerish-surface-sheen: linear-gradient(
-    135deg,
-    rgb(255 255 255 / 0.003),
-    transparent 42%,
-    rgb(0 0 0 / 0.035)
-  );
 }

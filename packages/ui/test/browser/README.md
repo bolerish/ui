@@ -18,8 +18,8 @@ example-owned styles. It supplies document language/title and a main landmark.
 - Opened state as well: AlertDialog, Dialog, Drawer (default down direction),
   Popover, Select, Combobox (matching results), DropdownMenu, ContextMenu,
   Menubar, NavigationMenu, DatePicker, Tooltip, HoverCard and Toast.
-- The same opened examples also run in Liquid mode in both themes, checking
-  translucent surface alpha, reduced blur, full foreground opacity, axe and
+- The same opened examples also run in Glass mode in both themes, checking
+  translucent surface alpha, 16px blur, full foreground opacity, axe and
   opaque Solid/reduced-transparency/forced-colors fallbacks. These checks follow
   the rendered portal content rather than assuming it inherits the preview container.
 - Tags: `wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`, `wcag22aa`.
@@ -39,18 +39,7 @@ Input checks reuse the actual Variants example in light/dark, verify normal fiel
 sizing, editing, `none` focus/error outlines, bottom-only `underline` focus,
 explicit/native invalid states, disabled fields and the forced-colors fallback.
 
-Liquid has dedicated Chromium, Firefox and WebKit projects. A controlled visual
-background verifies changed edge pixels and unchanged central pixels and foreground
-text, including after resize. The checks also exercise background updates, keyboard
-activation, axe, Solid mode, large-source limits and unavailable canvas. Forced
-colors and reduced-transparency emulation run in Chromium through CDP; those checks
-are explicitly skipped in the other engines. The rest of the component suite runs
-in Chromium. These checks do not establish rendering parity on physical iOS devices.
-
-Shared CSS refraction checks render ordinary Card and portaled Dialog surfaces
-without a Liquid component. Chromium must change backdrop pixels while WebKit
-retains the blur baseline; Solid and forced colors disable the filter. The fixed
-shared map does not promise the geometry accuracy of the explicit Liquid lens.
+Glass material checks cover translucent cards and floating surfaces, opaque fields and ordinary cards, unchanged foreground opacity, contrast over captured backgrounds, and opaque reduced-transparency/forced-colors fallbacks. Modal checks cover outside-only dimming and nested scrim ownership. No refraction asset or dedicated Liquid component remains. Chromium runs the full suite; Firefox and WebKit run the theme and composition projects listed in playwright.config.ts. Native device checks remain separate.
 
 ## Limits
 
