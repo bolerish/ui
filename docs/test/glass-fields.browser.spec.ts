@@ -16,7 +16,7 @@ for (const colorMode of ["light", "dark"]) {
     await page.getByRole("combobox", { name: "Surface", exact: true }).selectOption("glass");
     await expect(page.locator("html")).toHaveAttribute("data-bolerish-surface", "glass");
     await expect(panel).toHaveCSS("backdrop-filter", "blur(24px) saturate(1.6)");
-    await expect(page.locator("body")).not.toHaveCSS("background-color", solidCanvas);
+    await expect(page.locator("body")).toHaveCSS("background-color", solidCanvas);
     await expect(page.locator("body")).toHaveCSS("background-image", "none");
     const material = await panel.evaluate((node) => getComputedStyle(node).boxShadow);
     expect(material).toContain("inset");

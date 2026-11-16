@@ -16,6 +16,8 @@ Solid is the default, including when the attribute is omitted. Glass adds 80% `b
 
 Reduced transparency, forced colors and unsupported effects use solid fallbacks. Visible-overlay modals also require `:has()` for the glass treatment; otherwise they use an opaque panel and ordinary backdrop. Theme colors, selection, error, focus, disabled states and text opacity retain their contracts. Custom themes must be checked against their actual composite backgrounds; the helper does not correct translucent or low-contrast custom colors.
 
+In Glass mode, a modal backdrop also blurs the outside page by 8px while the panel retains its 24px material blur. Nested modals share one active backdrop blur. Solid mode, reduced transparency and forced colors disable both effects; a Drawer without an overlay does not blur the outside page.
+
 ## Composition
 
 The result contains no `className`, `style`, `ref` or event handlers and can be spread before or after ordinary props or `stylex.props()` without replacing them. Normal JavaScript spread order applies if the same data attribute is supplied twice. The optional StyleX composition requires your existing compiler; the helper itself does not.

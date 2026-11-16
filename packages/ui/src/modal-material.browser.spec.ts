@@ -94,6 +94,16 @@ for (const parent of ["dialog", "drawer"]) {
     const child = page.getByRole("dialog", { name: "Child modal", exact: true });
     await expect(child).toBeVisible();
     await expect(child).toHaveCSS("opacity", "1");
+    await expect
+      .poll(() =>
+        page
+          .locator("[data-bolerish-modal-backdrop]")
+          .evaluateAll(
+            (nodes) =>
+              nodes.filter((node) => getComputedStyle(node).backdropFilter !== "none").length,
+          ),
+      )
+      .toBe(1);
     const box = (await child.boundingBox())!;
     const normal = (await page.screenshot()).toString("base64");
     await page.locator('[role="dialog"]').evaluateAll((nodes) => {
@@ -145,6 +155,10 @@ for (const preference of ["solid", "reduced-transparency", "forced-colors"]) {
     await page.getByRole("button", { name: "Open dialog", exact: true }).click();
     const popup = page.getByRole("dialog");
     await expect(popup).toHaveCSS("backdrop-filter", "none");
+    await expect(page.locator("[data-bolerish-modal-backdrop]")).toHaveCSS(
+      "backdrop-filter",
+      "none",
+    );
     const alpha = await popup.evaluate((node) => {
       const color = getComputedStyle(node.parentElement!.previousElementSibling!).backgroundColor;
       const context = document.createElement("canvas").getContext("2d")!;

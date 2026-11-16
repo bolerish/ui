@@ -142,6 +142,7 @@ export function AlertDialogContent({
   return (
     <AlertDialogPrimitive.Portal>
       <AlertDialogPrimitive.Backdrop
+        data-bolerish-modal-backdrop=""
         {...stylex.props(styles.backdrop, modalOverlayStyles.backdrop)}
       />
       <AlertDialogPrimitive.Viewport {...stylex.props(styles.viewport)}>

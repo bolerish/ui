@@ -188,7 +188,10 @@ export function DialogContent({
 }: DialogContentProps) {
   return (
     <DialogPrimitive.Portal>
-      <DialogPrimitive.Backdrop {...stylex.props(styles.backdrop, modalOverlayStyles.backdrop)} />
+      <DialogPrimitive.Backdrop
+        data-bolerish-modal-backdrop=""
+        {...stylex.props(styles.backdrop, modalOverlayStyles.backdrop)}
+      />
       <DialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
         <DialogPrimitive.Popup
           {...props}

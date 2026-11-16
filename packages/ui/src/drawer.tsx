@@ -298,6 +298,7 @@ type DrawerOverlayProps = StyledProps<ComponentProps<typeof DrawerPrimitive.Back
 function DrawerOverlay({ className, style, xstyle, ...props }: DrawerOverlayProps) {
   return (
     <DrawerPrimitive.Backdrop
+      data-bolerish-modal-backdrop=""
       {...props}
       data-slot="drawer-overlay"
       {...mergeStyles(

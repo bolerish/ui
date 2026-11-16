@@ -7,6 +7,7 @@
   --bolerish-floating-filter: none;
   --bolerish-modal-nested-opacity: 0;
   --bolerish-modal-backdrop-opacity: 100%;
+  --bolerish-modal-backdrop-filter: none;
   --bolerish-modal-scrim-spread: 0px;
 }
 [data-bolerish-surface="glass"] {
@@ -14,6 +15,7 @@
     inset 0 1px 0 rgb(255 255 255 / 18%), inset 0 0 0 1px rgb(255 255 255 / 6%);
   --bolerish-panel-opacity: 72%;
   --bolerish-floating-opacity: 80%;
+  --bolerish-modal-backdrop-filter: blur(8px);
   --bolerish-panel-filter: blur(24px) saturate(1.6);
   --bolerish-floating-filter: blur(24px) saturate(1.6);
 }
@@ -36,8 +38,16 @@
   > [data-bolerish-modal-popup] {
   --bolerish-modal-current-spread: 0px;
 }
+[data-base-ui-portal]:has(
+    ~ [data-base-ui-portal] [data-bolerish-modal-backdrop],
+    [data-base-ui-portal] [data-bolerish-modal-backdrop]
+  )
+  > [data-bolerish-modal-backdrop] {
+  --bolerish-modal-backdrop-filter: none;
+}
 @media (prefers-reduced-transparency: reduce), (forced-colors: active) {
   [data-bolerish-surface="glass"] {
+    --bolerish-modal-backdrop-filter: none;
     --bolerish-modal-nested-opacity: 0;
     --bolerish-modal-backdrop-opacity: 100%;
     --bolerish-modal-scrim-spread: 0px;

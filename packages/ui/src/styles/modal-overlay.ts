@@ -3,6 +3,16 @@ import * as stylex from "@stylexjs/stylex";
 
 export const modalOverlayStyles = stylex.create({
   backdrop: {
+    WebkitBackdropFilter: {
+      default: "none",
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent)) and selector(:has(*))":
+        "var(--bolerish-modal-backdrop-filter, none)",
+    },
+    backdropFilter: {
+      default: "none",
+      "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent)) and selector(:has(*))":
+        "var(--bolerish-modal-backdrop-filter, none)",
+    },
     backgroundColor: {
       default: colorVars.bgOverlay,
       "@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) and (background-color: color-mix(in srgb, white, transparent)) and selector(:has(*))": `color-mix(in srgb, ${colorVars.bgOverlay} var(--bolerish-modal-backdrop-opacity, 100%), transparent)`,

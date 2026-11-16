@@ -223,10 +223,7 @@ const styles = stylex.create({
     scrollbarGutter: "stable",
   },
   body: {
-    backgroundColor: {
-      default: colorVars.bgSurface,
-      [stylex.when.ancestor('[data-bolerish-surface="glass"]', documentMarker)]: colorVars.bgCanvas,
-    },
+    backgroundColor: colorVars.bgCanvas,
     minHeight: "100dvh",
     marginTop: "0",
     marginRight: "0",
