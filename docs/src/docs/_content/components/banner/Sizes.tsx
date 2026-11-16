@@ -20,6 +20,7 @@ const layout = stylex.create({
 export default function Sizes() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
+      {/* @example-start */}
       <Banner>
         <BannerContent>
           <BannerTitle>Default</BannerTitle>
@@ -32,6 +33,7 @@ export default function Sizes() {
           <BannerDescription>A compact inline message.</BannerDescription>
         </BannerContent>
       </Banner>
+      {/* @example-end */}
     </div>
   );
 }

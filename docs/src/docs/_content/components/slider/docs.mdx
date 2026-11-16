@@ -1,8 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import StatesSource from "./States.tsx?raw";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -20,34 +20,52 @@ Let people adjust a bounded value quickly while seeing its relative position.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="slider--Default" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-음량처럼 대략적인 조정에 사용합니다. 정확한 값 입력이 중요하면 숫자 입력도 제공합니다.
+### defaultValue
 
-> 드래그만으로 값을 바꾸게 하지 않습니다. 키보드와 드래그 없는 조작 방법을 유지합니다.
+| Value | Preview                               |
+| ----- | ------------------------------------- |
+| `0`   | {propExamples["defaultValue"]["0"]}   |
+| `50`  | {propExamples["defaultValue"]["50"]}  |
+| `100` | {propExamples["defaultValue"]["100"]} |
+
+### disabled
+
+기본값: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["disabled"]["false"]} |
+| `true`  | {propExamples["disabled"]["true"]}  |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Use it for approximate adjustment such as volume. Add a numeric input when entering an exact value matters.
+### defaultValue
 
-> Dragging must not be the only way to change the value; preserve keyboard and pointer alternatives.
+| Value | Preview                               |
+| ----- | ------------------------------------- |
+| `0`   | {propExamples["defaultValue"]["0"]}   |
+| `50`  | {propExamples["defaultValue"]["50"]}  |
+| `100` | {propExamples["defaultValue"]["100"]} |
+
+### disabled
+
+Default: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["disabled"]["false"]} |
+| `true`  | {propExamples["disabled"]["true"]}  |
 
 </LocaleContent>
-
-<LocalizedMarkdown text={"## More examples"} />
-
-<LocalizedMarkdown text={"### States"} />
-
-<LocalizedMarkdown text={"Keep an unavailable value distinct from an adjustable one."} />
-
-<ComponentPreview name="slider--States" source={StatesSource} />

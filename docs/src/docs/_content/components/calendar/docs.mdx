@@ -1,8 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import RangeSelectionSource from "./RangeSelection.tsx?raw";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -20,40 +20,70 @@ Let people compare nearby dates while choosing a day or period.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="calendar--Default" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-`fixedWeeks`를 설정하면 항상 6주를 표시해 월을 바꿔도 달력 높이가 유지됩니다.
+### fixedWeeks
 
-날짜 사이의 관계가 중요하면 달력을 펼쳐 둡니다. 선택할 때만 열어도 된다면 Date Picker를 사용합니다.
+기본값: `false`
 
-> 확정하기 전에 선택할 수 없는 날짜를 표시하고 선택에 영향을 주는 조건을 안내합니다.
+| Value   | Preview                               |
+| ------- | ------------------------------------- |
+| `false` | {propExamples["fixedWeeks"]["false"]} |
+| `true`  | {propExamples["fixedWeeks"]["true"]}  |
+
+### mode
+
+| Value      | Preview                            |
+| ---------- | ---------------------------------- |
+| `single`   | {propExamples["mode"]["single"]}   |
+| `multiple` | {propExamples["mode"]["multiple"]} |
+| `range`    | {propExamples["mode"]["range"]}    |
+
+### numberOfMonths
+
+기본값: `1`
+
+| Value | Preview                               |
+| ----- | ------------------------------------- |
+| `1`   | {propExamples["numberOfMonths"]["1"]} |
+| `2`   | {propExamples["numberOfMonths"]["2"]} |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Set `fixedWeeks` to always show six weeks and keep the calendar height stable between months.
+### fixedWeeks
 
-Keep the calendar visible when date relationships matter. Use Date Picker when the calendar should open only during selection.
+Default: `false`
 
-> Show unavailable dates before confirmation and explain constraints that affect the choice.
+| Value   | Preview                               |
+| ------- | ------------------------------------- |
+| `false` | {propExamples["fixedWeeks"]["false"]} |
+| `true`  | {propExamples["fixedWeeks"]["true"]}  |
+
+### mode
+
+| Value      | Preview                            |
+| ---------- | ---------------------------------- |
+| `single`   | {propExamples["mode"]["single"]}   |
+| `multiple` | {propExamples["mode"]["multiple"]} |
+| `range`    | {propExamples["mode"]["range"]}    |
+
+### numberOfMonths
+
+Default: `1`
+
+| Value | Preview                               |
+| ----- | ------------------------------------- |
+| `1`   | {propExamples["numberOfMonths"]["1"]} |
+| `2`   | {propExamples["numberOfMonths"]["2"]} |
 
 </LocaleContent>
-
-<LocalizedMarkdown text={"## More examples"} />
-
-<LocalizedMarkdown text={"### Range selection"} />
-
-<LocalizedMarkdown
-  text={"Set the selection mode to range when a start and end date belong together."}
-/>
-
-<ComponentPreview name="calendar--RangeSelection" source={RangeSelectionSource} />

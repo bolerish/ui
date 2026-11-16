@@ -3,6 +3,7 @@ import { ToggleGroup, ToggleGroupItem } from "@bolerish/ui/toggle-group";
 export default function Sizes() {
   return (
     <>
+      {/* @example-start */}
       <ToggleGroup aria-label="Small alignment" defaultValue={["left"]} size="sm">
         <ToggleGroupItem value="left">Left</ToggleGroupItem>
       </ToggleGroup>
@@ -12,6 +13,7 @@ export default function Sizes() {
       <ToggleGroup aria-label="Large alignment" defaultValue={["left"]} size="lg">
         <ToggleGroupItem value="left">Left</ToggleGroupItem>
       </ToggleGroup>
+      {/* @example-end */}
     </>
   );
 }

@@ -1,6 +1,8 @@
 import { sizeVars, spacingVars, typo } from "@bolerish/tokens/semantic.stylex";
 import { Input } from "@bolerish/ui/input";
 import * as stylex from "@stylexjs/stylex";
+
+/* @example-start */
 const layout = stylex.create({
   preview: {
     alignItems: "center",
@@ -31,10 +33,13 @@ const layout = stylex.create({
     gap: spacingVars.space3,
   },
 });
+/* @example-end */
+
 export default function InputTypes() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
       <div {...stylex.props(layout.stack, layout.formWidth)}>
+        {/* @example-start */}
         <label htmlFor="input-email" {...stylex.props(layout.field)}>
           Email
           <Input id="input-email" type="email" placeholder="hello@example.com" />
@@ -43,6 +48,7 @@ export default function InputTypes() {
           Password
           <Input id="input-password" type="password" defaultValue="password" />
         </label>
+        {/* @example-end */}
       </div>
     </div>
   );

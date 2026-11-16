@@ -9,6 +9,7 @@ import {
 } from "@bolerish/ui/carousel";
 import type { CSSProperties } from "react";
 
+/* @example-start */
 const styles = {
   root: { maxWidth: "20rem", width: "100%", height: "16rem", marginBlock: "3rem" },
   slide: {
@@ -21,8 +22,11 @@ const styles = {
     fontSize: "1.5rem",
   },
 } satisfies Record<string, CSSProperties>;
+/* @example-end */
+
 export default function Vertical() {
   return (
+    /* @example-start */
     <Carousel
       orientation="vertical"
       controlsPlacement="outside"
@@ -41,5 +45,6 @@ export default function Vertical() {
       <CarouselPrevious variant="secondary" />
       <CarouselNext variant="secondary" />
     </Carousel>
+    /* @example-end */
   );
 }

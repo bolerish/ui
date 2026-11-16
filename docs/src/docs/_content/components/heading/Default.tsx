@@ -4,6 +4,7 @@ import { Heading } from "@bolerish/ui/heading";
 export default function Default() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: spacingVars.space3 }}>
+      {/* @example-start */}
       <Heading level={2} size="page">
         Project settings
       </Heading>
@@ -19,6 +20,7 @@ export default function Default() {
       <Heading level={6} size="subsection">
         Weekly digest
       </Heading>
+      {/* @example-end */}
     </div>
   );
 }

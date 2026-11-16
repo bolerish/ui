@@ -11,6 +11,7 @@ import {
 import { DotsThreeIcon, FolderIcon } from "@phosphor-icons/react";
 export default function Default() {
   return (
+    /* @example-start */
     <ItemGroup>
       <Item variant="outline">
         <ItemMedia>
@@ -27,5 +28,6 @@ export default function Default() {
         </ItemActions>
       </Item>
     </ItemGroup>
+    /* @example-end */
   );
 }

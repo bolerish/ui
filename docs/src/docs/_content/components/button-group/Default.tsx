@@ -5,6 +5,7 @@ import { CaretLeftIcon, DotsThreeIcon } from "@phosphor-icons/react";
 export default function Default() {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: spacingVars.space3 }}>
+      {/* @example-start */}
       <ButtonGroup aria-label="Navigate back">
         <Button size="icon" variant="secondary" aria-label="Go back">
           <CaretLeftIcon aria-hidden="true" />
@@ -28,6 +29,7 @@ export default function Default() {
           <DotsThreeIcon aria-hidden="true" />
         </Button>
       </ButtonGroup>
+      {/* @example-end */}
     </div>
   );
 }

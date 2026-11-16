@@ -1,7 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -19,26 +20,62 @@ Keep an input's units, prefixes, and related actions in one place.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="input-group--Default" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-고정된 맥락은 부가 요소로, 수정할 값은 입력으로 구분합니다. 관련 없는 행동은 그룹 밖에 둡니다.
+### align
 
-> 보이는 접두사가 제출값에 자동으로 포함되는 것은 아닙니다. 애플리케이션에서 값 구성을 정합니다.
+`InputGroupAddon`
+
+기본값: `inline-start`
+
+| Value          | Preview                                 |
+| -------------- | --------------------------------------- |
+| `inline-start` | {propExamples["align"]["inline-start"]} |
+| `inline-end`   | {propExamples["align"]["inline-end"]}   |
+| `block-start`  | {propExamples["align"]["block-start"]}  |
+| `block-end`    | {propExamples["align"]["block-end"]}    |
+
+### invalid
+
+기본값: `false`
+
+| Value   | Preview                            |
+| ------- | ---------------------------------- |
+| `false` | {propExamples["invalid"]["false"]} |
+| `true`  | {propExamples["invalid"]["true"]}  |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Use addons for fixed context and an input for the editable value. Keep unrelated actions outside the group.
+### align
 
-> A visible prefix is not necessarily part of the submitted value; define that in application logic.
+`InputGroupAddon`
+
+Default: `inline-start`
+
+| Value          | Preview                                 |
+| -------------- | --------------------------------------- |
+| `inline-start` | {propExamples["align"]["inline-start"]} |
+| `inline-end`   | {propExamples["align"]["inline-end"]}   |
+| `block-start`  | {propExamples["align"]["block-start"]}  |
+| `block-end`    | {propExamples["align"]["block-end"]}    |
+
+### invalid
+
+Default: `false`
+
+| Value   | Preview                            |
+| ------- | ---------------------------------- |
+| `false` | {propExamples["invalid"]["false"]} |
+| `true`  | {propExamples["invalid"]["true"]}  |
 
 </LocaleContent>

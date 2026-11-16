@@ -12,6 +12,7 @@ import {
 import { Button } from "@bolerish/ui/button";
 export default function Default() {
   return (
+    /* @example-start */
     <AlertDialog>
       <AlertDialogTrigger render={<Button variant="secondary">Delete project</Button>} />
       <AlertDialogContent>
@@ -25,5 +26,6 @@ export default function Default() {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+    /* @example-end */
   );
 }

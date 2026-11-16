@@ -1,9 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import StatesSource from "./States.tsx?raw";
-import SizesSource from "./Sizes.tsx?raw";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -21,44 +20,62 @@ Give people a stable position within a long result set and a way to return to it
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="pagination--Default" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-위치가 중요할 때 페이지 번호를 사용합니다. 현재 페이지와 이동할 수 있는 페이지를 구분합니다.
+### isActive
 
-> 필터로 결과가 바뀌면 현재 페이지를 초기화하거나 유효한지 확인해 빈 페이지에 남지 않게 합니다.
+`PaginationLink`
+
+기본값: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["isActive"]["false"]} |
+| `true`  | {propExamples["isActive"]["true"]}  |
+
+### size
+
+`PaginationLink`
+
+기본값: `icon`
+
+| Value     | Preview                           |
+| --------- | --------------------------------- |
+| `default` | {propExamples["size"]["default"]} |
+| `icon`    | {propExamples["size"]["icon"]}    |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Use numbered pages when position matters. Keep the current page distinct from available destinations.
+### isActive
 
-> When filters change the result set, reset or validate the current page instead of leaving users on an empty page.
+`PaginationLink`
+
+Default: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["isActive"]["false"]} |
+| `true`  | {propExamples["isActive"]["true"]}  |
+
+### size
+
+`PaginationLink`
+
+Default: `icon`
+
+| Value     | Preview                           |
+| --------- | --------------------------------- |
+| `default` | {propExamples["size"]["default"]} |
+| `icon`    | {propExamples["size"]["icon"]}    |
 
 </LocaleContent>
-
-<LocalizedMarkdown text={"## More examples"} />
-
-<LocalizedMarkdown text={"### Sizes"} />
-
-<LocalizedMarkdown
-  text={"Use icon links for compact page controls and default links when page numbers need text."}
-/>
-
-<ComponentPreview name="pagination--Sizes" source={SizesSource} />
-
-<LocalizedMarkdown text={"### States"} />
-
-<LocalizedMarkdown
-  text={"Mark the current page so people can identify their location at a glance."}
-/>
-
-<ComponentPreview name="pagination--States" source={StatesSource} />

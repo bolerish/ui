@@ -21,6 +21,7 @@ const layout = stylex.create({
 export default function CompactGuidance() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
+      {/* @example-start */}
       <Banner size="sm">
         <BannerContent>
           <BannerDescription>A DNS record with this name already exists.</BannerDescription>
@@ -33,6 +34,7 @@ export default function CompactGuidance() {
           }
         </BannerActions>
       </Banner>
+      {/* @example-end */}
     </div>
   );
 }

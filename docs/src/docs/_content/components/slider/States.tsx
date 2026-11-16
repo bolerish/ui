@@ -20,8 +20,10 @@ const layout = stylex.create({
 export default function States() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
+      {/* @example-start */}
       <Slider aria-label="Adjustable volume" defaultValue={[60]} />
       <Slider aria-label="Unavailable volume" defaultValue={[60]} disabled />
+      {/* @example-end */}
     </div>
   );
 }

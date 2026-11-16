@@ -10,6 +10,7 @@ import {
 import { CheckIcon } from "@phosphor-icons/react";
 export default function Default() {
   return (
+    /* @example-start */
     <Timeline>
       <TimelineItem>
         <TimelineIndicator variant="complete">
@@ -22,5 +23,6 @@ export default function Default() {
         </TimelineContent>
       </TimelineItem>
     </Timeline>
+    /* @example-end */
   );
 }

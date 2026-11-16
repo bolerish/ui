@@ -2,11 +2,15 @@ import { Button } from "@bolerish/ui/button";
 import { toast, Toaster } from "@bolerish/ui/toast";
 
 export default function States() {
+  /* @example-start */
   const args = {
     position: "bottom-right" as const,
   };
+  /* @example-end */
+
   return (
     <>
+      {/* @example-start */}
       <Toaster
         {...args}
         clearAllProps={{
@@ -61,6 +65,7 @@ export default function States() {
           Save again
         </Button>
       </>
+      {/* @example-end */}
     </>
   );
 }

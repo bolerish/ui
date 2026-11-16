@@ -1,6 +1,8 @@
 import { sizeVars, spacingVars, typo, colorVars } from "@bolerish/tokens/semantic.stylex";
 import { Checkbox } from "@bolerish/ui/checkbox";
 import * as stylex from "@stylexjs/stylex";
+
+/* @example-start */
 const layout = stylex.create({
   preview: {
     alignItems: "center",
@@ -23,15 +25,21 @@ const layout = stylex.create({
     minHeight: sizeVars.touchTarget,
   },
 });
+/* @example-end */
+
+/* @example-start */
 const styles = stylex.create({
   disabledOption: {
     color: colorVars.fgDisabled,
     cursor: "not-allowed",
   },
 });
+/* @example-end */
+
 export default function States() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
+      {/* @example-start */}
       <label htmlFor="not-selected" {...stylex.props(layout.option)}>
         <Checkbox id="not-selected" />
         Not selected
@@ -44,6 +52,7 @@ export default function States() {
         <Checkbox disabled id="unavailable" />
         Unavailable
       </label>
+      {/* @example-end */}
     </div>
   );
 }

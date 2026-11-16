@@ -9,6 +9,7 @@ import {
 } from "@bolerish/ui/pagination";
 export default function Default() {
   return (
+    /* @example-start */
     <Pagination>
       <PaginationContent>
         <PaginationItem>
@@ -37,5 +38,6 @@ export default function Default() {
         </PaginationItem>
       </PaginationContent>
     </Pagination>
+    /* @example-end */
   );
 }

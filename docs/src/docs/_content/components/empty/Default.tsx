@@ -10,6 +10,7 @@ import {
 import { FolderIcon } from "@phosphor-icons/react";
 export default function Default() {
   return (
+    /* @example-start */
     <Empty>
       <EmptyHeader>
         <EmptyMedia>
@@ -24,5 +25,6 @@ export default function Default() {
         <Button>Save project</Button>
       </EmptyContent>
     </Empty>
+    /* @example-end */
   );
 }

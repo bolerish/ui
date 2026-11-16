@@ -8,6 +8,7 @@ import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
 import korean from "../src/docs/_config/locales/content.ko.json" with { type: "json" };
+import type { DocumentHeading } from "../src/docs/_shared/documents.ts";
 
 type Node = {
   type: string;
@@ -22,12 +23,22 @@ type Node = {
 /** Export document metadata and the same heading IDs produced by rehype-slug. */
 export function documentHeadings() {
   return (tree: Node, file?: { path?: string }) => {
-    const headings: Record<string, { id: string; title: string }[]> = { en: [], ko: [] };
+    const headings: Record<string, DocumentHeading[]> = { en: [], ko: [] };
     const metadata: Record<string, { title: string; description: string }> = {
       en: { title: "", description: "" },
       ko: { title: "", description: "" },
     };
     const text = (node: Node): string => node.value ?? node.children?.map(text).join("") ?? "";
+    function collectHeading(node: Node, lang: string) {
+      if (!node.properties?.id) return;
+      const heading = { id: node.properties.id, title: text(node) };
+      if (node.tagName === "h2") headings[lang].push(heading);
+      if (node.tagName === "h3") {
+        const parent = headings[lang].at(-1);
+        if (parent?.title === "Props" || parent?.title === "속성")
+          (parent.children ??= []).push(heading);
+      }
+    }
     function collectMetadata(node: Node, lang: string) {
       if (node.tagName === "h1" && !metadata[lang].title) metadata[lang].title = text(node).trim();
       if (node.tagName === "p" && metadata[lang].title && !metadata[lang].description)
@@ -64,8 +75,7 @@ export function documentHeadings() {
               () => (root: Node) => {
                 function collect(node: Node) {
                   collectMetadata(node, lang);
-                  if (node.tagName === "h2" && node.properties?.id)
-                    headings[lang].push({ id: node.properties.id, title: text(node) });
+                  collectHeading(node, lang);
                   node.children?.forEach(collect);
                 }
                 collect(root);
@@ -80,10 +90,7 @@ export function documentHeadings() {
       if (node.name === "LocaleContent")
         locale = node.attributes?.find((attr) => attr.name === "locale")?.value as string;
       if (locale) collectMetadata(node, locale);
-      if (node.tagName === "h2" && node.properties?.id) {
-        for (const lang of locale ? [locale] : ["en", "ko"])
-          headings[lang].push({ id: node.properties.id, title: text(node) });
-      }
+      for (const lang of locale ? [locale] : ["en", "ko"]) collectHeading(node, lang);
       if (node.name === "LocalizedMarkdown") {
         const value = node.attributes?.find((attr) => attr.name === "text")?.value;
         const expression = value as {

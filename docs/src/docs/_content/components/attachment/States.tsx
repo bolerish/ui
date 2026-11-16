@@ -31,6 +31,8 @@ const layout = stylex.create({
     width: "100%",
   },
 });
+
+/* @example-start */
 function FileAttachment({ error = false }: { error?: boolean }) {
   return (
     <Attachment state={error ? "error" : "done"}>
@@ -54,11 +56,15 @@ function FileAttachment({ error = false }: { error?: boolean }) {
     </Attachment>
   );
 }
+/* @example-end */
+
 export default function States() {
   return (
     <div {...stylex.props(layout.preview, [layout.column, layout.componentWidth])}>
+      {/* @example-start */}
       <FileAttachment />
       <FileAttachment error />
+      {/* @example-end */}
     </div>
   );
 }

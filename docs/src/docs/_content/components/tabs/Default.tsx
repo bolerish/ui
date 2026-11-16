@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@bolerish/ui/tabs";
 export default function Default() {
   return (
+    /* @example-start */
     <Tabs defaultValue="overview">
       <TabsList aria-label="Project sections">
         <TabsTrigger value="overview">Overview</TabsTrigger>
@@ -13,5 +14,6 @@ export default function Default() {
       <TabsContent value="reports">Download project reports.</TabsContent>
       <TabsContent value="settings">Manage project settings.</TabsContent>
     </Tabs>
+    /* @example-end */
   );
 }

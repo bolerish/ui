@@ -21,17 +21,25 @@ async function emitFile(path: URL, content: string) {
 async function readPage(directory: URL, suffix: string) {
   const page = await readFile(new URL("docs.mdx", directory), "utf8");
   const locale = suffix ? "en" : "ko";
-  // shortcut: blocks contain static Markdown only; use an MDX parser if they gain expressions.
+  // shortcut: example cells use literal propExamples lookups or single-line tags; use an MDX parser for other expressions.
   const sections = page
     .split(`<LocaleContent locale="${locale}">\n`)
     .slice(1)
     .map((block) => {
       const end = block.indexOf("\n</LocaleContent>");
       if (end < 0) throw new Error(`Unclosed locale block: ${directory.pathname}`);
-      return block.slice(0, end).trim();
+      const slug = directory.pathname.split("/").filter(Boolean).at(-1);
+      return block
+        .slice(0, end)
+        .trim()
+        .replace(/\{propExamples\["[^"]+"\]\["[^"]+"\]\}/g, `[Preview](/docs/components/${slug})`)
+        .replace(
+          /<Component(?:Preview|Example) name="([^"]+)"(?: source=\{\w+\})?[^>]*\/>/g,
+          (_preview, name: string) => `[Preview](/preview/${name})`,
+        );
     });
-  if (sections.length !== 2 || !sections[0].startsWith("# ") || !sections[1])
-    throw new Error(`Expected overview and usage blocks for ${locale}: ${directory.pathname}`);
+  if (!sections.length || !sections[0].startsWith("# "))
+    throw new Error(`Expected component overview for ${locale}: ${directory.pathname}`);
   return { overview: sections[0], content: `${sections.join("\n\n")}\n` };
 }
 

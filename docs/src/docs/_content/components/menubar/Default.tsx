@@ -9,6 +9,7 @@ import {
 } from "@bolerish/ui/menubar";
 export default function Default() {
   return (
+    /* @example-start */
     <Menubar>
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
@@ -26,5 +27,6 @@ export default function Default() {
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
+    /* @example-end */
   );
 }

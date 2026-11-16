@@ -2,6 +2,7 @@ import { ScrollArea, ScrollAreaViewport, ScrollAreaContent } from "@bolerish/ui/
 import { Separator } from "@bolerish/ui/separator";
 import type { CSSProperties } from "react";
 
+/* @example-start */
 const styles = {
   viewport: {
     height: "14rem",
@@ -11,6 +12,9 @@ const styles = {
     paddingBlock: "0.75rem",
   },
 } satisfies Record<string, CSSProperties>;
+/* @example-end */
+
+/* @example-start */
 const activities = [
   "Completed the deployment checklist.",
   "Sent a design review request.",
@@ -25,8 +29,11 @@ const activities = [
   "Updated the brand guidelines.",
   "Confirmed the next release date.",
 ];
+/* @example-end */
+
 export default function Default() {
   return (
+    /* @example-start */
     <ScrollArea style={styles.viewport}>
       <ScrollAreaViewport>
         <ScrollAreaContent>
@@ -39,5 +46,6 @@ export default function Default() {
         </ScrollAreaContent>
       </ScrollAreaViewport>
     </ScrollArea>
+    /* @example-end */
   );
 }

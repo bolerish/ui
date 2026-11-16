@@ -13,6 +13,7 @@ import {
 
 export default function Default() {
   return (
+    /* @example-start */
     <Field>
       <FieldLabel>Theme</FieldLabel>
       <Select
@@ -43,5 +44,6 @@ export default function Default() {
       </Select>
       <FieldDescription>The selected theme is saved on this device.</FieldDescription>
     </Field>
+    /* @example-end */
   );
 }

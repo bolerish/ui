@@ -4,6 +4,15 @@ import test from "node:test";
 
 const root = new URL("../public/", import.meta.url);
 
+test("component references support preview-only pages and readable prop example links", async () => {
+  const overview = await readFile(new URL("guidelines/aspect-ratio.en.md", root), "utf8");
+  assert.match(overview, /^# Aspect Ratio/);
+  const button = await readFile(new URL("guidelines/button.en.md", root), "utf8");
+  assert.ok(button.includes("[Preview](/docs/components/button)"));
+  assert.ok(button.includes("### variant"));
+  assert.doesNotMatch(button, /ComponentPreview|ComponentExample|propExamples/);
+});
+
 test("agent catalog covers the components and all its linked references exist", async () => {
   const catalog = await readFile(new URL("agent/SKILL.md", root), "utf8");
   for (const file of await readdir(new URL("../../packages/ui/src/", import.meta.url))) {

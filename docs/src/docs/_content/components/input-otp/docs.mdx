@@ -1,7 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Usage.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -19,26 +20,50 @@ Help people enter or paste a short verification code with a clear position for e
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
-<ComponentPreview name="input-otp--Default" source={DefaultSource} />
+<ComponentPreview name="input-otp--Usage" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-길이가 정해진 코드에 사용하고 코드를 보낸 곳을 안내합니다. 재전송과 만료 안내는 입력 가까이에 둡니다.
+### disabled
 
-> 붙여 넣기와 자동 완성을 허용합니다. 코드를 외워 한 글자씩 다시 입력하게 하지 않습니다.
+기본값: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["disabled"]["false"]} |
+| `true`  | {propExamples["disabled"]["true"]}  |
+
+### length
+
+| Value | Preview                       |
+| ----- | ----------------------------- |
+| `4`   | {propExamples["length"]["4"]} |
+| `6`   | {propExamples["length"]["6"]} |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Use it for a fixed-length code and explain where the code was sent. Keep resend and expiry information near the input.
+### disabled
 
-> Allow paste and autofill; do not require users to remember and retype the code character by character.
+Default: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["disabled"]["false"]} |
+| `true`  | {propExamples["disabled"]["true"]}  |
+
+### length
+
+| Value | Preview                       |
+| ----- | ----------------------------- |
+| `4`   | {propExamples["length"]["4"]} |
+| `6`   | {propExamples["length"]["6"]} |
 
 </LocaleContent>

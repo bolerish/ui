@@ -9,6 +9,7 @@ import {
 } from "@bolerish/ui/item";
 export default function ActionAlignment() {
   return (
+    /* @example-start */
     <ItemGroup>
       {(["sm", "md", "lg"] as const).map((size) => (
         <Item key={size} variant="outline">
@@ -28,5 +29,6 @@ export default function ActionAlignment() {
         </Item>
       ))}
     </ItemGroup>
+    /* @example-end */
   );
 }

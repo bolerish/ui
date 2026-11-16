@@ -9,6 +9,7 @@ import {
 } from "@bolerish/ui/carousel";
 import * as stylex from "@stylexjs/stylex";
 
+/* @example-start */
 const styles = stylex.create({
   carousel: {
     maxWidth: "25rem",
@@ -29,8 +30,11 @@ const styles = stylex.create({
     padding: spacingVars.space6,
   },
 });
+/* @example-end */
+
 export default function Preview() {
   return (
+    /* @example-start */
     <Carousel
       aria-label="Featured cards with neighboring preview"
       slideRatio={[70, 20]}
@@ -48,5 +52,6 @@ export default function Preview() {
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
+    /* @example-end */
   );
 }

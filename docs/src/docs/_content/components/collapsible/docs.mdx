@@ -1,7 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Usage.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -19,26 +20,54 @@ Keep optional detail available without making it compete with the main task.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
-<ComponentPreview name="collapsible--Default" source={DefaultSource} />
+<ComponentPreview name="collapsible--Usage" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-선택적으로 펼칠 영역 하나에 사용합니다. 제목이 있는 여러 영역이 한 묶음이면 `Accordion`을 사용합니다.
+### defaultOpen
 
-> 현재 작업을 완료하는 데 필요한 오류나 안내는 접어 두지 않습니다.
+기본값: `false`
+
+| Value   | Preview                                |
+| ------- | -------------------------------------- |
+| `false` | {propExamples["defaultOpen"]["false"]} |
+| `true`  | {propExamples["defaultOpen"]["true"]}  |
+
+### disabled
+
+기본값: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["disabled"]["false"]} |
+| `true`  | {propExamples["disabled"]["true"]}  |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Use one disclosure for one optional region. Use `Accordion` when several titled sections form a set.
+### defaultOpen
 
-> Do not collapse an error or instruction required to finish the visible task.
+Default: `false`
+
+| Value   | Preview                                |
+| ------- | -------------------------------------- |
+| `false` | {propExamples["defaultOpen"]["false"]} |
+| `true`  | {propExamples["defaultOpen"]["true"]}  |
+
+### disabled
+
+Default: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["disabled"]["false"]} |
+| `true`  | {propExamples["disabled"]["true"]}  |
 
 </LocaleContent>

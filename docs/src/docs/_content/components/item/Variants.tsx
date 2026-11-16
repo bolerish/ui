@@ -24,9 +24,11 @@ const layout = stylex.create({
 export default function Variants() {
   return (
     <div {...stylex.props(layout.preview, [layout.column, layout.componentWidth])}>
+      {/* @example-start */}
       <Item>Default row</Item>
       <Item variant="muted">Muted row</Item>
       <Item variant="outline">Outlined row</Item>
+      {/* @example-end */}
     </div>
   );
 }

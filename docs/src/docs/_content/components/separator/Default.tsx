@@ -3,9 +3,15 @@ export default function Default() {
   return (
     <>
       <span>Account information</span>
+      {/* @example-start */}
       <Separator />
+      {/* @example-end */}
       <div>
-        Profile <Separator orientation="vertical" /> Security
+        Profile
+        {/* @example-start */}
+        <Separator orientation="vertical" />
+        {/* @example-end */}
+        Security
       </div>
     </>
   );

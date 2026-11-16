@@ -2,6 +2,8 @@ import { sizeVars, spacingVars } from "@bolerish/tokens/semantic.stylex";
 import { Label } from "@bolerish/ui/label";
 import { RadioGroup, RadioGroupItem } from "@bolerish/ui/radio-group";
 import * as stylex from "@stylexjs/stylex";
+
+/* @example-start */
 const layout = stylex.create({
   option: {
     alignItems: "center",
@@ -10,8 +12,11 @@ const layout = stylex.create({
     minHeight: sizeVars.touchTarget,
   },
 });
+/* @example-end */
+
 export default function States() {
   return (
+    /* @example-start */
     <RadioGroup defaultValue="daily">
       <Label {...stylex.props(layout.option)}>
         <RadioGroupItem value="daily" />
@@ -26,5 +31,6 @@ export default function States() {
         Unavailable
       </Label>
     </RadioGroup>
+    /* @example-end */
   );
 }

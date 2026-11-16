@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@bolerish/ui/tabs";
 export default function States() {
   return (
+    /* @example-start */
     <Tabs defaultValue="account" variant="segmented">
       <TabsList aria-label="Account settings">
         <TabsTrigger value="account">Account</TabsTrigger>
@@ -11,5 +12,6 @@ export default function States() {
       <TabsContent value="account">Account settings</TabsContent>
       <TabsContent value="billing">Billing settings</TabsContent>
     </Tabs>
+    /* @example-end */
   );
 }

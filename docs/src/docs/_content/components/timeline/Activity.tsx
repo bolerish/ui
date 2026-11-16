@@ -11,6 +11,7 @@ import { CheckIcon } from "@phosphor-icons/react";
 
 export default function Activity() {
   return (
+    /* @example-start */
     <Timeline aria-label="Project activity">
       <TimelineItem>
         <TimelineIndicator variant="complete">
@@ -31,5 +32,6 @@ export default function Activity() {
         </TimelineContent>
       </TimelineItem>
     </Timeline>
+    /* @example-end */
   );
 }

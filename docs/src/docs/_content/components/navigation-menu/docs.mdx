@@ -1,7 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -19,26 +20,72 @@ Help people discover the main areas of a site and move between them.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="navigation-menu--Default" source={DefaultSource} height={360} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-목적지를 의미 있는 계층으로 묶습니다. 한 화면 안에서 관련 내용을 전환할 때는 `Tabs`를 사용합니다.
+### align
 
-> 탐색 링크에는 실제 목적지가 필요합니다. 메뉴를 여는 것만으로 이동이 완료되지는 않습니다.
+`NavigationMenuViewport`
+
+기본값: `start`
+
+| Value    | Preview                           |
+| -------- | --------------------------------- |
+| `start`  | {propExamples["align"]["start"]}  |
+| `center` | {propExamples["align"]["center"]} |
+| `end`    | {propExamples["align"]["end"]}    |
+
+### side
+
+`NavigationMenuViewport`
+
+기본값: `bottom`
+
+| Value          | Preview                                |
+| -------------- | -------------------------------------- |
+| `top`          | {propExamples["side"]["top"]}          |
+| `right`        | {propExamples["side"]["right"]}        |
+| `bottom`       | {propExamples["side"]["bottom"]}       |
+| `left`         | {propExamples["side"]["left"]}         |
+| `inline-start` | {propExamples["side"]["inline-start"]} |
+| `inline-end`   | {propExamples["side"]["inline-end"]}   |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Group destinations by a meaningful hierarchy. Use `Tabs` for switching related content within one view.
+### align
 
-> Navigation links need real destinations; opening a menu alone does not complete navigation.
+`NavigationMenuViewport`
+
+Default: `start`
+
+| Value    | Preview                           |
+| -------- | --------------------------------- |
+| `start`  | {propExamples["align"]["start"]}  |
+| `center` | {propExamples["align"]["center"]} |
+| `end`    | {propExamples["align"]["end"]}    |
+
+### side
+
+`NavigationMenuViewport`
+
+Default: `bottom`
+
+| Value          | Preview                                |
+| -------------- | -------------------------------------- |
+| `top`          | {propExamples["side"]["top"]}          |
+| `right`        | {propExamples["side"]["right"]}        |
+| `bottom`       | {propExamples["side"]["bottom"]}       |
+| `left`         | {propExamples["side"]["left"]}         |
+| `inline-start` | {propExamples["side"]["inline-start"]} |
+| `inline-end`   | {propExamples["side"]["inline-end"]}   |
 
 </LocaleContent>

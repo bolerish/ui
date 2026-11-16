@@ -8,6 +8,7 @@ import {
 } from "@bolerish/ui/breadcrumb";
 export default function Default() {
   return (
+    /* @example-start */
     <Breadcrumb aria-label="Current location">
       <BreadcrumbList>
         <BreadcrumbItem>
@@ -23,5 +24,6 @@ export default function Default() {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
+    /* @example-end */
   );
 }

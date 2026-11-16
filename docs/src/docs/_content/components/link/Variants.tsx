@@ -3,6 +3,7 @@ import { Link } from "@bolerish/ui/link";
 export default function Variants() {
   return (
     <>
+      {/* @example-start */}
       <Link href="#">Default link</Link>
       <span>
         Inherit the current color{" "}
@@ -13,6 +14,7 @@ export default function Variants() {
       <Link href="#" variant="plain">
         Link without underline
       </Link>
+      {/* @example-end */}
     </>
   );
 }

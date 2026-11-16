@@ -25,6 +25,7 @@ const layout = stylex.create({
 export default function OpenMultipleItems() {
   return (
     <div {...stylex.props(layout.preview, layout.componentWidth)}>
+      {/* @example-start */}
       <Accordion defaultValue={["email", "push"]} multiple>
         <AccordionItem value="email">
           <AccordionTrigger>Email notifications</AccordionTrigger>
@@ -39,6 +40,7 @@ export default function OpenMultipleItems() {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+      {/* @example-end */}
     </div>
   );
 }

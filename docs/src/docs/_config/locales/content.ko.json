@@ -74,6 +74,8 @@
   "## Token reference": "## 토큰 목록",
   "Interaction layers show hover, press, selection, and availability. Translucent tokens are previewed over a surface; solid-action layers use the primary action background.": "상호작용 색상은 호버·누름·선택·비활성 상태를 나타냅니다. 반투명 토큰은 배경 위에 겹쳐 보여 주며, 채워진 행동 버튼용 토큰은 주요 행동 배경 위에 표시합니다.",
   "Feedback colors describe an outcome, not pointer interaction. Compare the background, content, and border tokens for information, success, warning, and error.": "결과 안내 색상은 포인터 조작이 아닌 작업의 결과를 나타냅니다. 정보·성공·경고·오류에 쓰는 배경·본문·경계선 토큰을 비교합니다.",
+  "## Preview": "## 미리보기",
+  "## Examples": "## 예제",
   "## Basic example": "## 기본 예시",
   "## More examples": "## 추가 예시",
   "### Semantic": "### 의미 기반 색상",

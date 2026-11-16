@@ -2,6 +2,7 @@ import { Button } from "@bolerish/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@bolerish/ui/tooltip";
 export default function Default() {
   return (
+    /* @example-start */
     <Tooltip>
       <TooltipTrigger
         render={
@@ -12,5 +13,6 @@ export default function Default() {
       />
       <TooltipContent>View additional information.</TooltipContent>
     </Tooltip>
+    /* @example-end */
   );
 }

@@ -1,4 +1,8 @@
 import { Badge } from "@bolerish/ui/badge";
 export default function Default() {
-  return <Badge>In progress</Badge>;
+  return (
+    /* @example-start */
+    <Badge>In progress</Badge>
+    /* @example-end */
+  );
 }

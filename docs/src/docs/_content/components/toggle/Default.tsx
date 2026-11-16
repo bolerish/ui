@@ -14,8 +14,10 @@ const styles = stylex.create({
 export default function Default() {
   return (
     <div {...stylex.props(styles.row)}>
+      {/* @example-start */}
       <Toggle defaultPressed>Bold</Toggle>
       <Toggle variant="outline">Italic</Toggle>
+      {/* @example-end */}
     </div>
   );
 }

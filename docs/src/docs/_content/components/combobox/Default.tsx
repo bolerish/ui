@@ -9,12 +9,12 @@ import {
 } from "@bolerish/ui/combobox";
 import { Field, FieldDescription, FieldLabel } from "@bolerish/ui/field";
 
-const frameworks = ["React", "Vue", "Svelte", "Solid", "Angular"];
 export default function Default() {
   return (
+    /* @example-start */
     <Field>
       <FieldLabel>Framework</FieldLabel>
-      <Combobox items={frameworks}>
+      <Combobox items={["React", "Vue"]}>
         <ComboboxInput placeholder="Search frameworks" />
         <ComboboxPopup>
           <ComboboxEmpty>No matching frameworks.</ComboboxEmpty>
@@ -31,5 +31,6 @@ export default function Default() {
       </Combobox>
       <FieldDescription>Select the framework used in your project.</FieldDescription>
     </Field>
+    /* @example-end */
   );
 }

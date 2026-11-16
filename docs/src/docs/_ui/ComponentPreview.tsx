@@ -16,6 +16,7 @@ import { useDocumentationGlobals } from "@/shared/model/useDocumentationGlobals"
 
 import { documentMarker } from "../../shared/styles/document-marker.stylex";
 import { CodeBlock } from "./CodeBlock";
+import { getExampleSource } from "./example-source";
 
 const styles = stylex.create({
   content: {
@@ -57,23 +58,50 @@ const styles = stylex.create({
     minHeight: sizeVars.controlLg,
   },
   height: (height: number) => ({ height }),
+  width: (width: number) => ({ width }),
 });
+
+export function ComponentExample({
+  name,
+  isolated = false,
+  height,
+  width,
+}: {
+  name: string;
+  isolated?: boolean;
+  height?: number;
+  width?: number;
+}) {
+  const Example = loadedExamples[name] ?? examples[name];
+  if (isolated)
+    return (
+      <ComponentPreview name={name} source="" isolated height={height} width={width} previewOnly />
+    );
+  return (
+    <div {...stylex.props(styles.content)} data-example-name={name} lang="en">
+      <Suspense fallback={null}>{Example ? <Example /> : <p>{ui.missing}</p>}</Suspense>
+    </div>
+  );
+}
 
 export function ComponentPreview({
   name,
   source,
   height,
+  width,
   isolated = false,
+  previewOnly = false,
 }: {
   name: string;
   source: string;
   height?: number;
+  width?: number;
   isolated?: boolean;
+  previewOnly?: boolean;
 }) {
   const id = useId();
   const tab = usePreviewTab(name);
   const globals = useDocumentationGlobals();
-  const Example = loadedExamples[name] ?? examples[name];
   const [initialGlobals] = useState(globals);
   const frameRef = useRef<HTMLIFrameElement>(null);
   useEffect(() => {
@@ -102,59 +130,65 @@ export function ComponentPreview({
     height !== undefined ? styles.height(height) : undefined,
   );
   return (
-    <div {...stylex.props(styles.root)} data-preview-name={name}>
-      <ToggleGroup
-        variant="soft"
-        size="sm"
-        value={[tab.value]}
-        onValueChange={(values) => {
-          if (values[0]) tab.select(values[0]);
-        }}
-        aria-label={ui.viewExample}
-      >
-        <ToggleGroupItem
-          value="preview"
-          data-preview-trigger="preview"
-          aria-controls={`${id}-preview`}
+    <div
+      {...stylex.props(styles.root)}
+      data-preview-name={previewOnly ? undefined : name}
+      data-example-name={previewOnly ? name : undefined}
+    >
+      {!previewOnly && (
+        <ToggleGroup
+          variant="soft"
+          size="sm"
+          value={[tab.value]}
+          onValueChange={(values) => {
+            if (values[0]) tab.select(values[0]);
+          }}
+          aria-label={ui.viewExample}
         >
-          {ui.preview}
-        </ToggleGroupItem>
-        <ToggleGroupItem value="code" data-preview-trigger="code" aria-controls={`${id}-code`}>
-          {ui.code}
-        </ToggleGroupItem>
-      </ToggleGroup>
+          <ToggleGroupItem
+            value="preview"
+            data-preview-trigger="preview"
+            aria-controls={`${id}-preview`}
+          >
+            {ui.preview}
+          </ToggleGroupItem>
+          <ToggleGroupItem value="code" data-preview-trigger="code" aria-controls={`${id}-code`}>
+            {ui.code}
+          </ToggleGroupItem>
+        </ToggleGroup>
+      )}
       <section
         {...stylex.props(styles.panel)}
         id={`${id}-preview`}
         aria-label={ui.preview}
-        hidden={tab.value !== "preview"}
+        hidden={!previewOnly && tab.value !== "preview"}
         data-preview-panel="preview"
       >
         <div {...canvas} data-docs="preview-canvas">
           {isolated ? (
             <iframe
-              {...stylex.props(styles.frame)}
+              {...stylex.props(styles.frame, width !== undefined ? styles.width(width) : undefined)}
               ref={frameRef}
               title={name}
               src={`/preview/${encodeURIComponent(name)}?${query}`}
               loading="eager"
             />
           ) : (
-            <div {...stylex.props(styles.content)} lang="en">
-              <Suspense fallback={null}>{Example ? <Example /> : <p>{ui.missing}</p>}</Suspense>
-            </div>
+            <ComponentExample name={name} />
           )}
         </div>
       </section>
-      <section
-        {...stylex.props(styles.panel)}
-        id={`${id}-code`}
-        aria-label={ui.code}
-        hidden={tab.value !== "code"}
-        data-preview-panel="code"
-      >
-        <CodeBlock code={source} language="tsx" />
-      </section>
+      {!previewOnly && (
+        <section
+          {...stylex.props(styles.panel)}
+          id={`${id}-code`}
+          aria-label={ui.code}
+          hidden={tab.value !== "code"}
+          data-preview-panel="code"
+        >
+          <CodeBlock code={getExampleSource(source)} language="tsx" />
+        </section>
+      )}
     </div>
   );
 }

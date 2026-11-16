@@ -10,6 +10,7 @@ import {
 
 export default function CollapsedPath() {
   return (
+    /* @example-start */
     <Breadcrumb aria-label="Current location">
       <BreadcrumbList>
         <BreadcrumbItem>
@@ -25,5 +26,6 @@ export default function CollapsedPath() {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
+    /* @example-end */
   );
 }

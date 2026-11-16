@@ -1,8 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import OpenMultipleItemsSource from "./OpenMultipleItems.tsx?raw";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -20,48 +20,54 @@ Let people scan questions before opening the answers they need.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="accordion--Default" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-관련 내용을 의미가 분명한 제목 아래 묶습니다. 답변끼리 비교해야 한다면 여러 항목을 함께 열 수 있게 합니다.
+### disabled
 
-> 필수 안내는 닫힌 항목 안에 숨기지 않고 보이게 둡니다.
+기본값: `false`
 
-### 구성과 스타일
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["disabled"]["false"]} |
+| `true`  | {propExamples["disabled"]["true"]}  |
 
-`Accordion`, `AccordionItem`, `AccordionTrigger`, `AccordionContent`로 구성합니다.
-제목과 애니메이션 패널은 내부에서 제공하므로 별도로 감싸지 않습니다.
-`AccordionContent`의 `xstyle`은 자식을 직접 감싸는 영역에 적용됩니다.
-`keepMounted`, `hiddenUntilFound`, `ref`와 나머지 DOM 속성은 바깥 패널에 전달됩니다.
+### multiple
+
+기본값: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["multiple"]["false"]} |
+| `true`  | {propExamples["multiple"]["true"]}  |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Group related sections under descriptive headings. Keep more than one open when people need to compare answers.
+### disabled
 
-> Keep required instructions visible instead of hiding them in a closed section.
+Default: `false`
 
-### Composition and styling
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["disabled"]["false"]} |
+| `true`  | {propExamples["disabled"]["true"]}  |
 
-Use Accordion, AccordionItem, AccordionTrigger, and AccordionContent. The trigger
-includes its heading, and content includes its animated panel. Content `xstyle`
-applies to the inner element directly wrapping children. `keepMounted`,
-`hiddenUntilFound`, `ref`, and other DOM props apply to the outer panel.
+### multiple
+
+Default: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["multiple"]["false"]} |
+| `true`  | {propExamples["multiple"]["true"]}  |
 
 </LocaleContent>
-
-<LocalizedMarkdown text={"## More examples"} />
-
-<LocalizedMarkdown text={"### Open multiple items"} />
-
-<LocalizedMarkdown text={"Open related information together when you need to compare it."} />
-
-<ComponentPreview name="accordion--OpenMultipleItems" source={OpenMultipleItemsSource} />

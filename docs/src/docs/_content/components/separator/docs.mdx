@@ -1,7 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -19,26 +20,36 @@ Make the boundary between information groups visible without adding another cont
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="separator--Default" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-간격만으로 구분이 모호할 때 사용합니다. 관련 항목은 경계의 같은 쪽에 둡니다.
+### orientation
 
-> 섹션 이름이 필요한 곳에서 구분선으로 제목을 대신하지 않습니다.
+기본값: `horizontal`
+
+| Value        | Preview                                     |
+| ------------ | ------------------------------------------- |
+| `horizontal` | {propExamples["orientation"]["horizontal"]} |
+| `vertical`   | {propExamples["orientation"]["vertical"]}   |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Use a separator when spacing alone leaves the grouping unclear. Keep related items on the same side of the boundary.
+### orientation
 
-> A divider cannot replace a heading when people need a name for the section.
+Default: `horizontal`
+
+| Value        | Preview                                     |
+| ------------ | ------------------------------------------- |
+| `horizontal` | {propExamples["orientation"]["horizontal"]} |
+| `vertical`   | {propExamples["orientation"]["vertical"]}   |
 
 </LocaleContent>

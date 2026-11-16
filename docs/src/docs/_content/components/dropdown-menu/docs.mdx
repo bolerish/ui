@@ -1,7 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -19,30 +20,138 @@ Make related commands easy to find without showing every action all the time.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="dropdown-menu--Default" source={DefaultSource} height={360} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-특정 항목이나 영역의 보이는 실행 컨트롤에서 엽니다. 명령 실행이 아니라 폼 값을 고르는 목적이면 `Select`를 사용합니다.
+### align
 
-> 즉시 찾아야 하는 주요 행동은 메뉴 안에 숨기지 않습니다.
+`DropdownMenuContent`
 
-행동 그룹 사이의 구분선은 `strokeStrong`을 사용합니다. 일반 콘텐츠 구획의 `strokeDefault`보다 분명하게 구분하되, 선택·오류·포커스 표시에 대신 사용하지 않습니다.
+기본값: `start`
+
+| Value    | Preview                           |
+| -------- | --------------------------------- |
+| `start`  | {propExamples["align"]["start"]}  |
+| `center` | {propExamples["align"]["center"]} |
+| `end`    | {propExamples["align"]["end"]}    |
+
+### destructive
+
+`DropdownMenuItem`
+
+기본값: `false`
+
+| Value   | Preview                                |
+| ------- | -------------------------------------- |
+| `false` | {propExamples["destructive"]["false"]} |
+| `true`  | {propExamples["destructive"]["true"]}  |
+
+### disabled
+
+`DropdownMenuItem`
+
+기본값: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["disabled"]["false"]} |
+| `true`  | {propExamples["disabled"]["true"]}  |
+
+### inset
+
+`DropdownMenuItem`
+
+기본값: `false`
+
+| Value   | Preview                          |
+| ------- | -------------------------------- |
+| `false` | {propExamples["inset"]["false"]} |
+| `true`  | {propExamples["inset"]["true"]}  |
+
+### side
+
+`DropdownMenuContent`
+
+기본값: `bottom`
+
+| Value          | Preview                                |
+| -------------- | -------------------------------------- |
+| `top`          | {propExamples["side"]["top"]}          |
+| `right`        | {propExamples["side"]["right"]}        |
+| `bottom`       | {propExamples["side"]["bottom"]}       |
+| `left`         | {propExamples["side"]["left"]}         |
+| `inline-start` | {propExamples["side"]["inline-start"]} |
+| `inline-end`   | {propExamples["side"]["inline-end"]}   |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Open the menu from a visible trigger for a particular item or area. Use `Select` when the result is a form value rather than a command.
+### align
 
-> Keep the main task's primary action outside the menu when people need to find it immediately.
+`DropdownMenuContent`
 
-Action-group separators use `strokeStrong` for clearer grouping than ordinary `strokeDefault` content divisions. Do not use this boundary as a substitute for selection, error or focus.
+Default: `start`
+
+| Value    | Preview                           |
+| -------- | --------------------------------- |
+| `start`  | {propExamples["align"]["start"]}  |
+| `center` | {propExamples["align"]["center"]} |
+| `end`    | {propExamples["align"]["end"]}    |
+
+### destructive
+
+`DropdownMenuItem`
+
+Default: `false`
+
+| Value   | Preview                                |
+| ------- | -------------------------------------- |
+| `false` | {propExamples["destructive"]["false"]} |
+| `true`  | {propExamples["destructive"]["true"]}  |
+
+### disabled
+
+`DropdownMenuItem`
+
+Default: `false`
+
+| Value   | Preview                             |
+| ------- | ----------------------------------- |
+| `false` | {propExamples["disabled"]["false"]} |
+| `true`  | {propExamples["disabled"]["true"]}  |
+
+### inset
+
+`DropdownMenuItem`
+
+Default: `false`
+
+| Value   | Preview                          |
+| ------- | -------------------------------- |
+| `false` | {propExamples["inset"]["false"]} |
+| `true`  | {propExamples["inset"]["true"]}  |
+
+### side
+
+`DropdownMenuContent`
+
+Default: `bottom`
+
+| Value          | Preview                                |
+| -------------- | -------------------------------------- |
+| `top`          | {propExamples["side"]["top"]}          |
+| `right`        | {propExamples["side"]["right"]}        |
+| `bottom`       | {propExamples["side"]["bottom"]}       |
+| `left`         | {propExamples["side"]["left"]}         |
+| `inline-start` | {propExamples["side"]["inline-start"]} |
+| `inline-end`   | {propExamples["side"]["inline-end"]}   |
 
 </LocaleContent>

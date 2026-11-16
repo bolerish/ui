@@ -3,6 +3,7 @@ import { ToggleGroup, ToggleGroupItem } from "@bolerish/ui/toggle-group";
 export default function Variants() {
   return (
     <>
+      {/* @example-start */}
       <ToggleGroup aria-label="Default alignment" defaultValue={["left"]}>
         <ToggleGroupItem value="left">Left</ToggleGroupItem>
         <ToggleGroupItem value="right">Right</ToggleGroupItem>
@@ -15,6 +16,7 @@ export default function Variants() {
         <ToggleGroupItem value="left">Left</ToggleGroupItem>
         <ToggleGroupItem value="right">Right</ToggleGroupItem>
       </ToggleGroup>
+      {/* @example-end */}
     </>
   );
 }

@@ -30,6 +30,7 @@ export default function States() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
       <div {...stylex.props(layout.stack, layout.formWidth)}>
+        {/* @example-start */}
         <Input aria-label="Invalid email" aria-invalid defaultValue="min@" />
         <Input aria-label="Disabled name" disabled defaultValue="Jordan Lee" />
         <Input
@@ -56,6 +57,7 @@ export default function States() {
           disabled
           defaultValue="Jordan Lee"
         />
+        {/* @example-end */}
       </div>
     </div>
   );

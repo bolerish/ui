@@ -5,6 +5,7 @@ import { SourceTextModule, SyntheticModule } from "node:vm";
 
 import mdx from "@mdx-js/rollup";
 import * as jsxRuntime from "react/jsx-runtime";
+import rehypeSlug from "rehype-slug";
 
 import { documentHeadings } from "./document-headings.ts";
 
@@ -63,7 +64,7 @@ test("heading metadata preserves IDs and locale boundaries", () => {
 });
 
 test("compiled MDX exports each locale's first heading and plain opening summary", async () => {
-  const metadata = await compileMetadata(`
+  const { documentMetadata: metadata } = await compileDocument(`
 <LocaleContent locale="en">
 
 # Button
@@ -92,7 +93,7 @@ test("compiled Guideline metadata reads the imported language-specific Markdown"
   const path = fileURLToPath(
     new URL("../src/docs/_content/foundations/gradient/docs.mdx", import.meta.url),
   );
-  const metadata = await compileMetadata(
+  const { documentMetadata: metadata } = await compileDocument(
     `
 import english from "./guidelines.md?raw";
 import korean from "./guidelines.kr.md?raw";
@@ -109,13 +110,68 @@ import korean from "./guidelines.kr.md?raw";
 
 test("incomplete language metadata stops the MDX build", async () => {
   await assert.rejects(
-    compileMetadata('<LocaleContent locale="en">\n\n# Button\n\nAn action.\n\n</LocaleContent>'),
+    compileDocument('<LocaleContent locale="en">\n\n# Button\n\nAn action.\n\n</LocaleContent>'),
     /Missing ko document title or summary/,
   );
 });
 
-async function compileMetadata(source: string, path = "/metadata-fixture.mdx") {
-  const compiled = await mdx({ rehypePlugins: [documentHeadings] }).transform(source, path);
+test("compiled Props outlines include only their own localized third-level headings", async () => {
+  const { documentHeadings: headings } = await compileDocument(`
+<LocaleContent locale="en">
+
+# Button
+
+An action.
+
+## Preview
+
+### Preview details
+
+## Props
+
+### size
+
+### variant
+
+## Notes
+
+### Other details
+
+</LocaleContent>
+<LocaleContent locale="ko">
+
+# 버튼
+
+행동을 실행합니다.
+
+## Props
+
+### size
+
+</LocaleContent>
+`);
+  assert.deepEqual(headings.en, [
+    { id: "preview", title: "Preview" },
+    {
+      id: "props",
+      title: "Props",
+      children: [
+        { id: "size", title: "size" },
+        { id: "variant", title: "variant" },
+      ],
+    },
+    { id: "notes", title: "Notes" },
+  ]);
+  assert.deepEqual(headings.ko, [
+    { id: "props-1", title: "Props", children: [{ id: "size-1", title: "size" }] },
+  ]);
+});
+
+async function compileDocument(source: string, path = "/metadata-fixture.mdx") {
+  const compiled = await mdx({ rehypePlugins: [rehypeSlug, documentHeadings] }).transform(
+    source,
+    path,
+  );
   assert.ok(compiled);
   const module = new SourceTextModule(compiled.code);
   await module.link(async (specifier) => {
@@ -128,9 +184,11 @@ async function compileMetadata(source: string, path = "/metadata-fixture.mdx") {
     });
   });
   await module.evaluate();
-  return (
-    module.namespace as {
-      documentMetadata: Record<"en" | "ko", { title: string; description: string }>;
-    }
-  ).documentMetadata;
+  return module.namespace as {
+    documentMetadata: Record<"en" | "ko", { title: string; description: string }>;
+    documentHeadings: Record<
+      string,
+      { id: string; title: string; children?: { id: string; title: string }[] }[]
+    >;
+  };
 }

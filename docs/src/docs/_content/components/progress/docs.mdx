@@ -1,7 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -19,26 +20,40 @@ Show how much measurable work is complete so people can judge what remains.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="progress--Default" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-실제 작업에서 계산한 값을 표시합니다. 남은 양을 모르면 `Spinner`를 사용합니다.
+### value
 
-> 불확실한 진행을 정확하게 보이게 하려고 백분율을 만들어 표시하지 않습니다.
+기본값: `null`
+
+| Value  | Preview                         |
+| ------ | ------------------------------- |
+| `0`    | {propExamples["value"]["0"]}    |
+| `50`   | {propExamples["value"]["50"]}   |
+| `100`  | {propExamples["value"]["100"]}  |
+| `null` | {propExamples["value"]["null"]} |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Use a value derived from actual work. Use `Spinner` when the amount remaining is unknown.
+### value
 
-> Do not invent percentages to make uncertain progress look precise.
+Default: `null`
+
+| Value  | Preview                         |
+| ------ | ------------------------------- |
+| `0`    | {propExamples["value"]["0"]}    |
+| `50`   | {propExamples["value"]["50"]}   |
+| `100`  | {propExamples["value"]["100"]}  |
+| `null` | {propExamples["value"]["null"]} |
 
 </LocaleContent>

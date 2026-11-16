@@ -8,6 +8,7 @@ import {
 } from "@bolerish/ui/carousel";
 import type { CSSProperties } from "react";
 
+/* @example-start */
 const styles = {
   carousel: {
     maxWidth: "25rem",
@@ -23,8 +24,11 @@ const styles = {
     padding: "1.5rem",
   },
 } satisfies Record<string, CSSProperties>;
+/* @example-end */
+
 export default function Default() {
   return (
+    /* @example-start */
     <Carousel style={styles.carousel}>
       <CarouselViewport>
         <CarouselContent>
@@ -38,5 +42,6 @@ export default function Default() {
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
+    /* @example-end */
   );
 }

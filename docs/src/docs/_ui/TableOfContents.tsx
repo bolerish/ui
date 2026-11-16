@@ -4,11 +4,9 @@ import * as stylex from "@stylexjs/stylex";
 
 import { useLocale } from "@/shared/model/locale";
 
-export function TableOfContents({
-  headings,
-}: {
-  headings: Record<string, { id: string; title: string }[]>;
-}) {
+import type { DocumentHeading } from "../_shared/documents";
+
+export function TableOfContents({ headings }: { headings: Record<string, DocumentHeading[]> }) {
   const locale = useLocale();
   return (
     <nav
@@ -17,13 +15,26 @@ export function TableOfContents({
       aria-label={locale === "ko" ? "이 페이지에서" : "On this page"}
     >
       <p {...stylex.props(styles.title)}>{locale === "ko" ? "이 페이지에서" : "On this page"}</p>
-      <div {...stylex.props(styles.links)}>
+      <ul {...stylex.props(styles.links)}>
         {(headings[locale] ?? []).map((heading) => (
-          <Link variant="plain" href={`#${heading.id}`} key={heading.id}>
-            {heading.title}
-          </Link>
+          <li key={heading.id}>
+            <Link variant="plain" href={`#${heading.id}`}>
+              {heading.title}
+            </Link>
+            {heading.children?.length ? (
+              <ul {...stylex.props(styles.links, styles.children)}>
+                {heading.children.map((child) => (
+                  <li key={child.id}>
+                    <Link variant="plain" href={`#${child.id}`}>
+                      {child.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </li>
         ))}
-      </div>
+      </ul>
     </nav>
   );
 }
@@ -63,5 +74,9 @@ const styles = stylex.create({
     flexDirection: "column",
     alignItems: "flex-start",
     gap: spacingVars.space2,
+    listStyleType: "none",
+    margin: 0,
+    padding: 0,
   },
+  children: { paddingInlineStart: spacingVars.space3, marginTop: spacingVars.space2 },
 });

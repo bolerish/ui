@@ -1,4 +1,8 @@
 import { Button } from "@bolerish/ui/button";
 export default function Default() {
-  return <Button>Save</Button>;
+  return (
+    /* @example-start */
+    <Button>Save</Button>
+    /* @example-end */
+  );
 }

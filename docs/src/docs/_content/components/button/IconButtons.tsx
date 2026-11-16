@@ -4,6 +4,7 @@ import { PlusIcon, DotsThreeIcon, XIcon } from "@phosphor-icons/react";
 export default function IconButtons() {
   return (
     <>
+      {/* @example-start */}
       <Button aria-label="Add item" size="icon">
         <PlusIcon aria-hidden="true" />
       </Button>
@@ -13,6 +14,7 @@ export default function IconButtons() {
       <Button aria-label="Close" size="icon" variant="ghost">
         <XIcon aria-hidden="true" />
       </Button>
+      {/* @example-end */}
     </>
   );
 }

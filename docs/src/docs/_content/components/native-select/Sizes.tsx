@@ -20,12 +20,14 @@ const layout = stylex.create({
 export default function Sizes() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
+      {/* @example-start */}
       <NativeSelect size="sm" defaultValue="ko">
         <NativeSelectOption value="ko">Small select</NativeSelectOption>
       </NativeSelect>
       <NativeSelect defaultValue="ko">
         <NativeSelectOption value="ko">Default select</NativeSelectOption>
       </NativeSelect>
+      {/* @example-end */}
     </div>
   );
 }

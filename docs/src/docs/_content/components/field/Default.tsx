@@ -13,6 +13,7 @@ import {
 import { Input } from "@bolerish/ui/input";
 export default function Default() {
   return (
+    /* @example-start */
     <FieldSet>
       <FieldLegend>Payment details</FieldLegend>
       <p>Payment details are encrypted and handled securely.</p>
@@ -46,5 +47,6 @@ export default function Default() {
         </Field>
       </FieldGroup>
     </FieldSet>
+    /* @example-end */
   );
 }

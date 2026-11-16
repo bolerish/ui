@@ -1,4 +1,8 @@
 import { Spinner } from "@bolerish/ui/spinner";
 export default function Default() {
-  return <Spinner label="Saving" />;
+  return (
+    /* @example-start */
+    <Spinner label="Saving" />
+    /* @example-end */
+  );
 }

@@ -4,6 +4,7 @@ import { AspectRatio } from "@bolerish/ui/aspect-ratio";
 export default function Default() {
   return (
     <figure style={{ margin: 0, width: "100%", maxWidth: "36rem" }}>
+      {/* @example-start */}
       <AspectRatio ratio={16 / 9}>
         <img
           src="/images/hangang.webp"
@@ -17,6 +18,7 @@ export default function Default() {
           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
         />
       </AspectRatio>
+      {/* @example-end */}
       <figcaption style={{ marginTop: spacingVars.space2, fontSize: typo.fontSizeXs }}>
         16:9 · Photo by Minyeong Jeong
       </figcaption>

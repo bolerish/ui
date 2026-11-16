@@ -7,6 +7,7 @@ import {
 
 export default function Default() {
   return (
+    /* @example-start */
     <Accordion defaultValue={["shipping"]}>
       <AccordionItem value="shipping">
         <AccordionTrigger>How long does delivery take?</AccordionTrigger>
@@ -17,5 +18,6 @@ export default function Default() {
         <AccordionContent>Select an item and reason from your order history.</AccordionContent>
       </AccordionItem>
     </Accordion>
+    /* @example-end */
   );
 }

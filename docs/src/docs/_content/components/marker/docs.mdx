@@ -1,8 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import VariantsSource from "./Variants.tsx?raw";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -20,48 +20,38 @@ Make a transition in a conversation or activity stream easy to spot.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="marker--Default" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-### 주요 속성
+### variant
 
-| 속성      | 기본값    | 값                               | 용도                                                           |
-| --------- | --------- | -------------------------------- | -------------------------------------------------------------- |
-| `variant` | `default` | `default`, `border`, `separator` | 기본 상태 안내·경계가 있는 안내·콘텐츠 사이 구분을 선택합니다. |
+기본값: `default`
 
-날짜나 읽지 않은 구간처럼 의미 있는 경계를 흐름 안에 표시합니다.
-
-> 행동이나 설명이 필요한 메시지를 마커로 대신하지 않습니다.
+| Value       | Preview                                |
+| ----------- | -------------------------------------- |
+| `default`   | {propExamples["variant"]["default"]}   |
+| `border`    | {propExamples["variant"]["border"]}    |
+| `separator` | {propExamples["variant"]["separator"]} |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-### Props
+### variant
 
-| Prop      | Default   | Values                           | Meaning                                                        |
-| --------- | --------- | -------------------------------- | -------------------------------------------------------------- |
-| `variant` | `default` | `default`, `border`, `separator` | Default status, bordered notice, or separator between content. |
+Default: `default`
 
-Use a marker for a meaningful boundary, such as a date or unread section, without interrupting the sequence.
-
-> Do not use a marker in place of a message that needs an action or explanation.
+| Value       | Preview                                |
+| ----------- | -------------------------------------- |
+| `default`   | {propExamples["variant"]["default"]}   |
+| `border`    | {propExamples["variant"]["border"]}    |
+| `separator` | {propExamples["variant"]["separator"]} |
 
 </LocaleContent>
-
-<LocalizedMarkdown text={"## More examples"} />
-
-<LocalizedMarkdown text={"### Variants"} />
-
-<LocalizedMarkdown
-  text={"Choose default, outline, or separator treatments to fit the surrounding structure."}
-/>
-
-<ComponentPreview name="marker--Variants" source={VariantsSource} />

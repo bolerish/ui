@@ -12,6 +12,7 @@ import {
 } from "@bolerish/ui/dropdown-menu";
 export default function Default() {
   return (
+    /* @example-start */
     <DropdownMenu>
       <DropdownMenuTrigger render={<Button variant="secondary">Project actions</Button>} />
       <DropdownMenuContent>
@@ -30,5 +31,6 @@ export default function Default() {
         <DropdownMenuItem destructive>Delete project</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+    /* @example-end */
   );
 }

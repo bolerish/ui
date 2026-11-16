@@ -20,6 +20,7 @@ const layout = stylex.create({
 export default function Messages() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
+      {/* @example-start */}
       <Banner>
         <BannerContent>
           <BannerTitle>Information</BannerTitle>
@@ -44,6 +45,7 @@ export default function Messages() {
           <BannerDescription>No action is required.</BannerDescription>
         </BannerContent>
       </Banner>
+      {/* @example-end */}
     </div>
   );
 }

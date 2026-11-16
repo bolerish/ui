@@ -13,9 +13,15 @@ import { surface } from "@bolerish/ui/surface";
 import * as stylex from "@stylexjs/stylex";
 import { useState } from "react";
 
+/* @example-start */
 const backgrounds = ["Photo", "Gradient", "Flat"] as const;
-type Background = (typeof backgrounds)[number];
+/* @example-end */
 
+/* @example-start */
+type Background = (typeof backgrounds)[number];
+/* @example-end */
+
+/* @example-start */
 const styles = stylex.create({
   root: { display: "flex", flexDirection: "column", gap: spacingVars.space5, width: "100%" },
   controls: {
@@ -59,7 +65,9 @@ const styles = stylex.create({
   action: { alignSelf: "start", marginBlockStart: "auto" },
   caption: { color: colorVars.fgSecondary, fontSize: typo.fontSizeSm, margin: 0 },
 });
+/* @example-end */
 
+/* @example-start */
 function Scene({ background }: { background: Background }) {
   if (background === "Photo")
     return <img {...stylex.props(styles.scene)} src="/images/hangang.webp" alt="" />;
@@ -79,7 +87,9 @@ function Scene({ background }: { background: Background }) {
     );
   return <div {...stylex.props(styles.scene, styles.flat)} />;
 }
+/* @example-end */
 
+/* @example-start */
 function Foreground() {
   const [saved, setSaved] = useState(false);
   return (
@@ -93,10 +103,15 @@ function Foreground() {
     </div>
   );
 }
+/* @example-end */
 
 export default function SurfaceModes() {
+  /* @example-start */
   const [background, setBackground] = useState<Background>("Photo");
+  /* @example-end */
+
   return (
+    /* @example-start */
     <section aria-label="Surface material comparison" {...stylex.props(styles.root)}>
       <fieldset aria-label="Comparison background" {...stylex.props(styles.controls)}>
         {backgrounds.map((value) => (
@@ -138,5 +153,6 @@ export default function SurfaceModes() {
         stay in this preview.
       </p>
     </section>
+    /* @example-end */
   );
 }

@@ -25,9 +25,11 @@ const layout = stylex.create({
 export default function Sizes() {
   return (
     <div {...stylex.props(layout.preview, [layout.column, layout.componentWidth])}>
+      {/* @example-start */}
       <Attachment size="xs">Extra small attachment</Attachment>
       <Attachment size="sm">Small attachment</Attachment>
       <Attachment>Default attachment</Attachment>
+      {/* @example-end */}
     </div>
   );
 }

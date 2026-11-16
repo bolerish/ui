@@ -8,6 +8,7 @@ import {
 import { PaperclipIcon } from "@phosphor-icons/react";
 export default function Default() {
   return (
+    /* @example-start */
     <Attachment>
       <AttachmentMedia>
         <PaperclipIcon />
@@ -17,5 +18,6 @@ export default function Default() {
         <AttachmentDescription>18 KB</AttachmentDescription>
       </AttachmentContent>
     </Attachment>
+    /* @example-end */
   );
 }

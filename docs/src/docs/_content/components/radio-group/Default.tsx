@@ -3,6 +3,7 @@ import { Label } from "@bolerish/ui/label";
 import { RadioGroup, RadioGroupItem } from "@bolerish/ui/radio-group";
 export default function Default() {
   return (
+    /* @example-start */
     <Field>
       <FieldLabel>Notification frequency</FieldLabel>
       <RadioGroup defaultValue="daily">
@@ -16,5 +17,6 @@ export default function Default() {
         </Label>
       </RadioGroup>
     </Field>
+    /* @example-end */
   );
 }

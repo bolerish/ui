@@ -8,6 +8,7 @@ import {
 } from "@bolerish/ui/context-menu";
 export default function Default() {
   return (
+    /* @example-start */
     <ContextMenu>
       <ContextMenuTrigger>project-proposal.pdf</ContextMenuTrigger>
       <ContextMenuContent>
@@ -23,5 +24,6 @@ export default function Default() {
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
+    /* @example-end */
   );
 }

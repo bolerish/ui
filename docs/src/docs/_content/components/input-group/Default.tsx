@@ -7,6 +7,7 @@ import {
 } from "@bolerish/ui/input-group";
 export default function Default() {
   return (
+    /* @example-start */
     <InputGroup>
       <InputGroupAddon align="inline-start">
         <InputGroupText>https://</InputGroupText>
@@ -16,5 +17,6 @@ export default function Default() {
         <InputGroupButton>Copy</InputGroupButton>
       </InputGroupAddon>
     </InputGroup>
+    /* @example-end */
   );
 }

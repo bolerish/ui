@@ -11,25 +11,26 @@ const styles = stylex.create({
     maxWidth: sizeVars.contentSm,
     width: "100%",
   },
-  button: { width: "100%" },
 });
 
 export default function Alignment() {
   return (
     <div {...stylex.props(styles.root)}>
-      <Button align="start" xstyle={styles.button}>
+      {/* @example-start */}
+      <Button align="start" style={{ width: "100%" }}>
         Start
       </Button>
-      <Button align="center" xstyle={styles.button}>
+      <Button align="center" style={{ width: "100%" }}>
         Center
       </Button>
-      <Button align="end" xstyle={styles.button}>
+      <Button align="end" style={{ width: "100%" }}>
         End
       </Button>
-      <Button align="space-between" xstyle={styles.button}>
+      <Button align="space-between" style={{ width: "100%" }}>
         Settings
         <CaretRightIcon aria-hidden />
       </Button>
+      {/* @example-end */}
     </div>
   );
 }

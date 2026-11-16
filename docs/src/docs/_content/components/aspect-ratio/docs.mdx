@@ -1,7 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import { propExamples } from "./Props";
+import DefaultSource from "./Default.tsx?raw";
 
 <LocaleContent locale="ko">
 
@@ -19,26 +20,38 @@ Reserve the shape of an image or video so nearby content keeps its place.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="aspect-ratio--Default" source={DefaultSource} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-미디어와 주변 배치에 맞는 비율을 선택합니다. 여러 썸네일을 비교하는 목록에서는 비율을 맞춥니다.
+### ratio
 
-> 비율을 정하는 것과 이미지를 자르는 것은 별개입니다. 미디어의 맞춤 방식과 중요한 내용이 잘리는지 확인합니다.
+기본값: `1`
+
+| Value    | Preview                             |
+| -------- | ----------------------------------- |
+| `1`      | {propExamples["ratio"]["square"]}   |
+| `4 / 3`  | {propExamples["ratio"]["standard"]} |
+| `16 / 9` | {propExamples["ratio"]["wide"]}     |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Choose a ratio that suits the media and the surrounding layout. Use consistent ratios when people compare a set of thumbnails.
+### ratio
 
-> A fixed ratio does not decide whether media is cropped. Check the media's own fit behavior and important details.
+Default: `1`
+
+| Value    | Preview                             |
+| -------- | ----------------------------------- |
+| `1`      | {propExamples["ratio"]["square"]}   |
+| `4 / 3`  | {propExamples["ratio"]["standard"]} |
+| `16 / 9` | {propExamples["ratio"]["wide"]}     |
 
 </LocaleContent>

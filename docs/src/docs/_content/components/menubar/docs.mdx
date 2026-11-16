@@ -1,7 +1,8 @@
 import { LocaleContent } from "@/shared/model/locale";
 import { LocalizedMarkdown } from "@/docs/_ui/LocalizedMarkdown";
-import DefaultSource from "./Default.tsx?raw";
 import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+import { propExamples } from "./Props";
 
 <LocaleContent locale="ko">
 
@@ -19,26 +20,72 @@ Keep frequently used command groups in a predictable place.
 
 </LocaleContent>
 
-<LocalizedMarkdown text={"## Basic example"} />
+<LocalizedMarkdown text={"## Preview"} />
 
 <ComponentPreview name="menubar--Default" source={DefaultSource} height={360} />
 
 <LocaleContent locale="ko">
 
-## 사용 가이드
+## Props
 
-편집기처럼 명령이 많은 작업 공간에 사용합니다. 사이트 영역을 이동할 때는 Navigation Menu를 사용합니다.
+### align
 
-> 데스크톱과 비슷한 모양이어도 웹에서 키보드 탐색과 명령 발견이 가능해야 합니다.
+`MenubarContent`
+
+기본값: `start`
+
+| Value    | Preview                           |
+| -------- | --------------------------------- |
+| `start`  | {propExamples["align"]["start"]}  |
+| `center` | {propExamples["align"]["center"]} |
+| `end`    | {propExamples["align"]["end"]}    |
+
+### side
+
+`MenubarContent`
+
+기본값: `bottom`
+
+| Value          | Preview                                |
+| -------------- | -------------------------------------- |
+| `top`          | {propExamples["side"]["top"]}          |
+| `right`        | {propExamples["side"]["right"]}        |
+| `bottom`       | {propExamples["side"]["bottom"]}       |
+| `left`         | {propExamples["side"]["left"]}         |
+| `inline-start` | {propExamples["side"]["inline-start"]} |
+| `inline-end`   | {propExamples["side"]["inline-end"]}   |
 
 </LocaleContent>
 
 <LocaleContent locale="en">
 
-## Usage guidelines
+## Props
 
-Use it for command-heavy workspaces such as editors. Use Navigation Menu for moving between site sections.
+### align
 
-> A familiar desktop appearance still needs working keyboard navigation and discoverable commands on the web.
+`MenubarContent`
+
+Default: `start`
+
+| Value    | Preview                           |
+| -------- | --------------------------------- |
+| `start`  | {propExamples["align"]["start"]}  |
+| `center` | {propExamples["align"]["center"]} |
+| `end`    | {propExamples["align"]["end"]}    |
+
+### side
+
+`MenubarContent`
+
+Default: `bottom`
+
+| Value          | Preview                                |
+| -------------- | -------------------------------------- |
+| `top`          | {propExamples["side"]["top"]}          |
+| `right`        | {propExamples["side"]["right"]}        |
+| `bottom`       | {propExamples["side"]["bottom"]}       |
+| `left`         | {propExamples["side"]["left"]}         |
+| `inline-start` | {propExamples["side"]["inline-start"]} |
+| `inline-end`   | {propExamples["side"]["inline-end"]}   |
 
 </LocaleContent>

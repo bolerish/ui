@@ -3,6 +3,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@bolerish/ui/hove
 import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@bolerish/ui/item";
 export default function Default() {
   return (
+    /* @example-start */
     <HoverCard>
       <HoverCardTrigger href="#">@bolerish</HoverCardTrigger>
       <HoverCardContent align="start">
@@ -21,5 +22,6 @@ export default function Default() {
         </Item>
       </HoverCardContent>
     </HoverCard>
+    /* @example-end */
   );
 }

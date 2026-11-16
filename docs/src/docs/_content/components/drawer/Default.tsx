@@ -10,10 +10,11 @@ import {
   DrawerTrigger,
 } from "@bolerish/ui/drawer";
 
-function DrawerExample({ swipeDirection = "down" }: { swipeDirection?: DrawerDirection }) {
+export default function Default() {
   return (
-    <Drawer showSwipeHandle swipeDirection={swipeDirection}>
-      <DrawerTrigger render={<Button>Open {swipeDirection} drawer</Button>} />
+    /* @example-start */
+    <Drawer showSwipeHandle swipeDirection="right">
+      <DrawerTrigger render={<Button>Open right drawer</Button>} />
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Move to folder</DrawerTitle>
@@ -25,9 +26,6 @@ function DrawerExample({ swipeDirection = "down" }: { swipeDirection?: DrawerDir
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
+    /* @example-end */
   );
-}
-type DrawerDirection = "down" | "up" | "left" | "right";
-export default function Default() {
-  return <DrawerExample />;
 }

@@ -4,6 +4,7 @@ import { Spinner } from "@bolerish/ui/spinner";
 export default function States() {
   return (
     <>
+      {/* @example-start */}
       <Button>Save</Button>
       <Button disabled>Save unavailable</Button>
       <Button disabled variant="secondary">
@@ -19,6 +20,7 @@ export default function States() {
         <Spinner aria-hidden="true" label="" />
         Saving
       </Button>
+      {/* @example-end */}
     </>
   );
 }

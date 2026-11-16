@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@bolerish/ui/table";
 
+/* @example-start */
 const rows = [
   {
     name: "Brand guide",
@@ -30,8 +31,11 @@ const rows = [
     updated: "Aug 25",
   },
 ];
+/* @example-end */
+
 export default function Default() {
   return (
+    /* @example-start */
     <TableContainer>
       <Table style={{ tableLayout: "fixed" }}>
         <TableCaption>Three recently updated projects</TableCaption>
@@ -73,5 +77,6 @@ export default function Default() {
         </TableFooter>
       </Table>
     </TableContainer>
+    /* @example-end */
   );
 }

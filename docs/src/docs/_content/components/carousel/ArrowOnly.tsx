@@ -9,6 +9,7 @@ import {
 } from "@bolerish/ui/carousel";
 import type { CSSProperties } from "react";
 
+/* @example-start */
 const styles = {
   root: { marginInline: "auto", maxWidth: "25rem", width: "calc(100% - 6rem)" },
   slide: {
@@ -21,8 +22,11 @@ const styles = {
     fontSize: "1.5rem",
   },
 } satisfies Record<string, CSSProperties>;
+/* @example-end */
+
 export default function ArrowOnly() {
   return (
+    /* @example-start */
     <Carousel
       orientation="horizontal"
       controlsPlacement="outside"
@@ -41,5 +45,6 @@ export default function ArrowOnly() {
       <CarouselPrevious variant="ghost" />
       <CarouselNext variant="ghost" />
     </Carousel>
+    /* @example-end */
   );
 }

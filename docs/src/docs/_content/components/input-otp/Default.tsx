@@ -2,6 +2,7 @@ import { Field, FieldLabel } from "@bolerish/ui/field";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@bolerish/ui/input-otp";
 export default function Default() {
   return (
+    /* @example-start */
     <Field>
       <FieldLabel>6-digit verification code</FieldLabel>
       <InputOTP length={6}>
@@ -15,5 +16,6 @@ export default function Default() {
         </InputOTPGroup>
       </InputOTP>
     </Field>
+    /* @example-end */
   );
 }

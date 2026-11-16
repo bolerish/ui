@@ -9,6 +9,7 @@ import {
 } from "@bolerish/ui/popover";
 export default function Default() {
   return (
+    /* @example-start */
     <Popover>
       <PopoverTrigger render={<Button variant="secondary">Align left</Button>} />
       <PopoverContent>
@@ -18,5 +19,6 @@ export default function Default() {
         </PopoverHeader>
       </PopoverContent>
     </Popover>
+    /* @example-end */
   );
 }

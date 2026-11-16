@@ -1,6 +1,7 @@
 import { ToggleGroup, ToggleGroupItem } from "@bolerish/ui/toggle-group";
 export default function States() {
   return (
+    /* @example-start */
     <ToggleGroup aria-label="Text alignment" defaultValue={["left"]} variant="outline">
       <ToggleGroupItem value="left">Left</ToggleGroupItem>
       <ToggleGroupItem disabled value="center">
@@ -8,5 +9,6 @@ export default function States() {
       </ToggleGroupItem>
       <ToggleGroupItem value="right">Right</ToggleGroupItem>
     </ToggleGroup>
+    /* @example-end */
   );
 }

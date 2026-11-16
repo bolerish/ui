@@ -20,12 +20,14 @@ const layout = stylex.create({
 export default function States() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
+      {/* @example-start */}
       <NativeSelect defaultValue="ko">
         <NativeSelectOption value="ko">Available select</NativeSelectOption>
       </NativeSelect>
       <NativeSelect defaultValue="ko" disabled>
         <NativeSelectOption value="ko">Unavailable select</NativeSelectOption>
       </NativeSelect>
+      {/* @example-end */}
     </div>
   );
 }

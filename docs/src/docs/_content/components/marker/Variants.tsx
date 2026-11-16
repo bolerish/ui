@@ -22,6 +22,7 @@ const layout = stylex.create({
 export default function Variants() {
   return (
     <div {...stylex.props(layout.preview, layout.column)}>
+      {/* @example-start */}
       <Marker>
         <MarkerIcon>
           <Spinner label="Writing a reply" />
@@ -37,6 +38,7 @@ export default function Variants() {
       <Marker variant="separator">
         <MarkerContent>Unread messages</MarkerContent>
       </Marker>
+      {/* @example-end */}
     </div>
   );
 }

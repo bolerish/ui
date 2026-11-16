@@ -10,6 +10,8 @@ import {
 } from "@bolerish/ui/card";
 import { Input } from "@bolerish/ui/input";
 import * as stylex from "@stylexjs/stylex";
+
+/* @example-start */
 const layout = stylex.create({
   preview: {
     alignItems: "center",
@@ -33,9 +35,12 @@ const layout = stylex.create({
   },
   form: { maxWidth: sizeVars.contentSm },
 });
+/* @example-end */
+
 export default function AccountCreationForm() {
   return (
     <div {...stylex.props(layout.preview)}>
+      {/* @example-start */}
       <Card xstyle={layout.form}>
         <CardHeader>
           <CardTitle>Create account</CardTitle>
@@ -58,6 +63,7 @@ export default function AccountCreationForm() {
           <Button>Create account</Button>
         </CardFooter>
       </Card>
+      {/* @example-end */}
     </div>
   );
 }

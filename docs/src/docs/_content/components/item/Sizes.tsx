@@ -24,9 +24,11 @@ const layout = stylex.create({
 export default function Sizes() {
   return (
     <div {...stylex.props(layout.preview, [layout.column, layout.componentWidth])}>
+      {/* @example-start */}
       <Item size="xs">Extra small row</Item>
       <Item size="sm">Small row</Item>
       <Item>Default row</Item>
+      {/* @example-end */}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Avatar, AvatarBadge, AvatarFallback } from "@bolerish/ui/avatar";
 export default function Sizes() {
   return (
     <>
+      {/* @example-start */}
       <Avatar size="sm">
         <AvatarFallback>MJ</AvatarFallback>
       </Avatar>
@@ -13,6 +14,7 @@ export default function Sizes() {
         <AvatarFallback>DS</AvatarFallback>
         <AvatarBadge />
       </Avatar>
+      {/* @example-end */}
     </>
   );
 }

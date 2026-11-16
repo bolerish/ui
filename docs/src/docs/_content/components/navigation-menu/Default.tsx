@@ -9,6 +9,7 @@ import {
 } from "@bolerish/ui/navigation-menu";
 export default function Default() {
   return (
+    /* @example-start */
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
@@ -24,5 +25,6 @@ export default function Default() {
       </NavigationMenuList>
       <NavigationMenuViewport />
     </NavigationMenu>
+    /* @example-end */
   );
 }

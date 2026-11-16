@@ -12,9 +12,15 @@ const modules = import.meta.glob<DocumentModule>([
   "../_content/api/*/docs.mdx",
   "../_content/guides/*.mdx",
 ]);
+export type DocumentHeading = {
+  id: string;
+  title: string;
+  children?: { id: string; title: string }[];
+};
+
 type DocumentModule = {
   default: ComponentType;
-  documentHeadings?: Record<string, { id: string; title: string }[]>;
+  documentHeadings?: Record<string, DocumentHeading[]>;
   documentMetadata: Record<"en" | "ko", DocumentMetadata>;
 };
 const loadedDocuments: Record<string, DocumentModule> = {};
