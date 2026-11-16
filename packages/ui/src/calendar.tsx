@@ -131,9 +131,10 @@ const styles = stylex.create({
   outside: { color: colorVars.fgTertiary },
   disabled: { color: colorVars.fgDisabled, cursor: "not-allowed" },
   rangeMiddle: {
-    backgroundColor: colorVars.interactionSelected,
+    backgroundColor: colorVars.bgSelected,
     borderRadius: 0,
     color: colorVars.fgPrimary,
+    ":hover": { backgroundColor: colorVars.bgSelected },
   },
   dayLabel: { color: "inherit" },
   chevron: {

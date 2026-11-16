@@ -91,7 +91,14 @@ const styles = stylex.create({
     width: "75vw",
   },
 
-  content: { display: "flex", flex: 1, flexDirection: "column", minHeight: 0 },
+  content: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    minHeight: 0,
+    overflowY: "auto",
+    padding: spacingVars.space6,
+  },
   swipeHandle: {
     alignSelf: "center",
     backgroundColor: colorVars.strokeControl,
@@ -114,9 +121,7 @@ const styles = stylex.create({
     display: "flex",
     flexDirection: "column",
     gap: spacingVars.space2,
-    paddingBlock: spacingVars.space6,
     paddingBlockEnd: spacingVars.space2,
-    paddingInline: spacingVars.space6,
   },
   footer: {
     alignItems: "center",
@@ -124,9 +129,7 @@ const styles = stylex.create({
     flexWrap: "wrap",
     gap: spacingVars.space2,
     justifyContent: "flex-start",
-    paddingBlock: spacingVars.space6,
     paddingBlockStart: spacingVars.space2,
-    paddingInline: spacingVars.space6,
   },
   sideFooter: {
     "@media (max-width: 40rem)": { justifyContent: "center" },
