@@ -62,39 +62,3 @@ pnpm build:docs
 
 [Docs development](docs/README.md) · [Lint package](packages/lint/README.md)
 · [Release workflow](.changeset/README.md) · [Changelog](CHANGELOG.md)
-
-### Verification workflow
-
-Lefthook checks staged files before commits, running lint and formatting in
-parallel. Before a push it runs the workspace type checks.
-
-`verify.yml` selects the PR scope, runs static/unit checks and collects the final
-`verify` result. Reusable `verify-ui.yml` and `verify-docs.yml` own browser and docs
-verification; the local setup action installs the pinned workspace tools.
-Documentation is built once. Its static assets, generated public references and
-compiled UI are shared with two browser shards and the static, HTTP, agent and
-dev contract job. These consumers do not rebuild the documentation or UI.
-
-PRs changing only the root README or repository skill Markdown skip browser
-jobs; static checks and unit tests still run. These paths do not hide other
-changes in a mixed PR. PRs changing documentation Markdown/MDX or lint/docs-MCP
-skip UI browsers.
-When every changed file is a document's `docs.mdx` or a guide MDX, the expensive
-responsive page sweep visits only those documents and the home page, retaining
-all viewport/language/theme combinations. Other browser interaction tests still
-run. Shared code, examples, assets, configuration and unknown paths retain full
-page coverage. Removed or unknown document routes also fall back to full coverage.
-Merge-queue checks, main pushes, manual Verify runs and local tests always use full coverage unless
-an explicit route selection is supplied. Each selected job must pass. New PR commits
-cancel older runs for that PR; main, manual and merge-queue runs remain independent.
-UI browsers use four isolated workers in CI; docs keep two workers and local runs
-retain their existing worker counts. Static
-checks and documentation builds run directly on the runner without a browser container.
-The merge-group trigger supports full verification in a merge queue; repository
-branch rules must separately require that queue before merging.
-
-Run the selection tests locally with:
-
-```sh
-node --experimental-strip-types --test scripts/ci-scope.test.ts docs/test/responsive-routes.test.ts
-```

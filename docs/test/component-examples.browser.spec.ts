@@ -145,7 +145,10 @@ test("Toast position samples use separate viewports without code tabs", async ({
   await expect(table.locator("iframe")).toHaveCount(6);
   await expect(table.getByRole("button", { name: "Code", exact: true })).toHaveCount(0);
   const frame = table.frameLocator('iframe[title="toast--PositionTopLeft"]');
-  expect(await frame.locator("html").evaluate(() => window.innerWidth)).toBe(720);
+  const cell = table.locator("tbody tr td").nth(1);
+  expect(await frame.locator("html").evaluate(() => window.innerWidth)).toBeLessThanOrEqual(
+    (await cell.boundingBox())!.width,
+  );
   await frame.getByRole("button", { name: "Show top-left", exact: true }).click();
   await expect(frame.getByText("Saved.", { exact: true })).toBeVisible();
 });
@@ -206,4 +209,79 @@ test("Props attributes appear as nested TOC links and navigate to their headings
   await props.getByRole("link", { name: "variant", exact: true }).click();
   expect(new URL(page.url()).hash).toBe(`#${id}`);
   await expect(heading).toBeInViewport();
+});
+
+test("prop tables keep aligned columns while expanding and reflow without horizontal scrolling", async ({
+  page,
+}) => {
+  for (const width of [1440, 768, 390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const slug of ["drawer", "accordion", "calendar", "carousel", "toast"]) {
+      await page.goto(`/docs/components/${slug}`);
+      await page.waitForLoadState("networkidle");
+      const tables = page.locator('[data-docs="props-table"]');
+      expect(await tables.count()).toBeGreaterThan(0);
+      for (const table of await tables.all()) {
+        const cells = table.locator("tbody tr").first().locator(":scope > td");
+        const value = (await cells.nth(0).boundingBox())!;
+        const preview = (await cells.nth(1).boundingBox())!;
+        if (width > 600) {
+          expect(value.width).toBeCloseTo(160, 0);
+          expect(preview.x).toBeCloseTo(value.x + value.width, 0);
+        } else {
+          expect(preview.x).toBeCloseTo(value.x, 0);
+          expect(preview.y).toBeGreaterThanOrEqual(value.y + value.height - 1);
+        }
+        expect(await table.evaluate((node) => node.scrollWidth <= node.clientWidth + 1)).toBe(true);
+      }
+      if (slug === "accordion") {
+        const table = tables.last();
+        const row = table.locator("tbody tr").first();
+        const cell = row.locator(":scope > td").nth(1);
+        const before = (await cell.boundingBox())!;
+        const height = (await row.boundingBox())!.height;
+        await row.getByRole("button", { name: "First item", exact: true }).click();
+        await expect(row.getByText("First item details.", { exact: true })).toBeVisible();
+        await expect.poll(async () => (await row.boundingBox())!.height).toBeGreaterThan(height);
+        const after = (await cell.boundingBox())!;
+        expect(after.x).toBeCloseTo(before.x, 0);
+        expect(after.width).toBeCloseTo(before.width, 0);
+        if (width === 1440 || width === 320)
+          await test.info().attach(`accordion-props-${width}`, {
+            body: await table.screenshot(),
+            contentType: "image/png",
+          });
+      }
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
+        true,
+      );
+    }
+  }
+});
+
+test("all component prop tables fit a narrow viewport", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 900 });
+  const root = new URL("../src/docs/_content/components/", import.meta.url);
+  const slugs = readdirSync(root).filter((slug) => existsSync(new URL(`${slug}/Props.tsx`, root)));
+  for (const slug of slugs) {
+    await page.goto(`/docs/components/${slug}`);
+    const tables = page.locator('[data-docs="props-table"]');
+    await expect(tables.first()).toBeVisible();
+    const overflowing = await tables.evaluateAll((nodes) =>
+      nodes
+        .filter(
+          (node) =>
+            node.scrollWidth > node.clientWidth + 1 ||
+            [...node.querySelectorAll("tbody > tr > td")].some(
+              (cell) => cell.scrollWidth > cell.clientWidth + 1,
+            ),
+        )
+        .map((node) => node.previousElementSibling?.textContent),
+    );
+    expect(overflowing, slug).toEqual([]);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+      slug,
+    ).toBe(true);
+  }
 });

@@ -44,7 +44,7 @@ jobs:
 
       - uses: ./.github/actions/setup
       - run: pnpm check
-      - run: node --experimental-strip-types --test scripts/ci-scope.test.ts docs/test/responsive-routes.test.ts
+      - run: node --experimental-strip-types --test scripts/ci-scope.test.ts docs/test/responsive-routes.test.ts .github/workflows/metadata.test.mjs
       - run: pnpm test
 
   ui-browser:

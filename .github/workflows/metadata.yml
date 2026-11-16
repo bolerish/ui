@@ -1,0 +1,48 @@
+name: PR and issue metadata
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  metadata:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # Only event metadata is read; never check out or execute PR code here.
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const item = context.payload.pull_request ?? context.payload.issue;
+            const target = { ...context.repo, issue_number: item.number };
+            if (item.assignees.length === 0) {
+              await github.rest.issues.addAssignees({ ...target, assignees: ['bolerish'] });
+            }
+            if (!context.payload.pull_request) return;
+            const type = item.title.match(/^([a-z]+)(?:\([^\r\n)]+\))?!?:\s+\S/)?.[1];
+            const labels = {
+              fix: 'bug',
+              feat: 'enhancement',
+              docs: 'documentation',
+              ref: 'maintenance',
+              refactor: 'maintenance',
+              perf: 'maintenance',
+              test: 'maintenance',
+              build: 'maintenance',
+              ci: 'maintenance',
+              chore: 'maintenance',
+              style: 'maintenance',
+              meta: 'maintenance',
+              license: 'maintenance',
+              revert: 'maintenance',
+            };
+            const label = Object.hasOwn(labels, type) ? labels[type] : undefined;
+            if (label && !item.labels.some((existing) => existing.name === label)) {
+              await github.rest.issues.addLabels({ ...target, labels: [label] });
+            }
