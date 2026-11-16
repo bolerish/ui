@@ -54,10 +54,10 @@ test("critical isolated previews receive supported settings without persisting p
   context,
 }) => {
   await page.goto("/");
-  await page.waitForLoadState("networkidle");
-  const before = (await context.cookies()).find(
-    (cookie) => cookie.name === "bolerish-docs-settings",
-  )!.value;
+  const savedPreferences = async () =>
+    (await context.cookies()).find((cookie) => cookie.name === "bolerish-docs-settings")?.value;
+  await expect.poll(savedPreferences).toBeDefined();
+  const before = await savedPreferences();
   await page.evaluate(
     () =>
       new Promise<void>((resolve) => {
@@ -88,7 +88,5 @@ test("critical isolated previews receive supported settings without persisting p
   });
   await expect(preview.locator("html")).toHaveAttribute("data-bolerish-theme", "dark");
   await expect(preview.locator("html")).not.toHaveAttribute("data-bolerish-surface");
-  expect(
-    (await context.cookies()).find((cookie) => cookie.name === "bolerish-docs-settings")!.value,
-  ).toBe(before);
+  expect(await savedPreferences()).toBe(before);
 });
