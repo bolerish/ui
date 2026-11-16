@@ -847,6 +847,7 @@ const styles = stylex.create({
     minHeight: "80px",
   },
   searchResult: {
+    color: colorVars.fgPrimary,
     display: "grid",
     gap: spacingVars.space1,
     paddingTop: spacingVars.space3,

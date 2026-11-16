@@ -27,6 +27,30 @@ test("search finds body text, combines terms and shows a nearby excerpt", () => 
   );
 });
 
+test("search excerpts omit Markdown separators and retain table content and hyphenated values", () => {
+  const markdown = [
+    "## Field",
+    "| Value | Preview |",
+    "| :--- | -----: |",
+    "| false | Read-only |",
+    "Value | Preview",
+    ":---: | ---",
+    "true | Enabled",
+    "---",
+    "Keep --docs-muted and aria-label.",
+  ].join("\n");
+  const text = searchText(markdown);
+  assert.equal(
+    text,
+    "Field Value Preview false Read-only Value Preview true Enabled Keep --docs-muted and aria-label.",
+  );
+  assert.equal(
+    searchDocuments([{ section: "components", slug: "field", title: "Field", text }], "field")[0]
+      .description,
+    text,
+  );
+});
+
 test("#New filters release additions and combines with ordinary search terms", () => {
   const documents: SearchDocument[] = [
     {
@@ -85,6 +109,7 @@ test("generated localized indexes cover all docs and search actual body content"
       [...expected].sort(),
     );
     assert.ok(index.every((item) => item.title && item.text));
+    assert.ok(index.every((item) => !/-{3,}/.test(item.text)));
     const results = searchDocuments(index, locale === "en" ? "portal" : "포털");
     assert.ok(results.some((item) => item.slug === "theming"));
     assert.ok(searchDocuments(index, "Biome").some((item) => item.slug === "lint"));

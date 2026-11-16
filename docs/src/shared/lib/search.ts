@@ -9,6 +9,7 @@ export type SearchDocument = {
 export function searchText(markdown: string) {
   return markdown
     .replace(/```[^\n]*\n[\s\S]*?```/g, " ")
+    .replace(/^[ \t]*\|?[ \t]*:?-{3,}:?[ \t]*(?:\|[ \t]*:?-{3,}:?[ \t]*)*\|?[ \t]*$/gm, " ")
     .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
     .replace(/[#*`|>]/g, " ")
     .replace(/\s+/g, " ")
