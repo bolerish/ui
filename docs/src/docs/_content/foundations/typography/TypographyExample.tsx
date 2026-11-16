@@ -10,10 +10,10 @@ const styles = stylex.create({
 export default function TypographyExample() {
   return (
     <section {...stylex.props(styles.section)}>
-      <Heading level={1} size="page">
+      <Heading level={2} size="page">
         Project settings
       </Heading>
-      <Heading level={2} size="section">
+      <Heading level={3} size="section">
         Notifications
       </Heading>
       <P>Choose which project updates you receive.</P>
