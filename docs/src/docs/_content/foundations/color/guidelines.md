@@ -47,7 +47,7 @@ Use cool near-black surfaces and monochrome Zinc primary actions. Light surfaces
 | Dark raised surface   | #161718 | Popups and subtle grouping         |
 | Dark selected surface | #23252A | Selected surfaces                  |
 | Dark supporting text  | #8A8F98 | Descriptions and metadata          |
-| Light canvas          | #EEEEEE | Lowest light surface               |
+| Light canvas          | #FFFFFF | Lowest light surface               |
 | Light content         | #FFFFFF | Cards and inputs                   |
 | Light grouping        | #F5F5F5 | Subtle groups                      |
 | Light primary action  | #18181B | Dark button on a light surface     |
@@ -104,4 +104,6 @@ Reduced transparency, forced colors and unsupported effects use opaque fallbacks
 
 Secondary buttons and grouped tabs/toggles retain bgSubtle. Semantic feedback, selection and disabled states preserve their roles. Progress tracks and scrollbar affordances keep their existing tokens. Background decoration does not change text opacity, focus or HTML state.
 
-Error feedback and destructive actions use bright red text over a 12% red fill. This visual choice does not guarantee 4.5:1 contrast for small text. Adjust the foreground in your theme when your product requires that target.
+Information, success, warning and error feedback use 12% tinted fills with stronger semantic borders. Foregrounds use dark status colors in light mode and light status colors in dark mode; text contrast is checked at 4.5:1 on canvas, content, grouping and raised backgrounds. The light canvas is pure white; the dark canvas retains its existing dark color.
+
+Destructive actions retain bright red text over a 12% red fill. This pairing does not guarantee 4.5:1 contrast for small text. Adjust the foreground in your theme when your product requires that target.

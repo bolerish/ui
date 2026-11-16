@@ -32,7 +32,13 @@ export const defaults = (
   }
 ).colorVars;
 
-export function rgba(value: string) {
+export function rgba(value: string): number[] {
+  const mix = /^color-mix\(in srgb, (.+) (\d+)%, transparent\)$/.exec(value);
+  if (mix) {
+    const color = rgba(mix[1]);
+    color[3] *= Number(mix[2]) / 100;
+    return color;
+  }
   if (value.startsWith("oklch(")) value = oklchToHex(value);
   assert.match(value, /^#[0-9A-F]{6}([0-9A-F]{2})?$/i);
   const hex = value.slice(1);

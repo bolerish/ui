@@ -34,7 +34,7 @@ for (const mode of ["light", "dark"]) {
       const background = composite(rgba(theme[`bg${role}`]), canvas);
       const foreground = rgba(theme[`fg${role.startsWith("Feedback") ? role : `On${role}`}`]);
       // The approved bright-red reference intentionally uses lower small-text contrast.
-      const minimum = role === "ActionDestructive" || role === "FeedbackError" ? 2.5 : 4.5;
+      const minimum = role === "ActionDestructive" ? 2.5 : 4.5;
       assert.ok(contrast(foreground, background) >= minimum, `${role}: unreadable text`);
       if (role.startsWith("Feedback")) continue;
       for (const state of ["interactionSolidHover", "interactionSolidPressed"]) {
@@ -89,4 +89,30 @@ for (const mode of ["light", "dark"]) {
 test("default color map exactly matches the explicit light theme", () => {
   assert.deepEqual(Object.keys(defaults).sort(), Object.keys(themes.lightColorTheme).sort());
   assert.deepEqual(defaults, themes.lightColorTheme);
+});
+
+for (const mode of ["light", "dark"]) {
+  test(`${mode}: feedback remains tinted with readable text and stronger borders`, () => {
+    const theme = themes[`${mode}ColorTheme`];
+    for (const tone of ["Info", "Success", "Warning", "Error"]) {
+      const fill = rgba(theme[`bgFeedback${tone}`]);
+      assert.ok(fill[3] >= 0.11 && fill[3] <= 0.13, `${tone}: expected a 12% tint`);
+      for (const surface of ["bgCanvas", "bgSurface", "bgSubtle", "bgRaised"]) {
+        const backdrop = rgba(theme[surface]);
+        const background = composite(fill, backdrop);
+        const foreground = rgba(theme[`fgFeedback${tone}`]);
+        const border = composite(rgba(theme[`strokeFeedback${tone}`]), backdrop);
+        assert.ok(contrast(foreground, background) >= 4.5, `${tone}/${surface}: text contrast`);
+        assert.ok(
+          contrast(border, backdrop) > contrast(background, backdrop),
+          `${tone}/${surface}: border must be stronger than the fill`,
+        );
+      }
+    }
+  });
+}
+
+test("light canvas is pure white while dark canvas remains dark", () => {
+  assert.deepEqual(rgba(themes.lightColorTheme.bgCanvas), [1, 1, 1, 1]);
+  assert.ok(contrast(rgba(themes.darkColorTheme.bgCanvas), [1, 1, 1, 1]) >= 15);
 });
