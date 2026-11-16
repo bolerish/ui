@@ -5,8 +5,16 @@ import {
   layerVars,
   radiusVars,
   spacingVars,
+  sizeVars,
   typo,
 } from "@bolerish/tokens/semantic.stylex";
+import {
+  BellIcon,
+  CheckCircleIcon,
+  InfoIcon,
+  WarningIcon,
+  XCircleIcon,
+} from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
 import {
   useSyncExternalStore,
@@ -39,12 +47,10 @@ const styles = stylex.create({
     position: "relative",
     whiteSpace: "nowrap",
   },
-  dot: {
-    backgroundColor: "currentColor",
-    borderRadius: radiusVars.full,
+  icon: {
     flexShrink: 0,
-    height: 6,
-    width: 6,
+    height: sizeVars.iconSm,
+    width: sizeVars.iconSm,
   },
 });
 const tones = stylex.create({
@@ -74,6 +80,14 @@ const tones = stylex.create({
     borderColor: colorVars.strokeDefault,
   },
 });
+
+const toneIcons = {
+  neutral: BellIcon,
+  success: CheckCircleIcon,
+  warning: WarningIcon,
+  error: XCircleIcon,
+  info: InfoIcon,
+};
 
 const floatingStyles = stylex.create({
   layer: { zIndex: layerVars.notification },
@@ -136,6 +150,7 @@ export function Snackbar({
     return () => window.clearTimeout(timer);
   }, [visible, duration, controlled]);
   const mounted = useSyncExternalStore(subscribe, clientSnapshot, serverSnapshot);
+  const ToneIcon = toneIcons[tone];
   const pill = (
     <span
       {...props}
@@ -144,7 +159,7 @@ export function Snackbar({
       data-visible={visible ? "true" : "false"}
       aria-hidden={visible ? props["aria-hidden"] : true}
     >
-      <span aria-hidden="true" {...stylex.props(styles.dot)} />
+      <ToneIcon aria-hidden="true" {...stylex.props(styles.icon)} />
       {children}
     </span>
   );
