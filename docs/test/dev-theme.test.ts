@@ -113,7 +113,7 @@ test(
         const canvas = previewPage.locator("[data-docs=preview-canvas]").first();
         const toc = previewPage.locator("[data-docs=table-of-contents] a");
         const headingIds = await previewPage
-          .locator("article h2[id]")
+          .locator("article h2[id], article h3[id]")
           .evaluateAll((nodes) => nodes.map((node) => `#${node.id}`));
         assert.ok(headingIds.length > 0);
         assert.deepEqual(
