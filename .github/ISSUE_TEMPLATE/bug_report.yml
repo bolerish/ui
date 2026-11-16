@@ -1,0 +1,31 @@
+name: Bug report
+description: Report reproducible incorrect behavior.
+labels: [bug]
+assignees: [bolerish]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide minimal steps and, if possible, a runnable example or repository link.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include affected package versions, framework, browser, and OS where relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Additional evidence
+      description: Add relevant logs or screenshots. Remove secrets and personal information.
