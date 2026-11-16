@@ -75,7 +75,7 @@ for (const mode of ["light", "dark"] as const) {
       await expect(page.locator("html")).toHaveAttribute("data-bolerish-theme", mode);
       await expect(page.locator("body")).toHaveCSS(
         "background-color",
-        mode === "light" ? "rgb(255, 255, 255)" : "rgb(15, 16, 17)",
+        mode === "light" ? "rgb(255, 255, 255)" : "rgb(8, 9, 10)",
       );
       const surface = mode === "light" ? "rgb(255, 255, 255)" : "rgb(15, 16, 17)";
       await expect(page.locator("[data-docs=site-header]")).toHaveCSS("background-color", surface);
@@ -126,7 +126,9 @@ for (const mode of ["light", "dark"] as const) {
   });
 }
 
-test("documentation shell follows custom semantic token values", async ({ page }) => {
+test("documentation surfaces follow custom semantic tokens independently of the canvas", async ({
+  page,
+}) => {
   await page.goto("/docs/theming");
   await page.waitForLoadState("networkidle");
   await page.evaluate(() => {
@@ -141,7 +143,7 @@ test("documentation shell follows custom semantic token values", async ({ page }
     }
   });
   await expect(page.locator("[data-docs=document] h1")).toHaveCSS("color", "rgb(20, 40, 60)");
-  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(230, 235, 240)");
+  await expect(page.locator("body")).toHaveCSS("background-color", "rgb(255, 255, 255)");
   await expect(page.locator("[data-docs=site-header]")).toHaveCSS(
     "background-color",
     "rgb(230, 235, 240)",
