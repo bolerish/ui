@@ -58,12 +58,26 @@ test("critical isolated previews receive supported settings without persisting p
   const before = (await context.cookies()).find(
     (cookie) => cookie.name === "bolerish-docs-settings",
   )!.value;
-  await page.evaluate(() => {
-    const frame = document.createElement("iframe");
-    frame.id = "preferences-preview-test";
-    frame.src = "/preview/card--Default";
-    document.body.append(frame);
-  });
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        const frame = document.createElement("iframe");
+        frame.id = "preferences-preview-test";
+        frame.src = "/preview/card--Default";
+        const ready = (event: MessageEvent) => {
+          if (
+            event.origin === location.origin &&
+            event.source === frame.contentWindow &&
+            event.data?.type === "bolerish-preview-ready"
+          ) {
+            window.removeEventListener("message", ready);
+            resolve();
+          }
+        };
+        window.addEventListener("message", ready);
+        document.body.append(frame);
+      }),
+  );
   const preview = page.frameLocator("#preferences-preview-test");
   await expect(preview.locator("html")).toHaveAttribute("data-bolerish-theme", "light");
   await page.locator("#preferences-preview-test").evaluate((node) => {

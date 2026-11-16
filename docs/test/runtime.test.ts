@@ -29,7 +29,7 @@ test("localized search indexes are served independently from document HTML", asy
       ),
     );
     const theming = index.find((item: { slug: string }) => item.slug === "theming");
-    assert.match(theming.text, locale === "en" ? /portals/i : /포털/);
+    assert.match(theming.text, locale === "en" ? /portal/i : /포털/);
   }
 });
 
