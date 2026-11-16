@@ -6,7 +6,7 @@ import {
   typo,
 } from "@bolerish/tokens/semantic.stylex";
 import { Button } from "@bolerish/ui/button";
-import { CheckIcon, CopyIcon } from "@phosphor-icons/react";
+import { CheckIcon, CopyIcon } from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
 import { Highlight } from "prism-react-renderer";
 import { useEffect, useState } from "react";

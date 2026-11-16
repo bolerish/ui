@@ -34,7 +34,7 @@ import {
   MagnifyingGlassIcon,
   SunIcon,
   MoonIcon,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
 import { Link, Outlet, useNavigate, useLocation, useRouterState } from "@tanstack/react-router";
 import { useCallback, useEffect, useState, type RefCallback } from "react";

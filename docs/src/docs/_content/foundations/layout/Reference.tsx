@@ -8,7 +8,7 @@ import {
 } from "@bolerish/tokens/semantic.stylex";
 import { Button } from "@bolerish/ui/button";
 import { Input } from "@bolerish/ui/input";
-import { InfoIcon } from "@phosphor-icons/react";
+import { InfoIcon } from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
 
 import { TokenRow } from "@/docs/_ui/TokenRow";

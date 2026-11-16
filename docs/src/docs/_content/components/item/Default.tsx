@@ -8,7 +8,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@bolerish/ui/item";
-import { DotsThreeIcon, FolderIcon } from "@phosphor-icons/react";
+import { DotsThreeIcon, FolderIcon } from "@phosphor-icons/react/ssr";
 export default function Default() {
   return (
     /* @example-start */

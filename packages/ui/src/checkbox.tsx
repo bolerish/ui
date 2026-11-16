@@ -9,7 +9,7 @@ import {
   sizeVars,
   typo,
 } from "@bolerish/tokens/semantic.stylex";
-import { CheckIcon } from "@phosphor-icons/react";
+import { CheckIcon } from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 

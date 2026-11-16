@@ -8,7 +8,7 @@ import {
   spacingVars,
   typo,
 } from "@bolerish/tokens/semantic.stylex";
-import { CaretRightIcon } from "@phosphor-icons/react";
+import { CaretRightIcon } from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps, ReactNode } from "react";
 

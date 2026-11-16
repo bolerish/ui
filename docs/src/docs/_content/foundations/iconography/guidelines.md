@@ -4,7 +4,7 @@ Consistent, familiar symbols make repeated actions easier to find. Add visible t
 
 ## Selection guidelines
 
-Import icons directly from `@phosphor-icons/react`. Check existing Phosphor icons first. Use the same icon and weight for the same role. Choose from `sizeVars.iconXs`, `iconSm`, `iconMd`, and `iconLg`.
+Import icons directly from `@phosphor-icons/react/ssr`. Check existing Phosphor icons first. Use the same icon and weight for the same role. Choose from `sizeVars.iconXs`, `iconSm`, `iconMd`, and `iconLg`.
 
 An icon's visible size is different from its touch target. Provide enough space to press small icons, and prefer the existing icon size props on `Button`.
 

@@ -1,5 +1,5 @@
 import { Button } from "@bolerish/ui/button";
-import { PlusIcon, DotsThreeIcon, XIcon } from "@phosphor-icons/react";
+import { PlusIcon, DotsThreeIcon, XIcon } from "@phosphor-icons/react/ssr";
 
 export default function IconButtons() {
   return (

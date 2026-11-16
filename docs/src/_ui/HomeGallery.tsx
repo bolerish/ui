@@ -7,7 +7,7 @@ import {
 } from "@bolerish/tokens/semantic.stylex";
 import { Card } from "@bolerish/ui/card";
 import { Separator } from "@bolerish/ui/separator";
-import { ArrowUpRightIcon } from "@phosphor-icons/react";
+import { ArrowUpRightIcon } from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
 import { Link } from "@tanstack/react-router";
 

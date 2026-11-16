@@ -5,7 +5,7 @@ import {
   AttachmentMedia,
   AttachmentTitle,
 } from "@bolerish/ui/attachment";
-import { PaperclipIcon } from "@phosphor-icons/react";
+import { PaperclipIcon } from "@phosphor-icons/react/ssr";
 export default function Default() {
   return (
     /* @example-start */

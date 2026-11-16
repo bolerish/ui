@@ -2,7 +2,7 @@
 
 import { useRender } from "@base-ui/react/use-render";
 import { colorVars, motionVars, sizeVars, typo } from "@bolerish/tokens/semantic.stylex";
-import { ArrowSquareOutIcon } from "@phosphor-icons/react";
+import { ArrowSquareOutIcon } from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
 import type { ComponentProps } from "react";
 

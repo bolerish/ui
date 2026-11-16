@@ -7,7 +7,7 @@ import {
   TimelineDescription,
   TimelineTime,
 } from "@bolerish/ui/timeline";
-import { CheckIcon } from "@phosphor-icons/react";
+import { CheckIcon } from "@phosphor-icons/react/ssr";
 
 export default function Activity() {
   return (

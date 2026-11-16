@@ -4,7 +4,7 @@
 
 ## 선택 기준
 
-`@phosphor-icons/react`에서 필요한 아이콘을 직접 가져옵니다. 이미 사용하는 Phosphor 아이콘을 먼저 확인합니다. 같은 화면의 같은 역할에는 동일한 아이콘과 굵기를 유지합니다. 크기는 `sizeVars.iconXs`, `iconSm`, `iconMd`, `iconLg`에서 선택합니다.
+`@phosphor-icons/react/ssr`에서 필요한 아이콘을 직접 가져옵니다. 이미 사용하는 Phosphor 아이콘을 먼저 확인합니다. 같은 화면의 같은 역할에는 동일한 아이콘과 굵기를 유지합니다. 크기는 `sizeVars.iconXs`, `iconSm`, `iconMd`, `iconLg`에서 선택합니다.
 
 아이콘 그림의 크기와 실제로 누를 수 있는 영역은 다릅니다. 작은 아이콘도 충분한 터치 영역을 확보하고, 기존 `Button`의 아이콘 크기 속성을 먼저 사용합니다.
 

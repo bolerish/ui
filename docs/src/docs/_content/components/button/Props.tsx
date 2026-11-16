@@ -1,5 +1,5 @@
 import { Button } from "@bolerish/ui/button";
-import { CaretRightIcon, PlusIcon } from "@phosphor-icons/react";
+import { CaretRightIcon, PlusIcon } from "@phosphor-icons/react/ssr";
 
 export const propExamples = {
   align: {

@@ -1,7 +1,7 @@
 import { spacingVars } from "@bolerish/tokens/semantic.stylex";
 import { Button } from "@bolerish/ui/button";
 import { ButtonGroup } from "@bolerish/ui/button-group";
-import { CaretLeftIcon, DotsThreeIcon } from "@phosphor-icons/react";
+import { CaretLeftIcon, DotsThreeIcon } from "@phosphor-icons/react/ssr";
 export default function Default() {
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: spacingVars.space3 }}>

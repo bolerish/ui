@@ -8,7 +8,7 @@ import {
   spacingVars,
   typo,
 } from "@bolerish/tokens/semantic.stylex";
-import { CalendarBlankIcon } from "@phosphor-icons/react";
+import { CalendarBlankIcon } from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
 import { useState } from "react";
 

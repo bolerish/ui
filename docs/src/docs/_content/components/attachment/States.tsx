@@ -8,7 +8,7 @@ import {
   AttachmentMedia,
   AttachmentTitle,
 } from "@bolerish/ui/attachment";
-import { DownloadSimpleIcon, FileIcon, XIcon } from "@phosphor-icons/react";
+import { DownloadSimpleIcon, FileIcon, XIcon } from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
 const layout = stylex.create({
   preview: {

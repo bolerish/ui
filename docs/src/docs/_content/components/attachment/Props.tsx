@@ -5,7 +5,7 @@ import {
   AttachmentTitle,
   AttachmentDescription,
 } from "@bolerish/ui/attachment";
-import { PaperclipIcon } from "@phosphor-icons/react";
+import { PaperclipIcon } from "@phosphor-icons/react/ssr";
 
 export const propExamples = {
   orientation: {

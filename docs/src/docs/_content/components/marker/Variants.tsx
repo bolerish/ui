@@ -1,7 +1,7 @@
 import { spacingVars, typo } from "@bolerish/tokens/semantic.stylex";
 import { Marker, MarkerContent, MarkerIcon } from "@bolerish/ui/marker";
 import { Spinner } from "@bolerish/ui/spinner";
-import { GitBranchIcon } from "@phosphor-icons/react";
+import { GitBranchIcon } from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
 const layout = stylex.create({
   preview: {

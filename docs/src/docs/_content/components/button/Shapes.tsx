@@ -1,5 +1,5 @@
 import { Button } from "@bolerish/ui/button";
-import { PlusIcon } from "@phosphor-icons/react";
+import { PlusIcon } from "@phosphor-icons/react/ssr";
 
 export default function Shapes() {
   return (

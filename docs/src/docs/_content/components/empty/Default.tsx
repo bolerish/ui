@@ -7,7 +7,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@bolerish/ui/empty";
-import { FolderIcon } from "@phosphor-icons/react";
+import { FolderIcon } from "@phosphor-icons/react/ssr";
 export default function Default() {
   return (
     /* @example-start */
