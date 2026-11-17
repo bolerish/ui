@@ -1,6 +1,7 @@
 packages:
   - docs
   - packages/*
+  - apps/*
 
 catalogs:
   2026-08-27-stable:

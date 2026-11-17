@@ -8,7 +8,7 @@
   "fixed": [["@bolerish/ui", "@bolerish/tokens"]],
   "linked": [],
   "updateInternalDependencies": "patch",
-  "ignore": ["@bolerish/docs"],
+  "ignore": ["@bolerish/docs", "@bolerish/preview"],
   "privatePackages": {
     "version": true,
     "tag": false

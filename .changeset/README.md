@@ -5,7 +5,7 @@ one releases both at the same version. `@bolerish/lint` is versioned
 independently, as is `@bolerish/docs-mcp`. The documentation MCP bundles a
 build-time reference snapshot; rebuild it before preparing a release.
 `@bolerish/lint` replaces `@bolerish/eslint-plugin-ui`; the former
-package is not a compatibility alias. Docs and the root workspace are private
+package is not a compatibility alias. Docs, the local preview app and the root workspace are private
 applications, not npm releases.
 
 ## Record and review a release
