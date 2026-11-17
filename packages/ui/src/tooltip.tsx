@@ -18,46 +18,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
-const styles = stylex.create({
-  positioner: { zIndex: layerVars.notification },
-  popup: {
-    backgroundColor: colorVars.bgRaised,
-    borderColor: colorVars.strokeDefault,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    borderRadius: radiusVars.md,
-    boxShadow: shadowVars.floating,
-    color: colorVars.fgPrimary,
-    fontSize: typo.fontSizeXs,
-    lineHeight: typo.lineHeightNormal,
-    maxWidth: sizeVars.contentXs,
-    paddingBlock: spacingVars.space1,
-    paddingInline: spacingVars.space3,
-    transform: "scale(1)",
-    transformOrigin: "var(--transform-origin)",
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "opacity, transform",
-    transitionTimingFunction: motionVars.easingEnter,
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transform: "none",
-        transitionDuration: motionVars.durationInstant,
-      },
-    },
-  },
-  popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
-  popupEnding: {
-    transitionDuration: motionVars.durationFast,
-    transitionTimingFunction: motionVars.easingExit,
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transitionDuration: motionVars.durationInstant,
-      },
-    },
-  },
-  arrow: { fill: colorVars.bgRaised, height: spacingVars.space2, width: spacingVars.space3 },
-});
-
 export const Tooltip = TooltipPrimitive.Root;
 const TooltipDelayContext = createContext(150);
 export function TooltipProvider({
@@ -138,3 +98,43 @@ export function TooltipContent({
     </TooltipPrimitive.Portal>
   );
 }
+
+const styles = stylex.create({
+  positioner: { zIndex: layerVars.notification },
+  popup: {
+    backgroundColor: colorVars.bgRaised,
+    borderColor: colorVars.strokeDefault,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    borderRadius: radiusVars.md,
+    boxShadow: shadowVars.floating,
+    color: colorVars.fgPrimary,
+    fontSize: typo.fontSizeXs,
+    lineHeight: typo.lineHeightNormal,
+    maxWidth: sizeVars.contentXs,
+    paddingBlock: spacingVars.space1,
+    paddingInline: spacingVars.space3,
+    transform: "scale(1)",
+    transformOrigin: "var(--transform-origin)",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motionVars.easingEnter,
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transform: "none",
+        transitionDuration: motionVars.durationInstant,
+      },
+    },
+  },
+  popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
+  popupEnding: {
+    transitionDuration: motionVars.durationFast,
+    transitionTimingFunction: motionVars.easingExit,
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transitionDuration: motionVars.durationInstant,
+      },
+    },
+  },
+  arrow: { fill: colorVars.bgRaised, height: spacingVars.space2, width: spacingVars.space3 },
+});

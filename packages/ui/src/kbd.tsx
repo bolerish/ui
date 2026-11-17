@@ -12,6 +12,24 @@ import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+export function Kbd({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<"kbd">> & { xstyle?: ControlPlacementStyles }) {
+  return <kbd {...props} {...mergeStyles(stylex.props(styles.root, xstyle), className, style)} />;
+}
+
+export function KbdGroup({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<"span">> & { xstyle?: stylex.StyleXStyles }) {
+  return <span {...props} {...mergeStyles(stylex.props(styles.group, xstyle), className, style)} />;
+}
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -33,21 +51,3 @@ const styles = stylex.create({
   },
   group: { alignItems: "center", display: "inline-flex", gap: spacingVars.space1 },
 });
-
-export function Kbd({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<"kbd">> & { xstyle?: ControlPlacementStyles }) {
-  return <kbd {...props} {...mergeStyles(stylex.props(styles.root, xstyle), className, style)} />;
-}
-
-export function KbdGroup({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<"span">> & { xstyle?: stylex.StyleXStyles }) {
-  return <span {...props} {...mergeStyles(stylex.props(styles.group, xstyle), className, style)} />;
-}

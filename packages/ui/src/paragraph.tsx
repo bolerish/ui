@@ -7,12 +7,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { typographyStyles } from "./typography";
 
-const styles = stylex.create({
-  root: { color: colorVars.fgPrimary, margin: 0 },
-  description: { color: colorVars.fgSecondary },
-  caption: { color: colorVars.fgTertiary },
-});
-
 export type ParagraphProps = StyledProps<ComponentProps<"p">> & {
   variant?: "body" | "description" | "caption";
   xstyle?: ControlLayoutStyles;
@@ -41,3 +35,9 @@ export function Paragraph({
     />
   );
 }
+
+const styles = stylex.create({
+  root: { color: colorVars.fgPrimary, margin: 0 },
+  description: { color: colorVars.fgSecondary },
+  caption: { color: colorVars.fgTertiary },
+});

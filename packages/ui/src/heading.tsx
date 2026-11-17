@@ -7,10 +7,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { typographyStyles } from "./typography";
 
-const styles = stylex.create({
-  root: { color: colorVars.fgPrimary, margin: 0 },
-});
-
 export type HeadingProps = StyledProps<ComponentProps<"h1">> & {
   level: 1 | 2 | 3 | 4 | 5 | 6;
   size?: "page" | "section" | "subsection";
@@ -35,3 +31,7 @@ export function Heading({
     />
   );
 }
+
+const styles = stylex.create({
+  root: { color: colorVars.fgPrimary, margin: 0 },
+});

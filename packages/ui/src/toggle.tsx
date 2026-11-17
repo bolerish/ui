@@ -17,6 +17,49 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
+export type ToggleSize = "lg" | "md" | "sm";
+export type ToggleVariant = "default" | "outline" | "soft";
+
+export type ToggleProps = StyledProps<ComponentProps<typeof TogglePrimitive>> & {
+  size?: ToggleSize;
+  variant?: ToggleVariant;
+  xstyle?: ControlLayoutStyles;
+};
+
+export function Toggle({
+  className,
+  style,
+  size = "md",
+  variant = "default",
+  xstyle,
+  ...props
+}: ToggleProps) {
+  function getToggleStyles(state: TogglePrimitive.State) {
+    return mergeStyles(
+      stylex.props(
+        styles.root,
+        sizeStyles[size],
+        variantStyles[variant],
+        variant === "outline" && !state.pressed && !state.disabled && surfaceStyles.control,
+        state.pressed && styles.pressed,
+        state.pressed && variant === "soft" && styles.softPressed,
+        state.disabled && !state.pressed && styles.unavailable,
+        state.disabled && styles.disabled,
+        xstyle,
+      ),
+      className,
+      style,
+    );
+  }
+  return (
+    <TogglePrimitive
+      {...props}
+      className={(state) => getToggleStyles(state).className}
+      style={(state) => getToggleStyles(state).style}
+    />
+  );
+}
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -99,46 +142,3 @@ const variantStyles = stylex.create({
   soft: { backgroundColor: colorVars.bgSubtle },
   outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
 });
-
-export type ToggleSize = "lg" | "md" | "sm";
-export type ToggleVariant = "default" | "outline" | "soft";
-
-export type ToggleProps = StyledProps<ComponentProps<typeof TogglePrimitive>> & {
-  size?: ToggleSize;
-  variant?: ToggleVariant;
-  xstyle?: ControlLayoutStyles;
-};
-
-export function Toggle({
-  className,
-  style,
-  size = "md",
-  variant = "default",
-  xstyle,
-  ...props
-}: ToggleProps) {
-  function getToggleStyles(state: TogglePrimitive.State) {
-    return mergeStyles(
-      stylex.props(
-        styles.root,
-        sizeStyles[size],
-        variantStyles[variant],
-        variant === "outline" && !state.pressed && !state.disabled && surfaceStyles.control,
-        state.pressed && styles.pressed,
-        state.pressed && variant === "soft" && styles.softPressed,
-        state.disabled && !state.pressed && styles.unavailable,
-        state.disabled && styles.disabled,
-        xstyle,
-      ),
-      className,
-      style,
-    );
-  }
-  return (
-    <TogglePrimitive
-      {...props}
-      className={(state) => getToggleStyles(state).className}
-      style={(state) => getToggleStyles(state).style}
-    />
-  );
-}

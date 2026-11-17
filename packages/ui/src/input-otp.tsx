@@ -18,50 +18,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
-const styles = stylex.create({
-  root: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
-  group: { display: "inline-flex", width: "fit-content", borderRadius: radiusVars.lg },
-  slot: {
-    appearance: "none",
-    backgroundColor: "transparent",
-    borderColor: colorVars.strokeControl,
-    borderRadius: 0,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    color: colorVars.fgPrimary,
-    fontFamily: typo.fontFamilyBody,
-    fontSize: typo.fontSizeSm,
-    height: sizeVars.controlLg,
-    marginInlineStart: `calc(${sizeVars.stroke} * -1)`,
-    outline: "none",
-    textAlign: "center",
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color, border-color, box-shadow, opacity",
-    transitionTimingFunction: motionVars.easingStandard,
-    width: sizeVars.controlLg,
-    ":first-child": {
-      borderBottomLeftRadius: radiusVars.lg,
-      borderTopLeftRadius: radiusVars.lg,
-      marginInlineStart: 0,
-    },
-    ":last-child": { borderBottomRightRadius: radiusVars.lg, borderTopRightRadius: radiusVars.lg },
-    ":hover:not(:disabled)": { borderColor: colorVars.strokeControl },
-    ":focus-visible": {
-      outlineColor: colorVars.strokeFocus,
-      outlineOffset: sizeVars.stroke,
-      outlineStyle: "solid",
-      outlineWidth: sizeVars.focusRing,
-      zIndex: 1,
-    },
-    ":disabled": {
-      borderColor: colorVars.strokeDefault,
-      cursor: "not-allowed",
-      opacity: opacityVars.disabled,
-    },
-  },
-  separator: { color: colorVars.fgTertiary, paddingInline: spacingVars.space1 },
-});
-
 export type InputOTPProps = StyledProps<ComponentProps<typeof OTPField.Root>> & {
   xstyle?: ControlLayoutStyles;
 };
@@ -121,3 +77,47 @@ export function InputOTPSeparator({
     </span>
   );
 }
+
+const styles = stylex.create({
+  root: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
+  group: { display: "inline-flex", width: "fit-content", borderRadius: radiusVars.lg },
+  slot: {
+    appearance: "none",
+    backgroundColor: "transparent",
+    borderColor: colorVars.strokeControl,
+    borderRadius: 0,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    color: colorVars.fgPrimary,
+    fontFamily: typo.fontFamilyBody,
+    fontSize: typo.fontSizeSm,
+    height: sizeVars.controlLg,
+    marginInlineStart: `calc(${sizeVars.stroke} * -1)`,
+    outline: "none",
+    textAlign: "center",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, border-color, box-shadow, opacity",
+    transitionTimingFunction: motionVars.easingStandard,
+    width: sizeVars.controlLg,
+    ":first-child": {
+      borderBottomLeftRadius: radiusVars.lg,
+      borderTopLeftRadius: radiusVars.lg,
+      marginInlineStart: 0,
+    },
+    ":last-child": { borderBottomRightRadius: radiusVars.lg, borderTopRightRadius: radiusVars.lg },
+    ":hover:not(:disabled)": { borderColor: colorVars.strokeControl },
+    ":focus-visible": {
+      outlineColor: colorVars.strokeFocus,
+      outlineOffset: sizeVars.stroke,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
+      zIndex: 1,
+    },
+    ":disabled": {
+      borderColor: colorVars.strokeDefault,
+      cursor: "not-allowed",
+      opacity: opacityVars.disabled,
+    },
+  },
+  separator: { color: colorVars.fgTertiary, paddingInline: spacingVars.space1 },
+});

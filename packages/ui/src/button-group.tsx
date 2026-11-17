@@ -23,97 +23,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
-const styles = stylex.create({
-  root: {
-    alignItems: "stretch",
-    display: "inline-flex",
-    gap: 0,
-    width: "fit-content",
-  },
-
-  item: {
-    minWidth: 0,
-    position: "relative",
-    ":focus-visible": { zIndex: 1 },
-  },
-
-  text: {
-    alignItems: "center",
-    backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    color: colorVars.fgSecondary,
-    display: "inline-flex",
-    fontSize: typo.fontSizeSm,
-    fontWeight: typo.fontWeightMedium,
-    justifyContent: "center",
-    minHeight: sizeVars.controlMd,
-    paddingInline: spacingVars.space3,
-  },
-  separator: {
-    alignSelf: "stretch",
-    height: "auto",
-    marginInline: `calc(${sizeVars.stroke} * -1)`,
-    minHeight: "auto",
-  },
-});
-
-const orientationStyles = stylex.create({
-  horizontal: { flexDirection: "row" },
-  vertical: { flexDirection: "column" },
-});
-
-const itemOrientationStyles = stylex.create({
-  horizontal: { marginInlineStart: `calc(${sizeVars.stroke} * -1)` },
-  vertical: { marginBlockStart: `calc(${sizeVars.stroke} * -1)` },
-});
-
-const firstItemStyles = stylex.create({
-  horizontal: { marginInlineStart: 0 },
-  vertical: { marginBlockStart: 0 },
-});
-
-const onlyItemStyles = stylex.create({
-  horizontal: { borderRadius: radiusVars.lg },
-  vertical: { borderRadius: radiusVars.lg },
-});
-
-const firstItemRadiusStyles = stylex.create({
-  horizontal: {
-    borderBottomLeftRadius: radiusVars.lg,
-    borderBottomRightRadius: 0,
-    borderTopLeftRadius: radiusVars.lg,
-    borderTopRightRadius: 0,
-  },
-  vertical: {
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    borderTopLeftRadius: radiusVars.lg,
-    borderTopRightRadius: radiusVars.lg,
-  },
-});
-
-const middleItemStyles = stylex.create({
-  horizontal: { borderRadius: 0 },
-  vertical: { borderRadius: 0 },
-});
-
-const lastItemStyles = stylex.create({
-  horizontal: {
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: radiusVars.lg,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: radiusVars.lg,
-  },
-  vertical: {
-    borderBottomLeftRadius: radiusVars.lg,
-    borderBottomRightRadius: radiusVars.lg,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-  },
-});
-
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 type GroupItem = ReactElement<StyleProps>;
 
@@ -215,3 +124,94 @@ export function ButtonGroupSeparator({
 }: StyledProps<ComponentProps<typeof Separator>> & StyleProps) {
   return <Separator {...props} orientation={orientation} xstyle={[styles.separator, xstyle]} />;
 }
+
+const styles = stylex.create({
+  root: {
+    alignItems: "stretch",
+    display: "inline-flex",
+    gap: 0,
+    width: "fit-content",
+  },
+
+  item: {
+    minWidth: 0,
+    position: "relative",
+    ":focus-visible": { zIndex: 1 },
+  },
+
+  text: {
+    alignItems: "center",
+    backgroundColor: colorVars.bgSurface,
+    borderColor: colorVars.strokeDefault,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    color: colorVars.fgSecondary,
+    display: "inline-flex",
+    fontSize: typo.fontSizeSm,
+    fontWeight: typo.fontWeightMedium,
+    justifyContent: "center",
+    minHeight: sizeVars.controlMd,
+    paddingInline: spacingVars.space3,
+  },
+  separator: {
+    alignSelf: "stretch",
+    height: "auto",
+    marginInline: `calc(${sizeVars.stroke} * -1)`,
+    minHeight: "auto",
+  },
+});
+
+const orientationStyles = stylex.create({
+  horizontal: { flexDirection: "row" },
+  vertical: { flexDirection: "column" },
+});
+
+const itemOrientationStyles = stylex.create({
+  horizontal: { marginInlineStart: `calc(${sizeVars.stroke} * -1)` },
+  vertical: { marginBlockStart: `calc(${sizeVars.stroke} * -1)` },
+});
+
+const firstItemStyles = stylex.create({
+  horizontal: { marginInlineStart: 0 },
+  vertical: { marginBlockStart: 0 },
+});
+
+const onlyItemStyles = stylex.create({
+  horizontal: { borderRadius: radiusVars.lg },
+  vertical: { borderRadius: radiusVars.lg },
+});
+
+const firstItemRadiusStyles = stylex.create({
+  horizontal: {
+    borderBottomLeftRadius: radiusVars.lg,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: radiusVars.lg,
+    borderTopRightRadius: 0,
+  },
+  vertical: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: radiusVars.lg,
+    borderTopRightRadius: radiusVars.lg,
+  },
+});
+
+const middleItemStyles = stylex.create({
+  horizontal: { borderRadius: 0 },
+  vertical: { borderRadius: 0 },
+});
+
+const lastItemStyles = stylex.create({
+  horizontal: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: radiusVars.lg,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: radiusVars.lg,
+  },
+  vertical: {
+    borderBottomLeftRadius: radiusVars.lg,
+    borderBottomRightRadius: radiusVars.lg,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+  },
+});

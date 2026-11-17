@@ -16,53 +16,6 @@ import { Calendar } from "./calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { surfaceStyles } from "./styles/surface";
 
-const styles = stylex.create({
-  root: { display: "inline-flex", minWidth: "13rem" },
-  trigger: {
-    alignItems: "center",
-    appearance: "none",
-    backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeControl,
-    borderRadius: radiusVars.lg,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    color: colorVars.fgPrimary,
-    cursor: "pointer",
-    display: "inline-flex",
-    fontFamily: typo.fontFamilyBody,
-    fontSize: typo.fontSizeSm,
-    fontWeight: typo.fontWeightRegular,
-    height: sizeVars.controlMd,
-    outline: "none",
-    paddingInline: spacingVars.space3,
-    textAlign: "left",
-    justifyContent: "space-between",
-    gap: spacingVars.space2,
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color, border-color, color",
-    transitionTimingFunction: motionVars.easingStandard,
-    width: "100%",
-    ":focus-visible": {
-      borderColor: colorVars.strokeFocus,
-      outlineColor: colorVars.strokeFocus,
-      outlineOffset: sizeVars.stroke,
-      outlineStyle: "solid",
-      outlineWidth: sizeVars.focusRing,
-    },
-    ":disabled": {
-      backgroundColor: colorVars.bgSubtle,
-      borderColor: colorVars.strokeDefault,
-      color: colorVars.fgDisabled,
-      cursor: "not-allowed",
-    },
-  },
-  placeholder: { color: colorVars.fgSecondary },
-  calendar: { padding: 0, width: "var(--anchor-width)" },
-  calendarContent: { width: "100%" },
-  icon: { flexShrink: 0, width: sizeVars.iconSm, height: sizeVars.iconSm },
-  value: { fontWeight: typo.fontWeightRegular },
-});
-
 export type DatePickerProps = {
   defaultValue?: Date;
   disabled?: boolean;
@@ -129,3 +82,50 @@ export function DatePicker(props: DatePickerProps) {
     </span>
   );
 }
+
+const styles = stylex.create({
+  root: { display: "inline-flex", minWidth: "13rem" },
+  trigger: {
+    alignItems: "center",
+    appearance: "none",
+    backgroundColor: colorVars.bgSurface,
+    borderColor: colorVars.strokeControl,
+    borderRadius: radiusVars.lg,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    color: colorVars.fgPrimary,
+    cursor: "pointer",
+    display: "inline-flex",
+    fontFamily: typo.fontFamilyBody,
+    fontSize: typo.fontSizeSm,
+    fontWeight: typo.fontWeightRegular,
+    height: sizeVars.controlMd,
+    outline: "none",
+    paddingInline: spacingVars.space3,
+    textAlign: "left",
+    justifyContent: "space-between",
+    gap: spacingVars.space2,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, border-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
+    width: "100%",
+    ":focus-visible": {
+      borderColor: colorVars.strokeFocus,
+      outlineColor: colorVars.strokeFocus,
+      outlineOffset: sizeVars.stroke,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
+    },
+    ":disabled": {
+      backgroundColor: colorVars.bgSubtle,
+      borderColor: colorVars.strokeDefault,
+      color: colorVars.fgDisabled,
+      cursor: "not-allowed",
+    },
+  },
+  placeholder: { color: colorVars.fgSecondary },
+  calendar: { padding: 0, width: "var(--anchor-width)" },
+  calendarContent: { width: "100%" },
+  icon: { flexShrink: 0, width: sizeVars.iconSm, height: sizeVars.iconSm },
+  value: { fontWeight: typo.fontWeightRegular },
+});

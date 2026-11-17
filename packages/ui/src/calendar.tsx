@@ -14,6 +14,70 @@ import * as stylex from "@stylexjs/stylex";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+function CalendarDayButton({ children, modifiers, ...props }: DayButtonProps) {
+  const isSelected =
+    modifiers.range_start || modifiers.range_end || (modifiers.selected && !modifiers.range_middle);
+
+  const visibleLabel =
+    typeof children === "string" || typeof children === "number" ? children : null;
+  // Include the displayed numeral as a complete token alongside the full date.
+  const accessibleLabel =
+    props["aria-label"] && visibleLabel !== null
+      ? `${visibleLabel}, ${props["aria-label"]}`
+      : props["aria-label"];
+
+  return (
+    <DayButton
+      {...props}
+      aria-label={accessibleLabel}
+      modifiers={modifiers}
+      {...stylex.props(
+        styles.dayButton,
+        modifiers.outside && styles.outside,
+        modifiers.range_middle && styles.rangeMiddle,
+        isSelected && styles.selected,
+        modifiers.today && !modifiers.selected && styles.today,
+        modifiers.disabled && styles.disabled,
+      )}
+    >
+      <span {...stylex.props(styles.dayLabel)}>{children}</span>
+    </DayButton>
+  );
+}
+
+type WithoutCalendarStyling<Props> = Props extends unknown
+  ? StyledProps<
+      Omit<
+        Props,
+        "classNames" | "components" | "modifiersClassNames" | "modifiersStyles" | "styles"
+      >
+    >
+  : never;
+
+type CalendarDayPickerProps = WithoutCalendarStyling<DayPickerProps>;
+
+export type CalendarProps = CalendarDayPickerProps & {
+  xstyle?: stylex.StyleXStyles;
+};
+
+export function Calendar({
+  className,
+  style,
+  navLayout = "around",
+  xstyle,
+  ...props
+}: CalendarProps) {
+  return (
+    <DayPicker
+      {...props}
+      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
+      classNames={classNames}
+      components={{ DayButton: CalendarDayButton }}
+      navLayout={navLayout}
+    />
+  );
+}
+
 const styles = stylex.create({
   root: {
     color: colorVars.fgPrimary,
@@ -159,67 +223,3 @@ const classNames = {
   weekday: stylex.props(styles.weekday).className,
   weekdays: stylex.props(styles.weekdays).className,
 };
-
-function CalendarDayButton({ children, modifiers, ...props }: DayButtonProps) {
-  const isSelected =
-    modifiers.range_start || modifiers.range_end || (modifiers.selected && !modifiers.range_middle);
-
-  const visibleLabel =
-    typeof children === "string" || typeof children === "number" ? children : null;
-  // Include the displayed numeral as a complete token alongside the full date.
-  const accessibleLabel =
-    props["aria-label"] && visibleLabel !== null
-      ? `${visibleLabel}, ${props["aria-label"]}`
-      : props["aria-label"];
-
-  return (
-    <DayButton
-      {...props}
-      aria-label={accessibleLabel}
-      modifiers={modifiers}
-      {...stylex.props(
-        styles.dayButton,
-        modifiers.outside && styles.outside,
-        modifiers.range_middle && styles.rangeMiddle,
-        isSelected && styles.selected,
-        modifiers.today && !modifiers.selected && styles.today,
-        modifiers.disabled && styles.disabled,
-      )}
-    >
-      <span {...stylex.props(styles.dayLabel)}>{children}</span>
-    </DayButton>
-  );
-}
-
-type WithoutCalendarStyling<Props> = Props extends unknown
-  ? StyledProps<
-      Omit<
-        Props,
-        "classNames" | "components" | "modifiersClassNames" | "modifiersStyles" | "styles"
-      >
-    >
-  : never;
-
-type CalendarDayPickerProps = WithoutCalendarStyling<DayPickerProps>;
-
-export type CalendarProps = CalendarDayPickerProps & {
-  xstyle?: stylex.StyleXStyles;
-};
-
-export function Calendar({
-  className,
-  style,
-  navLayout = "around",
-  xstyle,
-  ...props
-}: CalendarProps) {
-  return (
-    <DayPicker
-      {...props}
-      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
-      classNames={classNames}
-      components={{ DayButton: CalendarDayButton }}
-      navLayout={navLayout}
-    />
-  );
-}

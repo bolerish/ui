@@ -29,58 +29,6 @@ import { createPortal } from "react-dom";
 import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles, type StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  root: {
-    alignItems: "center",
-    borderRadius: radiusVars.full,
-    borderStyle: "solid",
-    borderWidth: 1,
-    display: "inline-flex",
-    fontFamily: typo.fontFamilyBody,
-    fontSize: typo.fontSizeXs,
-    fontWeight: typo.fontWeightMedium,
-    gap: spacingVars.space2,
-    isolation: "isolate",
-    lineHeight: typo.lineHeightTight,
-    paddingBlock: spacingVars.space1,
-    paddingInline: spacingVars.space3,
-    position: "relative",
-    whiteSpace: "nowrap",
-  },
-  icon: {
-    flexShrink: 0,
-    height: sizeVars.iconSm,
-    width: sizeVars.iconSm,
-  },
-});
-const tones = stylex.create({
-  success: {
-    backgroundColor: colorVars.bgFeedbackSuccess,
-    color: colorVars.fgFeedbackSuccess,
-    borderColor: colorVars.strokeFeedbackSuccess,
-  },
-  warning: {
-    backgroundColor: colorVars.bgFeedbackWarning,
-    color: colorVars.fgFeedbackWarning,
-    borderColor: colorVars.strokeFeedbackWarning,
-  },
-  error: {
-    backgroundColor: colorVars.bgFeedbackError,
-    color: colorVars.fgFeedbackError,
-    borderColor: colorVars.strokeFeedbackError,
-  },
-  info: {
-    backgroundColor: colorVars.bgFeedbackInfo,
-    color: colorVars.fgFeedbackInfo,
-    borderColor: colorVars.strokeFeedbackInfo,
-  },
-  neutral: {
-    backgroundColor: colorVars.bgSubtle,
-    color: colorVars.fgSecondary,
-    borderColor: colorVars.strokeDefault,
-  },
-});
-
 const toneIcons = {
   neutral: BellIcon,
   success: CheckCircleIcon,
@@ -88,10 +36,6 @@ const toneIcons = {
   error: XCircleIcon,
   info: InfoIcon,
 };
-
-const floatingStyles = stylex.create({
-  layer: { zIndex: layerVars.notification },
-});
 const subscribe = () => () => {};
 const clientSnapshot = () => true;
 const serverSnapshot = () => false;
@@ -182,3 +126,60 @@ export function Snackbar({
     document.body,
   );
 }
+
+const styles = stylex.create({
+  root: {
+    alignItems: "center",
+    borderRadius: radiusVars.full,
+    borderStyle: "solid",
+    borderWidth: 1,
+    display: "inline-flex",
+    fontFamily: typo.fontFamilyBody,
+    fontSize: typo.fontSizeXs,
+    fontWeight: typo.fontWeightMedium,
+    gap: spacingVars.space2,
+    isolation: "isolate",
+    lineHeight: typo.lineHeightTight,
+    paddingBlock: spacingVars.space1,
+    paddingInline: spacingVars.space3,
+    position: "relative",
+    whiteSpace: "nowrap",
+  },
+  icon: {
+    flexShrink: 0,
+    height: sizeVars.iconSm,
+    width: sizeVars.iconSm,
+  },
+});
+
+const tones = stylex.create({
+  success: {
+    backgroundColor: colorVars.bgFeedbackSuccess,
+    color: colorVars.fgFeedbackSuccess,
+    borderColor: colorVars.strokeFeedbackSuccess,
+  },
+  warning: {
+    backgroundColor: colorVars.bgFeedbackWarning,
+    color: colorVars.fgFeedbackWarning,
+    borderColor: colorVars.strokeFeedbackWarning,
+  },
+  error: {
+    backgroundColor: colorVars.bgFeedbackError,
+    color: colorVars.fgFeedbackError,
+    borderColor: colorVars.strokeFeedbackError,
+  },
+  info: {
+    backgroundColor: colorVars.bgFeedbackInfo,
+    color: colorVars.fgFeedbackInfo,
+    borderColor: colorVars.strokeFeedbackInfo,
+  },
+  neutral: {
+    backgroundColor: colorVars.bgSubtle,
+    color: colorVars.fgSecondary,
+    borderColor: colorVars.strokeDefault,
+  },
+});
+
+const floatingStyles = stylex.create({
+  layer: { zIndex: layerVars.notification },
+});

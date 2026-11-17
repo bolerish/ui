@@ -4,15 +4,6 @@ import type { ComponentProps } from "react";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  root: (ratio: number) => ({
-    aspectRatio: ratio,
-    overflow: "hidden",
-    position: "relative",
-    width: "100%",
-  }),
-});
-
 export type AspectRatioProps = StyledProps<ComponentProps<"div">> & {
   ratio?: number;
   xstyle?: stylex.StyleXStyles;
@@ -23,3 +14,12 @@ export function AspectRatio({ className, style, ratio = 1, xstyle, ...props }: A
     <div {...props} {...mergeStyles(stylex.props(styles.root(ratio), xstyle), className, style)} />
   );
 }
+
+const styles = stylex.create({
+  root: (ratio: number) => ({
+    aspectRatio: ratio,
+    overflow: "hidden",
+    position: "relative",
+    width: "100%",
+  }),
+});

@@ -17,6 +17,23 @@ import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+export type CheckboxProps = StyledProps<ComponentProps<typeof CheckboxPrimitive.Root>> & {
+  xstyle?: ControlPlacementStyles;
+};
+
+export function Checkbox({ className, style, xstyle, ...props }: CheckboxProps) {
+  return (
+    <CheckboxPrimitive.Root
+      {...props}
+      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
+    >
+      <CheckboxPrimitive.Indicator {...stylex.props(styles.indicator)}>
+        <CheckIcon aria-hidden="true" weight="bold" />
+      </CheckboxPrimitive.Indicator>
+    </CheckboxPrimitive.Root>
+  );
+}
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -66,20 +83,3 @@ const styles = stylex.create({
     width: "100%",
   },
 });
-
-export type CheckboxProps = StyledProps<ComponentProps<typeof CheckboxPrimitive.Root>> & {
-  xstyle?: ControlPlacementStyles;
-};
-
-export function Checkbox({ className, style, xstyle, ...props }: CheckboxProps) {
-  return (
-    <CheckboxPrimitive.Root
-      {...props}
-      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
-    >
-      <CheckboxPrimitive.Indicator {...stylex.props(styles.indicator)}>
-        <CheckIcon aria-hidden="true" weight="bold" />
-      </CheckboxPrimitive.Indicator>
-    </CheckboxPrimitive.Root>
-  );
-}

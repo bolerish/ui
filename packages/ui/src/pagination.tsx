@@ -16,71 +16,6 @@ import type { ControlLayoutStyles, ControlPlacementStyles } from "./styles/contr
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  root: { display: "flex", justifyContent: "center", width: "100%" },
-  content: {
-    alignItems: "center",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: spacingVars.space1,
-    listStyle: "none",
-    margin: 0,
-    padding: 0,
-  },
-  item: { display: "inline-flex" },
-  link: {
-    alignItems: "center",
-    backgroundColor: {
-      default: "transparent",
-      ":hover": colorVars.interactionHover,
-      ":active": colorVars.interactionPressed,
-    },
-    borderColor: "transparent",
-    borderRadius: radiusVars.lg,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    color: colorVars.fgPrimary,
-    display: "inline-flex",
-    fontSize: typo.fontSizeSm,
-    fontWeight: typo.fontWeightMedium,
-    gap: spacingVars.space1,
-    justifyContent: "center",
-    minHeight: sizeVars.controlMd,
-    outline: "none",
-    textDecoration: "none",
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color, border-color, color",
-    transitionTimingFunction: motionVars.easingStandard,
-    ":focus-visible": {
-      outlineColor: colorVars.strokeFocus,
-      outlineOffset: sizeVars.stroke,
-      outlineStyle: "solid",
-      outlineWidth: sizeVars.focusRing,
-    },
-    "[aria-disabled='true']": {
-      color: colorVars.fgDisabled,
-      cursor: "not-allowed",
-      pointerEvents: "none",
-    },
-  },
-
-  active: { backgroundColor: colorVars.bgSurfacePressed, borderColor: colorVars.strokeDefault },
-  ellipsis: {
-    alignItems: "center",
-    color: colorVars.fgTertiary,
-    display: "inline-flex",
-    height: sizeVars.controlMd,
-    justifyContent: "center",
-    width: sizeVars.controlMd,
-  },
-});
-
-const sizeStyles = stylex.create({
-  default: { paddingInline: spacingVars.space3 },
-  icon: { width: sizeVars.controlMd },
-});
-
 export function Pagination({
   className,
   style,
@@ -178,3 +113,68 @@ export function PaginationEllipsis({
     </span>
   );
 }
+
+const styles = stylex.create({
+  root: { display: "flex", justifyContent: "center", width: "100%" },
+  content: {
+    alignItems: "center",
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: spacingVars.space1,
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  },
+  item: { display: "inline-flex" },
+  link: {
+    alignItems: "center",
+    backgroundColor: {
+      default: "transparent",
+      ":hover": colorVars.interactionHover,
+      ":active": colorVars.interactionPressed,
+    },
+    borderColor: "transparent",
+    borderRadius: radiusVars.lg,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    color: colorVars.fgPrimary,
+    display: "inline-flex",
+    fontSize: typo.fontSizeSm,
+    fontWeight: typo.fontWeightMedium,
+    gap: spacingVars.space1,
+    justifyContent: "center",
+    minHeight: sizeVars.controlMd,
+    outline: "none",
+    textDecoration: "none",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, border-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
+    ":focus-visible": {
+      outlineColor: colorVars.strokeFocus,
+      outlineOffset: sizeVars.stroke,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
+    },
+    "[aria-disabled='true']": {
+      color: colorVars.fgDisabled,
+      cursor: "not-allowed",
+      pointerEvents: "none",
+    },
+  },
+
+  active: { backgroundColor: colorVars.bgSurfacePressed, borderColor: colorVars.strokeDefault },
+  ellipsis: {
+    alignItems: "center",
+    color: colorVars.fgTertiary,
+    display: "inline-flex",
+    height: sizeVars.controlMd,
+    justifyContent: "center",
+    width: sizeVars.controlMd,
+  },
+});
+
+const sizeStyles = stylex.create({
+  default: { paddingInline: spacingVars.space3 },
+  icon: { width: sizeVars.controlMd },
+});

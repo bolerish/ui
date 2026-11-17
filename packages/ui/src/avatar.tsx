@@ -15,74 +15,6 @@ import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  root: {
-    backgroundColor: colorVars.bgSubtle,
-    borderColor: colorVars.bgSurface,
-    borderRadius: radiusVars.full,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    color: colorVars.fgSecondary,
-    display: "inline-flex",
-    flexShrink: 0,
-    overflow: "visible",
-    position: "relative",
-  },
-
-  image: {
-    borderRadius: "inherit",
-    height: "100%",
-    objectFit: "cover",
-    overflow: "hidden",
-    width: "100%",
-  },
-  fallback: {
-    alignItems: "center",
-    borderRadius: "inherit",
-    display: "flex",
-    fontSize: typo.fontSizeXs,
-    fontWeight: typo.fontWeightMedium,
-    height: "100%",
-    justifyContent: "center",
-    overflow: "hidden",
-    width: "100%",
-  },
-  badge: {
-    backgroundColor: colorVars.fgFeedbackSuccess,
-    borderColor: colorVars.bgSurface,
-    borderRadius: radiusVars.full,
-    borderStyle: "solid",
-    borderWidth: "0.125rem",
-    bottom: "-0.0625rem",
-    height: "0.75rem",
-    position: "absolute",
-    right: "-0.0625rem",
-    width: "0.75rem",
-  },
-  group: { display: "flex", gap: spacingVars.space1 },
-  groupCount: {
-    alignItems: "center",
-    backgroundColor: colorVars.bgSubtle,
-    borderColor: colorVars.bgSurface,
-    borderRadius: radiusVars.full,
-    borderStyle: "solid",
-    borderWidth: "0.125rem",
-    color: colorVars.fgSecondary,
-    display: "inline-flex",
-    fontSize: typo.fontSizeXs,
-    fontWeight: typo.fontWeightMedium,
-    height: sizeVars.controlMd,
-    justifyContent: "center",
-    width: sizeVars.controlMd,
-  },
-});
-
-const sizeStyles = stylex.create({
-  sm: { height: sizeVars.controlSm, width: sizeVars.controlSm },
-  md: { height: sizeVars.controlMd, width: sizeVars.controlMd },
-  lg: { height: sizeVars.controlLg, width: sizeVars.controlLg },
-});
-
 export type AvatarSize = "lg" | "md" | "sm";
 
 export type AvatarProps = StyledProps<ComponentProps<typeof AvatarPrimitive.Root>> & {
@@ -159,3 +91,71 @@ export function AvatarGroupCount({
     <span {...props} {...mergeStyles(stylex.props(styles.groupCount, xstyle), className, style)} />
   );
 }
+
+const styles = stylex.create({
+  root: {
+    backgroundColor: colorVars.bgSubtle,
+    borderColor: colorVars.bgSurface,
+    borderRadius: radiusVars.full,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    color: colorVars.fgSecondary,
+    display: "inline-flex",
+    flexShrink: 0,
+    overflow: "visible",
+    position: "relative",
+  },
+
+  image: {
+    borderRadius: "inherit",
+    height: "100%",
+    objectFit: "cover",
+    overflow: "hidden",
+    width: "100%",
+  },
+  fallback: {
+    alignItems: "center",
+    borderRadius: "inherit",
+    display: "flex",
+    fontSize: typo.fontSizeXs,
+    fontWeight: typo.fontWeightMedium,
+    height: "100%",
+    justifyContent: "center",
+    overflow: "hidden",
+    width: "100%",
+  },
+  badge: {
+    backgroundColor: colorVars.fgFeedbackSuccess,
+    borderColor: colorVars.bgSurface,
+    borderRadius: radiusVars.full,
+    borderStyle: "solid",
+    borderWidth: "0.125rem",
+    bottom: "-0.0625rem",
+    height: "0.75rem",
+    position: "absolute",
+    right: "-0.0625rem",
+    width: "0.75rem",
+  },
+  group: { display: "flex", gap: spacingVars.space1 },
+  groupCount: {
+    alignItems: "center",
+    backgroundColor: colorVars.bgSubtle,
+    borderColor: colorVars.bgSurface,
+    borderRadius: radiusVars.full,
+    borderStyle: "solid",
+    borderWidth: "0.125rem",
+    color: colorVars.fgSecondary,
+    display: "inline-flex",
+    fontSize: typo.fontSizeXs,
+    fontWeight: typo.fontWeightMedium,
+    height: sizeVars.controlMd,
+    justifyContent: "center",
+    width: sizeVars.controlMd,
+  },
+});
+
+const sizeStyles = stylex.create({
+  sm: { height: sizeVars.controlSm, width: sizeVars.controlSm },
+  md: { height: sizeVars.controlMd, width: sizeVars.controlMd },
+  lg: { height: sizeVars.controlLg, width: sizeVars.controlLg },
+});

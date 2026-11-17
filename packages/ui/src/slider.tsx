@@ -15,6 +15,51 @@ import type { ControlLayoutStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+export type SliderProps = StyledProps<ComponentProps<typeof SliderPrimitive.Root>> & {
+  /** Returns an accessible name for each thumb in a range slider. */
+  getAriaLabel?: (index: number) => string;
+  xstyle?: ControlLayoutStyles;
+};
+
+export function Slider({
+  className,
+  style,
+  defaultValue,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
+  getAriaLabel,
+  value,
+  xstyle,
+  ...props
+}: SliderProps) {
+  const currentValue = value ?? defaultValue;
+  const thumbCount = Array.isArray(currentValue) ? currentValue.length : 1;
+  return (
+    <SliderPrimitive.Root
+      {...props}
+      defaultValue={defaultValue}
+      value={value}
+      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
+    >
+      <SliderPrimitive.Control {...stylex.props(styles.control)}>
+        <SliderPrimitive.Track {...stylex.props(styles.track)}>
+          <SliderPrimitive.Indicator {...stylex.props(styles.indicator)} />
+        </SliderPrimitive.Track>
+        {Array.from({ length: thumbCount }, (_, index) => (
+          <SliderPrimitive.Thumb
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            getAriaLabel={getAriaLabel}
+            index={index}
+            key={index}
+            {...stylex.props(styles.thumb)}
+          />
+        ))}
+      </SliderPrimitive.Control>
+    </SliderPrimitive.Root>
+  );
+}
+
 const styles = stylex.create({
   root: {
     opacity: { default: 1, ":disabled": opacityVars.disabled },
@@ -60,48 +105,3 @@ const styles = stylex.create({
     },
   },
 });
-
-export type SliderProps = StyledProps<ComponentProps<typeof SliderPrimitive.Root>> & {
-  /** Returns an accessible name for each thumb in a range slider. */
-  getAriaLabel?: (index: number) => string;
-  xstyle?: ControlLayoutStyles;
-};
-
-export function Slider({
-  className,
-  style,
-  defaultValue,
-  "aria-label": ariaLabel,
-  "aria-labelledby": ariaLabelledBy,
-  getAriaLabel,
-  value,
-  xstyle,
-  ...props
-}: SliderProps) {
-  const currentValue = value ?? defaultValue;
-  const thumbCount = Array.isArray(currentValue) ? currentValue.length : 1;
-  return (
-    <SliderPrimitive.Root
-      {...props}
-      defaultValue={defaultValue}
-      value={value}
-      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
-    >
-      <SliderPrimitive.Control {...stylex.props(styles.control)}>
-        <SliderPrimitive.Track {...stylex.props(styles.track)}>
-          <SliderPrimitive.Indicator {...stylex.props(styles.indicator)} />
-        </SliderPrimitive.Track>
-        {Array.from({ length: thumbCount }, (_, index) => (
-          <SliderPrimitive.Thumb
-            aria-label={ariaLabel}
-            aria-labelledby={ariaLabelledBy}
-            getAriaLabel={getAriaLabel}
-            index={index}
-            key={index}
-            {...stylex.props(styles.thumb)}
-          />
-        ))}
-      </SliderPrimitive.Control>
-    </SliderPrimitive.Root>
-  );
-}

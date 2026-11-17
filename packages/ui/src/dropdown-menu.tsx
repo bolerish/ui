@@ -20,107 +20,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
-const styles = stylex.create({
-  positioner: { zIndex: layerVars.popup },
-  popup: {
-    backgroundColor: colorVars.bgRaised,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.lg,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    boxShadow: shadowVars.floating,
-    color: colorVars.fgPrimary,
-    minWidth: "12rem",
-    maxHeight: "var(--available-height)",
-    overflowY: "auto",
-    outline: "none",
-    padding: spacingVars.space1,
-    transform: "scale(1)",
-    transformOrigin: "var(--transform-origin)",
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "opacity, transform",
-    transitionTimingFunction: motionVars.easingEnter,
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transform: "none",
-        transitionDuration: motionVars.durationInstant,
-      },
-    },
-  },
-  popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
-  popupEnding: {
-    transitionDuration: motionVars.durationFast,
-    transitionTimingFunction: motionVars.easingExit,
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transitionDuration: motionVars.durationInstant,
-      },
-    },
-  },
-  item: {
-    alignItems: "center",
-    borderRadius: radiusVars.md,
-    color: colorVars.fgPrimary,
-    cursor: "default",
-    display: "flex",
-    fontFamily: typo.fontFamilyBody,
-    fontSize: typo.fontSizeSm,
-    gap: spacingVars.space2,
-    minHeight: sizeVars.controlMd,
-    outline: "none",
-    paddingInline: spacingVars.space3,
-    position: "relative",
-    userSelect: "none",
-    ":disabled": { cursor: "not-allowed" },
-  },
-  itemHighlighted: {
-    backgroundColor: colorVars.interactionHover,
-    "@media (forced-colors: active)": {
-      outline: "2px solid Highlight",
-      outlineOffset: "-2px",
-    },
-  },
-  itemDisabled: {
-    backgroundColor: "transparent",
-    color: colorVars.fgDisabled,
-    cursor: "not-allowed",
-  },
-  inset: { paddingInlineStart: spacingVars.space8 },
-  destructive: { color: colorVars.fgFeedbackError },
-  choiceItem: { paddingInlineStart: spacingVars.space8 },
-  indicator: {
-    alignItems: "center",
-    display: "inline-flex",
-    insetInlineStart: spacingVars.space2,
-    justifyContent: "center",
-    position: "absolute",
-  },
-  radioDot: {
-    backgroundColor: "currentColor",
-    borderRadius: radiusVars.full,
-    height: spacingVars.space2,
-    width: spacingVars.space2,
-  },
-  label: {
-    color: colorVars.fgSecondary,
-    fontSize: typo.fontSizeXs,
-    fontWeight: typo.fontWeightMedium,
-    paddingBlock: spacingVars.space2,
-    paddingInline: spacingVars.space3,
-  },
-  separator: {
-    backgroundColor: colorVars.strokeDefault,
-    height: sizeVars.stroke,
-    marginBlock: spacingVars.space1,
-  },
-  shortcut: {
-    color: colorVars.fgTertiary,
-    fontSize: typo.fontSizeXs,
-    marginInlineStart: "auto",
-  },
-  subIcon: { marginInlineStart: "auto" },
-});
-
 export const DropdownMenu = MenuPrimitive.Root;
 export function DropdownMenuTrigger({
   className,
@@ -404,3 +303,104 @@ export function DropdownMenuSubTrigger({
 }
 
 export const DropdownMenuSubContent = DropdownMenuContent;
+
+const styles = stylex.create({
+  positioner: { zIndex: layerVars.popup },
+  popup: {
+    backgroundColor: colorVars.bgRaised,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.lg,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    boxShadow: shadowVars.floating,
+    color: colorVars.fgPrimary,
+    minWidth: "12rem",
+    maxHeight: "var(--available-height)",
+    overflowY: "auto",
+    outline: "none",
+    padding: spacingVars.space1,
+    transform: "scale(1)",
+    transformOrigin: "var(--transform-origin)",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motionVars.easingEnter,
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transform: "none",
+        transitionDuration: motionVars.durationInstant,
+      },
+    },
+  },
+  popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
+  popupEnding: {
+    transitionDuration: motionVars.durationFast,
+    transitionTimingFunction: motionVars.easingExit,
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transitionDuration: motionVars.durationInstant,
+      },
+    },
+  },
+  item: {
+    alignItems: "center",
+    borderRadius: radiusVars.md,
+    color: colorVars.fgPrimary,
+    cursor: "default",
+    display: "flex",
+    fontFamily: typo.fontFamilyBody,
+    fontSize: typo.fontSizeSm,
+    gap: spacingVars.space2,
+    minHeight: sizeVars.controlMd,
+    outline: "none",
+    paddingInline: spacingVars.space3,
+    position: "relative",
+    userSelect: "none",
+    ":disabled": { cursor: "not-allowed" },
+  },
+  itemHighlighted: {
+    backgroundColor: colorVars.interactionHover,
+    "@media (forced-colors: active)": {
+      outline: "2px solid Highlight",
+      outlineOffset: "-2px",
+    },
+  },
+  itemDisabled: {
+    backgroundColor: "transparent",
+    color: colorVars.fgDisabled,
+    cursor: "not-allowed",
+  },
+  inset: { paddingInlineStart: spacingVars.space8 },
+  destructive: { color: colorVars.fgFeedbackError },
+  choiceItem: { paddingInlineStart: spacingVars.space8 },
+  indicator: {
+    alignItems: "center",
+    display: "inline-flex",
+    insetInlineStart: spacingVars.space2,
+    justifyContent: "center",
+    position: "absolute",
+  },
+  radioDot: {
+    backgroundColor: "currentColor",
+    borderRadius: radiusVars.full,
+    height: spacingVars.space2,
+    width: spacingVars.space2,
+  },
+  label: {
+    color: colorVars.fgSecondary,
+    fontSize: typo.fontSizeXs,
+    fontWeight: typo.fontWeightMedium,
+    paddingBlock: spacingVars.space2,
+    paddingInline: spacingVars.space3,
+  },
+  separator: {
+    backgroundColor: colorVars.strokeDefault,
+    height: sizeVars.stroke,
+    marginBlock: spacingVars.space1,
+  },
+  shortcut: {
+    color: colorVars.fgTertiary,
+    fontSize: typo.fontSizeXs,
+    marginInlineStart: "auto",
+  },
+  subIcon: { marginInlineStart: "auto" },
+});

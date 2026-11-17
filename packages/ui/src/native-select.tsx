@@ -17,6 +17,49 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
+export type NativeSelectProps = StyledProps<Omit<ComponentProps<"select">, "size">> & {
+  size?: "md" | "sm";
+  xstyle?: ControlLayoutStyles;
+};
+
+export function NativeSelect({
+  className,
+  style,
+  children,
+  size = "md",
+  xstyle,
+  ...props
+}: NativeSelectProps) {
+  return (
+    <span {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}>
+      <select
+        {...props}
+        {...stylex.props(styles.select, !props.disabled && surfaceStyles.control, sizeStyles[size])}
+      >
+        {children}
+      </select>
+      <CaretDownIcon aria-hidden="true" {...stylex.props(styles.icon)} />
+    </span>
+  );
+}
+
+export function NativeSelectOption({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<"option">> & { xstyle?: stylex.StyleXStyles }) {
+  return <option {...props} {...mergeStyles(stylex.props(xstyle), className, style)} />;
+}
+export function NativeSelectOptGroup({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<"optgroup">> & { xstyle?: stylex.StyleXStyles }) {
+  return <optgroup {...props} {...mergeStyles(stylex.props(xstyle), className, style)} />;
+}
+
 const styles = stylex.create({
   root: { display: "inline-flex", position: "relative", width: "fit-content" },
   select: {
@@ -69,46 +112,3 @@ const sizeStyles = stylex.create({
   sm: { height: sizeVars.controlSm },
   md: { height: sizeVars.controlMd },
 });
-
-export type NativeSelectProps = StyledProps<Omit<ComponentProps<"select">, "size">> & {
-  size?: "md" | "sm";
-  xstyle?: ControlLayoutStyles;
-};
-
-export function NativeSelect({
-  className,
-  style,
-  children,
-  size = "md",
-  xstyle,
-  ...props
-}: NativeSelectProps) {
-  return (
-    <span {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}>
-      <select
-        {...props}
-        {...stylex.props(styles.select, !props.disabled && surfaceStyles.control, sizeStyles[size])}
-      >
-        {children}
-      </select>
-      <CaretDownIcon aria-hidden="true" {...stylex.props(styles.icon)} />
-    </span>
-  );
-}
-
-export function NativeSelectOption({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<"option">> & { xstyle?: stylex.StyleXStyles }) {
-  return <option {...props} {...mergeStyles(stylex.props(xstyle), className, style)} />;
-}
-export function NativeSelectOptGroup({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<"optgroup">> & { xstyle?: stylex.StyleXStyles }) {
-  return <optgroup {...props} {...mergeStyles(stylex.props(xstyle), className, style)} />;
-}

@@ -21,95 +21,6 @@ import type { StyledProps } from "./styles/merge-styles";
 import { modalBackdropStyles } from "./styles/modal-backdrop";
 import { surfaceStyles } from "./styles/surface";
 
-const styles = stylex.create({
-  backdrop: {
-    inset: 0,
-    position: "fixed",
-    transitionDuration: motionVars.durationSlow,
-    transitionProperty: "opacity",
-    transitionTimingFunction: motionVars.easingEnter,
-    zIndex: layerVars.modalBackdrop,
-    ":is([data-starting-style])": { opacity: 0 },
-    ":is([data-ending-style])": {
-      opacity: 0,
-      transitionDuration: motionVars.durationNormal,
-      transitionTimingFunction: motionVars.easingExit,
-    },
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transitionDuration: motionVars.durationInstant,
-        ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
-      },
-    },
-  },
-  viewport: {
-    alignItems: "center",
-    display: "flex",
-    inset: 0,
-    justifyContent: "center",
-    padding: spacingVars.space4,
-    position: "fixed",
-    zIndex: layerVars.modal,
-  },
-  popup: {
-    backgroundColor: colorVars.bgRaised,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.xl,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    boxShadow: shadowVars.overlay,
-    display: "flex",
-    flexDirection: "column",
-    gap: spacingVars.space4,
-    maxHeight: "calc(100dvh - 2rem)",
-    maxWidth: "28rem",
-    outline: "none",
-    overflow: "auto",
-    padding: spacingVars.space6,
-    position: "relative",
-    transitionDuration: motionVars.durationSlow,
-    transitionProperty: "opacity, transform",
-    transitionTimingFunction: motionVars.easingEnter,
-    width: "100%",
-    ":is([data-starting-style], [data-ending-style])": {
-      opacity: 0,
-      transform: "scale(0.95)",
-    },
-    ":is([data-ending-style])": {
-      transitionDuration: motionVars.durationNormal,
-      transitionTimingFunction: motionVars.easingExit,
-    },
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transitionDuration: motionVars.durationInstant,
-        ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
-        ":is([data-starting-style], [data-ending-style])": { transform: "scale(0.99)" },
-      },
-    },
-  },
-  header: { display: "flex", flexDirection: "column", gap: spacingVars.space2 },
-  footer: {
-    alignItems: "center",
-    display: "flex",
-    flexWrap: "wrap",
-    gap: spacingVars.space2,
-    justifyContent: "flex-end",
-  },
-  title: {
-    color: colorVars.fgPrimary,
-    fontSize: typo.fontSizeLg,
-    fontWeight: typo.fontWeightSemibold,
-    lineHeight: typo.lineHeightNormal,
-    margin: 0,
-  },
-  description: {
-    color: colorVars.fgSecondary,
-    fontSize: typo.fontSizeSm,
-    lineHeight: typo.lineHeightNormal,
-    margin: 0,
-  },
-});
-
 export const AlertDialog = AlertDialogPrimitive.Root;
 export function AlertDialogTrigger({
   className,
@@ -231,3 +142,92 @@ export function AlertDialogAction({ children, ...props }: AlertDialogButtonProps
     />
   );
 }
+
+const styles = stylex.create({
+  backdrop: {
+    inset: 0,
+    position: "fixed",
+    transitionDuration: motionVars.durationSlow,
+    transitionProperty: "opacity",
+    transitionTimingFunction: motionVars.easingEnter,
+    zIndex: layerVars.modalBackdrop,
+    ":is([data-starting-style])": { opacity: 0 },
+    ":is([data-ending-style])": {
+      opacity: 0,
+      transitionDuration: motionVars.durationNormal,
+      transitionTimingFunction: motionVars.easingExit,
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transitionDuration: motionVars.durationInstant,
+        ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
+      },
+    },
+  },
+  viewport: {
+    alignItems: "center",
+    display: "flex",
+    inset: 0,
+    justifyContent: "center",
+    padding: spacingVars.space4,
+    position: "fixed",
+    zIndex: layerVars.modal,
+  },
+  popup: {
+    backgroundColor: colorVars.bgRaised,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.xl,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    boxShadow: shadowVars.overlay,
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space4,
+    maxHeight: "calc(100dvh - 2rem)",
+    maxWidth: "28rem",
+    outline: "none",
+    overflow: "auto",
+    padding: spacingVars.space6,
+    position: "relative",
+    transitionDuration: motionVars.durationSlow,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motionVars.easingEnter,
+    width: "100%",
+    ":is([data-starting-style], [data-ending-style])": {
+      opacity: 0,
+      transform: "scale(0.95)",
+    },
+    ":is([data-ending-style])": {
+      transitionDuration: motionVars.durationNormal,
+      transitionTimingFunction: motionVars.easingExit,
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transitionDuration: motionVars.durationInstant,
+        ":is([data-ending-style])": { transitionDuration: motionVars.durationInstant },
+        ":is([data-starting-style], [data-ending-style])": { transform: "scale(0.99)" },
+      },
+    },
+  },
+  header: { display: "flex", flexDirection: "column", gap: spacingVars.space2 },
+  footer: {
+    alignItems: "center",
+    display: "flex",
+    flexWrap: "wrap",
+    gap: spacingVars.space2,
+    justifyContent: "flex-end",
+  },
+  title: {
+    color: colorVars.fgPrimary,
+    fontSize: typo.fontSizeLg,
+    fontWeight: typo.fontWeightSemibold,
+    lineHeight: typo.lineHeightNormal,
+    margin: 0,
+  },
+  description: {
+    color: colorVars.fgSecondary,
+    fontSize: typo.fontSizeSm,
+    lineHeight: typo.lineHeightNormal,
+    margin: 0,
+  },
+});

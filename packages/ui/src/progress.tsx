@@ -9,6 +9,21 @@ import type { ControlLayoutStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+export type ProgressProps = StyledProps<ComponentProps<typeof ProgressPrimitive.Root>> & {
+  xstyle?: ControlLayoutStyles;
+};
+
+export function Progress({ className, style, xstyle, ...props }: ProgressProps) {
+  return (
+    <ProgressPrimitive.Root
+      {...props}
+      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
+    >
+      <ProgressPrimitive.Indicator {...stylex.props(styles.indicator)} />
+    </ProgressPrimitive.Root>
+  );
+}
+
 const styles = stylex.create({
   root: {
     backgroundColor: colorVars.bgSubtle,
@@ -30,18 +45,3 @@ const styles = stylex.create({
     },
   },
 });
-
-export type ProgressProps = StyledProps<ComponentProps<typeof ProgressPrimitive.Root>> & {
-  xstyle?: ControlLayoutStyles;
-};
-
-export function Progress({ className, style, xstyle, ...props }: ProgressProps) {
-  return (
-    <ProgressPrimitive.Root
-      {...props}
-      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
-    >
-      <ProgressPrimitive.Indicator {...stylex.props(styles.indicator)} />
-    </ProgressPrimitive.Root>
-  );
-}

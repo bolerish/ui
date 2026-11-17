@@ -19,6 +19,100 @@ import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 import type { TextareaProps } from "./textarea";
 
+type StyleProps = { xstyle?: stylex.StyleXStyles };
+type AddonAlignment = "block-end" | "block-start" | "inline-end" | "inline-start";
+
+export type InputGroupProps = StyledProps<ComponentProps<"div">> &
+  StyleProps & { invalid?: boolean };
+
+export function InputGroup({
+  className,
+  style,
+  invalid = false,
+  xstyle,
+  ...props
+}: InputGroupProps) {
+  return (
+    <div
+      {...props}
+      data-invalid={invalid || undefined}
+      {...mergeStyles(
+        stylex.props(styles.root, surfaceStyles.control, invalid && styles.invalid, xstyle),
+        className,
+        style,
+      )}
+    />
+  );
+}
+
+export function InputGroupAddon({
+  className,
+  style,
+  align = "inline-start",
+  onClick,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<"div">> & StyleProps & { align?: AddonAlignment }) {
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    onClick?.(event);
+    if (event.defaultPrevented || (event.target as HTMLElement).closest("button")) return;
+    event.currentTarget.parentElement?.querySelector<HTMLElement>("input, textarea")?.focus();
+  };
+
+  return (
+    <div
+      {...props}
+      role="presentation"
+      data-align={align}
+      onClick={handleClick}
+      {...mergeStyles(stylex.props(styles.addon, alignStyles[align], xstyle), className, style)}
+    />
+  );
+}
+
+export function InputGroupInput({
+  className,
+  style,
+  xstyle,
+  ...props
+}: Omit<InputProps, "variant">) {
+  return (
+    <InputPrimitive
+      {...props}
+      {...mergeStyles(stylex.props(styles.input, styles.control, xstyle), className, style)}
+    />
+  );
+}
+
+export function InputGroupTextarea({ className, style, xstyle, ...props }: TextareaProps) {
+  return (
+    <textarea
+      {...props}
+      {...mergeStyles(stylex.props(styles.control, styles.textarea, xstyle), className, style)}
+    />
+  );
+}
+
+export function InputGroupButton(props: ButtonProps) {
+  const sizedProps = props.size === undefined ? { ...props, size: "sm" as const } : props;
+  return (
+    <Button
+      {...sizedProps}
+      variant={props.variant ?? "ghost"}
+      xstyle={[styles.button, props.xstyle]}
+    />
+  );
+}
+
+export function InputGroupText({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<"span">> & StyleProps) {
+  return <span {...props} {...mergeStyles(stylex.props(styles.text, xstyle), className, style)} />;
+}
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -129,97 +223,3 @@ const alignStyles = stylex.create({
     width: "100%",
   },
 });
-
-type StyleProps = { xstyle?: stylex.StyleXStyles };
-type AddonAlignment = "block-end" | "block-start" | "inline-end" | "inline-start";
-
-export type InputGroupProps = StyledProps<ComponentProps<"div">> &
-  StyleProps & { invalid?: boolean };
-
-export function InputGroup({
-  className,
-  style,
-  invalid = false,
-  xstyle,
-  ...props
-}: InputGroupProps) {
-  return (
-    <div
-      {...props}
-      data-invalid={invalid || undefined}
-      {...mergeStyles(
-        stylex.props(styles.root, surfaceStyles.control, invalid && styles.invalid, xstyle),
-        className,
-        style,
-      )}
-    />
-  );
-}
-
-export function InputGroupAddon({
-  className,
-  style,
-  align = "inline-start",
-  onClick,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<"div">> & StyleProps & { align?: AddonAlignment }) {
-  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
-    onClick?.(event);
-    if (event.defaultPrevented || (event.target as HTMLElement).closest("button")) return;
-    event.currentTarget.parentElement?.querySelector<HTMLElement>("input, textarea")?.focus();
-  };
-
-  return (
-    <div
-      {...props}
-      role="presentation"
-      data-align={align}
-      onClick={handleClick}
-      {...mergeStyles(stylex.props(styles.addon, alignStyles[align], xstyle), className, style)}
-    />
-  );
-}
-
-export function InputGroupInput({
-  className,
-  style,
-  xstyle,
-  ...props
-}: Omit<InputProps, "variant">) {
-  return (
-    <InputPrimitive
-      {...props}
-      {...mergeStyles(stylex.props(styles.input, styles.control, xstyle), className, style)}
-    />
-  );
-}
-
-export function InputGroupTextarea({ className, style, xstyle, ...props }: TextareaProps) {
-  return (
-    <textarea
-      {...props}
-      {...mergeStyles(stylex.props(styles.control, styles.textarea, xstyle), className, style)}
-    />
-  );
-}
-
-export function InputGroupButton(props: ButtonProps) {
-  const sizedProps = props.size === undefined ? { ...props, size: "sm" as const } : props;
-  return (
-    <Button
-      {...sizedProps}
-      variant={props.variant ?? "ghost"}
-      xstyle={[styles.button, props.xstyle]}
-    />
-  );
-}
-
-export function InputGroupText({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<"span">> & StyleProps) {
-  return <span {...props} {...mergeStyles(stylex.props(styles.text, xstyle), className, style)} />;
-}

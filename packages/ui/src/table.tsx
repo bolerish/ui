@@ -11,65 +11,6 @@ import type { ComponentProps } from "react";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  container: { overflowX: "auto", position: "relative", width: "100%" },
-  table: {
-    borderCollapse: "collapse",
-    captionSide: "bottom",
-    color: colorVars.fgPrimary,
-    fontSize: typo.fontSizeSm,
-    width: "100%",
-  },
-  header: {
-    borderBottomColor: colorVars.strokeDefault,
-    borderBottomStyle: "solid",
-    borderBottomWidth: sizeVars.stroke,
-  },
-  body: {},
-  footer: {
-    backgroundColor: colorVars.bgSubtle,
-    borderTopColor: colorVars.strokeDefault,
-    borderTopStyle: "solid",
-    borderTopWidth: sizeVars.stroke,
-    fontWeight: typo.fontWeightMedium,
-  },
-  row: {
-    borderBottomColor: colorVars.strokeDefault,
-    borderBottomStyle: "solid",
-    borderBottomWidth: sizeVars.stroke,
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color",
-    transitionTimingFunction: motionVars.easingStandard,
-    backgroundColor: {
-      default: "transparent",
-      ":hover": colorVars.interactionHover,
-    },
-  },
-  head: {
-    color: colorVars.fgSecondary,
-    fontWeight: typo.fontWeightMedium,
-    height: sizeVars.controlLg,
-    paddingInline: spacingVars.space3,
-    textAlign: "left",
-    verticalAlign: "middle",
-    whiteSpace: "nowrap",
-  },
-  cell: {
-    paddingBlock: spacingVars.space3,
-    paddingInline: spacingVars.space3,
-    verticalAlign: "middle",
-    whiteSpace: "nowrap",
-  },
-  caption: {
-    color: colorVars.fgSecondary,
-    fontSize: typo.fontSizeSm,
-    marginTop: spacingVars.space4,
-    textAlign: "left",
-    paddingInline: spacingVars.space1,
-    paddingBlock: spacingVars.space3,
-  },
-});
-
 export type TableProps = StyledProps<ComponentProps<"table">> & {
   xstyle?: stylex.StyleXStyles;
 };
@@ -159,3 +100,62 @@ export function TableContainer({
     <div {...props} {...mergeStyles(stylex.props(styles.container, xstyle), className, style)} />
   );
 }
+
+const styles = stylex.create({
+  container: { overflowX: "auto", position: "relative", width: "100%" },
+  table: {
+    borderCollapse: "collapse",
+    captionSide: "bottom",
+    color: colorVars.fgPrimary,
+    fontSize: typo.fontSizeSm,
+    width: "100%",
+  },
+  header: {
+    borderBottomColor: colorVars.strokeDefault,
+    borderBottomStyle: "solid",
+    borderBottomWidth: sizeVars.stroke,
+  },
+  body: {},
+  footer: {
+    backgroundColor: colorVars.bgSubtle,
+    borderTopColor: colorVars.strokeDefault,
+    borderTopStyle: "solid",
+    borderTopWidth: sizeVars.stroke,
+    fontWeight: typo.fontWeightMedium,
+  },
+  row: {
+    borderBottomColor: colorVars.strokeDefault,
+    borderBottomStyle: "solid",
+    borderBottomWidth: sizeVars.stroke,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color",
+    transitionTimingFunction: motionVars.easingStandard,
+    backgroundColor: {
+      default: "transparent",
+      ":hover": colorVars.interactionHover,
+    },
+  },
+  head: {
+    color: colorVars.fgSecondary,
+    fontWeight: typo.fontWeightMedium,
+    height: sizeVars.controlLg,
+    paddingInline: spacingVars.space3,
+    textAlign: "left",
+    verticalAlign: "middle",
+    whiteSpace: "nowrap",
+  },
+  cell: {
+    paddingBlock: spacingVars.space3,
+    paddingInline: spacingVars.space3,
+    verticalAlign: "middle",
+    whiteSpace: "nowrap",
+  },
+  caption: {
+    color: colorVars.fgSecondary,
+    fontSize: typo.fontSizeSm,
+    marginTop: spacingVars.space4,
+    textAlign: "left",
+    paddingInline: spacingVars.space1,
+    paddingBlock: spacingVars.space3,
+  },
+});

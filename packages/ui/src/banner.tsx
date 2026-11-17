@@ -5,45 +5,6 @@ import type { ComponentProps } from "react";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  root: {
-    backgroundColor: colorVars.bgSubtle,
-    borderRadius: radiusVars.md,
-    color: colorVars.fgPrimary,
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-  },
-
-  content: { display: "grid", gap: spacingVars.space1, minWidth: 0 },
-  action: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
-  title: {
-    fontSize: typo.fontSizeSm,
-    fontWeight: typo.fontWeightSemibold,
-    lineHeight: typo.lineHeightTight,
-  },
-  description: {
-    color: "currentColor",
-    fontSize: typo.fontSizeSm,
-    lineHeight: typo.lineHeightNormal,
-    opacity: 0.82,
-  },
-});
-
-const sizeStyles = stylex.create({
-  sm: {
-    borderRadius: radiusVars.md,
-    gap: spacingVars.space1,
-    paddingBlock: spacingVars.space2,
-    paddingInline: spacingVars.space3,
-  },
-  md: {
-    gap: spacingVars.space2,
-    paddingBlock: spacingVars.space3,
-    paddingInline: spacingVars.space4,
-  },
-});
-
 export type BannerSize = "md" | "sm";
 export type BannerAnnounce = "assertive" | "polite";
 
@@ -123,3 +84,42 @@ export function BannerActions({
 }: StyledProps<ComponentProps<"div">> & StyleProps) {
   return <div {...props} {...mergeStyles(stylex.props(styles.action, xstyle), className, style)} />;
 }
+
+const styles = stylex.create({
+  root: {
+    backgroundColor: colorVars.bgSubtle,
+    borderRadius: radiusVars.md,
+    color: colorVars.fgPrimary,
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+  },
+
+  content: { display: "grid", gap: spacingVars.space1, minWidth: 0 },
+  action: { alignItems: "center", display: "flex", gap: spacingVars.space2 },
+  title: {
+    fontSize: typo.fontSizeSm,
+    fontWeight: typo.fontWeightSemibold,
+    lineHeight: typo.lineHeightTight,
+  },
+  description: {
+    color: "currentColor",
+    fontSize: typo.fontSizeSm,
+    lineHeight: typo.lineHeightNormal,
+    opacity: 0.82,
+  },
+});
+
+const sizeStyles = stylex.create({
+  sm: {
+    borderRadius: radiusVars.md,
+    gap: spacingVars.space1,
+    paddingBlock: spacingVars.space2,
+    paddingInline: spacingVars.space3,
+  },
+  md: {
+    gap: spacingVars.space2,
+    paddingBlock: spacingVars.space3,
+    paddingInline: spacingVars.space4,
+  },
+});

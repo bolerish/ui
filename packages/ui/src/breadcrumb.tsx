@@ -16,49 +16,6 @@ import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  root: { minWidth: 0 },
-  list: {
-    alignItems: "center",
-    color: colorVars.fgSecondary,
-    display: "flex",
-    flexWrap: "wrap",
-    fontSize: typo.fontSizeSm,
-    gap: spacingVars.space2,
-    lineHeight: typo.lineHeightNormal,
-    listStyle: "none",
-    margin: 0,
-    padding: 0,
-  },
-  item: { alignItems: "center", display: "inline-flex", gap: spacingVars.space2 },
-  link: {
-    borderRadius: radiusVars.sm,
-    color: colorVars.fgSecondary,
-    outline: "none",
-    textDecoration: "none",
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "color, text-decoration-color",
-    transitionTimingFunction: motionVars.easingStandard,
-    ":hover": { color: colorVars.fgPrimary, textDecoration: "underline" },
-    ":focus-visible": {
-      outlineColor: colorVars.strokeFocus,
-      outlineOffset: sizeVars.stroke,
-      outlineStyle: "solid",
-      outlineWidth: sizeVars.focusRing,
-    },
-  },
-  page: { color: colorVars.fgPrimary, fontWeight: typo.fontWeightMedium },
-  separator: { alignItems: "center", color: colorVars.fgTertiary, display: "inline-flex" },
-  ellipsis: {
-    alignItems: "center",
-    color: colorVars.fgTertiary,
-    display: "inline-flex",
-    height: sizeVars.iconMd,
-    justifyContent: "center",
-    width: sizeVars.iconMd,
-  },
-});
-
 export function Breadcrumb({
   className,
   style,
@@ -158,3 +115,46 @@ export function BreadcrumbEllipsis({
     </span>
   );
 }
+
+const styles = stylex.create({
+  root: { minWidth: 0 },
+  list: {
+    alignItems: "center",
+    color: colorVars.fgSecondary,
+    display: "flex",
+    flexWrap: "wrap",
+    fontSize: typo.fontSizeSm,
+    gap: spacingVars.space2,
+    lineHeight: typo.lineHeightNormal,
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  },
+  item: { alignItems: "center", display: "inline-flex", gap: spacingVars.space2 },
+  link: {
+    borderRadius: radiusVars.sm,
+    color: colorVars.fgSecondary,
+    outline: "none",
+    textDecoration: "none",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "color, text-decoration-color",
+    transitionTimingFunction: motionVars.easingStandard,
+    ":hover": { color: colorVars.fgPrimary, textDecoration: "underline" },
+    ":focus-visible": {
+      outlineColor: colorVars.strokeFocus,
+      outlineOffset: sizeVars.stroke,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
+    },
+  },
+  page: { color: colorVars.fgPrimary, fontWeight: typo.fontWeightMedium },
+  separator: { alignItems: "center", color: colorVars.fgTertiary, display: "inline-flex" },
+  ellipsis: {
+    alignItems: "center",
+    color: colorVars.fgTertiary,
+    display: "inline-flex",
+    height: sizeVars.iconMd,
+    justifyContent: "center",
+    width: sizeVars.iconMd,
+  },
+});

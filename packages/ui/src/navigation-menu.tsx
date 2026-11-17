@@ -20,159 +20,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
-const styles = stylex.create({
-  root: {
-    alignItems: "center",
-    display: "flex",
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: "max-content",
-    position: "relative",
-    zIndex: 10,
-  },
-  list: {
-    alignItems: "center",
-    display: "flex",
-    flex: 1,
-    gap: 0,
-    justifyContent: "center",
-    listStyle: "none",
-    margin: 0,
-    padding: 0,
-  },
-  item: { position: "relative" },
-  trigger: {
-    alignItems: "center",
-    appearance: "none",
-    backgroundColor: "transparent",
-    borderStyle: "none",
-    borderWidth: 0,
-    borderRadius: radiusVars.md,
-    color: colorVars.fgPrimary,
-    cursor: "pointer",
-    display: "inline-flex",
-    fontFamily: typo.fontFamilyBody,
-    fontSize: typo.fontSizeSm,
-    fontWeight: typo.fontWeightMedium,
-    gap: spacingVars.space1,
-    height: sizeVars.controlMd,
-    outline: "none",
-    paddingInline: spacingVars.space3,
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color, color",
-    transitionTimingFunction: motionVars.easingStandard,
-    ":hover": { backgroundColor: colorVars.interactionHover },
-    ":focus-visible": {
-      outlineColor: colorVars.strokeFocus,
-      outlineOffset: sizeVars.stroke,
-      outlineStyle: "solid",
-      outlineWidth: sizeVars.focusRing,
-    },
-    ":disabled": {
-      backgroundColor: "transparent",
-      color: colorVars.fgDisabled,
-      cursor: "not-allowed",
-      ":hover": { backgroundColor: "transparent" },
-    },
-  },
-  triggerOpen: { backgroundColor: colorVars.interactionHover },
-  icon: {
-    alignItems: "center",
-    display: "inline-flex",
-    position: "relative",
-    top: sizeVars.stroke,
-    transform: "rotate(0deg)",
-    ":is([data-popup-open] *)": { transform: "rotate(180deg)" },
-  },
-  content: {
-    height: "100%",
-    padding: spacingVars.space1,
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "opacity, transform",
-    transitionTimingFunction: motionVars.easingStandard,
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transitionDuration: motionVars.durationInstant,
-      },
-    },
-    width: "auto",
-  },
-
-  link: {
-    alignItems: "center",
-    borderRadius: radiusVars.md,
-    color: colorVars.fgPrimary,
-    display: "flex",
-    gap: spacingVars.space2,
-    outline: "none",
-    padding: spacingVars.space2,
-    textDecoration: "none",
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color, color",
-    transitionTimingFunction: motionVars.easingStandard,
-    ":hover": { backgroundColor: colorVars.interactionHover },
-    ":focus-visible": {
-      backgroundColor: colorVars.interactionHover,
-      outlineColor: colorVars.strokeFocus,
-      outlineStyle: "solid",
-      outlineWidth: sizeVars.focusRing,
-    },
-  },
-  positioner: {
-    height: "var(--positioner-height)",
-    maxWidth: "var(--available-width)",
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "inset, width, height",
-    transitionTimingFunction: motionVars.easingStandard,
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transitionDuration: motionVars.durationInstant,
-      },
-    },
-    width: "var(--positioner-width)",
-    zIndex: layerVars.popup,
-  },
-  popup: {
-    backgroundColor: colorVars.bgRaised,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.lg,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    boxShadow: shadowVars.floating,
-    color: colorVars.fgPrimary,
-    height: "var(--popup-height)",
-    outline: "none",
-    overflow: "hidden",
-    position: "relative",
-    transformOrigin: "var(--transform-origin)",
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "opacity, transform, width, height",
-    transitionTimingFunction: motionVars.easingEnter,
-    width: "var(--popup-width)",
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transitionDuration: motionVars.durationInstant,
-      },
-    },
-  },
-  popupTransitioning: { opacity: 0, transform: "scale(0.9)" },
-  viewport: {
-    fontFamily: typo.fontFamilyBody,
-    height: "100%",
-    overflow: "hidden",
-    position: "relative",
-    width: "100%",
-  },
-});
-const enterStyles = stylex.create({
-  left: { opacity: 0, transform: "translateX(-50%)" },
-  right: { opacity: 0, transform: "translateX(50%)" },
-});
-const exitStyles = stylex.create({
-  left: { opacity: 0, transform: "translateX(50%)" },
-  right: { opacity: 0, transform: "translateX(-50%)" },
-});
-
 export function NavigationMenu({
   className,
   style,
@@ -348,3 +195,158 @@ export function NavigationMenuViewport({
     </NavigationMenuPrimitive.Portal>
   );
 }
+
+const styles = stylex.create({
+  root: {
+    alignItems: "center",
+    display: "flex",
+    flex: 1,
+    justifyContent: "center",
+    maxWidth: "max-content",
+    position: "relative",
+    zIndex: 10,
+  },
+  list: {
+    alignItems: "center",
+    display: "flex",
+    flex: 1,
+    gap: 0,
+    justifyContent: "center",
+    listStyle: "none",
+    margin: 0,
+    padding: 0,
+  },
+  item: { position: "relative" },
+  trigger: {
+    alignItems: "center",
+    appearance: "none",
+    backgroundColor: "transparent",
+    borderStyle: "none",
+    borderWidth: 0,
+    borderRadius: radiusVars.md,
+    color: colorVars.fgPrimary,
+    cursor: "pointer",
+    display: "inline-flex",
+    fontFamily: typo.fontFamilyBody,
+    fontSize: typo.fontSizeSm,
+    fontWeight: typo.fontWeightMedium,
+    gap: spacingVars.space1,
+    height: sizeVars.controlMd,
+    outline: "none",
+    paddingInline: spacingVars.space3,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
+    ":hover": { backgroundColor: colorVars.interactionHover },
+    ":focus-visible": {
+      outlineColor: colorVars.strokeFocus,
+      outlineOffset: sizeVars.stroke,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
+    },
+    ":disabled": {
+      backgroundColor: "transparent",
+      color: colorVars.fgDisabled,
+      cursor: "not-allowed",
+      ":hover": { backgroundColor: "transparent" },
+    },
+  },
+  triggerOpen: { backgroundColor: colorVars.interactionHover },
+  icon: {
+    alignItems: "center",
+    display: "inline-flex",
+    position: "relative",
+    top: sizeVars.stroke,
+    transform: "rotate(0deg)",
+    ":is([data-popup-open] *)": { transform: "rotate(180deg)" },
+  },
+  content: {
+    height: "100%",
+    padding: spacingVars.space1,
+    transitionDuration: motionVars.durationNormal,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motionVars.easingStandard,
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transitionDuration: motionVars.durationInstant,
+      },
+    },
+    width: "auto",
+  },
+
+  link: {
+    alignItems: "center",
+    borderRadius: radiusVars.md,
+    color: colorVars.fgPrimary,
+    display: "flex",
+    gap: spacingVars.space2,
+    outline: "none",
+    padding: spacingVars.space2,
+    textDecoration: "none",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, color",
+    transitionTimingFunction: motionVars.easingStandard,
+    ":hover": { backgroundColor: colorVars.interactionHover },
+    ":focus-visible": {
+      backgroundColor: colorVars.interactionHover,
+      outlineColor: colorVars.strokeFocus,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
+    },
+  },
+  positioner: {
+    height: "var(--positioner-height)",
+    maxWidth: "var(--available-width)",
+    transitionDuration: motionVars.durationNormal,
+    transitionProperty: "inset, width, height",
+    transitionTimingFunction: motionVars.easingStandard,
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transitionDuration: motionVars.durationInstant,
+      },
+    },
+    width: "var(--positioner-width)",
+    zIndex: layerVars.popup,
+  },
+  popup: {
+    backgroundColor: colorVars.bgRaised,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.lg,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    boxShadow: shadowVars.floating,
+    color: colorVars.fgPrimary,
+    height: "var(--popup-height)",
+    outline: "none",
+    overflow: "hidden",
+    position: "relative",
+    transformOrigin: "var(--transform-origin)",
+    transitionDuration: motionVars.durationNormal,
+    transitionProperty: "opacity, transform, width, height",
+    transitionTimingFunction: motionVars.easingEnter,
+    width: "var(--popup-width)",
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transitionDuration: motionVars.durationInstant,
+      },
+    },
+  },
+  popupTransitioning: { opacity: 0, transform: "scale(0.9)" },
+  viewport: {
+    fontFamily: typo.fontFamilyBody,
+    height: "100%",
+    overflow: "hidden",
+    position: "relative",
+    width: "100%",
+  },
+});
+
+const enterStyles = stylex.create({
+  left: { opacity: 0, transform: "translateX(-50%)" },
+  right: { opacity: 0, transform: "translateX(50%)" },
+});
+
+const exitStyles = stylex.create({
+  left: { opacity: 0, transform: "translateX(50%)" },
+  right: { opacity: 0, transform: "translateX(-50%)" },
+});

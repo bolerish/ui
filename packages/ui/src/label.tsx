@@ -8,17 +8,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { typographyStyles } from "./typography";
 
-const styles = stylex.create({
-  root: {
-    alignItems: "center",
-    color: colorVars.fgPrimary,
-    cursor: "pointer",
-    display: "inline-flex",
-    gap: spacingVars.space2,
-    userSelect: "none",
-  },
-});
-
 export type LabelProps = StyledProps<ComponentProps<"label">> & {
   xstyle?: ControlPlacementStyles;
 };
@@ -31,3 +20,14 @@ export function Label({ className, style, xstyle, ...props }: LabelProps) {
     />
   );
 }
+
+const styles = stylex.create({
+  root: {
+    alignItems: "center",
+    color: colorVars.fgPrimary,
+    cursor: "pointer",
+    display: "inline-flex",
+    gap: spacingVars.space2,
+    userSelect: "none",
+  },
+});

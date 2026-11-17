@@ -21,6 +21,127 @@ import type { StyledProps } from "./styles/merge-styles";
 import { modalBackdropStyles } from "./styles/modal-backdrop";
 import { surfaceStyles } from "./styles/surface";
 
+export const Dialog = DialogPrimitive.Root;
+export function DialogTrigger({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<typeof DialogPrimitive.Trigger>> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return (
+    <DialogPrimitive.Trigger {...props} {...mergeStyles(stylex.props(xstyle), className, style)} />
+  );
+}
+export function DialogClose({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<typeof DialogPrimitive.Close>> & {
+  xstyle?: stylex.StyleXStyles;
+}) {
+  return (
+    <DialogPrimitive.Close {...props} {...mergeStyles(stylex.props(xstyle), className, style)} />
+  );
+}
+
+type DialogContentProps = StyledProps<ComponentProps<typeof DialogPrimitive.Popup>> & {
+  children: ReactNode;
+  /** Accessible name for the optional close button. @default "Close" */
+  closeLabel?: string;
+  showCloseButton?: boolean;
+  xstyle?: stylex.StyleXStyles;
+};
+
+export function DialogContent({
+  className,
+  style,
+  children,
+  closeLabel = "Close",
+  showCloseButton = true,
+  xstyle,
+  ...props
+}: DialogContentProps) {
+  return (
+    <DialogPrimitive.Portal>
+      <DialogPrimitive.Backdrop
+        data-bolerish-modal-backdrop=""
+        {...stylex.props(styles.backdrop, modalBackdropStyles.root)}
+      />
+      <DialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
+        <DialogPrimitive.Popup
+          {...props}
+          data-bolerish-modal-popup="visible"
+          {...mergeStyles(
+            stylex.props(styles.popup, surfaceStyles.raised, surfaceStyles.edge, xstyle),
+            className,
+            style,
+          )}
+        >
+          {children}
+          {showCloseButton ? (
+            <DialogPrimitive.Close aria-label={closeLabel} {...stylex.props(styles.close)}>
+              <XIcon aria-hidden="true" />
+            </DialogPrimitive.Close>
+          ) : null}
+        </DialogPrimitive.Popup>
+      </DialogPrimitive.Viewport>
+    </DialogPrimitive.Portal>
+  );
+}
+
+export function DialogHeader({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<"div">> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...mergeStyles(stylex.props(styles.header, xstyle), className, style)} />;
+}
+
+export function DialogFooter({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<"div">> & { xstyle?: stylex.StyleXStyles }) {
+  return <div {...props} {...mergeStyles(stylex.props(styles.footer, xstyle), className, style)} />;
+}
+
+export function DialogTitle({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<typeof DialogPrimitive.Title>> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return (
+    <DialogPrimitive.Title
+      {...props}
+      {...mergeStyles(stylex.props(styles.title, xstyle), className, style)}
+    />
+  );
+}
+
+export function DialogDescription({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<typeof DialogPrimitive.Description>> & {
+  xstyle?: ControlPlacementStyles;
+}) {
+  return (
+    <DialogPrimitive.Description
+      {...props}
+      {...mergeStyles(stylex.props(styles.description, xstyle), className, style)}
+    />
+  );
+}
+
 const styles = stylex.create({
   backdrop: {
     inset: 0,
@@ -142,124 +263,3 @@ const styles = stylex.create({
     margin: 0,
   },
 });
-
-export const Dialog = DialogPrimitive.Root;
-export function DialogTrigger({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<typeof DialogPrimitive.Trigger>> & {
-  xstyle?: stylex.StyleXStyles;
-}) {
-  return (
-    <DialogPrimitive.Trigger {...props} {...mergeStyles(stylex.props(xstyle), className, style)} />
-  );
-}
-export function DialogClose({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<typeof DialogPrimitive.Close>> & {
-  xstyle?: stylex.StyleXStyles;
-}) {
-  return (
-    <DialogPrimitive.Close {...props} {...mergeStyles(stylex.props(xstyle), className, style)} />
-  );
-}
-
-type DialogContentProps = StyledProps<ComponentProps<typeof DialogPrimitive.Popup>> & {
-  children: ReactNode;
-  /** Accessible name for the optional close button. @default "Close" */
-  closeLabel?: string;
-  showCloseButton?: boolean;
-  xstyle?: stylex.StyleXStyles;
-};
-
-export function DialogContent({
-  className,
-  style,
-  children,
-  closeLabel = "Close",
-  showCloseButton = true,
-  xstyle,
-  ...props
-}: DialogContentProps) {
-  return (
-    <DialogPrimitive.Portal>
-      <DialogPrimitive.Backdrop
-        data-bolerish-modal-backdrop=""
-        {...stylex.props(styles.backdrop, modalBackdropStyles.root)}
-      />
-      <DialogPrimitive.Viewport {...stylex.props(styles.viewport)}>
-        <DialogPrimitive.Popup
-          {...props}
-          data-bolerish-modal-popup="visible"
-          {...mergeStyles(
-            stylex.props(styles.popup, surfaceStyles.raised, surfaceStyles.edge, xstyle),
-            className,
-            style,
-          )}
-        >
-          {children}
-          {showCloseButton ? (
-            <DialogPrimitive.Close aria-label={closeLabel} {...stylex.props(styles.close)}>
-              <XIcon aria-hidden="true" />
-            </DialogPrimitive.Close>
-          ) : null}
-        </DialogPrimitive.Popup>
-      </DialogPrimitive.Viewport>
-    </DialogPrimitive.Portal>
-  );
-}
-
-export function DialogHeader({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<"div">> & { xstyle?: stylex.StyleXStyles }) {
-  return <div {...props} {...mergeStyles(stylex.props(styles.header, xstyle), className, style)} />;
-}
-
-export function DialogFooter({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<"div">> & { xstyle?: stylex.StyleXStyles }) {
-  return <div {...props} {...mergeStyles(stylex.props(styles.footer, xstyle), className, style)} />;
-}
-
-export function DialogTitle({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<typeof DialogPrimitive.Title>> & {
-  xstyle?: ControlPlacementStyles;
-}) {
-  return (
-    <DialogPrimitive.Title
-      {...props}
-      {...mergeStyles(stylex.props(styles.title, xstyle), className, style)}
-    />
-  );
-}
-
-export function DialogDescription({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<typeof DialogPrimitive.Description>> & {
-  xstyle?: ControlPlacementStyles;
-}) {
-  return (
-    <DialogPrimitive.Description
-      {...props}
-      {...mergeStyles(stylex.props(styles.description, xstyle), className, style)}
-    />
-  );
-}

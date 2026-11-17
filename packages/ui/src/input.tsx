@@ -17,6 +17,41 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
+export type InputProps = StyledProps<ComponentProps<typeof InputPrimitive>> & {
+  xstyle?: ControlLayoutStyles;
+  variant?: "outline" | "inline" | "none" | "underline";
+};
+
+export function Input({
+  className,
+  style,
+  "aria-invalid": ariaInvalid,
+  variant = "outline",
+  xstyle,
+  ...props
+}: InputProps) {
+  const isInvalid = ariaInvalid === true || ariaInvalid === "true";
+  return (
+    <InputPrimitive
+      {...props}
+      aria-invalid={ariaInvalid}
+      {...mergeStyles(
+        stylex.props(
+          styles.root,
+          variant === "outline" && !props.disabled && surfaceStyles.control,
+          variant === "inline" && styles.inline,
+          variant === "none" && styles.none,
+          variant === "underline" && styles.underline,
+          isInvalid && styles.invalid,
+          xstyle,
+        ),
+        className,
+        style,
+      )}
+    />
+  );
+}
+
 const styles = stylex.create({
   root: {
     "--bolerish-input-focus-color": colorVars.strokeFocus,
@@ -116,38 +151,3 @@ const styles = stylex.create({
     },
   },
 });
-
-export type InputProps = StyledProps<ComponentProps<typeof InputPrimitive>> & {
-  xstyle?: ControlLayoutStyles;
-  variant?: "outline" | "inline" | "none" | "underline";
-};
-
-export function Input({
-  className,
-  style,
-  "aria-invalid": ariaInvalid,
-  variant = "outline",
-  xstyle,
-  ...props
-}: InputProps) {
-  const isInvalid = ariaInvalid === true || ariaInvalid === "true";
-  return (
-    <InputPrimitive
-      {...props}
-      aria-invalid={ariaInvalid}
-      {...mergeStyles(
-        stylex.props(
-          styles.root,
-          variant === "outline" && !props.disabled && surfaceStyles.control,
-          variant === "inline" && styles.inline,
-          variant === "none" && styles.none,
-          variant === "underline" && styles.underline,
-          isInvalid && styles.invalid,
-          xstyle,
-        ),
-        className,
-        style,
-      )}
-    />
-  );
-}

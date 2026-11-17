@@ -12,6 +12,22 @@ import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+type BadgeVariant = "primary" | "secondary" | "destructive" | "outline" | "ghost";
+
+export type BadgeProps = StyledProps<ComponentProps<"span">> & {
+  variant?: BadgeVariant;
+  xstyle?: ControlPlacementStyles;
+};
+
+export function Badge({ className, style, xstyle, variant = "primary", ...props }: BadgeProps) {
+  return (
+    <span
+      {...props}
+      {...mergeStyles(stylex.props(styles.root, variantStyles[variant], xstyle), className, style)}
+    />
+  );
+}
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -58,19 +74,3 @@ const variantStyles = stylex.create({
     color: colorVars.fgPrimary,
   },
 });
-
-type BadgeVariant = "primary" | "secondary" | "destructive" | "outline" | "ghost";
-
-export type BadgeProps = StyledProps<ComponentProps<"span">> & {
-  variant?: BadgeVariant;
-  xstyle?: ControlPlacementStyles;
-};
-
-export function Badge({ className, style, xstyle, variant = "primary", ...props }: BadgeProps) {
-  return (
-    <span
-      {...props}
-      {...mergeStyles(stylex.props(styles.root, variantStyles[variant], xstyle), className, style)}
-    />
-  );
-}

@@ -17,6 +17,36 @@ import type { ControlLayoutStyles, ControlPlacementStyles } from "./styles/contr
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+export type RadioGroupProps = StyledProps<ComponentProps<typeof RadioGroupPrimitive>> & {
+  xstyle?: ControlLayoutStyles;
+};
+
+export function RadioGroup({ className, style, xstyle, ...props }: RadioGroupProps) {
+  return (
+    <RadioGroupPrimitive
+      {...props}
+      {...mergeStyles(stylex.props(styles.group, xstyle), className, style)}
+    />
+  );
+}
+
+export type RadioGroupItemProps = StyledProps<ComponentProps<typeof RadioPrimitive.Root>> & {
+  xstyle?: ControlPlacementStyles;
+};
+
+export function RadioGroupItem({ className, style, xstyle, ...props }: RadioGroupItemProps) {
+  return (
+    <RadioPrimitive.Root
+      {...props}
+      {...mergeStyles(stylex.props(styles.item, xstyle), className, style)}
+    >
+      <RadioPrimitive.Indicator {...stylex.props(styles.indicator)}>
+        <span {...stylex.props(styles.dot)} />
+      </RadioPrimitive.Indicator>
+    </RadioPrimitive.Root>
+  );
+}
+
 const styles = stylex.create({
   group: { display: "flex", flexDirection: "column", gap: spacingVars.space3 },
   item: {
@@ -51,33 +81,3 @@ const styles = stylex.create({
     width: sizeVars.iconXs,
   },
 });
-
-export type RadioGroupProps = StyledProps<ComponentProps<typeof RadioGroupPrimitive>> & {
-  xstyle?: ControlLayoutStyles;
-};
-
-export function RadioGroup({ className, style, xstyle, ...props }: RadioGroupProps) {
-  return (
-    <RadioGroupPrimitive
-      {...props}
-      {...mergeStyles(stylex.props(styles.group, xstyle), className, style)}
-    />
-  );
-}
-
-export type RadioGroupItemProps = StyledProps<ComponentProps<typeof RadioPrimitive.Root>> & {
-  xstyle?: ControlPlacementStyles;
-};
-
-export function RadioGroupItem({ className, style, xstyle, ...props }: RadioGroupItemProps) {
-  return (
-    <RadioPrimitive.Root
-      {...props}
-      {...mergeStyles(stylex.props(styles.item, xstyle), className, style)}
-    >
-      <RadioPrimitive.Indicator {...stylex.props(styles.indicator)}>
-        <span {...stylex.props(styles.dot)} />
-      </RadioPrimitive.Indicator>
-    </RadioPrimitive.Root>
-  );
-}

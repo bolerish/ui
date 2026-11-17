@@ -19,59 +19,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
-const styles = stylex.create({
-  positioner: { zIndex: layerVars.popup },
-  popup: {
-    backgroundColor: colorVars.bgRaised,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.lg,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    boxShadow: shadowVars.floating,
-    color: colorVars.fgPrimary,
-    maxWidth: "calc(100vw - 2rem)",
-    maxHeight: "var(--available-height)",
-    overflowY: "auto",
-    outline: "none",
-    padding: spacingVars.space4,
-    transform: "scale(1)",
-    transformOrigin: "var(--transform-origin)",
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "opacity, transform",
-    transitionTimingFunction: motionVars.easingEnter,
-    width: sizeVars.contentXs,
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transform: "none",
-        transitionDuration: motionVars.durationInstant,
-      },
-    },
-  },
-  popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
-  popupEnding: {
-    transitionDuration: motionVars.durationFast,
-    transitionTimingFunction: motionVars.easingExit,
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transitionDuration: motionVars.durationInstant,
-      },
-    },
-  },
-  header: { display: "flex", flexDirection: "column", gap: spacingVars.space1 },
-  title: {
-    fontSize: typo.fontSizeSm,
-    fontWeight: typo.fontWeightMedium,
-    lineHeight: typo.lineHeightNormal,
-    margin: 0,
-  },
-  description: {
-    color: colorVars.fgSecondary,
-    fontSize: typo.fontSizeSm,
-    lineHeight: typo.lineHeightNormal,
-    margin: 0,
-  },
-});
-
 export const Popover = PopoverPrimitive.Root;
 export function PopoverTrigger({
   className,
@@ -176,3 +123,56 @@ export function PopoverDescription({
     <p {...props} {...mergeStyles(stylex.props(styles.description, xstyle), className, style)} />
   );
 }
+
+const styles = stylex.create({
+  positioner: { zIndex: layerVars.popup },
+  popup: {
+    backgroundColor: colorVars.bgRaised,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.lg,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    boxShadow: shadowVars.floating,
+    color: colorVars.fgPrimary,
+    maxWidth: "calc(100vw - 2rem)",
+    maxHeight: "var(--available-height)",
+    overflowY: "auto",
+    outline: "none",
+    padding: spacingVars.space4,
+    transform: "scale(1)",
+    transformOrigin: "var(--transform-origin)",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "opacity, transform",
+    transitionTimingFunction: motionVars.easingEnter,
+    width: sizeVars.contentXs,
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transform: "none",
+        transitionDuration: motionVars.durationInstant,
+      },
+    },
+  },
+  popupTransitioning: { opacity: 0, transform: "scale(0.98)" },
+  popupEnding: {
+    transitionDuration: motionVars.durationFast,
+    transitionTimingFunction: motionVars.easingExit,
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transitionDuration: motionVars.durationInstant,
+      },
+    },
+  },
+  header: { display: "flex", flexDirection: "column", gap: spacingVars.space1 },
+  title: {
+    fontSize: typo.fontSizeSm,
+    fontWeight: typo.fontWeightMedium,
+    lineHeight: typo.lineHeightNormal,
+    margin: 0,
+  },
+  description: {
+    color: colorVars.fgSecondary,
+    fontSize: typo.fontSizeSm,
+    lineHeight: typo.lineHeightNormal,
+    margin: 0,
+  },
+});

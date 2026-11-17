@@ -9,55 +9,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { typographyStyles } from "./typography";
 
-const styles = stylex.create({
-  root: { display: "flex", gap: spacingRoleVars.labelGap, width: "100%" },
-
-  label: {
-    color: colorVars.fgPrimary,
-    cursor: "default",
-  },
-  description: {
-    color: colorVars.fgSecondary,
-    margin: 0,
-  },
-  error: {
-    color: colorVars.fgFeedbackError,
-  },
-  set: {
-    borderStyle: "none",
-    borderWidth: 0,
-    display: "flex",
-    flexDirection: "column",
-    gap: spacingRoleVars.fieldGap,
-    margin: 0,
-    minWidth: 0,
-    padding: 0,
-  },
-  legend: {
-    color: colorVars.fgPrimary,
-    fontSize: typo.fontSizeMd,
-    fontWeight: typo.fontWeightMedium,
-    marginBottom: spacingVars.space3,
-    padding: 0,
-  },
-  group: { display: "flex", flexDirection: "column", gap: spacingRoleVars.fieldGap, width: "100%" },
-  content: {
-    display: "flex",
-    flex: 1,
-    flexDirection: "column",
-    gap: spacingRoleVars.textGap,
-    minWidth: 0,
-  },
-  title: {
-    color: colorVars.fgPrimary,
-  },
-});
-
-const orientationStyles = stylex.create({
-  horizontal: { alignItems: "baseline", flexDirection: "row", gap: spacingRoleVars.fieldGap },
-  vertical: { flexDirection: "column" },
-});
-
 type StyleProps = { xstyle?: stylex.StyleXStyles };
 type FieldOrientation = "horizontal" | "vertical";
 
@@ -189,3 +140,52 @@ export function FieldTitle({
     />
   );
 }
+
+const styles = stylex.create({
+  root: { display: "flex", gap: spacingRoleVars.labelGap, width: "100%" },
+
+  label: {
+    color: colorVars.fgPrimary,
+    cursor: "default",
+  },
+  description: {
+    color: colorVars.fgSecondary,
+    margin: 0,
+  },
+  error: {
+    color: colorVars.fgFeedbackError,
+  },
+  set: {
+    borderStyle: "none",
+    borderWidth: 0,
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingRoleVars.fieldGap,
+    margin: 0,
+    minWidth: 0,
+    padding: 0,
+  },
+  legend: {
+    color: colorVars.fgPrimary,
+    fontSize: typo.fontSizeMd,
+    fontWeight: typo.fontWeightMedium,
+    marginBottom: spacingVars.space3,
+    padding: 0,
+  },
+  group: { display: "flex", flexDirection: "column", gap: spacingRoleVars.fieldGap, width: "100%" },
+  content: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    gap: spacingRoleVars.textGap,
+    minWidth: 0,
+  },
+  title: {
+    color: colorVars.fgPrimary,
+  },
+});
+
+const orientationStyles = stylex.create({
+  horizontal: { alignItems: "baseline", flexDirection: "row", gap: spacingRoleVars.fieldGap },
+  vertical: { flexDirection: "column" },
+});

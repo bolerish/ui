@@ -19,6 +19,92 @@ import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 import type { ToggleSize, ToggleVariant } from "./toggle";
 
+type ToggleGroupContextValue = { size: ToggleSize; variant: ToggleVariant };
+const ToggleGroupContext = createContext<ToggleGroupContextValue>({
+  size: "md",
+  variant: "default",
+});
+
+export type ToggleGroupProps = StyledProps<ComponentProps<typeof ToggleGroupPrimitive>> & {
+  children: ReactNode;
+  size?: ToggleSize;
+  variant?: ToggleVariant;
+  xstyle?: ControlLayoutStyles;
+};
+
+export function ToggleGroup({
+  className,
+  style,
+  children,
+  size = "md",
+  variant = "default",
+  xstyle,
+  ...props
+}: ToggleGroupProps) {
+  return (
+    <ToggleGroupPrimitive
+      {...props}
+      {...mergeStyles(
+        stylex.props(
+          styles.root,
+          variantStyles[variant],
+          variant === "outline" && surfaceStyles.control,
+          xstyle,
+        ),
+        className,
+        style,
+      )}
+    >
+      <ToggleGroupContext value={{ size, variant }}>{children}</ToggleGroupContext>
+    </ToggleGroupPrimitive>
+  );
+}
+
+export type ToggleGroupItemProps = StyledProps<ComponentProps<typeof TogglePrimitive>> & {
+  size?: ToggleSize;
+  variant?: ToggleVariant;
+  xstyle?: ControlPlacementStyles;
+};
+
+export function ToggleGroupItem({
+  className,
+  style,
+  size,
+  variant,
+  xstyle,
+  ...props
+}: ToggleGroupItemProps) {
+  const context = useContext(ToggleGroupContext);
+  const finalSize = size ?? context.size;
+  const finalVariant = variant ?? context.variant;
+  function getToggleStyles(state: TogglePrimitive.State) {
+    return mergeStyles(
+      stylex.props(
+        styles.item,
+        itemSizeStyles[finalSize],
+        itemVariantStyles[finalVariant],
+        finalVariant === "outline" && !state.pressed && !state.disabled && surfaceStyles.control,
+        state.pressed && styles.itemPressed,
+        state.pressed && finalVariant === "outline" && styles.outlinePressed,
+        state.pressed && finalVariant === "soft" && styles.softPressed,
+        state.disabled && !state.pressed && styles.unavailable,
+        state.disabled && styles.itemDisabled,
+        finalVariant === "outline" && styles.outlineItem,
+        xstyle,
+      ),
+      className,
+      style,
+    );
+  }
+  return (
+    <TogglePrimitive
+      {...props}
+      className={(state) => getToggleStyles(state).className}
+      style={(state) => getToggleStyles(state).style}
+    />
+  );
+}
+
 const styles = stylex.create({
   root: { alignItems: "center", display: "inline-flex", width: "fit-content" },
 
@@ -140,89 +226,3 @@ const itemVariantStyles = stylex.create({
   soft: { backgroundColor: "transparent" },
   outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
 });
-
-type ToggleGroupContextValue = { size: ToggleSize; variant: ToggleVariant };
-const ToggleGroupContext = createContext<ToggleGroupContextValue>({
-  size: "md",
-  variant: "default",
-});
-
-export type ToggleGroupProps = StyledProps<ComponentProps<typeof ToggleGroupPrimitive>> & {
-  children: ReactNode;
-  size?: ToggleSize;
-  variant?: ToggleVariant;
-  xstyle?: ControlLayoutStyles;
-};
-
-export function ToggleGroup({
-  className,
-  style,
-  children,
-  size = "md",
-  variant = "default",
-  xstyle,
-  ...props
-}: ToggleGroupProps) {
-  return (
-    <ToggleGroupPrimitive
-      {...props}
-      {...mergeStyles(
-        stylex.props(
-          styles.root,
-          variantStyles[variant],
-          variant === "outline" && surfaceStyles.control,
-          xstyle,
-        ),
-        className,
-        style,
-      )}
-    >
-      <ToggleGroupContext value={{ size, variant }}>{children}</ToggleGroupContext>
-    </ToggleGroupPrimitive>
-  );
-}
-
-export type ToggleGroupItemProps = StyledProps<ComponentProps<typeof TogglePrimitive>> & {
-  size?: ToggleSize;
-  variant?: ToggleVariant;
-  xstyle?: ControlPlacementStyles;
-};
-
-export function ToggleGroupItem({
-  className,
-  style,
-  size,
-  variant,
-  xstyle,
-  ...props
-}: ToggleGroupItemProps) {
-  const context = useContext(ToggleGroupContext);
-  const finalSize = size ?? context.size;
-  const finalVariant = variant ?? context.variant;
-  function getToggleStyles(state: TogglePrimitive.State) {
-    return mergeStyles(
-      stylex.props(
-        styles.item,
-        itemSizeStyles[finalSize],
-        itemVariantStyles[finalVariant],
-        finalVariant === "outline" && !state.pressed && !state.disabled && surfaceStyles.control,
-        state.pressed && styles.itemPressed,
-        state.pressed && finalVariant === "outline" && styles.outlinePressed,
-        state.pressed && finalVariant === "soft" && styles.softPressed,
-        state.disabled && !state.pressed && styles.unavailable,
-        state.disabled && styles.itemDisabled,
-        finalVariant === "outline" && styles.outlineItem,
-        xstyle,
-      ),
-      className,
-      style,
-    );
-  }
-  return (
-    <TogglePrimitive
-      {...props}
-      className={(state) => getToggleStyles(state).className}
-      style={(state) => getToggleStyles(state).style}
-    />
-  );
-}

@@ -14,6 +14,36 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
+export type TextareaProps = StyledProps<ComponentProps<"textarea">> & {
+  xstyle?: ControlFieldStyles;
+};
+
+export function Textarea({
+  className,
+  style,
+  "aria-invalid": ariaInvalid,
+  xstyle,
+  ...props
+}: TextareaProps) {
+  const isInvalid = ariaInvalid === true || ariaInvalid === "true";
+  return (
+    <textarea
+      {...props}
+      aria-invalid={ariaInvalid}
+      {...mergeStyles(
+        stylex.props(
+          styles.root,
+          !props.disabled && surfaceStyles.control,
+          isInvalid && styles.invalid,
+          xstyle,
+        ),
+        className,
+        style,
+      )}
+    />
+  );
+}
+
 const styles = stylex.create({
   root: {
     backgroundColor: colorVars.bgSurface,
@@ -68,33 +98,3 @@ const styles = stylex.create({
     },
   },
 });
-
-export type TextareaProps = StyledProps<ComponentProps<"textarea">> & {
-  xstyle?: ControlFieldStyles;
-};
-
-export function Textarea({
-  className,
-  style,
-  "aria-invalid": ariaInvalid,
-  xstyle,
-  ...props
-}: TextareaProps) {
-  const isInvalid = ariaInvalid === true || ariaInvalid === "true";
-  return (
-    <textarea
-      {...props}
-      aria-invalid={ariaInvalid}
-      {...mergeStyles(
-        stylex.props(
-          styles.root,
-          !props.disabled && surfaceStyles.control,
-          isInvalid && styles.invalid,
-          xstyle,
-        ),
-        className,
-        style,
-      )}
-    />
-  );
-}

@@ -24,39 +24,6 @@ import { Button } from "./button";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  root: { position: "relative", width: "100%" },
-  viewport: { overflow: "hidden", width: "100%" },
-  content: { display: "flex", gap: "var(--bolerish-carousel-gap, 0px)" },
-  ratioRoot: { "--bolerish-carousel-gap": spacingRoleVars.inlineGap },
-  ratioItem: (share: number) => ({
-    "--bolerish-carousel-basis": `calc((100% - var(--bolerish-carousel-gap, 0px)) * ${share})`,
-  }),
-  item: {
-    boxSizing: "border-box",
-    flex: "0 0 100%",
-    flexBasis: "var(--bolerish-carousel-basis, 100%)",
-    minWidth: 0,
-  },
-  control: {
-    position: "absolute",
-    width: sizeVars.controlXs,
-  },
-  horizontalControl: { top: "50%" },
-  verticalControl: { left: "50%" },
-  verticalViewport: { height: "100%" },
-  verticalContent: { flexDirection: "column", height: "100%" },
-  verticalItem: { minHeight: 0 },
-  previousVertical: { top: `calc(${sizeVars.controlSm} * -1.5)` },
-  nextVertical: { bottom: `calc(${sizeVars.controlSm} * -1.5)` },
-  previousInside: { insetInlineStart: spacingRoleVars.inlineGap },
-  nextInside: { insetInlineEnd: spacingRoleVars.inlineGap },
-  previousVerticalInside: { top: spacingRoleVars.inlineGap },
-  nextVerticalInside: { bottom: spacingRoleVars.inlineGap },
-  previous: { insetInlineStart: `calc(${sizeVars.controlSm} * -1.5)` },
-  next: { insetInlineEnd: `calc(${sizeVars.controlSm} * -1.5)` },
-});
-
 type CarouselApi = ReturnType<typeof useEmblaCarousel>[1];
 type CarouselOptions = Parameters<typeof useEmblaCarousel>[0];
 type CarouselPlugins = Parameters<typeof useEmblaCarousel>[1];
@@ -299,3 +266,36 @@ export function CarouselNext({ disabled, style, xstyle, ...props }: CarouselCont
     </Button>
   );
 }
+
+const styles = stylex.create({
+  root: { position: "relative", width: "100%" },
+  viewport: { overflow: "hidden", width: "100%" },
+  content: { display: "flex", gap: "var(--bolerish-carousel-gap, 0px)" },
+  ratioRoot: { "--bolerish-carousel-gap": spacingRoleVars.inlineGap },
+  ratioItem: (share: number) => ({
+    "--bolerish-carousel-basis": `calc((100% - var(--bolerish-carousel-gap, 0px)) * ${share})`,
+  }),
+  item: {
+    boxSizing: "border-box",
+    flex: "0 0 100%",
+    flexBasis: "var(--bolerish-carousel-basis, 100%)",
+    minWidth: 0,
+  },
+  control: {
+    position: "absolute",
+    width: sizeVars.controlXs,
+  },
+  horizontalControl: { top: "50%" },
+  verticalControl: { left: "50%" },
+  verticalViewport: { height: "100%" },
+  verticalContent: { flexDirection: "column", height: "100%" },
+  verticalItem: { minHeight: 0 },
+  previousVertical: { top: `calc(${sizeVars.controlSm} * -1.5)` },
+  nextVertical: { bottom: `calc(${sizeVars.controlSm} * -1.5)` },
+  previousInside: { insetInlineStart: spacingRoleVars.inlineGap },
+  nextInside: { insetInlineEnd: spacingRoleVars.inlineGap },
+  previousVerticalInside: { top: spacingRoleVars.inlineGap },
+  nextVerticalInside: { bottom: spacingRoleVars.inlineGap },
+  previous: { insetInlineStart: `calc(${sizeVars.controlSm} * -1.5)` },
+  next: { insetInlineEnd: `calc(${sizeVars.controlSm} * -1.5)` },
+});

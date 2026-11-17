@@ -17,6 +17,67 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "destructive";
+type ButtonSize = "sm" | "md" | "lg" | "icon";
+
+type AccessibleButtonName = { "aria-label": string } | { "aria-labelledby": string };
+
+export type ButtonProps = StyledProps<ComponentProps<typeof ButtonPrimitive>> & {
+  align?: "start" | "center" | "end" | "space-between";
+  children: ReactNode;
+  /** Use size="icon" for icon-only buttons, and add an accessible name. */
+  shape?: "default" | "square" | "circle";
+  variant?: ButtonVariant;
+  xstyle?: ControlLayoutStyles;
+} & ({ size?: Exclude<ButtonSize, "icon"> } | ({ size: ButtonSize } & AccessibleButtonName));
+
+export function Button({
+  className,
+  style,
+  align = "center",
+  children,
+  disabled,
+  size = "md",
+  shape = "default",
+  variant = "primary",
+  xstyle,
+  ...props
+}: ButtonProps) {
+  const isStandardSize = size === "sm" || size === "md" || size === "lg";
+  const shapeWidth = isStandardSize && shape !== "default" && squareStyles[size];
+  const hasSolidBackground = variant === "primary" || variant === "destructive";
+
+  return (
+    <ButtonPrimitive
+      {...props}
+      disabled={disabled}
+      {...mergeStyles(
+        stylex.props(
+          styles.root,
+          alignStyles[align],
+          variantStyles[variant],
+          !disabled && variant === "secondary" && surfaceStyles.subtle,
+          !disabled && variant === "outline" && surfaceStyles.outline,
+          sizeStyles[size],
+          !isStandardSize && styles.iconContent,
+          shapeStyles[shape],
+          shapeWidth,
+          hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
+          variant === "primary" && styles.primaryInteraction,
+          variant === "destructive" && styles.destructiveInteraction,
+          disabled && styles.disabled,
+          disabled && variant === "ghost" && styles.disabledGhost,
+          xstyle,
+        ),
+        className,
+        style,
+      )}
+    >
+      {children}
+    </ButtonPrimitive>
+  );
+}
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -182,64 +243,3 @@ const squareStyles = stylex.create({
   md: { width: sizeVars.controlMd },
   lg: { width: sizeVars.controlLg },
 });
-
-type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "destructive";
-type ButtonSize = "sm" | "md" | "lg" | "icon";
-
-type AccessibleButtonName = { "aria-label": string } | { "aria-labelledby": string };
-
-export type ButtonProps = StyledProps<ComponentProps<typeof ButtonPrimitive>> & {
-  align?: "start" | "center" | "end" | "space-between";
-  children: ReactNode;
-  /** Use size="icon" for icon-only buttons, and add an accessible name. */
-  shape?: "default" | "square" | "circle";
-  variant?: ButtonVariant;
-  xstyle?: ControlLayoutStyles;
-} & ({ size?: Exclude<ButtonSize, "icon"> } | ({ size: ButtonSize } & AccessibleButtonName));
-
-export function Button({
-  className,
-  style,
-  align = "center",
-  children,
-  disabled,
-  size = "md",
-  shape = "default",
-  variant = "primary",
-  xstyle,
-  ...props
-}: ButtonProps) {
-  const isStandardSize = size === "sm" || size === "md" || size === "lg";
-  const shapeWidth = isStandardSize && shape !== "default" && squareStyles[size];
-  const hasSolidBackground = variant === "primary" || variant === "destructive";
-
-  return (
-    <ButtonPrimitive
-      {...props}
-      disabled={disabled}
-      {...mergeStyles(
-        stylex.props(
-          styles.root,
-          alignStyles[align],
-          variantStyles[variant],
-          !disabled && variant === "secondary" && surfaceStyles.subtle,
-          !disabled && variant === "outline" && surfaceStyles.outline,
-          sizeStyles[size],
-          !isStandardSize && styles.iconContent,
-          shapeStyles[shape],
-          shapeWidth,
-          hasSolidBackground ? styles.solidInteraction : styles.surfaceInteraction,
-          variant === "primary" && styles.primaryInteraction,
-          variant === "destructive" && styles.destructiveInteraction,
-          disabled && styles.disabled,
-          disabled && variant === "ghost" && styles.disabledGhost,
-          xstyle,
-        ),
-        className,
-        style,
-      )}
-    >
-      {children}
-    </ButtonPrimitive>
-  );
-}

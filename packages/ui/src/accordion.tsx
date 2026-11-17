@@ -16,88 +16,6 @@ import type { ControlLayoutStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  root: { minWidth: 0, width: "100%" },
-  item: {
-    borderBottomColor: colorVars.strokeDefault,
-    borderBottomStyle: "solid",
-    borderBottomWidth: sizeVars.stroke,
-  },
-  header: { display: "flex", margin: 0 },
-  trigger: {
-    alignItems: "center",
-    appearance: "none",
-    backgroundColor: "transparent",
-    borderStyle: "none",
-    borderWidth: 0,
-    color: colorVars.fgPrimary,
-    cursor: "pointer",
-    display: "flex",
-    flex: 1,
-    fontFamily: typo.fontFamilyBody,
-    fontSize: typo.fontSizeSm,
-    fontWeight: typo.fontWeightMedium,
-    justifyContent: "space-between",
-    lineHeight: typo.lineHeightNormal,
-    outline: "none",
-    paddingBlock: spacingVars.space4,
-    paddingInline: 0,
-    textAlign: "start",
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "color",
-    transitionTimingFunction: motionVars.easingStandard,
-    ":hover": { textDecoration: "underline", textUnderlineOffset: spacingVars.space1 },
-    ":focus-visible": {
-      outlineColor: colorVars.strokeFocus,
-      outlineOffset: sizeVars.focusRing,
-      outlineStyle: "solid",
-      outlineWidth: sizeVars.focusRing,
-    },
-    ":disabled": { cursor: "not-allowed" },
-  },
-  triggerDisabled: {
-    color: colorVars.fgDisabled,
-    cursor: "not-allowed",
-    ":hover": { textDecoration: "none" },
-  },
-  icon: {
-    alignItems: "center",
-    display: "inline-flex",
-    flexShrink: 0,
-    height: sizeVars.iconMd,
-    justifyContent: "center",
-    transform: "rotate(0deg)",
-    width: sizeVars.iconMd,
-    ":is([data-panel-open] *)": { transform: "rotate(180deg)" },
-  },
-  panel: {
-    color: colorVars.fgSecondary,
-    fontSize: typo.fontSizeSm,
-    height: "var(--accordion-panel-height)",
-    lineHeight: typo.lineHeightNormal,
-    minWidth: 0,
-    opacity: 1,
-    overflow: "clip",
-    // Leave room for control focus outlines without exposing collapsed content.
-    overflowClipMargin: `calc(${sizeVars.focusRing} * 2)`,
-    transitionDuration: motionVars.durationNormal,
-    transitionProperty: "height, opacity",
-    transitionTimingFunction: motionVars.easingStandard,
-    width: "100%",
-    "@media (prefers-reduced-motion: reduce)": {
-      ":not(:root[data-bolerish-motion='on'] *)": {
-        transitionDuration: motionVars.durationInstant,
-      },
-    },
-  },
-  panelTransitioning: { height: 0, opacity: 0 },
-  panelContent: {
-    paddingBottom: spacingVars.space4,
-    paddingInlineEnd: spacingVars.space6,
-    width: "100%",
-  },
-});
-
 export function Accordion({
   className,
   style,
@@ -190,3 +108,85 @@ export function AccordionContent({
     </AccordionPrimitive.Panel>
   );
 }
+
+const styles = stylex.create({
+  root: { minWidth: 0, width: "100%" },
+  item: {
+    borderBottomColor: colorVars.strokeDefault,
+    borderBottomStyle: "solid",
+    borderBottomWidth: sizeVars.stroke,
+  },
+  header: { display: "flex", margin: 0 },
+  trigger: {
+    alignItems: "center",
+    appearance: "none",
+    backgroundColor: "transparent",
+    borderStyle: "none",
+    borderWidth: 0,
+    color: colorVars.fgPrimary,
+    cursor: "pointer",
+    display: "flex",
+    flex: 1,
+    fontFamily: typo.fontFamilyBody,
+    fontSize: typo.fontSizeSm,
+    fontWeight: typo.fontWeightMedium,
+    justifyContent: "space-between",
+    lineHeight: typo.lineHeightNormal,
+    outline: "none",
+    paddingBlock: spacingVars.space4,
+    paddingInline: 0,
+    textAlign: "start",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "color",
+    transitionTimingFunction: motionVars.easingStandard,
+    ":hover": { textDecoration: "underline", textUnderlineOffset: spacingVars.space1 },
+    ":focus-visible": {
+      outlineColor: colorVars.strokeFocus,
+      outlineOffset: sizeVars.focusRing,
+      outlineStyle: "solid",
+      outlineWidth: sizeVars.focusRing,
+    },
+    ":disabled": { cursor: "not-allowed" },
+  },
+  triggerDisabled: {
+    color: colorVars.fgDisabled,
+    cursor: "not-allowed",
+    ":hover": { textDecoration: "none" },
+  },
+  icon: {
+    alignItems: "center",
+    display: "inline-flex",
+    flexShrink: 0,
+    height: sizeVars.iconMd,
+    justifyContent: "center",
+    transform: "rotate(0deg)",
+    width: sizeVars.iconMd,
+    ":is([data-panel-open] *)": { transform: "rotate(180deg)" },
+  },
+  panel: {
+    color: colorVars.fgSecondary,
+    fontSize: typo.fontSizeSm,
+    height: "var(--accordion-panel-height)",
+    lineHeight: typo.lineHeightNormal,
+    minWidth: 0,
+    opacity: 1,
+    overflow: "clip",
+    // Leave room for control focus outlines without exposing collapsed content.
+    overflowClipMargin: `calc(${sizeVars.focusRing} * 2)`,
+    transitionDuration: motionVars.durationNormal,
+    transitionProperty: "height, opacity",
+    transitionTimingFunction: motionVars.easingStandard,
+    width: "100%",
+    "@media (prefers-reduced-motion: reduce)": {
+      ":not(:root[data-bolerish-motion='on'] *)": {
+        transitionDuration: motionVars.durationInstant,
+      },
+    },
+  },
+  panelTransitioning: { height: 0, opacity: 0 },
+  panelContent: {
+    paddingBottom: spacingVars.space4,
+    paddingInlineEnd: spacingVars.space6,
+    width: "100%",
+  },
+});

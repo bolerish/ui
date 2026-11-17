@@ -12,97 +12,6 @@ import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    gap: spacingVars.space4,
-    margin: 0,
-    padding: 0,
-  },
-  item: {
-    columnGap: spacingVars.space3,
-    display: "grid",
-    gridTemplateColumns: `${sizeVars.controlXs} minmax(0, 1fr)`,
-    listStyle: "none",
-    minWidth: 0,
-    position: "relative",
-    "::before": {
-      backgroundColor: colorVars.strokeDefault,
-      bottom: `calc(${spacingVars.space4} * -1)`,
-      content: '""',
-      left: `calc((${sizeVars.controlXs} - ${sizeVars.stroke}) / 2)`,
-      position: "absolute",
-      top: 0,
-      width: sizeVars.stroke,
-      zIndex: 0,
-    },
-    ":last-child": {
-      "::before": { display: "none" },
-    },
-  },
-  indicator: {
-    alignItems: "center",
-    backgroundColor: colorVars.bgSurface,
-    borderRadius: radiusVars.full,
-    color: colorVars.fgSecondary,
-    display: "inline-flex",
-    fontSize: sizeVars.iconSm,
-    gridColumn: 1,
-    height: sizeVars.controlXs,
-    justifyContent: "center",
-    position: "relative",
-    width: sizeVars.controlXs,
-    zIndex: 1,
-    boxShadow: "none",
-    borderColor: colorVars.strokeDefault,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-  },
-
-  content: {
-    display: "flex",
-    flexDirection: "column",
-    gap: spacingVars.space1,
-    gridColumn: 2,
-    minWidth: 0,
-    paddingBlock: spacingVars.space1,
-  },
-  title: {
-    color: colorVars.fgPrimary,
-    fontSize: typo.fontSizeSm,
-    fontWeight: typo.fontWeightMedium,
-    lineHeight: typo.lineHeightTight,
-  },
-  description: {
-    color: colorVars.fgSecondary,
-    fontSize: typo.fontSizeSm,
-    lineHeight: typo.lineHeightNormal,
-    margin: 0,
-  },
-  time: {
-    color: colorVars.fgTertiary,
-    fontSize: typo.fontSizeXs,
-    lineHeight: typo.lineHeightNormal,
-  },
-});
-const indicatorVariantStyles = stylex.create({
-  default: {},
-  active: {
-    backgroundColor: colorVars.bgActionPrimary,
-    borderColor: colorVars.strokeAction,
-    color: colorVars.fgOnActionPrimary,
-  },
-  complete: {
-    backgroundColor: colorVars.bgCurrent,
-    color: colorVars.fgPrimary,
-  },
-  error: {
-    backgroundColor: colorVars.bgFeedbackError,
-    color: colorVars.fgFeedbackError,
-  },
-});
-
 export type TimelineIndicatorVariant = "active" | "complete" | "default" | "error";
 
 export type TimelineProps = StyledProps<ComponentProps<"ol">> & {
@@ -185,3 +94,95 @@ export function TimelineTime({
 }: StyledProps<ComponentProps<"time">> & { xstyle?: ControlPlacementStyles }) {
   return <time {...props} {...mergeStyles(stylex.props(styles.time, xstyle), className, style)} />;
 }
+
+const styles = stylex.create({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space4,
+    margin: 0,
+    padding: 0,
+  },
+  item: {
+    columnGap: spacingVars.space3,
+    display: "grid",
+    gridTemplateColumns: `${sizeVars.controlXs} minmax(0, 1fr)`,
+    listStyle: "none",
+    minWidth: 0,
+    position: "relative",
+    "::before": {
+      backgroundColor: colorVars.strokeDefault,
+      bottom: `calc(${spacingVars.space4} * -1)`,
+      content: '""',
+      left: `calc((${sizeVars.controlXs} - ${sizeVars.stroke}) / 2)`,
+      position: "absolute",
+      top: 0,
+      width: sizeVars.stroke,
+      zIndex: 0,
+    },
+    ":last-child": {
+      "::before": { display: "none" },
+    },
+  },
+  indicator: {
+    alignItems: "center",
+    backgroundColor: colorVars.bgSurface,
+    borderRadius: radiusVars.full,
+    color: colorVars.fgSecondary,
+    display: "inline-flex",
+    fontSize: sizeVars.iconSm,
+    gridColumn: 1,
+    height: sizeVars.controlXs,
+    justifyContent: "center",
+    position: "relative",
+    width: sizeVars.controlXs,
+    zIndex: 1,
+    boxShadow: "none",
+    borderColor: colorVars.strokeDefault,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+  },
+
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space1,
+    gridColumn: 2,
+    minWidth: 0,
+    paddingBlock: spacingVars.space1,
+  },
+  title: {
+    color: colorVars.fgPrimary,
+    fontSize: typo.fontSizeSm,
+    fontWeight: typo.fontWeightMedium,
+    lineHeight: typo.lineHeightTight,
+  },
+  description: {
+    color: colorVars.fgSecondary,
+    fontSize: typo.fontSizeSm,
+    lineHeight: typo.lineHeightNormal,
+    margin: 0,
+  },
+  time: {
+    color: colorVars.fgTertiary,
+    fontSize: typo.fontSizeXs,
+    lineHeight: typo.lineHeightNormal,
+  },
+});
+
+const indicatorVariantStyles = stylex.create({
+  default: {},
+  active: {
+    backgroundColor: colorVars.bgActionPrimary,
+    borderColor: colorVars.strokeAction,
+    color: colorVars.fgOnActionPrimary,
+  },
+  complete: {
+    backgroundColor: colorVars.bgCurrent,
+    color: colorVars.fgPrimary,
+  },
+  error: {
+    backgroundColor: colorVars.bgFeedbackError,
+    color: colorVars.fgFeedbackError,
+  },
+});

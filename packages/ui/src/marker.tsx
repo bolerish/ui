@@ -6,6 +6,46 @@ import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+export type MarkerProps = StyledProps<ComponentProps<"div">> & {
+  variant?: "border" | "default" | "separator";
+  xstyle?: stylex.StyleXStyles;
+};
+
+export function Marker({ className, style, variant = "default", xstyle, ...props }: MarkerProps) {
+  return (
+    <div
+      {...props}
+      {...mergeStyles(stylex.props(styles.root, variantStyles[variant], xstyle), className, style)}
+    />
+  );
+}
+
+export function MarkerIcon({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<"span">> & { xstyle?: ControlPlacementStyles }) {
+  return (
+    <span
+      aria-hidden="true"
+      {...props}
+      {...mergeStyles(stylex.props(styles.icon, xstyle), className, style)}
+    />
+  );
+}
+
+export function MarkerContent({
+  className,
+  style,
+  xstyle,
+  ...props
+}: StyledProps<ComponentProps<"span">> & { xstyle?: stylex.StyleXStyles }) {
+  return (
+    <span {...props} {...mergeStyles(stylex.props(styles.content, xstyle), className, style)} />
+  );
+}
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -47,43 +87,3 @@ const variantStyles = stylex.create({
     },
   },
 });
-
-export type MarkerProps = StyledProps<ComponentProps<"div">> & {
-  variant?: "border" | "default" | "separator";
-  xstyle?: stylex.StyleXStyles;
-};
-
-export function Marker({ className, style, variant = "default", xstyle, ...props }: MarkerProps) {
-  return (
-    <div
-      {...props}
-      {...mergeStyles(stylex.props(styles.root, variantStyles[variant], xstyle), className, style)}
-    />
-  );
-}
-
-export function MarkerIcon({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<"span">> & { xstyle?: ControlPlacementStyles }) {
-  return (
-    <span
-      aria-hidden="true"
-      {...props}
-      {...mergeStyles(stylex.props(styles.icon, xstyle), className, style)}
-    />
-  );
-}
-
-export function MarkerContent({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<ComponentProps<"span">> & { xstyle?: stylex.StyleXStyles }) {
-  return (
-    <span {...props} {...mergeStyles(stylex.props(styles.content, xstyle), className, style)} />
-  );
-}

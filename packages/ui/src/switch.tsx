@@ -15,6 +15,22 @@ import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+export type SwitchProps = StyledProps<ComponentProps<typeof SwitchPrimitive.Root>> & {
+  size?: "md" | "sm";
+  xstyle?: ControlPlacementStyles;
+};
+
+export function Switch({ className, style, size = "md", xstyle, ...props }: SwitchProps) {
+  return (
+    <SwitchPrimitive.Root
+      {...props}
+      {...mergeStyles(stylex.props(styles.root, sizeStyles[size], xstyle), className, style)}
+    >
+      <SwitchPrimitive.Thumb {...stylex.props(styles.thumb, thumbSizeStyles[size])} />
+    </SwitchPrimitive.Root>
+  );
+}
+
 const styles = stylex.create({
   root: {
     alignItems: "center",
@@ -83,19 +99,3 @@ const thumbSizeStyles = stylex.create({
     width: sizeVars.iconLg,
   },
 });
-
-export type SwitchProps = StyledProps<ComponentProps<typeof SwitchPrimitive.Root>> & {
-  size?: "md" | "sm";
-  xstyle?: ControlPlacementStyles;
-};
-
-export function Switch({ className, style, size = "md", xstyle, ...props }: SwitchProps) {
-  return (
-    <SwitchPrimitive.Root
-      {...props}
-      {...mergeStyles(stylex.props(styles.root, sizeStyles[size], xstyle), className, style)}
-    >
-      <SwitchPrimitive.Thumb {...stylex.props(styles.thumb, thumbSizeStyles[size])} />
-    </SwitchPrimitive.Root>
-  );
-}

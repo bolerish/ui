@@ -5,6 +5,20 @@ import type { ComponentProps } from "react";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+export type SkeletonProps = StyledProps<ComponentProps<"div">> & {
+  xstyle?: stylex.StyleXStyles;
+};
+
+export function Skeleton({ className, style, xstyle, ...props }: SkeletonProps) {
+  return (
+    <div
+      {...props}
+      aria-hidden="true"
+      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
+    />
+  );
+}
+
 const pulse = stylex.keyframes({ "0%, 100%": { opacity: 1 }, "50%": { opacity: 0.5 } });
 
 const styles = stylex.create({
@@ -20,17 +34,3 @@ const styles = stylex.create({
     },
   },
 });
-
-export type SkeletonProps = StyledProps<ComponentProps<"div">> & {
-  xstyle?: stylex.StyleXStyles;
-};
-
-export function Skeleton({ className, style, xstyle, ...props }: SkeletonProps) {
-  return (
-    <div
-      {...props}
-      aria-hidden="true"
-      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
-    />
-  );
-}

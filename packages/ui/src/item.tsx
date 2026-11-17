@@ -8,77 +8,6 @@ import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 import { typographyStyles } from "./typography";
 
-const styles = stylex.create({
-  root: {
-    alignItems: "center",
-    borderColor: "transparent",
-    borderRadius: radiusVars.md,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    color: colorVars.fgPrimary,
-    display: "flex",
-    minWidth: 0,
-    width: "100%",
-  },
-
-  group: { display: "flex", flexDirection: "column", gap: spacingVars.space2, width: "100%" },
-  media: {
-    alignItems: "center",
-    display: "flex",
-    flexShrink: 0,
-    justifyContent: "center",
-    overflow: "hidden",
-  },
-
-  content: {
-    alignSelf: "baseline",
-    display: "flex",
-    flex: 1,
-    flexDirection: "column",
-    gap: spacingVars.space1,
-    minWidth: 0,
-  },
-  description: {
-    color: colorVars.fgSecondary,
-    margin: 0,
-  },
-  actions: {
-    alignItems: "baseline",
-    alignSelf: "baseline",
-    display: "flex",
-    flexShrink: 0,
-    gap: spacingVars.space2,
-  },
-});
-
-const mediaVariantStyles = stylex.create({
-  icon: {
-    backgroundColor: colorVars.bgSubtle,
-    borderRadius: radiusVars.md,
-    color: colorVars.fgSecondary,
-    height: sizeVars.controlMd,
-    width: sizeVars.controlMd,
-  },
-  avatar: { borderRadius: radiusVars.full },
-  image: {
-    borderRadius: radiusVars.md,
-    height: sizeVars.touchTarget,
-    width: sizeVars.touchTarget,
-  },
-});
-
-const sizeStyles = stylex.create({
-  default: { gap: spacingVars.space3, minHeight: "4rem", padding: spacingVars.space4 },
-  sm: { gap: spacingVars.space3, minHeight: sizeVars.touchTarget, padding: spacingVars.space3 },
-  xs: { gap: spacingVars.space2, minHeight: sizeVars.controlSm, padding: spacingVars.space2 },
-});
-
-const variantStyles = stylex.create({
-  default: { backgroundColor: "transparent" },
-  muted: { backgroundColor: colorVars.bgSubtle },
-  outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
-});
-
 export type ItemSize = "default" | "sm" | "xs";
 export type ItemVariant = "default" | "muted" | "outline";
 
@@ -201,3 +130,74 @@ export function ItemActions({
     <div {...props} {...mergeStyles(stylex.props(styles.actions, xstyle), className, style)} />
   );
 }
+
+const styles = stylex.create({
+  root: {
+    alignItems: "center",
+    borderColor: "transparent",
+    borderRadius: radiusVars.md,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    color: colorVars.fgPrimary,
+    display: "flex",
+    minWidth: 0,
+    width: "100%",
+  },
+
+  group: { display: "flex", flexDirection: "column", gap: spacingVars.space2, width: "100%" },
+  media: {
+    alignItems: "center",
+    display: "flex",
+    flexShrink: 0,
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+
+  content: {
+    alignSelf: "baseline",
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    gap: spacingVars.space1,
+    minWidth: 0,
+  },
+  description: {
+    color: colorVars.fgSecondary,
+    margin: 0,
+  },
+  actions: {
+    alignItems: "baseline",
+    alignSelf: "baseline",
+    display: "flex",
+    flexShrink: 0,
+    gap: spacingVars.space2,
+  },
+});
+
+const mediaVariantStyles = stylex.create({
+  icon: {
+    backgroundColor: colorVars.bgSubtle,
+    borderRadius: radiusVars.md,
+    color: colorVars.fgSecondary,
+    height: sizeVars.controlMd,
+    width: sizeVars.controlMd,
+  },
+  avatar: { borderRadius: radiusVars.full },
+  image: {
+    borderRadius: radiusVars.md,
+    height: sizeVars.touchTarget,
+    width: sizeVars.touchTarget,
+  },
+});
+
+const sizeStyles = stylex.create({
+  default: { gap: spacingVars.space3, minHeight: "4rem", padding: spacingVars.space4 },
+  sm: { gap: spacingVars.space3, minHeight: sizeVars.touchTarget, padding: spacingVars.space3 },
+  xs: { gap: spacingVars.space2, minHeight: sizeVars.controlSm, padding: spacingVars.space2 },
+});
+
+const variantStyles = stylex.create({
+  default: { backgroundColor: "transparent" },
+  muted: { backgroundColor: colorVars.bgSubtle },
+  outline: { backgroundColor: colorVars.bgSurface, borderColor: colorVars.strokeDefault },
+});

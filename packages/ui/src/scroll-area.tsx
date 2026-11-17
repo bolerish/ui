@@ -8,44 +8,6 @@ import type { ComponentProps, ReactNode } from "react";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
-const styles = stylex.create({
-  root: { overflow: "hidden", position: "relative" },
-  viewport: { height: "100%", width: "100%" },
-  content: { minWidth: "100%" },
-  scrollbar: {
-    display: "flex",
-    padding: spacingVars.space0_5,
-    opacity: { default: 0, ":is([data-hovering], [data-scrolling])": 1 },
-    pointerEvents: { default: "none", ":is([data-hovering], [data-scrolling])": "auto" },
-    touchAction: "none",
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color, opacity",
-    transitionTimingFunction: motionVars.easingStandard,
-    userSelect: "none",
-  },
-
-  thumb: {
-    backgroundColor: colorVars.strokeControl,
-    borderRadius: radiusVars.full,
-    flexShrink: 0,
-    transitionDuration: motionVars.durationFast,
-    transitionProperty: "background-color",
-    transitionTimingFunction: motionVars.easingStandard,
-    ":hover": { backgroundColor: colorVars.strokeStrong },
-  },
-  corner: { backgroundColor: "transparent" },
-});
-
-const orientationStyles = stylex.create({
-  horizontal: { flexDirection: "row", height: 8, width: "100%" },
-  vertical: { flexDirection: "column", height: "100%", width: 8 },
-});
-
-const thumbOrientationStyles = stylex.create({
-  horizontal: { height: "100%", minWidth: 20 },
-  vertical: { width: "100%", minHeight: 20 },
-});
-
 export type ScrollAreaProps = StyledProps<ComponentProps<typeof ScrollAreaPrimitive.Root>> & {
   children: ReactNode;
   scrollbars?: "both" | "horizontal" | "vertical";
@@ -134,3 +96,41 @@ export function ScrollAreaContent({
     />
   );
 }
+
+const styles = stylex.create({
+  root: { overflow: "hidden", position: "relative" },
+  viewport: { height: "100%", width: "100%" },
+  content: { minWidth: "100%" },
+  scrollbar: {
+    display: "flex",
+    padding: spacingVars.space0_5,
+    opacity: { default: 0, ":is([data-hovering], [data-scrolling])": 1 },
+    pointerEvents: { default: "none", ":is([data-hovering], [data-scrolling])": "auto" },
+    touchAction: "none",
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color, opacity",
+    transitionTimingFunction: motionVars.easingStandard,
+    userSelect: "none",
+  },
+
+  thumb: {
+    backgroundColor: colorVars.strokeControl,
+    borderRadius: radiusVars.full,
+    flexShrink: 0,
+    transitionDuration: motionVars.durationFast,
+    transitionProperty: "background-color",
+    transitionTimingFunction: motionVars.easingStandard,
+    ":hover": { backgroundColor: colorVars.strokeStrong },
+  },
+  corner: { backgroundColor: "transparent" },
+});
+
+const orientationStyles = stylex.create({
+  horizontal: { flexDirection: "row", height: 8, width: "100%" },
+  vertical: { flexDirection: "column", height: "100%", width: 8 },
+});
+
+const thumbOrientationStyles = stylex.create({
+  horizontal: { height: "100%", minWidth: 20 },
+  vertical: { width: "100%", minHeight: 20 },
+});

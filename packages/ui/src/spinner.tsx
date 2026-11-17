@@ -6,6 +6,21 @@ import type { ControlPlacementStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 
+export type SpinnerProps = StyledProps<ComponentProps<"output">> & {
+  label?: string;
+  xstyle?: ControlPlacementStyles;
+};
+
+export function Spinner({ className, style, xstyle, label = "Loading", ...props }: SpinnerProps) {
+  return (
+    <output
+      {...props}
+      aria-label={label}
+      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
+    />
+  );
+}
+
 const spin = stylex.keyframes({ to: { transform: "rotate(360deg)" } });
 
 const styles = stylex.create({
@@ -29,18 +44,3 @@ const styles = stylex.create({
     },
   },
 });
-
-export type SpinnerProps = StyledProps<ComponentProps<"output">> & {
-  label?: string;
-  xstyle?: ControlPlacementStyles;
-};
-
-export function Spinner({ className, style, xstyle, label = "Loading", ...props }: SpinnerProps) {
-  return (
-    <output
-      {...props}
-      aria-label={label}
-      {...mergeStyles(stylex.props(styles.root, xstyle), className, style)}
-    />
-  );
-}
