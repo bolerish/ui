@@ -42,8 +42,8 @@ const styles = stylex.create({
     position: "absolute",
     width: sizeVars.controlXs,
   },
-  horizontalControl: { top: `calc(50% - ${sizeVars.controlXs} / 2)` },
-  verticalControl: { left: `calc(50% - ${sizeVars.controlXs} / 2)` },
+  horizontalControl: { top: "50%" },
+  verticalControl: { left: "50%" },
   verticalViewport: { height: "100%" },
   verticalContent: { flexDirection: "column", height: "100%" },
   verticalItem: { minHeight: 0 },
@@ -193,37 +193,19 @@ export type CarouselContentProps = StyledProps<ComponentProps<"div">> & {
   xstyle?: stylex.StyleXStyles;
 };
 
-export function CarouselViewport({
-  className,
-  style,
-  xstyle,
-  ...props
-}: StyledProps<Omit<ComponentProps<"div">, "ref">> & { xstyle?: stylex.StyleXStyles }) {
+export function CarouselContent({ className, style, xstyle, ...props }: CarouselContentProps) {
   const { viewportRef, vertical } = useCarousel();
   return (
-    <div
-      ref={viewportRef}
-      {...props}
-      {...mergeStyles(
-        stylex.props(styles.viewport, vertical && styles.verticalViewport, xstyle),
-        className,
-        style,
-      )}
-    />
-  );
-}
-
-export function CarouselContent({ className, style, xstyle, ...props }: CarouselContentProps) {
-  const { vertical } = useCarousel();
-  return (
-    <div
-      {...props}
-      {...mergeStyles(
-        stylex.props(styles.content, vertical && styles.verticalContent, xstyle),
-        className,
-        style,
-      )}
-    />
+    <div ref={viewportRef} {...stylex.props(styles.viewport, vertical && styles.verticalViewport)}>
+      <div
+        {...props}
+        {...mergeStyles(
+          stylex.props(styles.content, vertical && styles.verticalContent, xstyle),
+          className,
+          style,
+        )}
+      />
+    </div>
   );
 }
 
@@ -264,7 +246,12 @@ export function CarouselPrevious({ disabled, style, xstyle, ...props }: Carousel
       onClick={scrollPrevious}
       size="icon"
       shape="circle"
-      style={{ aspectRatio: "1", height: "auto", ...style }}
+      style={{
+        aspectRatio: "1",
+        height: "auto",
+        transform: vertical ? "translateX(-50%)" : "translateY(-50%)",
+        ...style,
+      }}
       variant="secondary"
       xstyle={[
         styles.control,
@@ -291,7 +278,12 @@ export function CarouselNext({ disabled, style, xstyle, ...props }: CarouselCont
       onClick={scrollNext}
       size="icon"
       shape="circle"
-      style={{ aspectRatio: "1", height: "auto", ...style }}
+      style={{
+        aspectRatio: "1",
+        height: "auto",
+        transform: vertical ? "translateX(-50%)" : "translateY(-50%)",
+        ...style,
+      }}
       variant="secondary"
       xstyle={[
         styles.control,

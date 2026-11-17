@@ -1,7 +1,6 @@
 import { colorVars } from "@bolerish/tokens/semantic.stylex";
 import {
   Carousel,
-  CarouselViewport,
   CarouselContent,
   CarouselItem,
   CarouselPrevious,
@@ -33,15 +32,13 @@ export default function ArrowOnly() {
       style={styles.root}
       aria-label="ArrowOnly carousel"
     >
-      <CarouselViewport>
-        <CarouselContent>
-          {[1, 2, 3, 4, 5].map((value) => (
-            <CarouselItem key={value} style={styles.slide}>
-              Slide {value}
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </CarouselViewport>
+      <CarouselContent>
+        {[1, 2, 3, 4, 5].map((value) => (
+          <CarouselItem key={value} style={styles.slide}>
+            Slide {value}
+          </CarouselItem>
+        ))}
+      </CarouselContent>
       <CarouselPrevious variant="ghost" />
       <CarouselNext variant="ghost" />
     </Carousel>

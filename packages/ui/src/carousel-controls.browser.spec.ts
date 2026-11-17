@@ -17,6 +17,17 @@ for (const variant of ["arrows", "inside", "vertical"]) {
     }
     if (variant === "arrows") await expect(next).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
     if (variant === "vertical") expect(control.y).toBeGreaterThanOrEqual(box.y + box.height);
+    for (const button of [previous, next]) {
+      await button.evaluate((element) => {
+        element.style.width = "48px";
+        element.style.height = "48px";
+      });
+      const bounds = (await button.boundingBox())!;
+      const center =
+        variant === "vertical" ? bounds.x + bounds.width / 2 : bounds.y + bounds.height / 2;
+      const expected = variant === "vertical" ? box.x + box.width / 2 : box.y + box.height / 2;
+      expect(Math.abs(center - expected)).toBeLessThan(1);
+    }
     await next.click();
     await expect(previous).toBeEnabled();
     await expect

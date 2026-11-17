@@ -65,7 +65,6 @@ StyleX를 사용하는 앱은 `xstyle`을 권장하며, 여러 스타일은
 | ScrollArea → ScrollAreaViewport | ScrollAreaContent            | 영역 크기·스크롤 / 콘텐츠 배치 |
 | Banner                          | BannerContent, BannerActions | 배너 / 메시지·행동 묶음        |
 | TableContainer                  | Table                        | 가로 스크롤 / 테이블           |
-| CarouselViewport                | CarouselContent              | 스크롤 뷰포트 / 슬라이드 트랙  |
 
 ```tsx
 <DrawerContent xstyle={styles.content}>

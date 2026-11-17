@@ -1,6 +1,5 @@
 import {
   Carousel,
-  CarouselViewport,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -30,15 +29,13 @@ export default function Default() {
   return (
     /* @example-start */
     <Carousel style={styles.carousel}>
-      <CarouselViewport>
-        <CarouselContent>
-          {["1", "2", "3", "4", "5"].map((item) => (
-            <CarouselItem key={item} style={styles.slide}>
-              Slide {item}
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </CarouselViewport>
+      <CarouselContent>
+        {["1", "2", "3", "4", "5"].map((item) => (
+          <CarouselItem key={item} style={styles.slide}>
+            Slide {item}
+          </CarouselItem>
+        ))}
+      </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
