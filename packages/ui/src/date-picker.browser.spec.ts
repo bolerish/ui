@@ -28,3 +28,32 @@ for (const width of [208, 320]) {
     await expect(trigger).toBeFocused();
   });
 }
+
+for (const mode of ["controlled", "uncontrolled"]) {
+  test(`DatePicker restores the saved month in ${mode} mode`, async ({ page }) => {
+    await page.goto(`/?fixture=date-picker-value&mode=${mode}`);
+    const trigger = page.getByRole("button", { name: "2020-1-15", exact: true });
+    await page.keyboard.press("Tab");
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press("Enter");
+    const grid = page.getByRole("grid", { name: "January 2020" });
+    await expect(grid).toBeVisible();
+    const selected = grid.getByRole("gridcell", { selected: true });
+    await expect(selected).toHaveCount(1);
+    const day = selected.getByRole("button", { name: /^15,/ });
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await expect(day).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.getByRole("button", { name: /^16,/ })).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("dialog")).toBeHidden();
+    const updatedTrigger = page.getByRole("button", { name: "2020-1-16", exact: true });
+    await expect(updatedTrigger).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(grid).toBeVisible();
+    await expect(
+      grid.getByRole("gridcell", { selected: true }).getByRole("button", { name: /^16,/ }),
+    ).toBeVisible();
+  });
+}

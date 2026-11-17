@@ -1,4 +1,5 @@
 import * as stylex from "@stylexjs/stylex";
+import { useState } from "react";
 import { createRoot } from "react-dom/client";
 
 import AccountCreationForm from "../../../../docs/src/docs/_content/components/card/AccountCreationForm";
@@ -18,6 +19,7 @@ import {
   ComboboxCollection,
   ComboboxItem,
 } from "../../dist/combobox.js";
+import { DatePicker } from "../../dist/date-picker.js";
 import {
   Dialog,
   DialogTrigger,
@@ -156,7 +158,19 @@ function NestedModalExample() {
     </Parent>
   );
 }
+function DatePickerExample() {
+  const [value, setValue] = useState<Date | undefined>(new Date(2020, 0, 15));
+  return (
+    <DatePicker
+      {...(params.get("mode") === "controlled"
+        ? { value, onValueChange: setValue }
+        : { defaultValue: new Date(2020, 0, 15) })}
+      format={(date) => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`}
+    />
+  );
+}
 function App() {
+  if (fixture === "date-picker-value") return <DatePickerExample />;
   if (fixture === "destructive")
     return (
       <>
