@@ -1,5 +1,17 @@
 # @bolerish/ui
 
+## 2.0.0
+
+### Major Changes
+
+- 722b0d1: CarouselContent now creates its viewport internally. Remove CarouselViewport wrappers and imports; place CarouselItem children directly inside CarouselContent. CarouselContent props and styles continue to target the moving slide track. CarouselViewport is no longer exported. Move any custom viewport styling to an app-owned wrapper as appropriate.
+
+  Carousel controls now center using their rendered dimensions in horizontal and vertical layouts.
+
+### Patch Changes
+
+- @bolerish/tokens@2.0.0
+
 ## 1.0.1
 
 ### Patch Changes
