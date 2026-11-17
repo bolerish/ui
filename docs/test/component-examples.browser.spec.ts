@@ -1,6 +1,8 @@
-import { readdirSync, existsSync } from "node:fs";
+import { readdirSync, existsSync, readFileSync } from "node:fs";
 
 import { expect, test } from "@playwright/test";
+
+import { getExampleSource } from "../src/docs/_ui/example-source";
 
 test("component code shows and copies usage without preview scaffolding", async ({
   page,
@@ -285,3 +287,59 @@ test("all component prop tables fit a narrow viewport", async ({ page }) => {
     ).toBe(true);
   }
 });
+
+for (const locale of ["en", "ko"] as const) {
+  test(`Carousel cards source and all six prop examples work in ${locale}`, async ({
+    page,
+    context,
+  }) => {
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page.goto(`/docs/components/carousel${locale === "ko" ? "/ko" : ""}`);
+    await page.waitForLoadState("networkidle");
+    const example = page.locator('[data-preview-name="carousel--Cards"]');
+    const expected = getExampleSource(
+      readFileSync(
+        new URL("../src/docs/_content/components/carousel/Cards.tsx", import.meta.url),
+        "utf8",
+      ),
+    );
+    await example.getByRole("button", { name: "Code", exact: true }).click();
+    await expect(example.locator("pre")).toBeVisible();
+    expect((await example.locator("pre > code > div").allTextContents()).join("\n")).toBe(expected);
+    await page.bringToFront();
+    await example.getByRole("button", { name: "Copy code", exact: true }).click();
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(expected);
+
+    const rows = page.locator('[data-docs="props-table"] tbody tr');
+    await expect(rows.locator(":scope > td:first-child")).toHaveText([
+      "outside",
+      "inside",
+      "horizontal",
+      "vertical",
+      "[1, 1]",
+      "[70, 20]",
+    ]);
+    for (const row of await rows.all()) {
+      await row.scrollIntoViewIfNeeded();
+      const carousel = row.getByRole("region", { name: "Featured cards", exact: true });
+      await expect(carousel).toBeVisible();
+      const previous = carousel.getByRole("button", { name: "Previous slide", exact: true });
+      const next = carousel.getByRole("button", { name: "Next slide", exact: true });
+      await expect(previous).toBeDisabled();
+      await expect(next).toBeEnabled();
+      const first = carousel.getByText("First slide", { exact: true });
+      const before = (await first.boundingBox())!;
+      const vertical = (await row.locator(":scope > td:first-child").textContent()) === "vertical";
+      await next.click();
+      await expect(previous).toBeEnabled();
+      await expect
+        .poll(async () => {
+          const after = (await first.boundingBox())!;
+          return vertical ? before.y - after.y : before.x - after.x;
+        })
+        .toBeGreaterThan(50);
+      await previous.click();
+      await expect(previous).toBeDisabled();
+    }
+  });
+}

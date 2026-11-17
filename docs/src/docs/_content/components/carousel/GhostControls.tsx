@@ -23,7 +23,7 @@ const styles = {
 } satisfies Record<string, CSSProperties>;
 /* @example-end */
 
-export default function ArrowOnly() {
+export default function GhostControls() {
   return (
     /* @example-start */
     <Carousel

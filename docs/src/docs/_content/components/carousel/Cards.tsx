@@ -7,7 +7,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@bolerish/ui/carousel";
-export default function Usage() {
+export default function Cards() {
   return (
     <div style={{ width: "100%", maxWidth: "28rem", padding: spacingVars.space12 }}>
       {/* @example-start */}

@@ -2,7 +2,7 @@ import * as stylex from "@stylexjs/stylex";
 import { createRoot } from "react-dom/client";
 
 import AccountCreationForm from "../../../../docs/src/docs/_content/components/card/AccountCreationForm";
-import ArrowOnlyCarousel from "../../../../docs/src/docs/_content/components/carousel/ArrowOnly";
+import GhostControlsCarousel from "../../../../docs/src/docs/_content/components/carousel/GhostControls";
 import InsideCarousel from "../../../../docs/src/docs/_content/components/carousel/InsideControls";
 import VerticalCarousel from "../../../../docs/src/docs/_content/components/carousel/Vertical";
 import InputVariants from "../../../../docs/src/docs/_content/components/input/Variants";
@@ -196,7 +196,7 @@ function App() {
   if (fixture === "carousel-controls") {
     if (params.get("variant") === "vertical") return <VerticalCarousel />;
     if (params.get("variant") === "inside") return <InsideCarousel />;
-    return <ArrowOnlyCarousel />;
+    return <GhostControlsCarousel />;
   }
   if (fixture === "hover-card-delay") {
     return (

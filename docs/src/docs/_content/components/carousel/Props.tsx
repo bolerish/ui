@@ -2,6 +2,7 @@ import { spacingVars } from "@bolerish/tokens/semantic.stylex";
 import { Card, CardContent } from "@bolerish/ui/card";
 import {
   Carousel,
+  type CarouselProps,
   CarouselContent,
   CarouselItem,
   CarouselPrevious,
@@ -10,210 +11,63 @@ import {
 
 export const propExamples = {
   controlsPlacement: {
-    outside: (
-      <div style={{ width: "100%", padding: spacingVars.space12 }}>
-        <Carousel
-          aria-label="Featured cards"
-          controlsPlacement="outside"
-          style={{ height: "12rem" }}
-        >
-          <CarouselContent>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  First slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Second slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Third slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
-    ),
-    inside: (
-      <div style={{ width: "100%", padding: spacingVars.space12 }}>
-        <Carousel
-          aria-label="Featured cards"
-          controlsPlacement="inside"
-          style={{ height: "12rem" }}
-        >
-          <CarouselContent>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  First slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Second slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Third slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
-    ),
+    outside: <CardCarousel controlsPlacement="outside" />,
+    inside: <CardCarousel controlsPlacement="inside" />,
   },
   orientation: {
-    horizontal: (
-      <div style={{ width: "100%", padding: spacingVars.space12 }}>
-        <Carousel aria-label="Featured cards" orientation="horizontal" style={{ height: "12rem" }}>
-          <CarouselContent>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  First slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Second slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Third slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
-    ),
-    vertical: (
-      <div style={{ width: "100%", padding: spacingVars.space12 }}>
-        <Carousel aria-label="Featured cards" orientation="vertical" style={{ height: "12rem" }}>
-          <CarouselContent>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  First slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Second slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Third slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
-    ),
+    horizontal: <CardCarousel orientation="horizontal" />,
+    vertical: <CardCarousel orientation="vertical" />,
   },
   slideRatio: {
-    balanced: (
-      <div style={{ width: "100%", padding: spacingVars.space12 }}>
-        <Carousel aria-label="Featured cards" slideRatio={[1, 1]} style={{ height: "12rem" }}>
-          <CarouselContent>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  First slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Second slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Third slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
-    ),
-    peek: (
-      <div style={{ width: "100%", padding: spacingVars.space12 }}>
-        <Carousel aria-label="Featured cards" slideRatio={[70, 20]} style={{ height: "12rem" }}>
-          <CarouselContent>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  First slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Second slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-            <CarouselItem>
-              <Card>
-                <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
-                  Third slide
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
-    ),
+    balanced: <CardCarousel slideRatio={[1, 1]} />,
+    peek: <CardCarousel slideRatio={[70, 20]} />,
   },
 };
+
 export default function Props() {
+  return propExamples.controlsPlacement.outside;
+}
+
+function CardCarousel({
+  controlsPlacement,
+  orientation,
+  slideRatio,
+}: Pick<CarouselProps, "controlsPlacement" | "orientation" | "slideRatio">) {
   return (
-    /* @example-start */
-    propExamples["controlsPlacement"]["outside"]
-    /* @example-end */
+    <div style={{ width: "100%", padding: spacingVars.space12 }}>
+      <Carousel
+        aria-label="Featured cards"
+        controlsPlacement={controlsPlacement}
+        orientation={orientation}
+        slideRatio={slideRatio}
+        style={{ height: "12rem" }}
+      >
+        <CarouselContent>
+          <CarouselItem>
+            <Card>
+              <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
+                First slide
+              </CardContent>
+            </Card>
+          </CarouselItem>
+          <CarouselItem>
+            <Card>
+              <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
+                Second slide
+              </CardContent>
+            </Card>
+          </CarouselItem>
+          <CarouselItem>
+            <Card>
+              <CardContent style={{ display: "grid", placeItems: "center", minHeight: "12rem" }}>
+                Third slide
+              </CardContent>
+            </Card>
+          </CarouselItem>
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+    </div>
   );
 }
