@@ -30,6 +30,45 @@ test("stdio tools find and return bundled references outside the checkout", asyn
     return JSON.parse(block.text);
   }
 
+  await t.test(
+    "unknown document IDs suggest retrievable references while preserving errors",
+    async () => {
+      const full = await call("get_doc", { id: "components/button" });
+      for (const id of ["Button", "COMPONENTS/BUTTON", "widgets/button"]) {
+        const result = await client.callTool({ name: "get_doc", arguments: { id } });
+        assert.equal(result.isError, true, id);
+        const block = result.content[0];
+        assert.equal(block.type, "text");
+        if (block.type !== "text") throw new Error("Expected a text response");
+        const error = JSON.parse(block.text);
+        assert.equal(error.error, `Unknown document: ${id}. Use search_docs to find an ID.`);
+        assert.deepEqual(error.bundle, full.bundle);
+        assert.equal("document" in error, false);
+        assert.equal(error.suggestions.length, 5);
+        assert.deepEqual(error.suggestions[0], {
+          id: "components/button",
+          title: full.document.title,
+          section: "components",
+        });
+        for (const suggestion of error.suggestions) {
+          assert.deepEqual(Object.keys(suggestion).sort(), ["id", "section", "title"]);
+          const recovered = await call("get_doc", { id: suggestion.id });
+          assert.equal(recovered.document.id, suggestion.id);
+        }
+      }
+      for (const id of ["zzzz-no-matching-document", "/", "///", "widgets/", "widgets/   "]) {
+        const result = await client.callTool({ name: "get_doc", arguments: { id } });
+        assert.equal(result.isError, true, id);
+        const block = result.content[0];
+        if (block.type !== "text") throw new Error("Expected a text response");
+        assert.deepEqual(JSON.parse(block.text).suggestions, [], id);
+      }
+      const exact = await call("get_doc", { id: "components/button" });
+      assert.deepEqual(exact, full);
+      assert.equal("suggestions" in exact, false);
+    },
+  );
+
   await t.test("task phrases expose components, foundations and valid examples", async () => {
     for (const [queries, component, foundation] of [
       [["저장 실패 알림", "save failure notification"], "components/toast", "foundations/feedback"],

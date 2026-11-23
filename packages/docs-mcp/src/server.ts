@@ -75,11 +75,22 @@ export function createServer() {
     },
     ({ id, view, heading }) => {
       const document = catalog.documents.find((doc) => doc.id === id);
-      if (!document)
+      if (!document) {
+        const query = id.trim();
+        const lastSegment = query.split("/").at(-1)?.trim() ?? "";
+        let matches = lastSegment ? searchDocuments(catalog.documents, query) : [];
+        if (!matches.length && lastSegment && lastSegment !== query)
+          matches = searchDocuments(catalog.documents, lastSegment);
         return {
-          ...textResult({ error: `Unknown document: ${id}. Use search_docs to find an ID.` }),
+          ...textResult({
+            error: `Unknown document: ${id}. Use search_docs to find an ID.`,
+            suggestions: matches
+              .slice(0, 5)
+              .map(({ id, title, section }) => ({ id, title, section })),
+          }),
           isError: true,
         };
+      }
       const sections = getSections(document.content);
       if (heading && view === "outline")
         return {

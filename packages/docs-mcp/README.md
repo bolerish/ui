@@ -95,7 +95,11 @@ The tool is available to agents; availability does not guarantee they call it.
   A null `nextOffset` marks the end.
 - `get_doc`: read the full reference using an exact ID from `search_docs`,
   such as `components/button`, `foundations/spacing`, `tokens/semantic` or
-  `examples/button/Default`. Unknown IDs return a tool error.
+  `examples/button/Default`. Unknown IDs remain tool errors and include up to
+  five `suggestions` with `id`, `title` and `section`. The server searches the
+  supplied ID first, then its final slash-separated segment if no matches exist.
+  No matches or an empty final segment returns an empty list. Retry with an exact
+  suggested ID; the server does not select a document automatically.
 
 - `check_css`: accepts `{css: string}` (1–100000 characters). Parses supplied CSS
   without loading imports or touching files. Returns located color, typography
