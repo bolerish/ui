@@ -33,6 +33,8 @@ for (const mode of ["controlled", "uncontrolled"]) {
   test(`DatePicker restores the saved month in ${mode} mode`, async ({ page }) => {
     await page.goto(`/?fixture=date-picker-value&mode=${mode}`);
     const trigger = page.getByRole("button", { name: "2020-1-15", exact: true });
+    await expect(trigger).toBeVisible();
+    await expect(trigger).toBeEnabled();
     await page.keyboard.press("Tab");
     await expect(trigger).toBeFocused();
     await page.keyboard.press("Enter");
