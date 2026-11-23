@@ -8,7 +8,7 @@
     "dev": "pnpm --filter @bolerish/ui build && pnpm --filter @bolerish/json-render build && vite",
     "test": "node --experimental-strip-types --test src/*.test.ts src/design-systems/*.test.ts",
     "test:browser": "pnpm --filter @bolerish/ui build && pnpm --filter @bolerish/json-render build && playwright test",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "pnpm --filter @bolerish/json-render build && tsc --noEmit"
   },
   "dependencies": {
     "@bolerish/json-render": "workspace:*",
