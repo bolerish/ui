@@ -94,6 +94,7 @@ test("critical isolated previews receive supported settings without persisting p
 for (const locale of ["en", "ko"]) {
   test(`critical ${locale} settings lock background scroll and language marks selection`, async ({
     page,
+    isMobile,
   }) => {
     await page.goto(`/docs/components/button${locale === "ko" ? "/ko" : ""}`);
     const settings = page.getByRole("button", {
@@ -105,14 +106,36 @@ for (const locale of ["en", "ko"]) {
       await expect(page.locator("[data-docs=preferences-popover]")).toBeVisible({ timeout: 500 });
     }).toPass({ timeout: 15000 });
     const position = await page.evaluate(() => scrollY);
-    await page.mouse.move(900, 500);
-    await page.mouse.wheel(0, 600);
-    await page.waitForTimeout(300);
-    expect(await page.evaluate(() => scrollY)).toBe(position);
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          [document.body, document.documentElement].some((element) =>
+            ["hidden", "clip"].includes(getComputedStyle(element).overflowY),
+          ),
+        ),
+      )
+      .toBe(true);
+    if (!isMobile) {
+      await page.mouse.move(900, 500);
+      await page.mouse.wheel(0, 600);
+      await page.waitForTimeout(300);
+      expect(await page.evaluate(() => scrollY)).toBe(position);
+    }
     await page.keyboard.press("Escape");
     await expect(settings).toBeFocused();
-    await page.mouse.wheel(0, 600);
-    await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(position);
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          [document.body, document.documentElement].some((element) =>
+            ["hidden", "clip"].includes(getComputedStyle(element).overflowY),
+          ),
+        ),
+      )
+      .toBe(false);
+    if (!isMobile) {
+      await page.mouse.wheel(0, 600);
+      await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(position);
+    }
     await page
       .getByRole("button", { name: locale === "ko" ? "언어 선택" : "Choose language", exact: true })
       .click();
