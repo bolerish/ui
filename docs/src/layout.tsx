@@ -18,6 +18,8 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from "@bolerish/ui/dropdown-menu";
@@ -26,6 +28,7 @@ import { InputGroup } from "@bolerish/ui/input-group";
 import { NativeSelect } from "@bolerish/ui/native-select";
 import { Popover, PopoverTrigger, PopoverContent } from "@bolerish/ui/popover";
 import {
+  CheckIcon,
   TranslateIcon,
   CaretDownIcon,
   SlidersHorizontalIcon,
@@ -155,19 +158,34 @@ function SiteHeader({
               }
             />
             <DropdownMenuContent align="end">
-              <DropdownMenuRadioGroup
-                value={settings.locale}
-                onValueChange={(locale) => {
-                  if (locale === "en" || locale === "ko") updatePreferences({ locale });
-                }}
-              >
-                <DropdownMenuRadioItem value="en" lang="en" closeOnClick>
-                  English
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="ko" lang="ko" closeOnClick>
-                  한국어
-                </DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
+              <DropdownMenuGroup>
+                <DropdownMenuLabel>
+                  {settings.locale === "ko" ? "언어" : "Language"}
+                </DropdownMenuLabel>
+                <DropdownMenuRadioGroup
+                  value={settings.locale}
+                  onValueChange={(locale) => {
+                    if (locale === "en" || locale === "ko") updatePreferences({ locale });
+                  }}
+                >
+                  <DropdownMenuRadioItem
+                    value="en"
+                    lang="en"
+                    closeOnClick
+                    indicator={<CheckIcon aria-hidden="true" />}
+                  >
+                    English
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem
+                    value="ko"
+                    lang="ko"
+                    closeOnClick
+                    indicator={<CheckIcon aria-hidden="true" />}
+                  >
+                    한국어
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
           <Preferences settings={settings} onChange={updatePreferences} />
@@ -389,7 +407,7 @@ function Preferences({
   onChange: (changes: Partial<DocumentationGlobals>) => void;
 }) {
   return (
-    <Popover>
+    <Popover modal>
       <PopoverTrigger
         render={
           <Button

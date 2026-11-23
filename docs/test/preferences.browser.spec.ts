@@ -90,3 +90,42 @@ test("critical isolated previews receive supported settings without persisting p
   await expect(preview.locator("html")).not.toHaveAttribute("data-bolerish-surface");
   expect(await savedPreferences()).toBe(before);
 });
+
+for (const locale of ["en", "ko"]) {
+  test(`critical ${locale} settings lock background scroll and language marks selection`, async ({
+    page,
+  }) => {
+    await page.goto(`/docs/components/button${locale === "ko" ? "/ko" : ""}`);
+    const settings = page.getByRole("button", {
+      name: locale === "ko" ? "설정" : "Settings",
+      exact: true,
+    });
+    await expect(async () => {
+      await settings.click();
+      await expect(page.locator("[data-docs=preferences-popover]")).toBeVisible({ timeout: 500 });
+    }).toPass({ timeout: 15000 });
+    const position = await page.evaluate(() => scrollY);
+    await page.mouse.move(900, 500);
+    await page.mouse.wheel(0, 600);
+    await page.waitForTimeout(300);
+    expect(await page.evaluate(() => scrollY)).toBe(position);
+    await page.keyboard.press("Escape");
+    await expect(settings).toBeFocused();
+    await page.mouse.wheel(0, 600);
+    await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(position);
+    await page
+      .getByRole("button", { name: locale === "ko" ? "언어 선택" : "Choose language", exact: true })
+      .click();
+    const menu = page.getByRole("menu");
+    await expect(
+      menu.getByText(locale === "ko" ? "언어" : "Language", { exact: true }),
+    ).toBeVisible();
+    const selected = menu.getByRole("menuitemradio", {
+      name: locale === "ko" ? "한국어" : "English",
+      exact: true,
+    });
+    await expect(selected).toHaveAttribute("aria-checked", "true");
+    await expect(selected.locator("svg")).toBeVisible();
+    await page.keyboard.press("Escape");
+  });
+}
