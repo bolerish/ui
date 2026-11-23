@@ -1,6 +1,6 @@
 {
   "name": "@bolerish/json-render",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Official bolerish component catalog and React registry for json-render.",
   "license": "MIT",
   "repository": {
@@ -47,7 +47,7 @@
     "typescript": "catalog:2026-08-27-stable"
   },
   "peerDependencies": {
-    "@bolerish/ui": "^1.0.1",
+    "@bolerish/ui": "^2.0.0",
     "@json-render/core": "0.23.1",
     "@json-render/react": "0.23.1",
     "react": "^19.2.3",

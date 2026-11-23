@@ -1,5 +1,15 @@
 # @bolerish/lint
 
+## 0.3.0
+
+### Minor Changes
+
+- ef9c266: Add the dependency-free `@bolerish/lint/declarations` API for located color, typography and spacing diagnostics on parsed CSS declarations. Results distinguish static coverage, out-of-scope properties and unreviewed expressions or shorthands. Existing ESLint/Oxlint rules retain their behavior; CSS parsing and rendered validation remain the caller's responsibility. No migration is required.
+
+### Patch Changes
+
+- f3c1106: Update rule documentation links to follow the documentation source layout. Lint behavior and configuration are unchanged.
+
 ## 0.2.0
 
 ### Minor Changes
