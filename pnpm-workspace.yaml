@@ -1,6 +1,7 @@
 packages:
   - docs
   - packages/*
+  - apps/*
 
 catalogs:
   2026-08-27-stable:
@@ -21,3 +22,7 @@ allowBuilds:
   esbuild: true
   lefthook: true
   workerd: true
+
+minimumReleaseAgeExclude:
+  - "@json-render/core@0.23.1"
+  - "@json-render/react@0.23.1"

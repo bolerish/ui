@@ -17,7 +17,22 @@ for (const theme of ["light", "dark"]) {
     const cardHeader = page
       .getByRole("heading", { name: "Create account", exact: true })
       .locator("..");
-    await expect(cardHeader).toHaveCSS("padding-top", "24px");
+    const inset = await cardHeader.evaluate((header) => {
+      const card = header.parentElement!;
+      const bounds = card.getBoundingClientRect();
+      const content = header.getBoundingClientRect();
+      const border = getComputedStyle(card);
+      return {
+        top: content.top - bounds.top - parseFloat(border.borderTopWidth),
+        left:
+          content.left -
+          bounds.left +
+          parseFloat(getComputedStyle(header).paddingLeft) -
+          parseFloat(border.borderLeftWidth),
+      };
+    });
+    expect(inset.top).toBeCloseTo(24, 1);
+    expect(inset.left).toBeCloseTo(24, 1);
     await expect(cardHeader).toHaveCSS("padding-left", "24px");
     const name = page.getByRole("textbox", { name: "Name", exact: true });
     await expect(name).toHaveCSS("border-radius", "12px");

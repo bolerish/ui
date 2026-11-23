@@ -1,0 +1,106 @@
+{
+  "designSystem": "bolerish",
+  "example": "profile-settings",
+  "state": {
+    "email": "",
+    "notifications": false,
+    "error": "",
+    "pending": false,
+    "failNext": false,
+    "status": "예제 데이터예요. 실제로 전송하거나 서버에 저장하지 않아요."
+  },
+  "spec": {
+    "root": "card",
+    "elements": {
+      "card": {
+        "type": "Card",
+        "props": {
+          "title": "프로필 설정",
+          "description": "로컬 JSON으로 만든 동작 확인용 시안이에요."
+        },
+        "children": ["fields"]
+      },
+      "fields": {
+        "type": "FieldGroup",
+        "props": {},
+        "children": ["email", "notifications", "save", "fail", "status"]
+      },
+      "email": {
+        "type": "Input",
+        "props": {
+          "label": "이메일",
+          "type": "email",
+          "value": {
+            "$bindState": "/email"
+          },
+          "error": {
+            "$state": "/error"
+          },
+          "disabled": {
+            "$state": "/pending"
+          }
+        },
+        "on": {
+          "change": {
+            "action": "validate"
+          },
+          "blur": {
+            "action": "validate"
+          }
+        }
+      },
+      "notifications": {
+        "type": "Switch",
+        "props": {
+          "label": "예제 알림",
+          "description": "전환하면 예제 설정에 바로 반영돼요.",
+          "checked": {
+            "$bindState": "/notifications"
+          }
+        },
+        "on": {
+          "change": {
+            "action": "preference"
+          }
+        }
+      },
+      "save": {
+        "type": "Button",
+        "props": {
+          "label": "이메일 저장",
+          "pending": {
+            "$state": "/pending"
+          }
+        },
+        "on": {
+          "press": {
+            "action": "save"
+          }
+        }
+      },
+      "fail": {
+        "type": "Button",
+        "props": {
+          "label": "다음 저장 실패시키기",
+          "variant": "outline",
+          "disabled": {
+            "$state": "/failNext"
+          }
+        },
+        "on": {
+          "press": {
+            "action": "failNextSave"
+          }
+        }
+      },
+      "status": {
+        "type": "Paragraph",
+        "props": {
+          "text": {
+            "$state": "/status"
+          }
+        }
+      }
+    }
+  }
+}

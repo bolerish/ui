@@ -12,56 +12,6 @@ import { mergeStyles } from "./styles/merge-styles";
 import type { StyledProps } from "./styles/merge-styles";
 import { surfaceStyles } from "./styles/surface";
 
-const styles = stylex.create({
-  card: {
-    backgroundColor: colorVars.bgSurface,
-    borderColor: colorVars.strokeDefault,
-    borderRadius: radiusVars.xl,
-    borderStyle: "solid",
-    borderWidth: sizeVars.stroke,
-    color: colorVars.fgPrimary,
-    display: "flex",
-    flexDirection: "column",
-    fontFamily: typo.fontFamilyBody,
-    fontSize: typo.fontSizeMd,
-    lineHeight: typo.lineHeightNormal,
-    minWidth: 0,
-    width: "100%",
-  },
-  header: {
-    display: "flex",
-    flexDirection: "column",
-    gap: spacingVars.space2,
-    paddingBlock: spacingVars.space6,
-    paddingInline: spacingVars.space6,
-  },
-  title: {
-    fontSize: typo.fontSizeLg,
-    fontWeight: typo.fontWeightSemibold,
-    lineHeight: typo.lineHeightNormal,
-    margin: 0,
-  },
-  description: {
-    color: colorVars.fgSecondary,
-    fontSize: typo.fontSizeSm,
-    lineHeight: typo.lineHeightNormal,
-    margin: 0,
-  },
-  content: {
-    paddingBlockEnd: spacingVars.space6,
-    paddingInline: spacingVars.space6,
-  },
-  footer: {
-    alignItems: "center",
-    display: "flex",
-    flexWrap: "wrap",
-    gap: spacingVars.space3,
-    justifyContent: "flex-end",
-    paddingBlockEnd: spacingVars.space6,
-    paddingInline: spacingVars.space6,
-  },
-});
-
 type StyleProps = {
   xstyle?: stylex.StyleXStyles;
 };
@@ -110,3 +60,53 @@ export function CardContent({ className, style, xstyle, ...props }: ElementProps
 export function CardFooter({ className, style, xstyle, ...props }: ElementProps) {
   return <div {...props} {...mergeStyles(stylex.props(styles.footer, xstyle), className, style)} />;
 }
+
+const styles = stylex.create({
+  card: {
+    paddingBlock: spacingVars.space6,
+    gap: spacingVars.space6,
+    backgroundColor: colorVars.bgSurface,
+    borderColor: colorVars.strokeDefault,
+    borderRadius: radiusVars.xl,
+    borderStyle: "solid",
+    borderWidth: sizeVars.stroke,
+    color: colorVars.fgPrimary,
+    display: "flex",
+    flexDirection: "column",
+    fontFamily: typo.fontFamilyBody,
+    fontSize: typo.fontSizeMd,
+    lineHeight: typo.lineHeightNormal,
+    minWidth: 0,
+    width: "100%",
+  },
+  header: {
+    display: "flex",
+    flexDirection: "column",
+    gap: spacingVars.space2,
+    paddingInline: spacingVars.space6,
+  },
+  title: {
+    fontSize: typo.fontSizeLg,
+    fontWeight: typo.fontWeightSemibold,
+    lineHeight: typo.lineHeightNormal,
+    margin: 0,
+  },
+  description: {
+    color: colorVars.fgSecondary,
+    fontSize: typo.fontSizeSm,
+    lineHeight: typo.lineHeightNormal,
+    margin: 0,
+  },
+  content: {
+    paddingInline: spacingVars.space6,
+  },
+  footer: {
+    borderTopColor: colorVars.strokeDefault,
+    borderTopStyle: "solid",
+    borderTopWidth: sizeVars.stroke,
+    borderBottomLeftRadius: radiusVars.xl,
+    borderBottomRightRadius: radiusVars.xl,
+    paddingBlock: spacingVars.space6,
+    paddingInline: spacingVars.space6,
+  },
+});

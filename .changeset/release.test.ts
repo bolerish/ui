@@ -8,7 +8,7 @@ import { promisify } from "node:util";
 
 const execFile = promisify(execFileCallback);
 const cli = resolve("node_modules/@changesets/cli/bin.js");
-const packages = ["tokens", "ui", "lint", "docs-mcp"];
+const packages = ["tokens", "ui", "lint", "docs-mcp", "json-render"];
 
 test("release groups keep lint and docs MCP independent from UI and tokens", async () => {
   const directory = await mkdtemp(join(tmpdir(), "bolerish-release-"));
@@ -19,19 +19,22 @@ test("release groups keep lint and docs MCP independent from UI and tokens", asy
     await writeFile(join(directory, "package.json"), JSON.stringify({ private: true }));
     await writeFile(
       join(directory, "pnpm-workspace.yaml"),
-      "packages:\n  - packages/*\n  - docs\n",
+      "packages:\n  - packages/*\n  - docs\n  - apps/*\n",
     );
     for (const name of [...packages, "docs"]) {
       const target = name === "docs" ? "docs" : `packages/${name}`;
       await mkdir(join(directory, target), { recursive: true });
       await cp(`${target}/package.json`, join(directory, target, "package.json"));
     }
+    await mkdir(join(directory, "apps/preview"), { recursive: true });
+    await cp("apps/preview/package.json", join(directory, "apps/preview/package.json"));
     const readManifest = async (name: string) =>
       JSON.parse(await readFile(join(directory, name, "package.json"), "utf8"));
     const originalUi = await readManifest("packages/ui");
     const originalLint = await readManifest("packages/lint");
     const originalMcp = await readManifest("packages/docs-mcp");
     const originalDocs = await readManifest("docs");
+    const originalPreview = await readManifest("apps/preview");
     await writeFile(
       join(directory, ".changeset/token-change.md"),
       '---\n"@bolerish/tokens": patch\n---\n\nCorrect a token value.\n',
@@ -45,6 +48,7 @@ test("release groups keep lint and docs MCP independent from UI and tokens", asy
     assert.equal((await readManifest("packages/lint")).version, originalLint.version);
     assert.equal((await readManifest("packages/docs-mcp")).version, originalMcp.version);
     assert.equal((await readManifest("docs")).version, originalDocs.version);
+    assert.equal((await readManifest("apps/preview")).version, originalPreview.version);
     assert.match(
       await readFile(join(directory, "packages/ui/CHANGELOG.md"), "utf8"),
       new RegExp(ui.version.replaceAll(".", "\\.")),
@@ -68,6 +72,7 @@ test("release groups keep lint and docs MCP independent from UI and tokens", asy
     assert.equal((await readManifest("packages/ui")).version, nextUi.version);
     assert.equal((await readManifest("packages/tokens")).version, nextUi.version);
     assert.equal((await readManifest("docs")).version, originalDocs.version);
+    assert.equal((await readManifest("apps/preview")).version, originalPreview.version);
     await writeFile(
       join(directory, ".changeset/mcp-change.md"),
       '---\n"@bolerish/docs-mcp": minor\n---\n\nAdd read-only documentation tools.\n',

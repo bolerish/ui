@@ -1,5 +1,20 @@
 # @bolerish/ui
 
+## 2.0.0
+
+### Major Changes
+
+- 0f3d2b0: CarouselContent now creates its viewport internally. Remove CarouselViewport wrappers and imports; place CarouselItem children directly inside CarouselContent. CarouselContent props and styles continue to target the moving slide track. CarouselViewport is no longer exported. Move any custom viewport styling to an app-owned wrapper as appropriate.
+
+  Carousel controls now center using their rendered dimensions in horizontal and vertical layouts.
+
+### Patch Changes
+
+- 78dc2ec: Apply vertical padding and spacing at the Card root so content-only cards receive consistent insets. CardFooter now has a top border, rounded bottom corners and vertical padding; its previous flex alignment is removed. Consumers that need a footer action layout should supply their own layout styles.
+- 9b0e2bf: Allow DropdownMenuRadioItem to render a custom selected indicator through its optional indicator prop. The default dot remains unchanged; no migration is required.
+- 437265f: Open DatePicker calendars at the selected date’s month for controlled and uncontrolled values, including when reopening after selection. No API changes or migration are required.
+- @bolerish/tokens@2.0.0
+
 ## 1.0.1
 
 ### Patch Changes

@@ -27,7 +27,11 @@
   ],
   "overrides": [
     {
-      "files": ["packages/ui/src/**/*.{ts,tsx}", "docs/src/**/*.{ts,tsx}"],
+      "files": [
+        "packages/ui/src/**/*.{ts,tsx}",
+        "docs/src/**/*.{ts,tsx}",
+        "apps/preview/src/**/*.{ts,tsx}"
+      ],
       "rules": {
         "bolerish-ui/color-tokens": "error",
         "bolerish-ui/typography-tokens": "error",

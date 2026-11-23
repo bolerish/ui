@@ -53,6 +53,7 @@ Use Node 22.13+ for the workspace tooling.
 ```sh
 pnpm install
 pnpm dev:docs
+pnpm dev:preview
 pnpm check
 pnpm test
 pnpm --filter @bolerish/ui exec playwright install chromium
@@ -60,5 +61,5 @@ pnpm --filter @bolerish/ui test:browser
 pnpm build:docs
 ```
 
-[Docs development](docs/README.md) · [Lint package](packages/lint/README.md)
+[Local JSON preview](apps/preview/README.md) · [Docs development](docs/README.md) · [Lint package](packages/lint/README.md)
 · [Release workflow](.changeset/README.md) · [Changelog](CHANGELOG.md)

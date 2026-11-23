@@ -122,7 +122,7 @@ Search matches all whitespace-separated terms without case sensitivity. It does 
 Responses identify the bundled UI, tokens and lint versions. References are a snapshot from the MCP package's build, and do not automatically follow new website or npm releases. Update the MCP package to receive a newer snapshot, and check your application's installed declarations before selecting props.
 
 - If no tools appear, check that the client can find Node and the chosen runner, that the server is enabled, and that you reconnected after registration.
-- If a document ID is unknown, search again and copy the exact ID from the result.
+- If a document ID is unknown, the tool error includes up to five `suggestions` with `id`, `title` and `section`. It searches the full input first, then the final slash-separated segment when no matches exist. No matches or an empty final segment returns an empty list. Retry with an exact suggested ID, or use `search_docs` again. The server does not select a document automatically.
 - This server provides references. It does not edit Pen files, run React components or synchronize design and code.
 
 Follow [Installation](/docs/installation) to add the UI package to your app. For a local MCP build and contributor commands, see the [package README](https://github.com/bolerish/bolerish-ui/tree/main/packages/docs-mcp).
@@ -145,7 +145,7 @@ Follow [Installation](/docs/installation) to add the UI package to your app. For
 응답에는 참고한 UI·tokens·lint 버전이 표시됩니다. 문서는 MCP 패키지를 빌드할 때의 스냅샷이며 사이트나 npm의 새 릴리스를 자동으로 따라가지 않습니다. 새 스냅샷이 필요하면 MCP 패키지를 업데이트하고, 속성을 선택하기 전에 앱에 설치한 패키지의 타입 선언을 확인하세요.
 
 - 도구가 보이지 않으면 클라이언트가 Node와 실행기를 찾을 수 있는지, 서버가 활성화됐는지, 등록 후 연결을 갱신했는지 확인하세요.
-- 문서 ID를 찾을 수 없으면 다시 검색한 뒤 결과의 ID를 그대로 사용하세요.
+- 문서 ID를 찾을 수 없으면 도구 오류의 `suggestions`에 `id`·`title`·`section`을 담은 후보가 최대 5개 표시됩니다. 전체 입력으로 먼저 검색하고, 결과가 없으면 마지막 `/` 뒤의 구간으로 검색합니다. 일치하는 문서가 없거나 마지막 구간이 비어 있으면 빈 목록을 반환합니다. 제안된 ID를 그대로 사용하거나 `search_docs`로 다시 검색하세요. 서버가 문서를 자동으로 선택하지는 않습니다.
 - 이 서버는 참고 자료를 제공합니다. Pen 파일 편집·React 실행·디자인과 코드의 자동 동기화는 제공하지 않습니다.
 
 앱에 UI 패키지를 추가하는 방법은 [설치](/docs/installation)에서 확인하세요. 로컬 MCP 빌드와 기여자 명령은 [패키지 README](https://github.com/bolerish/bolerish-ui/tree/main/packages/docs-mcp)에 있습니다.

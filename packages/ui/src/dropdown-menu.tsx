@@ -288,9 +288,11 @@ export function DropdownMenuRadioItem({
   style,
   xstyle,
   children,
+  indicator,
   ...props
 }: StyledProps<ComponentProps<typeof MenuPrimitive.RadioItem>> & {
   xstyle?: ControlLayoutStyles;
+  indicator?: ReactNode;
 }) {
   function getRadioItemStyles(state: MenuPrimitive.RadioItem.State) {
     return mergeStyles(
@@ -312,7 +314,7 @@ export function DropdownMenuRadioItem({
       style={(state) => getRadioItemStyles(state).style}
     >
       <MenuPrimitive.RadioItemIndicator {...stylex.props(styles.indicator)}>
-        <span {...stylex.props(styles.radioDot)} />
+        {indicator ?? <span {...stylex.props(styles.radioDot)} />}
       </MenuPrimitive.RadioItemIndicator>
       {children}
     </MenuPrimitive.RadioItem>

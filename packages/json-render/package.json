@@ -1,0 +1,56 @@
+{
+  "name": "@bolerish/json-render",
+  "version": "0.2.0",
+  "description": "Official bolerish component catalog and React registry for json-render.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bolerish/ui.git",
+    "directory": "packages/json-render"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./catalog": {
+      "types": "./dist/catalog.d.ts",
+      "default": "./dist/catalog.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "pnpm build",
+    "test": "pnpm build && node --test src/*.test.ts package.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@bolerish/ui": "workspace:*",
+    "@json-render/core": "0.23.1",
+    "@json-render/react": "0.23.1",
+    "@types/node": "catalog:2026-08-27-stable",
+    "@types/react": "catalog:2026-08-27-stable",
+    "@types/react-dom": "catalog:2026-08-27-stable",
+    "react": "catalog:2026-08-27-stable",
+    "react-dom": "catalog:2026-08-27-stable",
+    "typescript": "catalog:2026-08-27-stable"
+  },
+  "peerDependencies": {
+    "@bolerish/ui": "^2.0.0",
+    "@json-render/core": "0.23.1",
+    "@json-render/react": "0.23.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}

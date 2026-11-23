@@ -1,0 +1,45 @@
+{
+  "designSystem": "bolerish",
+  "state": {
+    "project": "로컬 시안"
+  },
+  "spec": {
+    "root": "card",
+    "elements": {
+      "card": {
+        "type": "Card",
+        "props": {
+          "title": "시안 살펴보기",
+          "description": "파일을 수정하면서 화면 구성과 문구를 확인해요."
+        },
+        "children": ["group"]
+      },
+      "group": {
+        "type": "FieldGroup",
+        "props": {},
+        "children": ["heading", "summary", "note"]
+      },
+      "heading": {
+        "type": "Heading",
+        "props": {
+          "text": {
+            "$state": "/project"
+          },
+          "level": 2
+        }
+      },
+      "summary": {
+        "type": "Paragraph",
+        "props": {
+          "text": "여기는 예시 콘텐츠예요. JSON의 문구를 바꾸면 미리보기에 반영돼요."
+        }
+      },
+      "note": {
+        "type": "Paragraph",
+        "props": {
+          "text": "너비와 테마를 바꿔 같은 구성을 비교해보세요."
+        }
+      }
+    }
+  }
+}

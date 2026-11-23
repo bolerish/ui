@@ -1,0 +1,31 @@
+{
+  "name": "@bolerish/preview",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm --filter @bolerish/ui build && pnpm --filter @bolerish/json-render build && vite build",
+    "dev": "pnpm --filter @bolerish/ui build && pnpm --filter @bolerish/json-render build && vite",
+    "test": "node --experimental-strip-types --test src/*.test.ts src/design-systems/*.test.ts",
+    "test:browser": "pnpm --filter @bolerish/ui build && pnpm --filter @bolerish/json-render build && playwright test",
+    "typecheck": "pnpm --filter @bolerish/json-render build && tsc --noEmit"
+  },
+  "dependencies": {
+    "@bolerish/json-render": "workspace:*",
+    "@bolerish/ui": "workspace:*",
+    "@json-render/core": "0.23.1",
+    "@json-render/react": "0.23.1",
+    "react": "catalog:2026-08-27-stable",
+    "react-dom": "catalog:2026-08-27-stable",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "catalog:2026-08-27-stable",
+    "@types/react": "catalog:2026-08-27-stable",
+    "@types/react-dom": "catalog:2026-08-27-stable",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "catalog:2026-08-27-stable",
+    "vite": "catalog:2026-08-27-stable"
+  }
+}

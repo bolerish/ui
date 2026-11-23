@@ -119,6 +119,7 @@ export function DatePicker(props: DatePickerProps) {
         />
         <PopoverContent xstyle={styles.calendar}>
           <Calendar
+            defaultMonth={selectedValue}
             mode="single"
             onSelect={handleSelect}
             selected={selectedValue}
