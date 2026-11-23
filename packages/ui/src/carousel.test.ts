@@ -12,7 +12,6 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  CarouselViewport,
 } from "../dist/carousel.js";
 
 function render(slideRatio?: readonly [number, number]) {
@@ -21,14 +20,10 @@ function render(slideRatio?: readonly [number, number]) {
       Carousel,
       { "aria-label": "Featured cards", slideRatio, children: null },
       createElement(
-        CarouselViewport,
-        {},
-        createElement(
-          CarouselContent,
-          {},
-          createElement(CarouselItem, {}, "One"),
-          createElement(CarouselItem, {}, "Two"),
-        ),
+        CarouselContent,
+        { className: "slide-track", style: { gap: "12px" }, id: "track" },
+        createElement(CarouselItem, {}, "One"),
+        createElement(CarouselItem, {}, "Two"),
       ),
       createElement(CarouselPrevious),
       createElement(CarouselNext),
@@ -66,4 +61,12 @@ test("carousel rejects invalid ratios and unsupported vertical preview", () => {
       ),
     /horizontal/,
   );
+});
+
+test("carousel content wraps the styled slide track in a separate viewport", () => {
+  const html = render();
+  assert.match(html, /<div class="[^"]+"><div[^>]*id="track"/);
+  assert.match(html, /class="[^"]*slide-track[^"]*"/);
+  assert.match(html, /style="gap:12px"/);
+  assert.match(html, />One<\/div><div[^>]*>Two<\/div><\/div><\/div>/);
 });

@@ -1,7 +1,6 @@
 import { colorVars, spacingVars, typo } from "@bolerish/tokens/semantic.stylex";
 import {
   Carousel,
-  CarouselViewport,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -40,15 +39,13 @@ export default function Preview() {
       slideRatio={[70, 20]}
       xstyle={styles.carousel}
     >
-      <CarouselViewport>
-        <CarouselContent>
-          {["1", "2", "3", "4", "5"].map((item) => (
-            <CarouselItem key={item} xstyle={styles.slide}>
-              Slide {item}
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </CarouselViewport>
+      <CarouselContent>
+        {["1", "2", "3", "4", "5"].map((item) => (
+          <CarouselItem key={item} xstyle={styles.slide}>
+            Slide {item}
+          </CarouselItem>
+        ))}
+      </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>

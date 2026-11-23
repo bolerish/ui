@@ -38,7 +38,6 @@ export { Calendar } from "./calendar";
 export type { CalendarProps } from "./calendar";
 export {
   Carousel,
-  CarouselViewport,
   CarouselContent,
   CarouselItem,
   CarouselNext,
