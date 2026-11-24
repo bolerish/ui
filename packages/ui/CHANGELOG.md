@@ -1,5 +1,23 @@
 # @bolerish/ui
 
+## 2.1.0
+
+### Minor Changes
+
+- Add composable Sidebar navigation with independent desktop and mobile state, mobile Dialog, collapse modes and link rendering.
+
+  Use 32px desktop menu rows, 16px icons and a 48px icon rail, with 44px mobile targets and distinct 28px submenu rows.
+
+  The provider fills its parent height; consumers choose viewport sizing. Desktop collapse uses motion preferences, and menu content scrolls without a visible scrollbar.
+
+  Support render composition on SidebarGroupLabel and custom or hidden CollapsibleTrigger indicators.
+
+  Add SidebarGroupTrigger with a default rotating indicator and accessible collapsible content. SidebarGroup defaults to open so plain label/content groups remain visible, and supports controlled state and render composition.
+
+### Patch Changes
+
+- @bolerish/tokens@2.1.0
+
 ## 2.0.0
 
 ### Major Changes

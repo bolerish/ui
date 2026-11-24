@@ -43,7 +43,8 @@ const styles = stylex.create({
     gap: spacingVars.space2,
   },
   content: {
-    padding: spacingVars.space4,
+    paddingBlock: spacingVars.space6,
+    paddingInline: spacingVars.space6,
     minWidth: 0,
     gridColumn: 1,
     gridRow: 1,
@@ -51,6 +52,18 @@ const styles = stylex.create({
     lineHeight: typo.lineHeightNormal,
     overflowX: "auto",
   },
+  line: { display: "flex", minHeight: "1lh" },
+  lineNumber: {
+    color: colorVars.fgSecondary,
+    display: "inline-block",
+    flexShrink: 0,
+    minWidth: "3ch",
+    paddingInlineEnd: spacingVars.space6,
+    textAlign: "right",
+    userSelect: "none",
+    fontVariantNumeric: "tabular-nums",
+  },
+  lineContent: { flex: 1 },
   status: { color: colorVars.fgSecondary, fontSize: typo.fontSizeXs },
 });
 
@@ -90,16 +103,25 @@ export function CodeBlock({ code, language = "tsx" }: { code: string; language?:
             <pre {...stylex.props(documentStyles.pre)}>
               <code>
                 {tokens.map((line, index) => (
-                  <div key={index}>
-                    {line.map((token, tokenIndex) => (
-                      <span
-                        data-code-token=""
-                        key={tokenIndex}
-                        {...stylex.props(...token.types.map((type) => syntaxStyles[type]))}
-                      >
-                        {token.empty ? "\n" : token.content}
-                      </span>
-                    ))}
+                  <div key={index} {...stylex.props(styles.line)}>
+                    <span
+                      aria-hidden="true"
+                      data-code-line-number=""
+                      {...stylex.props(styles.lineNumber)}
+                    >
+                      {index + 1}
+                    </span>
+                    <span {...stylex.props(styles.lineContent)}>
+                      {line.map((token, tokenIndex) => (
+                        <span
+                          data-code-token=""
+                          key={tokenIndex}
+                          {...stylex.props(...token.types.map((type) => syntaxStyles[type]))}
+                        >
+                          {token.empty ? "" : token.content}
+                        </span>
+                      ))}
+                    </span>
                   </div>
                 ))}
               </code>

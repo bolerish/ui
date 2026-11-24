@@ -319,3 +319,5 @@ export type { GradientOptions, GradientProps } from "./gradient";
 export { StatusPill, type StatusPillProps, type StatusPillPosition } from "./status-pill";
 
 export { Snackbar, type SnackbarProps, type SnackbarPosition } from "./snackbar";
+
+export * from "./sidebar";

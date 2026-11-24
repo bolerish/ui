@@ -29,6 +29,7 @@ const styles = stylex.create({
     padding: { default: spacingVars.space6, "@media (max-width: 760px)": spacingVars.space3 },
     minHeight: "100%",
   },
+  layout: { height: "100%", minHeight: 0, overflow: "hidden" },
   panel: {
     color: colorVars.fgPrimary,
     fontSize: typo.fontSizeSm,
@@ -49,32 +50,29 @@ const styles = stylex.create({
     borderWidth: sizeVars.stroke,
     borderRadius: radiusVars.lg,
     overflow: "auto",
-    scrollbarGutter: "stable",
-    resize: "vertical",
-    minHeight: sizeVars.controlLg,
+    height: 400,
+    maxHeight: 400,
   },
-  height: (height: number) => ({ height }),
-  width: (width: number) => ({ width }),
 });
 
 export function ComponentExample({
   name,
   isolated = false,
-  height,
-  width,
+  layout = false,
 }: {
   name: string;
   isolated?: boolean;
-  height?: number;
+  layout?: boolean;
   width?: number;
 }) {
   const Example = loadedExamples[name] ?? examples[name];
-  if (isolated)
-    return (
-      <ComponentPreview name={name} source="" isolated height={height} width={width} previewOnly />
-    );
+  if (isolated) return <ComponentPreview name={name} source="" isolated previewOnly />;
   return (
-    <div {...stylex.props(styles.content)} data-example-name={name} lang="en">
+    <div
+      {...stylex.props(layout ? styles.layout : styles.content)}
+      data-example-name={name}
+      lang="en"
+    >
       <Suspense fallback={null}>{Example ? <Example /> : <p>{ui.missing}</p>}</Suspense>
     </div>
   );
@@ -83,16 +81,15 @@ export function ComponentExample({
 export function ComponentPreview({
   name,
   source,
-  height,
-  width,
   isolated = false,
+  layout = false,
   previewOnly = false,
 }: {
   name: string;
   source: string;
-  height?: number;
   width?: number;
   isolated?: boolean;
+  layout?: boolean;
   previewOnly?: boolean;
 }) {
   const id = useId();
@@ -121,10 +118,7 @@ export function ComponentPreview({
   }, [globals, isolated]);
   const query = new URLSearchParams(Object.entries(initialGlobals));
 
-  const canvas = stylex.props(
-    styles.preview,
-    height !== undefined ? styles.height(height) : undefined,
-  );
+  const canvas = stylex.props(styles.preview);
   return (
     <div
       {...stylex.props(styles.root)}
@@ -163,14 +157,14 @@ export function ComponentPreview({
         <div {...canvas} data-docs="preview-canvas">
           {isolated ? (
             <iframe
-              {...stylex.props(styles.frame, width !== undefined ? styles.width(width) : undefined)}
+              {...stylex.props(styles.frame)}
               ref={frameRef}
               title={name}
               src={`/preview/${encodeURIComponent(name)}?${query}`}
               loading="eager"
             />
           ) : (
-            <ComponentExample name={name} />
+            <ComponentExample name={name} layout={layout} />
           )}
         </div>
       </section>

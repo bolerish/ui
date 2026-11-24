@@ -9,22 +9,35 @@ export function getExampleSource(source: string) {
       lines = [];
     } else if (marker === "/* @example-end */" || marker === "{/* @example-end */}") {
       if (!lines) throw new Error("Example source range has no start");
-      const indentation = Math.min(
-        ...lines
-          .filter((value) => value.trim())
-          .map((value) => value.length - value.trimStart().length),
-      );
-      blocks.push(
-        lines
-          .map((value) => value.slice(indentation))
-          .join("\n")
-          .trim(),
-      );
+      blocks.push(lines.join("\n"));
       lines = undefined;
     } else if (lines) {
       lines.push(line);
     }
   }
   if (lines) throw new Error("Example source range has no end");
-  return blocks.length ? blocks.join("\n\n") : source;
+  if (!blocks.length) return source;
+  if (!source.includes("/* @example-preserve-indent */"))
+    return blocks
+      .map((block) => {
+        const lines = block.split("\n");
+        const indent = Math.min(
+          ...lines
+            .filter((line) => line.trim())
+            .map((line) => line.length - line.trimStart().length),
+        );
+        return lines
+          .map((line) => line.slice(indent))
+          .join("\n")
+          .trim();
+      })
+      .join("\n\n");
+  const selected = blocks.join("\n").split("\n");
+  const indentation = Math.min(
+    ...selected.filter((line) => line.trim()).map((line) => line.length - line.trimStart().length),
+  );
+  return selected
+    .map((line) => line.slice(indentation))
+    .join("\n")
+    .trim();
 }

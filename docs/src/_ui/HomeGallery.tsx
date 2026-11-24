@@ -50,7 +50,58 @@ export function HomeGallery({ items }: { items: ReturnType<typeof getHomeGallery
               </header>
               <Separator />
               <div {...stylex.props(styles.preview)} data-docs="gallery-preview" lang="en">
-                <page.Example />
+                {page.slug === "sidebar" ? (
+                  <Link
+                    {...documentLink(page, locale)}
+                    search={{}}
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      height: 200,
+                      overflow: "hidden",
+                      border: `1px solid ${colorVars.strokeDefault}`,
+                      borderRadius: radiusVars.md,
+                    }}
+                    aria-label={ko ? "Sidebar 예제 보기" : "View Sidebar example"}
+                  >
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        width: "30%",
+                        background: colorVars.bgSubtle,
+                        padding: spacingVars.space3,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: spacingVars.space3,
+                      }}
+                    >
+                      {[60, 85, 70, 80].map((width, index) => (
+                        <span
+                          key={index}
+                          style={{
+                            display: "block",
+                            width: `${width}%`,
+                            height: 8,
+                            borderRadius: radiusVars.sm,
+                            background: colorVars.strokeDefault,
+                          }}
+                        />
+                      ))}
+                    </span>
+                    <span aria-hidden="true" style={{ flex: 1, padding: spacingVars.space3 }}>
+                      <span
+                        style={{
+                          display: "block",
+                          height: "100%",
+                          borderRadius: radiusVars.md,
+                          background: colorVars.bgSubtle,
+                        }}
+                      />
+                    </span>
+                  </Link>
+                ) : (
+                  <page.Example />
+                )}
               </div>
             </Card>
           </article>

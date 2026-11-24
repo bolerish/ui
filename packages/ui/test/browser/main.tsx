@@ -7,6 +7,7 @@ import ArrowOnlyCarousel from "../../../../docs/src/docs/_content/components/car
 import InsideCarousel from "../../../../docs/src/docs/_content/components/carousel/InsideControls";
 import VerticalCarousel from "../../../../docs/src/docs/_content/components/carousel/Vertical";
 import InputVariants from "../../../../docs/src/docs/_content/components/input/Variants";
+import SidebarExample from "../../../../docs/src/docs/_content/components/sidebar/Default";
 import ToastPositions from "../../../../docs/src/docs/_content/components/toast/Positions";
 import TypographyExample from "../../../../docs/src/docs/_content/foundations/typography/TypographyExample";
 import { Button } from "../../dist/button.js";
@@ -51,6 +52,13 @@ import {
   SelectList,
   SelectItem,
 } from "../../dist/select.js";
+import {
+  SidebarProvider,
+  SidebarGroup,
+  SidebarGroupTrigger,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+} from "../../dist/sidebar.js";
 import { Snackbar } from "../../dist/snackbar.js";
 import { StatusPill } from "../../dist/status-pill.js";
 import { themeClassNames } from "../../dist/theme.js";
@@ -72,7 +80,8 @@ if (params.has("legacyTheme")) {
 }
 if (params.has("customTheme"))
   document.documentElement.className = stylex.props(brandColors, brandShadows).className ?? "";
-document.documentElement.dataset.bolerishMotion = "off";
+document.documentElement.dataset.bolerishMotion =
+  params.get("motion") === "system" ? "system" : "off";
 const options = ["React", "Vue", "Svelte"];
 function SelectExample() {
   return (
@@ -342,4 +351,68 @@ function App() {
     );
   return <DialogExample />;
 }
-createRoot(document.getElementById("root")!).render(<App />);
+function ControlledSidebarFixture() {
+  const [open, setOpen] = useState(true);
+  const [openMobile, setOpenMobile] = useState(false);
+  return (
+    <SidebarExample
+      open={open}
+      onOpenChange={setOpen}
+      openMobile={openMobile}
+      onOpenMobileChange={setOpenMobile}
+    />
+  );
+}
+function ControlledGroupFixture() {
+  const [open, setOpen] = useState(false);
+  return (
+    <SidebarProvider>
+      <SidebarGroup open={open} onOpenChange={setOpen}>
+        <SidebarGroupTrigger>Controlled</SidebarGroupTrigger>
+        <SidebarGroupContent>Controlled content</SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarProvider>
+  );
+}
+createRoot(document.getElementById("root")!).render(
+  fixture === "sidebar-group-controlled" ? (
+    <ControlledGroupFixture />
+  ) : fixture === "sidebar-groups" ? (
+    <SidebarProvider>
+      <SidebarGroup>
+        <SidebarGroupTrigger>Projects</SidebarGroupTrigger>
+        <SidebarGroupContent>
+          <a href="#project">Project link</a>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>Plain</SidebarGroupLabel>
+        <SidebarGroupContent>Plain content</SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarProvider>
+  ) : fixture === "sidebar-controlled" ? (
+    <ControlledSidebarFixture />
+  ) : fixture === "sidebar" ? (
+    <div style={{ height: Number(params.get("height") ?? 600) }}>
+      <SidebarExample
+        collapsible={
+          params.get("collapse") === "icon"
+            ? "icon"
+            : params.get("collapse") === "none"
+              ? "none"
+              : "offcanvas"
+        }
+        side={params.get("side") === "right" ? "right" : "left"}
+        variant={
+          params.get("variant") === "floating"
+            ? "floating"
+            : params.get("variant") === "inset"
+              ? "inset"
+              : "sidebar"
+        }
+      />
+    </div>
+  ) : (
+    <App />
+  ),
+);

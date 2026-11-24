@@ -262,3 +262,48 @@ export type RemovedLiquidContract = LiquidProps;
 // @ts-expect-error The removed Surface subpath is not a public entry.
 import type { SurfaceOptions } from "@bolerish/ui/surface";
 export type RemovedSurfaceContract = SurfaceOptions;
+
+import type { SidebarInset, SidebarProvider, useSidebar } from "./dist/sidebar.js";
+const sidebarProviderProps: ComponentProps<typeof SidebarProvider> = {
+  children: null,
+  open: true,
+  onOpenChange: (_open: boolean) => {},
+  collapsible: "icon",
+  side: "right",
+  variant: "floating",
+};
+const sidebarInsetProps: ComponentProps<typeof SidebarInset> = {
+  render: <section />,
+  children: "Content",
+};
+type SidebarHook = ReturnType<typeof useSidebar>;
+const sidebarState: SidebarHook["state"] = "collapsed";
+const sidebarToggle: SidebarHook["toggleSidebar"] = () => {};
+void [sidebarProviderProps, sidebarInsetProps, sidebarState, sidebarToggle];
+
+import { CollapsibleTrigger } from "./dist/collapsible.js";
+import type { SidebarGroupLabel } from "./dist/sidebar.js";
+const groupLabelComposition: ComponentProps<typeof SidebarGroupLabel> = {
+  render: <CollapsibleTrigger indicator={null} />,
+  ref: () => {},
+  className: "group",
+  style: { width: "100%" },
+};
+void groupLabelComposition;
+
+import type { SidebarGroup, SidebarGroupTrigger, SidebarGroupContent } from "./dist/sidebar.js";
+const sidebarGroupContract: ComponentProps<typeof SidebarGroup> = {
+  defaultOpen: true,
+  open: true,
+  onOpenChange: (open) => void open,
+  render: <section />,
+};
+const sidebarGroupTriggerContract: ComponentProps<typeof SidebarGroupTrigger> = {
+  children: "Projects",
+};
+const sidebarGroupContentContract: ComponentProps<typeof SidebarGroupContent> = {
+  children: "Content",
+};
+void sidebarGroupContract;
+void sidebarGroupTriggerContract;
+void sidebarGroupContentContract;

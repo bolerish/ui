@@ -31,10 +31,13 @@ export function documentKey(page: { section: string; slug: string }) {
     : `../_content/${page.section}/${page.slug}/docs.mdx`;
 }
 export function loadDocument(key: string) {
-  return (loadingPages[key] ??= modules[key]()
-    .then(async (module) => {
-      if (!key.includes("/_content/api/") && !key.includes("/_content/guides/"))
-        await preloadExamples(key.split("/").at(-2)!);
+  return (loadingPages[key] ??= Promise.all([
+    modules[key](),
+    !key.includes("/_content/api/") && !key.includes("/_content/guides/")
+      ? preloadExamples(key.split("/").at(-2)!)
+      : Promise.resolve(),
+  ])
+    .then(([module]) => {
       loadedDocuments[key] = module;
       return module;
     })

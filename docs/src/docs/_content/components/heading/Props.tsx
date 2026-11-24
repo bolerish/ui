@@ -4,7 +4,7 @@ import { ComponentExample } from "@/docs/_ui/ComponentPreview";
 
 export const propExamples = {
   level: {
-    "1": <ComponentExample name="heading--LevelOne" isolated height={120} />,
+    "1": <ComponentExample name="heading--LevelOne" isolated />,
     "2": <Heading level={2}>Project settings</Heading>,
     "3": <Heading level={3}>Project settings</Heading>,
     "4": <Heading level={4}>Project settings</Heading>,
