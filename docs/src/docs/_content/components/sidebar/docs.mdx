@@ -1,0 +1,85 @@
+import { LocaleContent } from "@/shared/model/locale";
+import { ComponentPreview } from "@/docs/_ui/ComponentPreview";
+import DefaultSource from "./Default.tsx?raw";
+
+<LocaleContent locale="ko">
+
+# Sidebar
+
+반응형 탐색 영역입니다. SidebarProvider 안에 Sidebar와 SidebarInset을 배치하세요.
+
+<ComponentPreview name="sidebar--Default" source={DefaultSource} layout />
+
+부모에 높이를 지정하면 Provider가 그 높이를 채워요. 화면 전체 높이가 필요하면 소비자 루트에 `height: 100dvh`를 지정하세요.
+
+`SidebarGroup`은 기본적으로 열려 있어요. `SidebarGroupTrigger`를 넣으면 기본 화살표와 함께 접고 펼칠 수 있고, `SidebarGroupContent`가 상태에 따라 표시돼요. `defaultOpen`, `open`, `onOpenChange`로 상태를 설정하세요. 일반 제목은 `SidebarGroupLabel`을 사용하며, 트리거 없는 그룹의 콘텐츠도 기본적으로 표시돼요.
+
+## Props
+
+설정은 `SidebarProvider`에 전달해요. 기본값은 `side="left"`, `variant="sidebar"`, `collapsible="offcanvas"`예요.
+
+| 속성          | 값               | 동작                                                     |
+| ------------- | ---------------- | -------------------------------------------------------- |
+| `side`        | `left` / `right` | 사이드바를 왼쪽 또는 오른쪽에 배치해요.                  |
+| `variant`     | `sidebar`        | 가장자리에 붙는 기본 패널이에요.                         |
+|               | `floating`       | 바깥 여백과 둥근 모서리가 있는 독립 패널이에요.          |
+|               | `inset`          | 본문을 여백과 둥근 모서리가 있는 안쪽 표면으로 배치해요. |
+| `collapsible` | `offcanvas`      | 접으면 패널 전체를 숨겨요.                               |
+|               | `icon`           | 접으면 아이콘 레일을 남겨요.                             |
+|               | `none`           | 데스크톱에서 접히지 않아요.                              |
+
+`open`과 `onOpenChange`는 데스크톱, `openMobile`과 `onOpenMobileChange`는 모바일 상태를 제어합니다. 비제어 사용 시 `defaultOpen`과 `defaultOpenMobile`을 사용하세요.
+모바일에서는 이름이 있는 Dialog로 열리며 Escape로 닫을 수 있습니다. 탐색 영역 이름은 `aria-label`로 변경할 수 있어요.
+메뉴 버튼은 Button과 같은 `render` API로 링크를 합성합니다. 아이콘 모드에서는 `icon`과 접근 가능한 이름인 `tooltip`을 함께 제공하세요.
+
+</LocaleContent>
+
+<LocaleContent locale="en">
+
+# Sidebar
+
+Give the parent an explicit height; the provider fills it. For a full viewport, set `height: 100dvh` on the consumer root.
+
+Use `<SidebarGroup><SidebarGroupTrigger>Projects</SidebarGroupTrigger><SidebarGroupContent>…</SidebarGroupContent></SidebarGroup>` for collapsible groups. Groups default to open and support `defaultOpen`, `open`, and `onOpenChange`. Use `SidebarGroupLabel` for a plain heading; content without a trigger remains visible by default.
+
+Compose responsive navigation with independent desktop and mobile state. Use `aria-label` to customize the navigation name. Menu buttons support the Button render API.
+
+<ComponentPreview name="sidebar--Default" source={DefaultSource} layout />
+
+## Props
+
+Set these options on `SidebarProvider`. Defaults are `left`, `sidebar`, and `offcanvas`.
+
+| Prop          | Value            | Behavior                                               |
+| ------------- | ---------------- | ------------------------------------------------------ |
+| `side`        | `left` / `right` | Position the navigation on either side.                |
+| `variant`     | `sidebar`        | Standard edge panel.                                   |
+|               | `floating`       | Separate panel with outer spacing and rounded corners. |
+|               | `inset`          | Inset main content with spacing and rounded corners.   |
+| `collapsible` | `offcanvas`      | Hide the entire panel when collapsed.                  |
+|               | `icon`           | Keep a narrow icon rail when collapsed.                |
+|               | `none`           | Keep the desktop panel expanded.                       |
+
+</LocaleContent>
+
+### Embedded previews
+
+For embedded navigation, pass a stable element ref as `SidebarProvider`'s
+`portalContainer`. Give that container `position: relative`, `contain: layout`,
+and an explicit height so the mobile backdrop and panel stay inside it. Use
+`mobileModal="trap-focus"` to preserve focus containment and Escape handling
+without making the surrounding document inert or locking its scroll. Keep the
+ref mounted before opening the sidebar; an unresolved container uses Base UI's
+body fallback. Normal applications can omit both options for fullscreen mobile
+navigation.
+
+### Embedded previews
+
+For navigation embedded in a bounded canvas, pass a stable element ref as
+`SidebarProvider`'s `portalContainer`. The containing element needs a fixed-position
+containing block (for example, `position: relative; contain: layout`) and an explicit
+height. Use `mobileModal="trap-focus"` to retain keyboard focus containment without
+locking or making the surrounding document inert. Omit both options for normal
+fullscreen mobile navigation. Keep the ref stable through hydration; its initial
+null value is resolved when the portal mounts. This documentation preview supplies
+that setup outside the example's application code.

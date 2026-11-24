@@ -2,12 +2,12 @@ import { ComponentExample } from "@/docs/_ui/ComponentPreview";
 
 export const propExamples = {
   position: {
-    "top-left": <ComponentExample name="toast--PositionTopLeft" isolated height={240} />,
-    "top-center": <ComponentExample name="toast--PositionTopCenter" isolated height={240} />,
-    "top-right": <ComponentExample name="toast--PositionTopRight" isolated height={240} />,
-    "bottom-left": <ComponentExample name="toast--PositionBottomLeft" isolated height={240} />,
-    "bottom-center": <ComponentExample name="toast--PositionBottomCenter" isolated height={240} />,
-    "bottom-right": <ComponentExample name="toast--PositionBottomRight" isolated height={240} />,
+    "top-left": <ComponentExample name="toast--PositionTopLeft" isolated />,
+    "top-center": <ComponentExample name="toast--PositionTopCenter" isolated />,
+    "top-right": <ComponentExample name="toast--PositionTopRight" isolated />,
+    "bottom-left": <ComponentExample name="toast--PositionBottomLeft" isolated />,
+    "bottom-center": <ComponentExample name="toast--PositionBottomCenter" isolated />,
+    "bottom-right": <ComponentExample name="toast--PositionBottomRight" isolated />,
   },
 };
 export default function Props() {

@@ -1,4 +1,4 @@
-import { readdirSync, existsSync } from "node:fs";
+import { readdirSync, existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 import mdx from "@mdx-js/rollup";
@@ -6,15 +6,18 @@ import stylex from "@stylexjs/unplugin/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import reactCompiler from "babel-plugin-react-compiler";
+import { format } from "oxfmt";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { defineConfig } from "vite";
 
+import { compactEmptyJsx } from "./scripts/compact-empty-jsx.ts";
 import { documentHeadings } from "./scripts/document-headings.ts";
 import {
   layerStylexVariables,
   layerDevelopmentStylexVariables,
 } from "./scripts/stylex-variables.ts";
+import { getExampleSource } from "./src/docs/_ui/example-source.ts";
 
 const markdownDependencies = ["react-markdown", "rehype-slug", "remark-gfm"];
 
@@ -35,7 +38,13 @@ for (const section of ["guides", "components", "foundations", "api"]) {
     }
     if (entry.isDirectory() && section !== "guides") {
       for (const file of readdirSync(new URL(`${entry.name}/`, directory))) {
-        if (section === "foundations" ? file.endsWith("Example.tsx") : file.endsWith(".tsx"))
+        if (
+          section === "foundations"
+            ? file.endsWith("Example.tsx")
+            : file.endsWith(".tsx") &&
+              file !== "Props.tsx" &&
+              !(entry.name === "sidebar" && file !== "Default.tsx")
+        )
           pages.push(`/preview/${entry.name}--${file.slice(0, -4)}`);
       }
     }
@@ -63,6 +72,21 @@ export default defineConfig({
     },
   },
   plugins: [
+    {
+      name: "format-sidebar-example-source",
+      enforce: "pre",
+      async load(id) {
+        if (!id.endsWith("/components/sidebar/Default.tsx?raw")) return;
+        const source = readFileSync(id.slice(0, -4), "utf8");
+        const result = await format(
+          "sidebar-example.tsx",
+          compactEmptyJsx(getExampleSource(source)),
+        );
+        if (result.errors.length)
+          throw new Error(result.errors.map((error) => error.message).join("\n"));
+        return `export default ${JSON.stringify(result.code)};`;
+      },
+    },
     {
       ...mdx({
         include: /\.mdx$/,

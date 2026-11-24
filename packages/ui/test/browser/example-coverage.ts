@@ -44,6 +44,7 @@ export const defaultExamples = [
   "scroll-area",
   "select",
   "separator",
+  "sidebar",
   "skeleton",
   "snackbar",
   "slider",

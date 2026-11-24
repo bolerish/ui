@@ -1,6 +1,6 @@
 {
   "name": "@bolerish/ui",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "private": false,
   "repository": {
     "type": "git",
@@ -83,7 +83,8 @@
     "./heading": "./dist/heading.js",
     "./p": "./dist/p.js",
     "./theme": "./dist/theme.js",
-    "./paragraph": "./dist/paragraph.js"
+    "./paragraph": "./dist/paragraph.js",
+    "./sidebar": "./dist/sidebar.js"
   },
   "publishConfig": {
     "access": "public"

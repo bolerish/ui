@@ -6,7 +6,12 @@ import { createContext, SourceTextModule, SyntheticModule } from "node:vm";
 
 test("the gallery preserves load errors and retains resolved component references", async () => {
   const context = createContext({});
-  const names = ["other--Default", "calendar--Default", "card--AccountCreationForm"];
+  const names = [
+    "other--Default",
+    "calendar--Default",
+    "card--AccountCreationForm",
+    "sidebar--Default",
+  ];
   const cache: Record<string, () => string> = {};
   const calls: string[] = [];
   let failure: Error | undefined;
@@ -15,6 +20,7 @@ test("the gallery preserves load errors and retains resolved component reference
     function () {
       this.setExport("catalog", [
         { section: "components", slug: "other", title: "Other" },
+        { section: "components", slug: "sidebar", title: "Sidebar" },
         { section: "components", slug: "calendar", title: "Calendar" },
         { section: "components", slug: "card", title: "Card" },
         { section: "guide", slug: "installation", title: "Installation" },
@@ -58,14 +64,19 @@ test("the gallery preserves load errors and retains resolved component reference
   const gallery = await loadHomeGallery();
   assert.deepEqual(
     Array.from(gallery, (item) => item.slug),
-    ["card", "calendar", "other"],
+    ["card", "calendar", "other", "sidebar"],
   );
-  assert.deepEqual(calls, ["card--AccountCreationForm", "calendar--Default", "other--Default"]);
+  assert.deepEqual(calls, [
+    "card--AccountCreationForm",
+    "calendar--Default",
+    "other--Default",
+    "sidebar--Default",
+  ]);
   for (const key of Object.keys(cache)) delete cache[key];
   for (const item of gallery) assert.equal(typeof item.Example, "function");
   assert.deepEqual(
     Array.from(gallery, (item) => item.Example()),
-    ["card--AccountCreationForm", "calendar--Default", "other--Default"],
+    ["card--AccountCreationForm", "calendar--Default", "other--Default", "sidebar--Default"],
   );
   assert.equal(await preloadHome(), null);
   const prepared = getHomeGallery();
@@ -73,6 +84,6 @@ test("the gallery preserves load errors and retains resolved component reference
   assert.equal(getHomeGallery(), prepared);
   assert.deepEqual(
     Array.from(prepared, (item) => item.Example()),
-    ["card--AccountCreationForm", "calendar--Default", "other--Default"],
+    ["card--AccountCreationForm", "calendar--Default", "other--Default", "sidebar--Default"],
   );
 });

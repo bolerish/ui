@@ -12,14 +12,21 @@ export function DocumentationExample({ name }: { name: string }) {
   if (!module) throw new Error("Unknown Default example: " + name);
   const Example = module.default;
   const keyboardBoundary = name === "tabs" || new URLSearchParams(location.search).has("keyboard");
+  const Container = name === "sidebar" ? "div" : "main";
   return (
-    <main>
-      <h1>{name} example</h1>
+    <Container>
+      <header>
+        <h1>{name} example</h1>
+      </header>
       {keyboardBoundary ? <button data-testid="before-example">Before example</button> : null}
-      <section data-testid="documentation-example" aria-label={name} style={{ marginBlock: 24 }}>
+      <section
+        data-testid="documentation-example"
+        aria-label={name}
+        style={{ marginBlock: 24, ...(name === "sidebar" ? { height: 400 } : {}) }}
+      >
         <Example />
       </section>
       {keyboardBoundary ? <button data-testid="after-example">After example</button> : null}
-    </main>
+    </Container>
   );
 }

@@ -55,6 +55,9 @@ async function getEntryPoints() {
 const componentModules: Plugin = {
   name: "component-modules",
   setup(builder) {
+    builder.onResolve({ filter: /^@bolerish\/tokens\/semantic\.stylex$/ }, () => ({
+      path: resolve("../tokens/src/semantic.stylex.ts"),
+    }));
     builder.onResolve({ filter: /^@bolerish\/tokens\/themes\.stylex$/ }, () => ({
       path: resolve("../tokens/src/themes.stylex.ts"),
     }));

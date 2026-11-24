@@ -170,6 +170,7 @@ export function DialogClose({
 }
 
 type DialogContentProps = StyledProps<ComponentProps<typeof DialogPrimitive.Popup>> & {
+  portalContainer?: ComponentProps<typeof DialogPrimitive.Portal>["container"];
   children: ReactNode;
   /** Accessible name for the optional close button. @default "Close" */
   closeLabel?: string;
@@ -181,13 +182,14 @@ export function DialogContent({
   className,
   style,
   children,
+  portalContainer,
   closeLabel = "Close",
   showCloseButton = true,
   xstyle,
   ...props
 }: DialogContentProps) {
   return (
-    <DialogPrimitive.Portal>
+    <DialogPrimitive.Portal container={portalContainer}>
       <DialogPrimitive.Backdrop
         data-bolerish-modal-backdrop=""
         {...stylex.props(styles.backdrop, modalBackdropStyles.root)}

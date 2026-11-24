@@ -11,7 +11,7 @@ import {
 } from "@bolerish/tokens/semantic.stylex";
 import { CaretUpDownIcon } from "@phosphor-icons/react/ssr";
 import * as stylex from "@stylexjs/stylex";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 import type { ControlLayoutStyles } from "./styles/control-layout";
 import { mergeStyles } from "./styles/merge-styles";
@@ -124,9 +124,11 @@ export function CollapsibleTrigger({
   style,
   xstyle,
   children,
+  indicator = <CaretUpDownIcon />,
   ...props
 }: StyledProps<ComponentProps<typeof CollapsiblePrimitive.Trigger>> & {
   xstyle?: ControlLayoutStyles;
+  indicator?: ReactNode;
 }) {
   function getTriggerStyles(state: CollapsiblePrimitive.Trigger.State) {
     return mergeStyles(
@@ -142,9 +144,11 @@ export function CollapsibleTrigger({
       style={(state) => getTriggerStyles(state).style}
     >
       {children}
-      <span aria-hidden="true" {...stylex.props(styles.icon)}>
-        <CaretUpDownIcon />
-      </span>
+      {indicator != null ? (
+        <span aria-hidden="true" {...stylex.props(styles.icon)}>
+          {indicator}
+        </span>
+      ) : null}
     </CollapsiblePrimitive.Trigger>
   );
 }
