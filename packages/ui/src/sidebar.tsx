@@ -40,6 +40,8 @@ export type SidebarProviderProps = {
   width?: string;
   mobileWidth?: string;
   iconWidth?: string;
+  portalContainer?: ComponentProps<typeof DialogContent>["portalContainer"];
+  mobileModal?: ComponentProps<typeof Dialog>["modal"];
 };
 
 type SidebarState = Required<
@@ -48,6 +50,8 @@ type SidebarState = Required<
     "side" | "variant" | "collapsible" | "width" | "mobileWidth" | "iconWidth"
   >
 > & {
+  portalContainer?: SidebarProviderProps["portalContainer"];
+  mobileModal?: SidebarProviderProps["mobileModal"];
   open: boolean;
   openMobile: boolean;
   isMobile: boolean;
@@ -75,6 +79,8 @@ export function SidebarProvider({
   width = "16rem",
   mobileWidth = "18rem",
   iconWidth = "3rem",
+  portalContainer,
+  mobileModal = true,
 }: SidebarProviderProps) {
   const [localOpen, setLocalOpen] = useState(defaultOpen);
   const [localMobile, setLocalMobile] = useState(defaultOpenMobile);
@@ -124,6 +130,8 @@ export function SidebarProvider({
         width,
         mobileWidth,
         iconWidth,
+        portalContainer,
+        mobileModal,
       }}
     >
       <div {...stylex.props(styles.provider)}>{children}</div>
@@ -162,8 +170,9 @@ export function Sidebar({
   );
   if (state.isMobile)
     return (
-      <Dialog open={state.openMobile} onOpenChange={state.setOpenMobile}>
+      <Dialog modal={state.mobileModal} open={state.openMobile} onOpenChange={state.setOpenMobile}>
         <DialogContent
+          portalContainer={state.portalContainer}
           finalFocus={state.returnFocus}
           aria-label={ariaLabel}
           xstyle={[
@@ -456,7 +465,7 @@ const styles = stylex.create({
     top: 0,
     bottom: 0,
     width,
-    maxWidth: "100vw",
+    maxWidth: "100%",
     maxHeight: "100dvh",
     borderRadius: 0,
     padding: 0,

@@ -1,5 +1,12 @@
 # @bolerish/ui
 
+## 2.1.1
+
+### Patch Changes
+
+- Support an optional `portalContainer` on DialogContent and SidebarProvider, and `mobileModal` on SidebarProvider for embedded mobile navigation. Existing applications retain body portals and modal behavior by default. Embedded consumers can provide a stable container ref inside a fixed-position containing block and use `mobileModal="trap-focus"` to retain keyboard containment without locking the surrounding document.
+- @bolerish/tokens@2.1.1
+
 ## 2.1.0
 
 ### Minor Changes

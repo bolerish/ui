@@ -127,3 +127,27 @@ test("example code has a numbered gutter and comfortable spacing", async ({ page
   await expect(numbers.nth(0)).toHaveAttribute("aria-hidden", "true");
   await expect(numbers.nth(0)).toHaveCSS("user-select", "none");
 });
+
+test("mobile sidebar stays inside preview", async ({ page }) => {
+  for (const width of [390, 320]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/docs/components/sidebar");
+    const preview = page.locator('[data-preview-name="sidebar--Default"]').first();
+    await preview.locator('[data-docs="preview-canvas"]').scrollIntoViewIfNeeded();
+    await preview.getByRole("button", { name: "Toggle sidebar" }).click();
+    const popup = page.getByRole("dialog", { name: "Navigation" });
+    await expect(popup).toBeVisible();
+    await page.screenshot({ path: `/tmp/sidebar-scoped-${width}.png` });
+    const canvas = await preview.locator('[data-docs="preview-canvas"]').boundingBox();
+    for (const element of [popup, page.locator("[data-bolerish-modal-backdrop]").first()]) {
+      const rect = await element.boundingBox();
+      expect(rect!.y).toBeGreaterThanOrEqual(canvas!.y);
+      expect(rect!.y + rect!.height).toBeLessThanOrEqual(canvas!.y + canvas!.height);
+      expect(rect!.x).toBeGreaterThanOrEqual(canvas!.x);
+      expect(rect!.x + rect!.width).toBeLessThanOrEqual(canvas!.x + canvas!.width);
+    }
+    await page.keyboard.press("Escape");
+    await expect(popup).toBeHidden();
+    await expect(preview.getByRole("button", { name: "Toggle sidebar" })).toBeFocused();
+  }
+});

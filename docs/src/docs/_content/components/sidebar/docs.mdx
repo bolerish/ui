@@ -61,3 +61,25 @@ Set these options on `SidebarProvider`. Defaults are `left`, `sidebar`, and `off
 |               | `none`           | Keep the desktop panel expanded.                       |
 
 </LocaleContent>
+
+### Embedded previews
+
+For embedded navigation, pass a stable element ref as `SidebarProvider`'s
+`portalContainer`. Give that container `position: relative`, `contain: layout`,
+and an explicit height so the mobile backdrop and panel stay inside it. Use
+`mobileModal="trap-focus"` to preserve focus containment and Escape handling
+without making the surrounding document inert or locking its scroll. Keep the
+ref mounted before opening the sidebar; an unresolved container uses Base UI's
+body fallback. Normal applications can omit both options for fullscreen mobile
+navigation.
+
+### Embedded previews
+
+For navigation embedded in a bounded canvas, pass a stable element ref as
+`SidebarProvider`'s `portalContainer`. The containing element needs a fixed-position
+containing block (for example, `position: relative; contain: layout`) and an explicit
+height. Use `mobileModal="trap-focus"` to retain keyboard focus containment without
+locking or making the surrounding document inert. Omit both options for normal
+fullscreen mobile navigation. Keep the ref stable through hydration; its initial
+null value is resolved when the portal mounts. This documentation preview supplies
+that setup outside the example's application code.

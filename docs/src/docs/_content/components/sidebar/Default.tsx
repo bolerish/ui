@@ -41,7 +41,7 @@ import {
   SidebarSimpleIcon,
 } from "@phosphor-icons/react";
 import * as stylex from "@stylexjs/stylex";
-import { useState, type ReactNode } from "react";
+import { useState, useRef, type ReactNode } from "react";
 
 import PreviewContent from "./PreviewContent";
 
@@ -58,6 +58,7 @@ export default function Default(
     | "onOpenMobileChange"
   > & { children?: ReactNode },
 ) {
+  const portalRef = useRef<HTMLDivElement>(null);
   // oxfmt-ignore
   const { children
   /* @example-end */
@@ -65,20 +66,38 @@ export default function Default(
   /* @example-start */
   } = props;
   return (
-    <SidebarProvider collapsible="icon" {...props}>
-      <Sidebar>
-        {/* @example-end */}
-        <WorkspaceSwitcher />
+    <>
+      {/* @example-end */}
+      <div
+        ref={portalRef}
+        style={{ position: "relative", contain: "layout", height: "100%", overflow: "hidden" }}
+      >
         {/* @example-start */}
-        <SidebarContent>
-          <SidebarNavigation />
-        </SidebarContent>
+        <SidebarProvider
+          collapsible="icon"
+          {...props}
+          /* @example-end */
+          portalContainer={portalRef}
+          mobileModal="trap-focus"
+          /* @example-start */
+        >
+          <Sidebar>
+            {/* @example-end */}
+            <WorkspaceSwitcher />
+            {/* @example-start */}
+            <SidebarContent>
+              <SidebarNavigation />
+            </SidebarContent>
+            {/* @example-end */}
+            <UserMenu />
+            {/* @example-start */}
+          </Sidebar>
+          <SidebarInset>{children}</SidebarInset>
+        </SidebarProvider>
         {/* @example-end */}
-        <UserMenu />
-        {/* @example-start */}
-      </Sidebar>
-      <SidebarInset>{children}</SidebarInset>
-    </SidebarProvider>
+      </div>
+      {/* @example-start */}
+    </>
   );
 }
 /* @example-end */
